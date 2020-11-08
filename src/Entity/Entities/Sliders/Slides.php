@@ -80,7 +80,7 @@ class Slides
     /**
      * @var Files $image
      * @ORM\ManyToOne(targetEntity="App\Entity\Entities\System\Files")
-     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id_file", nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id_file", nullable=false)
      * @Groups({"slider-admin"})
      */
     protected $photo;
@@ -88,7 +88,7 @@ class Slides
     /**
      * @var Offers $offer
      * @ORM\ManyToOne(targetEntity="App\Entity\Entities\Shops\Offers\Offers")
-     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id_offer", nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id_offer", nullable=true, onDelete="SET NULL")
      * @Groups({"slider-admin", "resource"})
      */
     protected $offer;

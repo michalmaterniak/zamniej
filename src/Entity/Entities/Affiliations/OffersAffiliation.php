@@ -36,7 +36,7 @@ abstract class OffersAffiliation implements UpdateDatetimeInterface
     /**
      * @var Offers|null $offer
      * @ORM\ManyToOne(targetEntity="App\Entity\Entities\Shops\Offers\Offers")
-     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id_offer", nullable=true, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id_offer", nullable=true, onDelete="SET NULL")
      * @Groups({"resource", "resource-admin"})
      */
     protected $offer;

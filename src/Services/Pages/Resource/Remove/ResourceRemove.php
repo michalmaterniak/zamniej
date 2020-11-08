@@ -38,6 +38,8 @@ class ResourceRemove
             }
 
             $this->entityManager->remove($this->resource->getModelResource());
+            $this->entityManager->remove($this->resource->getModelEntity()->getConfig());
+            $this->entityManager->remove($this->resource->getModelEntity()->getContent());
             $this->entityManager->remove($this->resource->getModelEntity());
 
             $this->entityManager->flush();

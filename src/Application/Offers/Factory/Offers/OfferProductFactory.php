@@ -7,25 +7,16 @@ use App\Entity\Entities\Affiliations\Interfaces\OfferProductInterface;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\Shops\Offers\OffersProduct;
 
+/**
+ * Class OfferProductFactory
+ * @package App\Application\Offers\Factory\Offers
+ * @method OffersProduct create(OfferInterface $offer) : Offers
+ */
 class OfferProductFactory extends OfferFactory
 {
-    /**
-     * @param OfferInterface|OfferProductInterface $offer
-     */
-    public function create(OfferInterface $offer) : OffersProduct
+    public function getOfferEntity(): Offers
     {
-        $newOfferEntity = new OffersProduct();
-
-        $this->update($newOfferEntity, $offer, false);
-
-        $this->entityManager->persist($newOfferEntity);
-
-        $offer->setOffer($newOfferEntity);
-
-        $this->entityManager->flush();
-        $this->createPhoto($newOfferEntity, $offer);
-
-        return $newOfferEntity;
+        return new OffersProduct();
     }
 
     /**

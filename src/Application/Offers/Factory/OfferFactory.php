@@ -9,6 +9,8 @@ use App\Entity\Entities\Affiliations\Interfaces\OfferInterface;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\System\Files;
 use Doctrine\ORM\EntityManagerInterface;
+use ErrorException;
+use Exception;
 
 class OfferFactory implements OffersFactoryInterface
 {
@@ -25,25 +27,36 @@ class OfferFactory implements OffersFactoryInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         ImageManager $imageManager
-    ) {
-        $this->entityManager =  $entityManager;
-        $this->imageManager =   $imageManager;
+    )
+    {
+        $this->entityManager = $entityManager;
+        $this->imageManager = $imageManager;
     }
 
-    public function create(OfferInterface $offer) : Offers
+    public function getOfferEntity(): Offers
+    {
+        return new Offers();
+    }
+
+    public function create(OfferInterface $offer): Offers
     {
         if ($offer->getShopAffiliation()->getSubpage() === null) {
-            throw new \ErrorException("Subpage have to be defined");
+            throw new ErrorException("Subpage have to be defined");
         }
+        try {
+            $this->entityManager->beginTransaction();
+            $newOfferEntity = $this->getOfferEntity();
+            $this->update($newOfferEntity, $offer, false);
+            $this->entityManager->persist($newOfferEntity);
+            $offer->setOffer($newOfferEntity);
+            $this->entityManager->flush();
 
-
-        $newOfferEntity = new Offers();
-        $this->update($newOfferEntity, $offer, false);
-        $this->entityManager->persist($newOfferEntity);
-        $offer->setOffer($newOfferEntity);
-        $this->entityManager->flush();
-
-        $this->createPhoto($newOfferEntity, $offer);
+            $this->createPhoto($newOfferEntity, $offer);
+            $this->entityManager->commit();
+        } catch (Exception $exception) {
+            $this->entityManager->rollback();
+        }
+        return $newOfferEntity;
     }
 
     public function createPhoto(Offers $offerEntity, OfferInterface $offer)
