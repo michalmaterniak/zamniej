@@ -1,0 +1,15 @@
+{% extends 'mails/base.html.twig' %}
+{% block content %}
+    <p>Witam,</p>
+    <br>
+    <p>
+        Dostałeś nową wiadomość przez formularz strony: <br>
+        Od: {{ form.email }}<br>
+        Imie i nazwisko: {{ form.name }}<br>
+    </p>
+    <p>
+        Temat: {{ form.subject }}<br>
+        Wiadomość:<br><br>
+        {{ form.message }}
+    </p>
+{% endblock %}

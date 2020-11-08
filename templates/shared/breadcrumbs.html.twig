@@ -1,0 +1,23 @@
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    {% for breadcrumb in page.breadcrumbs %}
+                        {% if page.subpage.isEqual(breadcrumb.subpage) %}
+                            <li class="{{ page.subpage.isEqual(breadcrumb.subpage) }}"><a href="{{ path('page-pages-main', {'slug' : breadcrumb.subpage.slug}) }}">{{ breadcrumb.subpage.name }}</a></li>
+                        {% else %}
+                            <li><a href="{{ path('page-pages-main', {'slug' : breadcrumb.subpage.slug}) }}">{{ breadcrumb.subpage.name }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->

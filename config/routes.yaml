@@ -1,0 +1,8 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+elfinder:
+  resource: "routing/elfinder.yaml"
+
+api_login_check:
+  path: /admin/api/login_check

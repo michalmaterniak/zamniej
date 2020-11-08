@@ -1,0 +1,22 @@
+{% extends 'page/base.html.twig' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ page.subpage.seo.header }}</h1>
+        </div>
+
+        <div class="col-md-12">
+            {{ page.subpage.content|raw }}
+        </div>
+    </div>
+{% endblock %}
+{% block assets_end %}
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '#some', function () {
+                alert();
+            });
+
+        });
+    </script>
+{% endblock %}

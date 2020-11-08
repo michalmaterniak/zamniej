@@ -1,0 +1,56 @@
+security:
+    encoders:
+        # use your user class name here
+        App\Entity\Entities\Users\Users:
+            # Use native password encoder
+            # This value auto-selects the best possible hashing algorithm
+            # (i.e. Sodium when available).
+            algorithm: auto
+
+    providers:
+        users:
+            entity:
+                # the class of the entity that represents users
+                class: 'App\Entity\Entities\Users\Users'
+                # the property to query by - e.g. username, email, etc
+                property: 'email'
+
+    # https://symfony.com/doc/current/security.html#a-authentication-firewalls
+#    firewalls:
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+#
+#        main:
+#            anonymous: true
+#            guard:
+#                authenticators:
+#                    - App\Security\TokenAuthenticator
+    firewalls:
+
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/admin/api/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path:               /admin/api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+
+        api:
+            pattern:   ^/admin/api
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        main:
+            anonymous: true
+
+    access_control:
+        - { path: ^/admin/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/api, roles: ROLE_ADMIN }
+

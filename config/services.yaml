@@ -1,0 +1,100 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    defaultLocale: 'pl'
+    locales:
+        - 'pl'
+    cacheEnable: '%env(bool:CACHE_REDIS_ENABLE)%'
+
+    nameFolderPath: 'uploads'
+    filePath: '/%nameFolderPath%/'
+    fileUploadsPath:
+        public: '%kernel.project_dir%/public'
+        relative: '%filePath%'
+        absolute: '%kernel.project_dir%/public%filePath%'
+        cache:
+            relative: '/cache'
+            absolute: '%kernel.project_dir%/var/cache/data'
+        tmp: '%kernel.project_dir%/var/'
+
+    webepartners:
+        api_access:
+            login: 'michal.materniak@commit-m.pl'
+            access: '53e68742-2049-4b30-9c3b-d185365ca273'
+    rabbitmq:
+        host: '%env(RABBITMQ_HOST)%'
+        port: '%env(RABBITMQ_PORT)%'
+        user: '%env(RABBITMQ_USER)%'
+        pass: '%env(RABBITMQ_PASS)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Application\Locale\Locale:
+        arguments:
+            $defaultLocale: '%defaultLocale%'
+
+    App\Application\Pages\PagesManager:
+        lazy: true
+
+    App\Application\Pages\ResourceComponents:
+        lazy: true
+
+    App\Application\Pages\Homepage\HomepageComponents:
+        lazy: true
+
+    App\Application\Pages\Page\PagesComponents:
+        lazy: true
+
+    App\Application\Pages\Shop\ShopComponents:
+        lazy: true
+
+    App\Application\Pages\Category\CategoryComponents:
+        lazy: true
+
+    App\Repository\Services\ServicesRepositoriesManager:
+        lazy: true
+
+    App\Services\QueueManager\RabbitMQConnection:
+        arguments:
+            $rabbitmq: '%rabbitmq%'
+
+    App\Application\Affiliations\Webepartners\Api\WebepartnersAuthorization:
+        arguments:
+            $webepartners: '%webepartners%'
+
+    App\Services\System\Cache\CacheManager:
+        arguments:
+            $cacheEnable: '%cacheEnable%'
+
+    App\Services\Files\Path\UploadsFilesPath:
+        calls:
+            - [setFileUploadsPath, ['%fileUploadsPath%']]
+
+    App\EventListener\ResourceChildModifySubscriber:
+        tags:
+            - { name: 'doctrine.event_subscriber' }
+
+    App\EventListener\FrontInitSubscriber:
+        lazy: true

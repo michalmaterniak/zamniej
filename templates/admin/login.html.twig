@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+
+        </div>
+    </div>
+{% endblock %}
+{% block assets_end %}
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '#some', function () {
+                alert();
+            });
+
+        });
+    </script>
+{% endblock %}

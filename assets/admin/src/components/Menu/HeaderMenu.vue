@@ -1,0 +1,100 @@
+<template>
+  <header class="topbar" data-navbarbg="skin5">
+    <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+      <div class="navbar-header " data-logobg="skin5">
+        <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+          class="ti-menu ti-close"></i></a>
+        <a class="navbar-brand" :href="rootLink">
+          <b v-if="sidebar" class="logo-icon p-l-10">
+            <i class="mdi mdi-home"></i>
+            <!--                        <img src="/static/assets/images/mini-logo-npro2.png"  alt="homepage" class="light-logo" />-->
+          </b>
+          <span v-else class="logo-text">
+                         <span style="font-weight: bold; font-size: 30px; color: #6c757d" v-html="'CMS'"></span>
+                    </span>
+        </a>
+        <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+           data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+           aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+      </div>
+      <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+        <ul class="navbar-nav float-left mr-auto">
+          <li class="nav-item d-none d-md-block">
+            <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
+               @click.prevent="$emit('sidebar')"><i class="mdi mdi-menu font-24"></i>
+            </a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="d-none d-md-block">Webepartners <i class="fa fa-angle-down"></i></span>
+              <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-webepartners-programs-new'}">Nowe</router-link>
+              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-webepartners-programs-active'}">Aktywne</router-link>
+              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-webepartners-programs-unactive'}">Nieaktywne</router-link>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <router-link :to="{name: 'panel-sliders-sliders'}" class="nav-link dropdown-toggle">
+              <span class="d-none d-md-block">Slidery</span>
+            </router-link>
+<!--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-new'}">Nowe</router-link>-->
+<!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-active'}">Aktywne</router-link>-->
+<!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-unactive'}">Nieaktywne</router-link>-->
+<!--            </div>-->
+          </li>
+          <li class="nav-item dropdown">
+            <router-link :to="{name: 'panel-links-popular'}" class="nav-link dropdown-toggle">
+              <span class="d-none d-md-block">Popularne sklepy</span>
+            </router-link>
+<!--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-new'}">Nowe</router-link>-->
+<!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-active'}">Aktywne</router-link>-->
+<!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-unactive'}">Nieaktywne</router-link>-->
+<!--            </div>-->
+          </li>
+        </ul>
+
+
+        <ul class="navbar-nav float-right">
+
+          <messages/>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+              src="/admin/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+            <div class="dropdown-menu dropdown-menu-right member-dd animated">
+              <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> <span
+                v-text="currentUserFullname"></span></a>
+              <router-link class="dropdown-item" :to="{name: 'auth-logout'}"><i
+                class="fa fa-power-off m-r-5 m-l-5"></i> Wyloguj
+              </router-link>
+              <div class="dropdown-divider"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+</template>
+<script>
+import Messages from "./MenuElements/Messages";
+export default {
+  name: "HeaderMenu",
+  components: {Messages},
+  props: ['sidebar'],
+  computed: {},
+  methods: {},
+  mounted() {
+
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

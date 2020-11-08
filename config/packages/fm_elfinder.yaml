@@ -1,0 +1,19 @@
+fm_elfinder:
+    instances:
+        default:
+            editor: ckeditor
+            connector:
+                roots:
+                    uploads:
+                        driver: LocalFileSystem
+                        path: '%nameFolderPath%'
+
+        form:
+            editor: form
+            connector:
+                roots:
+                    uploads:
+                        driver: LocalFileSystem
+                        path: '%nameFolderPath%'
+                        show_hidden: true
+
