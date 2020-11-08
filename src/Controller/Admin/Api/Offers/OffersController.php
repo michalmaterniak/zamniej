@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin\Api\Offers;
 
+use App\Application\Offers\Remove\RemoveOffer;
 use App\Controller\Admin\Api\AbstractController;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\Subpages\Subpages;
@@ -8,7 +9,11 @@ use App\Entity\Entities\System\Files;
 use App\Repository\Repositories\Shops\Offers\OffersRepository;
 use App\Services\System\EntityServices\Updater\EntityUpdater;
 use App\Services\System\Request\Retrievers\RequestData\RequestPostContentData;
+use ErrorException;
+use Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class OffersController extends AbstractController
 {
@@ -17,15 +22,15 @@ class OffersController extends AbstractController
      * @param Offers $offer
      * @param EntityUpdater $entityUpdater
      * @param RequestPostContentData $requestPostContentData
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     * @throws \ErrorException
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @return JsonResponse
+     * @throws ErrorException
+     * @throws ExceptionInterface
      * @Route("/admin/api/offers/store/{offer}", name="admin-api-offers-store", methods={"POST"})
      */
     public function store(Offers $offer, EntityUpdater $entityUpdater, RequestPostContentData $requestPostContentData)
     {
         if (!$requestPostContentData->checkIfExist('offer')) {
-            throw new \ErrorException('Offer is not defined');
+            throw new ErrorException('Offer is not defined');
         }
 
         $entityUpdater->setEntity($offer);
@@ -38,8 +43,27 @@ class OffersController extends AbstractController
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @param Offers $offer
+     * @param RemoveOffer $removeOffer
+     * @Route("/admin/api/offers/remove/{offer}", name="admin-api-offers-remove", methods={"POST"})
+     */
+    public function remove(Offers $offer, RemoveOffer $removeOffer)
+    {
+        try {
+            $id = $offer->getIdOffer();
+            if (!$removeOffer->removeOffer($offer)) {
+                throw new ErrorException("Błąd podczas usuwania");
+            }
+            return $this->responseJson(['message' => 'Usunięto oferte o id ' . $id], 200);
+
+        } catch (Exception $exception) {
+            return $this->responseJson(['message' => $exception->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws ExceptionInterface
      * @Route("/admin/api/offers/offer/{offer}", name="admin-api-offers-offer", methods={"POST"})
      */
     public function offer(Offers $offer)
@@ -79,6 +103,7 @@ class OffersController extends AbstractController
             'offer' => $this->normalizer->normalize($offer, null, ['groups' => ['resource-admin-listing', 'resource-admin-listing-shops']]),
         ], 200);
     }
+
     /**
      * @param RequestPostContentData $contentData
      * @Route("/admin/api/offers/removePhoto/{offer}", name="admin-api-offers-offer-removePhoto", methods={"POST"})
@@ -98,8 +123,8 @@ class OffersController extends AbstractController
 
     /**
      * @param OffersRepository $offersRepository
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @return JsonResponse
+     * @throws ExceptionInterface
      * @Route("/admin/api/offers/subpage/{subpage}", name="admin-api-offers-subpage", methods={"POST"})
      */
     public function subpage(Subpages $subpage, OffersRepository $offersRepository)

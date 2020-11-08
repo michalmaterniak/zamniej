@@ -7,24 +7,16 @@ use App\Entity\Entities\Affiliations\Interfaces\OfferInterface;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\Shops\Offers\OffersBanner;
 
+/**
+ * Class OfferBannerFactory
+ * @package App\Application\Offers\Factory\Offers
+ * @method OffersBanner create(OfferInterface $offer) : Offers
+ */
 class OfferBannerFactory extends OfferFactory
 {
-    /**
-     * @param OfferInterface|OfferBannerInterface $offer
-     */
-    public function create(OfferInterface $offer) : OffersBanner
+    public function getOfferEntity(): Offers
     {
-        $newOfferEntity = new OffersBanner();
-        $this->update($newOfferEntity, $offer, false);
-
-        $this->entityManager->persist($newOfferEntity);
-
-        $offer->setOffer($newOfferEntity);
-
-        $this->entityManager->flush();
-        $this->createPhoto($newOfferEntity, $offer);
-
-        return $newOfferEntity;
+        return new OffersBanner();
     }
 
     /**

@@ -67,7 +67,7 @@ class Resources implements EntityInterface
     /**
      * @var ResourcesConfig $config
      * @ORM\OneToOne(targetEntity="App\Entity\Entities\Subpages\Resource\ResourcesConfig", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="admin_id", referencedColumnName="id_resource_admin", onDelete="cascade")
+     * @ORM\JoinColumn(name="admin_id", referencedColumnName="id_resource_admin")
      * @Assert\Valid
      * @Groups({"resource-admin", "resource-admin-list"})
      */
@@ -75,7 +75,7 @@ class Resources implements EntityInterface
 
     /**
      * @var Subpages[]|ArrayCollection $subpages
-     * @ORM\OneToMany(targetEntity="Subpages", mappedBy="resource", indexBy="locale", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Subpages", mappedBy="resource", indexBy="locale", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid
      * @Groups({"resource-admin", "resource-admin-list"})
      */
@@ -129,9 +129,9 @@ class Resources implements EntityInterface
 
     /**
      * @var Files[]|ArrayCollection
-     * @ORM\ManyToMany(targetEntity="App\Entity\Entities\System\Files", fetch="LAZY")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Entities\System\Files", fetch="LAZY", cascade={"remove"}, orphanRemoval=true)
      * @ORM\JoinTable(name="files_resources",
-     *      joinColumns={@ORM\JoinColumn(name="resource_id", referencedColumnName="id_resource", onDelete="cascade")},
+     *      joinColumns={@ORM\JoinColumn(name="resource_id", referencedColumnName="id_resource")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id_file", unique=true)}
      *      )
      * @Groups({"resource-admin"})

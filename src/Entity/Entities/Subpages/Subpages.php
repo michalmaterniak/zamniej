@@ -96,7 +96,7 @@ class Subpages implements EntityInterface
 
     /**
      * @var Contents $content
-     * @ORM\OneToOne(targetEntity="App\Entity\Entities\System\Contents", cascade={"persist", "remove"}, fetch="LAZY")
+     * @ORM\OneToOne(targetEntity="App\Entity\Entities\System\Contents", cascade={"persist", "remove"}, fetch="LAZY", orphanRemoval=true)
      * @ORM\JoinColumn(name="content_id", referencedColumnName="id_content", onDelete="CASCADE")
      * @Assert\Valid
      * @Groups({"resource", "resource-admin"})
@@ -106,7 +106,7 @@ class Subpages implements EntityInterface
     /**
      * @var Seo $seo
      * @ORM\OneToOne(targetEntity="App\Entity\Entities\Subpages\Subpage\Seo", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="seo_id", referencedColumnName="id_seo", onDelete="cascade")
+     * @ORM\JoinColumn(name="seo_id", referencedColumnName="id_seo")
      * @Groups({"resource-admin"})
      */
     protected $seo;
@@ -115,7 +115,7 @@ class Subpages implements EntityInterface
      * @var Files[]|ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Entities\System\Files", fetch="LAZY", cascade={"remove"})
      * @ORM\JoinTable(name="files_subpages",
-     *      joinColumns={@ORM\JoinColumn(name="subpage_id", referencedColumnName="id_subpage", onDelete="cascade")},
+     *      joinColumns={@ORM\JoinColumn(name="subpage_id", referencedColumnName="id_subpage", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id_file", unique=true)}
      *      )
      * @Groups({"resource-admin"})
