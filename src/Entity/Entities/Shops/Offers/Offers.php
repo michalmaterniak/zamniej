@@ -70,8 +70,8 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
 
     /**
      * @var Contents $content
-     * @ORM\OneToOne(targetEntity="App\Entity\Entities\System\Contents", cascade={"persist", "remove"}, fetch="LAZY")
-     * @ORM\JoinColumn(name="content_id", referencedColumnName="id_content", onDelete="CASCADE")
+     * @ORM\OneToOne(targetEntity="App\Entity\Entities\System\Contents", cascade={"persist", "remove"}, fetch="LAZY", orphanRemoval=true)
+     * @ORM\JoinColumn(name="content_id", referencedColumnName="id_content")
      * @Groups({"resource", "resource-admin","offers-admin-listing"})
      */
     protected $content;
@@ -87,7 +87,7 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
     /**
      * @var Files|null $photo
      * @ORM\OneToOne(targetEntity="App\Entity\Entities\System\Files", cascade={"persist"})
-     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id_file", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id_file", nullable=true)
      * @Groups({"resource-admin", "resource-admin-listing-shops"})
      */
     protected $photo = null;

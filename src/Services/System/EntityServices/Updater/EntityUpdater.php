@@ -153,37 +153,31 @@ class EntityUpdater
     public function update(array $properties)
     {
         $this->properties = $properties;
-        foreach ($this->properties as $key => $property)
-        {
-            if($getter = $this->getGetterMethod($key))
-            {
+        foreach ($this->properties as $key => $property) {
+            if ($getter = $this->getGetterMethod($key)) {
                 $value = $this->entity->$getter();
-                if($value instanceof EntityInterface) // dla encji
-                {
+                if ($value instanceof EntityInterface) { // dla encji
                     $this->updateEntity($value, $property);
                     continue;
-                }
-                elseif($value instanceof PersistentCollection) // dla kolekcji encji
-                {
+                } elseif ($value instanceof PersistentCollection) { // dla kolekcji encji
+
                     $this->updateEntitiesCollection($value, $property);
                     continue;
-                } elseif (is_array($value) && ($key === 'extra' || $key === 'data')) // extra to alias data
-                {
+                } elseif (is_array($value) && ($key === 'extra' || $key === 'data')) { // extra to alias data
                     $this->updateData($property);
                     continue;
                 } elseif ($value instanceof DateTime) {
                     $setter = $this->getSetterMethod($key);
-                    $this->updateValue(new DateTime($property), $setter);
+                    if ($setter)
+                        $this->updateValue(new DateTime($property), $setter);
                     continue;
-                } elseif (is_array($value)) // dla innych json'ow, np. settings
-                {
+                } elseif (is_array($value)) { // dla innych json'ow, np. settings
                     $this->updateData($property, $key);
                     continue;
-                }
-                else // pozostałe - skalarne. zwykłe settery
-                {
+                } else {// pozostałe - skalarne. zwykłe settery
                     $setter = $this->getSetterMethod($key);
-                    $this->updateValue($property, $setter);
+                    if ($setter)
+                        $this->updateValue($property, $setter);
                 }
             }
         }

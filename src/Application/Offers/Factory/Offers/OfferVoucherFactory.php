@@ -7,26 +7,16 @@ use App\Entity\Entities\Affiliations\Interfaces\OfferVoucherInterface;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\Shops\Offers\OffersVoucher;
 
+/**
+ * Class OfferVoucherFactory
+ * @package App\Application\Offers\Factory\Offers
+ * @method OffersVoucher create(OfferInterface $offer) : Offers
+ */
 class OfferVoucherFactory extends OfferFactory
 {
-    /**
-     * @param OfferInterface|OfferVoucherInterface $offer
-     */
-    public function create(OfferInterface $offer) : OffersVoucher
+    public function getOfferEntity(): Offers
     {
-        $newOfferEntity = new OffersVoucher();
-
-        $this->update($newOfferEntity, $offer, false);
-
-        $this->entityManager->persist($newOfferEntity);
-
-        $offer->setOffer($newOfferEntity);
-
-        $this->entityManager->flush();
-
-        $this->createPhoto($newOfferEntity, $offer);
-
-        return $newOfferEntity;
+        return new OffersVoucher();
     }
 
     /**
