@@ -44,22 +44,6 @@ class FooterLinks implements FrontInitInterface
             'info' => [
                 'group' => 'Informacje',
                 'links' => [
-                    [
-                        'name' => 'O nas',
-                        'link' => '/o-nas',
-                    ],
-                    [
-                        'name' => 'Kontakt',
-                        'link' => '/kontakt',
-                    ],
-                    [
-                        'name' => 'Polityka prywatności',
-                        'link' => '/polityka-prywatnosci',
-                    ],
-                    [
-                        'name' => 'Regulamin',
-                        'link' => '/regulamin',
-                    ],
                 ],
             ],
             'shops' => [
