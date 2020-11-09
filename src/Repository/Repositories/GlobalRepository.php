@@ -201,10 +201,23 @@ abstract class GlobalRepository extends ServiceEntityRepository
         return $this;
     }
 
-    public function byResource(Resources $resource)
+    /**
+     * @param Resources $resource
+     * @return $this
+     */
+    public function byResource(Resources $resource): self
     {
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.resource = :resource")->setParameter('resource', $resource);
         return $this;
     }
 
+    /**
+     * @param $by
+     * @param $ordering
+     * @return $this
+     */
+    public function orderBy($by, $ordering): self
+    {
+        return $this;
+    }
 }
