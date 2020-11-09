@@ -36,7 +36,9 @@ export default {
   computed:{
 	  baseUrl()
     {
-      return process.env.NODE_ENV === 'development' ? 'http://zamniej.loc' : '';
+      return process.env.NODE_ENV === 'development'
+        ? (process.env.VUE_APP_HTTPLOCALE ? process.env.VUE_APP_HTTPLOCALE : (location.origin))
+        : '/';
     },
     isAuth() {
       return this.$store.getters.isAuth;

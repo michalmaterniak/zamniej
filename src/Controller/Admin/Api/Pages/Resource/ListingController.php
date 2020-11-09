@@ -40,12 +40,9 @@ class ListingController extends AbstractResourceController
         ListingResourceConfig $listingResourceConfig
     ): Response
     {
-        if ($idParent === 0) {
-            $resource = $homepageRepository->select(false)->withChildren()->withConfig()->getResultOrNull();
-        } else {
-            $resource = $resourcesRepository->select(false)->withChildrenByParentId($idParent)->withConfig()->getResultOrNull();
-
-        }
+        $resource = ($idParent)
+            ? $resourcesRepository->select(false)->withChildrenByParentId($idParent)->withConfig()->getResultOrNull()
+            : $homepageRepository->select(false)->withChildren()->withConfig()->getResultOrNull();
 
         if (!$resource) {
             throw new NotFoundHttpException('Nie ma takiej strony');

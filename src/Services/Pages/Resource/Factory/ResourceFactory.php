@@ -3,6 +3,7 @@ namespace App\Services\Pages\Resource\Factory;
 
 use App\Entity\Entities\Subpages\Resources;
 use App\Entity\Entities\Subpages\Subpages;
+use App\Entity\Entities\System\Files;
 use App\Entity\Interfaces\ResourcesInterface;
 use App\Services\Pages\Resource\ResourceConfig;
 use App\Services\Subpages\SlugGenerator\SlugGenerator;
@@ -185,5 +186,15 @@ abstract class ResourceFactory extends Factory
     public function getPageCreate(): ResourcesInterface
     {
         return $this->pageCreate;
+    }
+
+    protected function createEmptyPhoto(string $group): Files
+    {
+        $photo = new Files();
+        $photo->setGroup($group);
+        $photo->setData($group, 'alt');
+        $this->entityManager->persist($photo);
+        $this->entityManager->flush();
+        return $photo;
     }
 }

@@ -93,4 +93,13 @@ class OfferFactory implements OffersFactoryInterface
             $this->entityManager->flush();
         }
     }
+
+    public function setPhotoBySubpage(Offers $offerEntity, OfferInterface $offer)
+    {
+        if (!$offer->getShopAffiliation()->getSubpage()->getPhoto('logo')) {
+            throw new ErrorException('Photo have to be defined in subpage');
+        }
+
+        $offerEntity->setPhoto($offer->getShopAffiliation()->getSubpage()->getPhoto('logo'));
+    }
 }

@@ -39,14 +39,14 @@ class Files implements EntityInterface
      * @ORM\Column(name="file", type="string", length=300, nullable=false)
      * @Groups({"resource", "resource-admin", "subpage", "resource-admin-listing-shops", "slider-admin"})
      */
-    protected $file;
+    protected $file = '';
 
     /**
      * @var string $folder
      * @ORM\Column(name="folder", type="string", length=300, nullable=false)
      * @Groups({"resource", "resource-admin", "subpage", "resource-admin-listing-shops", "slider-admin"})
      */
-    protected $folder;
+    protected $folder = '';
 
     /**
      * @var int $type

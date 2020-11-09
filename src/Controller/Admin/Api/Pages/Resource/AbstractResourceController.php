@@ -4,6 +4,7 @@ namespace App\Controller\Admin\Api\Pages\Resource;
 use App\Application\Pages\PagesManager;
 use App\Controller\Admin\Api\AbstractController;
 use App\Twig\TemplateVars;
+use Exception;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 abstract class AbstractResourceController extends AbstractController
@@ -35,7 +36,10 @@ abstract class AbstractResourceController extends AbstractController
     protected function canForward(string $controller, string $method) : bool
     {
         $className = $this->returnClassNameController($controller);
-
-        return class_exists($className) && method_exists($className, $method);
+        try {
+            return class_exists($className) && method_exists($className, $method);
+        } catch (Exception $exception) {
+            return false;
+        }
     }
 }
