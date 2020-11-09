@@ -16,7 +16,9 @@ use App\Services\Admin\Form\Fields\Text\TextareaField;
 use App\Services\Admin\Form\Fields\Text\TextField;
 use App\Services\Admin\Form\Fields\Text\WysiwygField;
 use ErrorException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class ShopController extends AbstractResourceController
 {
@@ -46,11 +48,13 @@ class ShopController extends AbstractResourceController
         }
     }
 
-
-    public function item(Shop $resource, FormBuilderResources $formBuilder)
+    /**
+     * @param FormBuilderResources $formBuilderResources
+     * @return FormBuilderResources
+     */
+    private function createFormResource(FormBuilderResources $formBuilderResources): FormBuilderResources
     {
-        $resource->setModelResource();
-        $form = $formBuilder
+        return $formBuilderResources
             ->create()
             ->basic()
             ->add(new TextField('Nazwa', 'name'))
@@ -60,37 +64,55 @@ class ShopController extends AbstractResourceController
             ->subtab('Tagi', 'tags')
             ->add(new ShopSubpageShopTagsField())
             ->subpage()
-                    ->add(new TextField('Nazwa', 'name'))
-                    ->add(new WysiwygField('Treść', 'content.content'))
-                    ->add(new TextareaField('Krótka treść', 'content.extra.description'))
-                    ->add(new PhotoField('Logo', 'files', 'logo'))
-                    ->subtab('Szczegóły', 'details')
+            ->add(new TextField('Nazwa', 'name'))
+            ->add(new WysiwygField('Treść', 'content.content'))
+            ->add(new TextareaField('Krótka treść', 'content.extra.description'))
+            ->add(new PhotoField('Logo', 'files', 'logo'))
+            ->subtab('Szczegóły', 'details')
+            ->add(new NameGroupField("Adres"))
+            ->add(new TextField('Ulica i numer', 'content.extra.details.address.street'))
+            ->add(new TextField('Miejscowość', 'content.extra.details.address.location'))
+            ->add(new LineSeparationField())
+            ->add(new NameGroupField("Kontakt"))
+            ->add(new LineSeparationField())
+            ->add(new TextField('Telefon', 'content.extra.details.contact.phone'))
+            ->add(new TextField('Email', 'content.extra.details.contact.email'))
+            ->add(new TextField('WWW', 'content.extra.details.contact.www'))
+            ->add(new LineSeparationField())
+            ->subtab('Oferty', 'offers')
+            ->add(new ShopSubpageOffersField())
+            ->seo()
+            ->add(new TextareaField('Tytuł', 'title'))
+            ->add(new TextareaField('Nagłówek H1', 'header'))
+            ->add(new TextareaField('Meta description', 'description'));
+    }
 
-                        ->add(new NameGroupField("Adres"))
-                        ->add(new TextField('Ulica i numer', 'content.extra.details.address.street'))
-                        ->add(new TextField('Miejscowość', 'content.extra.details.address.location'))
-                        ->add(new LineSeparationField())
-                        ->add(new NameGroupField("Kontakt"))
-                        ->add(new LineSeparationField())
+    /**
+     * @param Shop $resource
+     * @param FormBuilderResources $formBuilderResources
+     * @return JsonResponse
+     * @throws ExceptionInterface
+     */
+    public function item(Shop $resource, FormBuilderResources $formBuilderResources)
+    {
+        $resource->setModelResource();
 
-                        ->add(new TextField('Telefon', 'content.extra.details.contact.phone'))
-                        ->add(new TextField('Email', 'content.extra.details.contact.email'))
-                        ->add(new TextField('WWW', 'content.extra.details.contact.www'))
-                        ->add(new LineSeparationField())
-                    ->subtab('Oferty', 'offers')
-                        ->add(new ShopSubpageOffersField())
-
-                ->seo()
-                    ->add(new TextareaField('Tytuł', 'title'))
-                    ->add(new TextareaField('Nagłówek H1', 'header'))
-                    ->add(new TextareaField('Meta description', 'description'))
-        ;
-
-        $this->templateVars->insert('form', $this->normalizer->normalize($form->build()));
+        $this->templateVars->insert('form', $this->normalizer->normalize($this->createFormResource($formBuilderResources)->build()));
         $this->templateVars->insert('resource', $this->normalizer->normalize($resource, null, [
             'groups' => ["resource-admin"],
         ]));
 
+        return $this->responseJson();
+    }
+
+    /**
+     * @param FormBuilderResources $formBuilderResources
+     * @return JsonResponse
+     * @throws ExceptionInterface
+     */
+    public function form(FormBuilderResources $formBuilderResources)
+    {
+        $this->templateVars->insert('form', $this->normalizer->normalize($this->createFormResource($formBuilderResources)->build()));
         return $this->responseJson();
     }
 }

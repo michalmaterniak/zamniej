@@ -48,14 +48,22 @@ class ShopFactory extends ResourceFactory
     {
         $this->pageCreate->setTag($this->randomizerShopsTag->random());
     }
+
     public function afterCreateSubpage(): void
     {
-        $this->createLogo();
+        if (!empty($this->data['header'])) {
+            $this->createLogo();
+        } else {
+            $photo = $this->createEmptyPhoto('header');
+            $this->currentSubpage->addFile($photo);
+            $this->entityManager->flush();
+        }
     }
+
     protected function createLogo()
     {
         $logo = new Files();
-        $logo->setData('Logo '.$this->currentSubpage->getName(), 'alt');
+        $logo->setData('Logo ' . $this->currentSubpage->getName(), 'alt');
         $logo->setGroup('logo');
         $pathHeader = $this->imageManager->saveAsSubpage($this->currentSubpage, $this->data['logo'], 'logo');
         $logo->setPath($pathHeader);

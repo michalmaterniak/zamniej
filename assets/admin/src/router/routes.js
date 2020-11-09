@@ -26,6 +26,7 @@ import ProgramsWebepartnersNew from "../views/Panel/Affiliations/Webepartners/Pr
 import ProgramsWebepartnersActive from "../views/Panel/Affiliations/Webepartners/Programs/ProgramsWebepartnersActive";
 import ProgramsWebepartnersUnactive from "../views/Panel/Affiliations/Webepartners/Programs/ProgramsWebepartnersUnactive";
 import ProgramWebepartners from "../views/Panel/Affiliations/Webepartners/ProgramWebepartners";
+import PageNew from "../views/Panel/Pages/PageNew";
 
 export default [
   {
@@ -265,7 +266,6 @@ export default [
               },
             ]
           },
-
           {
             name: 'panel-pages-page',
             path: 'page/:id',
@@ -275,6 +275,15 @@ export default [
               middleware: [auth],
             },
           },
+          {
+            name: 'panel-pages-new',
+            path: 'new/:parent/:child',
+            component: PageNew,
+            props: true,
+            meta: {
+              middleware: [auth],
+            },
+          }
         ]
       }
     ]

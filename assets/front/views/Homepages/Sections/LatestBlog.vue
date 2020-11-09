@@ -5,7 +5,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12 marB30">
           <div class="section-box text-left">
             <div class="boxbgg">
-              <h3><i class="flaticon-blogger-logotype"></i> latest blog</h3>
+              <h3><i class="flaticon-blogger-logotype"></i> co słychać na blogu?</h3>
             </div>
           </div>
         </div>

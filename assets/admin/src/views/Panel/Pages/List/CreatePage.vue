@@ -29,24 +29,13 @@ export default {
       this.setDefaultSelected();
     }
   },
-  computed: {
-    // typesResources() {
-    //   if(this.childrenTypesResource.length > 0) {
-    //     return this.childrenTypesResource;
-    //   } else {
-    //     return {
-    //
-    //     }
-    //   }
-    // }
-  },
   methods:{
     selectChild(value) {
       this.selectedChildType = value;
     },
     createPage() {
       if(this.selectedChildType) {
-        console.log('create page ' + this.selectedChildType);
+        this.$router.push({name: 'panel-pages-new', params: {parent: this.parent, child: this.selectedChildType}})
       }
     },
     setDefaultSelected() {
