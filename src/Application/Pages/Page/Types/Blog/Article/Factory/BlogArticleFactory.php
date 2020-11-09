@@ -31,12 +31,19 @@ class BlogArticleFactory extends PageFactory
     }
     public function afterCreateSubpage(): void
     {
-        $this->createHeaderPhoto($this->data['header']);
+        if (!empty($this->data['header'])) {
+            $this->createHeaderPhoto($this->data['header']);
+        } else {
+            $photo = $this->createEmptyPhoto('header');
+            $this->currentSubpage->addFile($photo);
+            $this->entityManager->flush();
+
+        }
     }
     protected function createHeaderPhoto(string $pathLogo)
     {
         $headerImg = new Files();
-        $headerImg->setData('Logo '.$this->currentSubpage->getName(), 'alt');
+        $headerImg->setData('Nagłówek zdjęcie ' . $this->currentSubpage->getName(), 'alt');
         $headerImg->setGroup('header');
         $pathHeader = $this->imageManager->saveAsSubpage($this->currentSubpage, $pathLogo, 'header');
         $headerImg->setPath($pathHeader);

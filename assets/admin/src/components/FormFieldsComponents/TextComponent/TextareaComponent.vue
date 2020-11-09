@@ -50,7 +50,7 @@
         }
       },
       created() {
-        this.value = this.getResourceValue(this.path);
+        this.value = this.getResourceValue(this.path, '');
       }
     }
 </script>

@@ -24,7 +24,6 @@
 			};
 		},
     mounted() {
-		  // this.openPopup('elo');
     }
   }
 </script>

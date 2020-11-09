@@ -6,6 +6,7 @@ use App\Entity\Entities\Affiliations\Interfaces\OfferInterface;
 use App\Entity\Entities\Affiliations\Interfaces\OfferPromotionInterface;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\Shops\Offers\OffersPromotion;
+use ErrorException;
 
 /**
  * Class OfferPromotionFactory
@@ -20,12 +21,22 @@ class OfferPromotionFactory extends OfferFactory
     }
 
     /**
-     * @param Offers|OffersPromotion                 $offerEntity
+     * @param Offers|OffersPromotion $offerEntity
      * @param OfferInterface|OfferPromotionInterface $offer
-     * @param bool                                   $withFlush
+     * @param bool $withFlush
      */
     public function update(Offers $offerEntity, OfferInterface $offer, bool $withFlush = true)
     {
         parent::update($offerEntity, $offer, $withFlush);
+    }
+
+    /**
+     * @param Offers $offerEntity
+     * @param OfferInterface $offer
+     * @throws ErrorException
+     */
+    public function createPhoto(Offers $offerEntity, OfferInterface $offer)
+    {
+        $this->setPhotoBySubpage($offerEntity, $offer);
     }
 }

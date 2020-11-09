@@ -32,15 +32,21 @@ class CategoryFactory extends ResourceFactory
 
     public function afterCreateResource(): void
     {
-        $this->createLogo($this->data['logo']);
+        if (!empty($this->data['header'])) {
+            $this->createLogo($this->data['logo']);
+        } else {
+            $photo = $this->createEmptyPhoto('logo');
+            $this->resourceCreate->addFile($photo);
+            $this->entityManager->flush();
+        }
     }
 
-    protected function createLogo(string $link)
+    protected function createLogo(string $path)
     {
         $logoMini = new Files();
-        $logoMini->setData('Logo '.$this->resourceCreate->getName(), 'alt');
+        $logoMini->setData('Logo ' . $this->resourceCreate->getName(), 'alt');
         $logoMini->setGroup('logo');
-        $path = $this->imageManager->saveAsResource($this->resourceCreate, $link, 'logo');
+        $path = $this->imageManager->saveAsResource($this->resourceCreate, $path, 'logo');
         $logoMini->setPath($path);
         $this->resourceCreate->addFile($logoMini);
         $this->entityManager->persist($logoMini);

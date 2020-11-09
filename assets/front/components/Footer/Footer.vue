@@ -23,38 +23,38 @@
 
 
           <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="newsletter">
-              <div class="col-md-3 col-sm-3 col-xs-12">
-                <div class="row">
-                  <h5>bądź na bieżąco z najnowszymi promocjami</h5>
-                  <h3>newsletter</h3>
-                </div>
-              </div>
-              <div class="col-md-5 col-sm-5 col-xs-12">
-                <div class="row">
-                  <div class="newsletter-bar">
-                    <input type="text" placeholder="Podaj swój adres E-Mail">
-                  </div>
-                  <div class="submit">
-                    <a href="#" class="itg-btn">zapisz</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-4 col-xs-12 text-right">
-                <div class="row">
-                  <ul>
-                    <li><a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href=""><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
-                    <li><a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href=""><i class="fa fa-skype" aria-hidden="true"></i></a></li>
-                    <li><a href=""><i class="fa fa-pinterest-square" aria-hidden="true"></i></a></li>
-                    <li><a href=""><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
-                    <li><a href=""><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-                    <li><a href=""><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+<!--            <div class="newsletter">-->
+<!--              <div class="col-md-3 col-sm-3 col-xs-12">-->
+<!--                <div class="row">-->
+<!--                  <h5>bądź na bieżąco z najnowszymi promocjami</h5>-->
+<!--                  <h3>newsletter</h3>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-md-5 col-sm-5 col-xs-12">-->
+<!--                <div class="row">-->
+<!--                  <div class="newsletter-bar">-->
+<!--                    <input type="text" placeholder="Podaj swój adres E-Mail">-->
+<!--                  </div>-->
+<!--                  <div class="submit">-->
+<!--                    <a href="#" class="itg-btn">zapisz</a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-md-4 col-sm-4 col-xs-12 text-right">-->
+<!--                <div class="row">-->
+<!--                  <ul>-->
+<!--                    <li><a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a></li>-->
+<!--                    <li><a href=""><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>-->
+<!--                    <li><a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a></li>-->
+<!--                    <li><a href=""><i class="fa fa-skype" aria-hidden="true"></i></a></li>-->
+<!--                    <li><a href=""><i class="fa fa-pinterest-square" aria-hidden="true"></i></a></li>-->
+<!--                    <li><a href=""><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>-->
+<!--                    <li><a href=""><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>-->
+<!--                    <li><a href=""><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
         </div>
       </div>
