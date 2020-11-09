@@ -28,7 +28,7 @@ class ShopRating
      */
     public function getCount(): int
     {
-        return $this->shop->getModelEntity()->getContent()->getExtra('details.rating.count', 1);
+        return (int)$this->shop->getModelEntity()->getContent()->getExtra('details.rating.count', 1) ?: 1;
     }
 
     /**
@@ -36,6 +36,6 @@ class ShopRating
      */
     public function getRating(): float
     {
-        return $this->shop->getModelEntity()->getContent()->getExtra('details.rating.rating', 4.5);
+        return (float)$this->shop->getModelEntity()->getContent()->getExtra('details.rating.rating', 4.5) ?: 4.5;
     }
 }
