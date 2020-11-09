@@ -42,6 +42,8 @@ class ShopRepository extends CustomResourceRepository
         $this->getServicesRepositoriesManager()->getShopsLetterRequestModifierQuery()->modify($this->queryBuilder);
         $aliasRootSubpages = $this->addLeftJoin('subpages');
         $this->addLeftJoin('files', $aliasRootSubpages);
+        $this->addLeftJoin('content');
+        $this->addLeftJoin('content', $aliasRootSubpages);
         return $this;
     }
 
