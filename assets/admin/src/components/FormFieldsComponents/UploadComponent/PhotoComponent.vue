@@ -65,7 +65,6 @@ export default {
   computed:{
     indexPhoto()
     {
-      console.log(this.getResourceValue(this.path));
       return this.getIndexPhoto(this.getResourceValue(this.path), this.group);
     },
     pathPhoto()

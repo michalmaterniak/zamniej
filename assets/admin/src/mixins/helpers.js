@@ -36,9 +36,14 @@ export default {
   computed:{
 	  baseUrl()
     {
-      return process.env.NODE_ENV === 'development'
-        ? (process.env.VUE_APP_HTTPLOCALE ? process.env.VUE_APP_HTTPLOCALE : (location.origin))
-        : '/';
+      if(process.env.NODE_ENV === 'development') {
+        if(process.env.VUE_APP_HTTPLOCALE)
+          return process.env.VUE_APP_HTTPLOCALE;
+      }
+      if(process.env.HTTP_ADMIN_API) {
+        return process.env.HTTP_ADMIN_API;
+      }
+      return '/';
     },
     isAuth() {
       return this.$store.getters.isAuth;

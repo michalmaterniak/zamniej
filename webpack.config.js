@@ -5,7 +5,7 @@ var Encore = require('@symfony/webpack-encore');
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
-
+var dotenv = require('dotenv');
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
@@ -49,7 +49,16 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = 3;
     })
+    .configureDefinePlugin(options => {
+        const env = dotenv.config();
 
+        if (env.error) {
+            throw env.error;
+        }
+
+        options['process.env'].HTTP_ADMIN_API = JSON.stringify(env.parsed.HTTP_ADMIN_API);
+    })
+;
 // enables Sass/SCSS support
 //.enableSassLoader()
 
@@ -66,6 +75,6 @@ Encore
 // uncomment if you use API Platform Admin (composer req api-admin)
 //.enableReactPreset()
 //.addEntry('admin', './assets/js/admin.js')
-;
+
 
 module.exports = Encore.getWebpackConfig();
