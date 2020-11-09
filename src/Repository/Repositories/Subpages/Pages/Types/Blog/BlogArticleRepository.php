@@ -5,6 +5,7 @@ use App\Application\Pages\Page\Types\Blog\Article\BlogArticleConfig;
 use App\Repository\Repositories\Subpages\Pages\PageRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Persistence\ManagerRegistry;
+use ErrorException;
 
 class BlogArticleRepository extends PageRepository
 {
@@ -14,7 +15,9 @@ class BlogArticleRepository extends PageRepository
     }
 
     /**
+     * @param int $max
      * @return $this
+     * @throws ErrorException
      */
     public function findAllPerPageMax(int $max = 10): self
     {
@@ -22,6 +25,9 @@ class BlogArticleRepository extends PageRepository
         $aliasRootSubpages = $this->addLeftJoin('subpages');
         $this->addLeftJoin('files', $aliasRootSubpages);
         $this->addLeftJoin('content', $aliasRootSubpages);
+
+        $this->queryBuilder->orderBy("{$this->getRootAlias()}.datetimeCreate", "DESC");
+
         return $this;
     }
 
@@ -36,7 +42,7 @@ class BlogArticleRepository extends PageRepository
         $this->addLeftJoin('content', $aliasRootSubpages);
 
         $this->queryBuilder->setMaxResults($max)->orderBy("{$this->getRootAlias()}.idResource", "DESC");
-        $this->queryBuilder->orderBy("{$this->getRootAlias()}.datetimeCreate", "ASC");
+        $this->queryBuilder->orderBy("{$this->getRootAlias()}.datetimeCreate", "DESC");
         return $this;
     }
 

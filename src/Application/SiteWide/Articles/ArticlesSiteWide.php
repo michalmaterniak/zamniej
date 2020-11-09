@@ -1,49 +1,31 @@
 <?php
 namespace App\Application\SiteWide\Articles;
 
-use App\Application\Components;
 use App\Application\Pages\Page\Page;
-use App\Application\Pages\Page\Types\Blog\Article\BlogArticle;
+use App\Application\Pages\PagesManager;
 use App\Application\SiteWide\FrontInitInterface;
-use App\Entity\Entities\Pages\Pages;
-use App\Entity\Entities\Subpages\Resources;
-use App\Repository\Repositories\Pages\PagesRepository;
-use App\Repository\Repositories\Subpages\ResourcesRepository;
+use App\Repository\Repositories\Subpages\Pages\Types\Blog\BlogArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManagerInterface;
 
 class ArticlesSiteWide implements FrontInitInterface
 {
     /**
-     * @var Components $components
+     * @var BlogArticleRepository $blogArticleRepository
      */
-    protected $components;
+    protected $blogArticleRepository;
 
     /**
-     * @var EntityManagerInterface $entityManager
+     * @var PagesManager $pagesManager
      */
-    protected $entityManager;
+    protected $pagesManager;
 
-    /**
-     * @var BlogArticle $blogArticle
-     */
-    protected $blogArticle;
-
-    /**
-     * ArticlesSiteWide constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param BlogArticle $blogArticle
-     * @param Components $components
-     */
     public function __construct(
-        EntityManagerInterface $entityManager,
-        BlogArticle $blogArticle,
-        Components $components
+        BlogArticleRepository $blogArticleRepository,
+        PagesManager $pagesManager
     )
     {
-        $this->entityManager = $entityManager;
-        $this->components = $components;
-        $this->blogArticle = $blogArticle;
+        $this->pagesManager = $pagesManager;
+        $this->blogArticleRepository = $blogArticleRepository;
     }
 
     /**
@@ -53,22 +35,17 @@ class ArticlesSiteWide implements FrontInitInterface
     public function getValue(int $count = 2)
     {
         /**
-         * @var ResourcesRepository $pagesRepo
-         */
-        $pagesRepo = $this->entityManager->getRepository(Resources::class);
-
-        /**
          * @var Page[]|ArrayCollection
          */
-        $articlesModels = $this->components->getPageManager()->loadEntities(
-            $pagesRepo->select()->findResourcesByType($this->blogArticle->getComponents()->getResourceConfig()->getKey(), $count)->getResults()
+        $articlesModels = $this->pagesManager->loadEntities(
+            $this->blogArticleRepository->select()->getLatest(2)->getResults()
         );
 
         $articlesArray = [];
         foreach ($articlesModels as $articleModel) {
             $articlesArray[] = [
-                'name' =>           $articleModel->getSubpage()->getSubpage()->getName(),
-                'slug' =>           $articleModel->getSubpage()->getSlug(),
+                'name' => $articleModel->getSubpage()->getSubpage()->getName(),
+                'slug' => $articleModel->getSubpage()->getSlug(),
                 'datetimeCreate' => $articleModel->getSubpage()->getSubpage()->getDatetimeCreate(),
             ];
         }
