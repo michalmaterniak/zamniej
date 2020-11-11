@@ -9,6 +9,9 @@
         <button class="btn btn-success" @click="createSubpagePopUp">Twórz stronę</button>
         <button class="btn btn-success" @click="searchSubpage">Wyszukaj</button>
       </span>
+      <span v-else>
+        <router-link :to="{name: 'panel-pages-page', params: {id: program.subpage.idSubpage}}" class="btn btn-primary">Podstrona</router-link>
+      </span>
       <span>
         <button class="btn btn-danger" @click="trash">Do kosza</button>
       </span>
