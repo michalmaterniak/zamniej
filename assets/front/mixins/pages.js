@@ -33,6 +33,9 @@ export default {
     changeHash(newHash) {
       this.$router.push({hash: newHash, params: {scroll: false}});
     },
+    getShopPageWithShopOfferHash(slug, idOffer) {
+      return slug + this.$generateHash({shopOffer: idOffer});
+    },
     openPopupPromo(idOffer, redirect = false)
     {
 
