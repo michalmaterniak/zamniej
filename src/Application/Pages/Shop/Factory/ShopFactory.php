@@ -51,10 +51,10 @@ class ShopFactory extends ResourceFactory
 
     public function afterCreateSubpage(): void
     {
-        if (!empty($this->data['header'])) {
+        if (!empty($this->data['logo'])) {
             $this->createLogo();
         } else {
-            $photo = $this->createEmptyPhoto('header');
+            $photo = $this->createEmptyPhoto('logo');
             $this->currentSubpage->addFile($photo);
             $this->entityManager->flush();
         }

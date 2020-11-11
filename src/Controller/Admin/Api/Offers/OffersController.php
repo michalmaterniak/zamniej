@@ -122,6 +122,7 @@ class OffersController extends AbstractController
     }
 
     /**
+     * @param Subpages $subpage
      * @param OffersRepository $offersRepository
      * @return JsonResponse
      * @throws ExceptionInterface
