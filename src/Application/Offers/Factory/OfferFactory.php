@@ -100,6 +100,13 @@ class OfferFactory implements OffersFactoryInterface
             throw new ErrorException('Photo have to be defined in subpage');
         }
 
-        $offerEntity->setPhoto($offer->getShopAffiliation()->getSubpage()->getPhoto('logo'));
+        $photo = new Files();
+        $photo->setGroup('offer');
+        $photo->setPath($offer->getShopAffiliation()->getSubpage()->getPhoto('logo')->getPath());
+        $photo->setData($offerEntity->getTitle(), 'alt');
+
+        $this->entityManager->persist($photo);
+        $offerEntity->setPhoto($photo);
+        $this->entityManager->flush();
     }
 }
