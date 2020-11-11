@@ -74,12 +74,15 @@ export default {
     }
   },
   computed:{
-    programsFiltered(){
-      return _.filter(this.programs, item => {
+    programsReverse() {
+      return this.programs.reverse();
+    },
+    programsFiltered() {
+      return _.filter(this.programsReverse, item => {
 
-        if(this.filtersTable.nameFilter.toUpperCase() !== '' && !item.name.toUpperCase().includes(this.filtersTable.nameFilter.toUpperCase()))
+        if (this.filtersTable.nameFilter.toUpperCase() !== '' && !item.name.toUpperCase().includes(this.filtersTable.nameFilter.toUpperCase()))
           return false;
-        if(this.filtersTable.affiliationFilter.toUpperCase() !== '' && !item.affiliation.name.toUpperCase().includes(this.filtersTable.affiliationFilter.toUpperCase()))
+        if (this.filtersTable.affiliationFilter.toUpperCase() !== '' && !item.affiliation.name.toUpperCase().includes(this.filtersTable.affiliationFilter.toUpperCase()))
           return false;
         if (this.filtersTable.enableFilter !== 2 && this.filtersTable.enableFilter != item.enable)
           return false;
