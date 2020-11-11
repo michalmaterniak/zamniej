@@ -40,6 +40,7 @@ class PromotionsSubpage extends PageSubpage
             foreach ($offers as $offer) {
                 $this->offers->add([
                     'idOffer' => $offer->getOffer()->getIdOffer(),
+                    'slug' => $offer->getOffer()->getSubpage()->getSlug(),
                     'title' => $offer->getOffer()->getTitle(),
                     'content' => $offer->getOffer()->getContent()->getContent(),
                     'logo' => $offer->getPhoto()->getModifiedPhoto('insertCenter', 292, 292),

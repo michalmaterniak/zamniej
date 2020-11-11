@@ -181,16 +181,15 @@ export default {
     let buttonShopDetails = document.getElementById('open-button-shop-details')
     if (buttonShopDetails)
       this.shopDetailsHeight = buttonShopDetails.getBoundingClientRect().y;
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        let hash = this.$parseHash();
-        if(hash && hash.shopOffer && !isNaN(hash.shopOffer))
-        {
-          this.popupShopOffer(this.findIndexOffer(hash.shopOffer));
-        }
 
-      }, 500)
-    })
+    setTimeout(() => {
+      let hash = this.$parseHash();
+      if(hash && hash.shopOffer && !isNaN(hash.shopOffer))
+      {
+        this.popupShopOffer(this.findIndexOffer(hash.shopOffer));
+      }
+
+    }, 500)
   }
 }
 </script>

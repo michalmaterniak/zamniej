@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-12 col-sm-12 col-xs-12" @click="openPopupPromo(offer.idOffer)">
+  <div class="col-md-12 col-sm-12 col-xs-12" @click="goToShop">
     <div class="box-a">
       <figure>
         <img :src="offer.logo.modifyPath" :alt="offer.logo.original.data.alt">
@@ -15,7 +15,13 @@
 <script>
 export default {
   name: "GridPromotions",
-  props:['offer']
+  props:['offer'],
+  methods: {
+    goToShop() {
+      window.open(this.getShopPageWithShopOfferHash(this.offer.slug, this.offer.idOffer));
+      location.href = this.$store.getters.redirectLinkOffer(this.offer.idOffer)
+    }
+  }
 }
 </script>
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Application\Offers;
 
+use App\Application\Pages\Shop\ShopSubpage;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Services\Photos\Photo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -11,6 +12,11 @@ class Offer extends OfferAbstract
      * @var Photo $photo
      */
     protected $photo;
+
+    /**
+     * @var ShopSubpage $shopSubage
+     */
+    protected $shopSubage;
 
     public function __construct(Photo $photo)
     {
@@ -68,5 +74,19 @@ class Offer extends OfferAbstract
     public function getIdShop()
     {
         return $this->getOffer()->getShopAffiliation()->getIdShop();
+    }
+
+    /**
+     * @return ShopSubpage
+     */
+    public function getSubpage(): ShopSubpage
+    {
+        if ($this->shopSubage) {
+            $this->shopSubage = $this->getComponents()->getPagesManager()->loadEntity(
+                $this->offer->getSubpage()->getResource()
+            )->getSubpage();
+        }
+
+        return $this->shopSubage;
     }
 }
