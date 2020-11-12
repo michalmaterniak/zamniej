@@ -93,7 +93,6 @@
     destroyed() {
       this.$store.commit('setResource', null);
       this.$store.commit('setForms', null);
-      this.$store.commit('setChanges', {});
     }
   }
 </script>
