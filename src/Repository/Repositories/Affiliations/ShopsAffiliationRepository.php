@@ -1,9 +1,7 @@
 <?php
 namespace App\Repository\Repositories\Affiliations;
 
-
 use App\Entity\Entities\Affiliations\ShopsAffiliation as Entity;
-use App\Entity\Entities\Subpages\Subpages;
 use App\Repository\Repositories\GlobalRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -38,9 +36,7 @@ class ShopsAffiliationRepository extends GlobalRepository
      */
     public function getNewPrograms()
     {
-        $this->queryBuilder
-            ->andWhere("{$this->getRootAlias()}.isNew = 1")
-        ;
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.isNew = 1");
         return $this;
     }
 
