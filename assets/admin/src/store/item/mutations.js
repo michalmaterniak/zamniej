@@ -18,10 +18,11 @@ export default {
 
   setChanges(state, payload)
   {
-    // state.changes.paths[payload.path] = payload;
-
-    // _.set(state.changes.paths, payload.path, payload);
-    _.set(state.changes, payload.path, payload.value);
+    if(payload) {
+      _.set(state.changes, payload.path, payload.value);
+    } else {
+      state.changes = {};
+    }
   },
   changeValueResource(state, payload)
   {
