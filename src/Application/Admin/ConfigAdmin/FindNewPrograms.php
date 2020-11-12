@@ -3,7 +3,6 @@ namespace App\Application\Admin\ConfigAdmin;
 
 use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class FindNewPrograms
 {
@@ -22,6 +21,6 @@ class FindNewPrograms
      */
     public function getNewProgramsAffiliations()
     {
-        return $this->shopsAffiliationRepository->counting()->getNewPrograms()->getCount();
+        return $this->shopsAffiliationRepository->counting()->getNewPrograms()->getEnablePrograms()->getCount();
     }
 }
