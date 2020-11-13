@@ -1,16 +1,17 @@
 <?php
-namespace App\Application\Pages\Page\Seo;
+
+namespace App\Application\Pages\Page\Types\Blog\Articles\Seo;
 
 use App\Application\Pages\Page\Seo\Elements\PageSeoCanonical;
 use App\Application\Pages\Page\Seo\Elements\PageSeoDescription;
 use App\Application\Pages\Page\Seo\Elements\PageSeoHeader;
 use App\Application\Pages\Page\Seo\Elements\PageSeoTitle;
-use App\Services\Seo\SeoElements;
+use App\Application\Pages\Page\Seo\PageSeoElements;
 
-class PageSeoElements extends SeoElements
+class BlogArticlesSeoElements extends PageSeoElements
 {
     /**
-     * PageSeoElements constructor.
+     * BlogArticlesSeoElements constructor.
      * @param PageSeoTitle $seoTitle
      * @param PageSeoHeader $seoHeader
      * @param PageSeoDescription $seoDescription
@@ -24,21 +25,5 @@ class PageSeoElements extends SeoElements
     )
     {
         parent::__construct($seoTitle, $seoHeader, $seoDescription, $seoCanonical);
-    }
-
-    /**
-     * @param string|null $key
-     * @return array|string[]
-     */
-    public function getAvailableProperties() : array
-    {
-        return [
-            'name' => 'subpage.subpage.name',
-            'parent.name' => 'parent.subpage.subpage.name',
-            'parent.parent.name' => 'parent.parent.subpage.subpage.name',
-            'parent.parent.parent.name' => 'parent.parent.subpage.subpage.name',
-            'idSubpage' => 'subpage.subpage.idSubpage',
-            'idResource' => 'resource.idResource',
-        ];
     }
 }

@@ -27,9 +27,11 @@ import TileShop from "@/components/Tiles/Shop/TileShop";
 import ShopsListing from "@/views/Shops/Shops/ShopsListing";
 import PaginationShops from "@/views/Shops/Shops/PaginationShops";
 import LoaderActive from "@/components/Loader/LoaderActive";
+import seo from "@/mixins/seo";
 export default {
   name: "Shops",
   components: {LoaderActive, PaginationShops, ShopsListing, TileShop, BreadCrumbs },
+  mixins:[seo],
   data()
   {
     return {
@@ -82,7 +84,8 @@ export default {
 
       this.getPage('shops', dataRequest, false)
         .then(res => {
-          this.shopsByLetter[this.letters[obj.letter]] = res.data.shops;
+          this.shopsByLetter[this.letters[obj.letter]] = res.data.page.subpage.shops;
+          this.seo = res.data.page.subpage.seo;
           this.letterActive = obj.letter;
 
         }).catch(e => {
@@ -107,7 +110,7 @@ export default {
   {
     if(!this.$router.currentRoute.query.letter)
       this.$router.push({query: {letter: '0'}})
-  }
+  },
 }
 </script>
 

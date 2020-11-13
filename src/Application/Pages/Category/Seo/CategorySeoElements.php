@@ -6,18 +6,24 @@ use App\Application\Pages\Category\Seo\Elements\CategorySeoDescription;
 use App\Application\Pages\Category\Seo\Elements\CategorySeoHeader;
 use App\Application\Pages\Category\Seo\Elements\CategorySeoTitle;
 use App\Services\Seo\SeoElements;
-use App\Repository\Repositories\Settings\SettingsRepository;
 
 class CategorySeoElements extends SeoElements
 {
+    /**
+     * CategorySeoElements constructor.
+     * @param CategorySeoTitle $seoTitle
+     * @param CategorySeoHeader $seoHeader
+     * @param CategorySeoDescription $seoDescription
+     * @param CategorySeoCanonical $seoCanonical
+     */
     public function __construct(
-        SettingsRepository  $settingsRepository,
-        CategorySeoTitle        $seoTitle,
-        CategorySeoHeader       $seoHeader,
-        CategorySeoDescription  $seoDescription,
-        CategorySeoCanonical    $seoCanonical
-    ) {
-        parent::__construct($settingsRepository, $seoTitle, $seoHeader, $seoDescription, $seoCanonical);
+        CategorySeoTitle $seoTitle,
+        CategorySeoHeader $seoHeader,
+        CategorySeoDescription $seoDescription,
+        CategorySeoCanonical $seoCanonical
+    )
+    {
+        parent::__construct($seoTitle, $seoHeader, $seoDescription, $seoCanonical);
     }
 
     /**
