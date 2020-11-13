@@ -16,8 +16,7 @@ class ShopsController extends AbstractController
      */
     public function shops(Shops $page)
     {
-        $shops = $page->getSubpage()->getShops();
-        $this->templateVars->insert('shops', $this->normalizer->normalize($shops, null, [
+        $this->templateVars->insert('page', $this->normalizer->normalize($page, null, [
             'groups' => ['resource', 'seo', 'subpage'],
         ]));
 

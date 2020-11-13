@@ -6,18 +6,16 @@ use App\Application\Pages\Homepage\Seo\Elements\HomepageSeoDescription;
 use App\Application\Pages\Homepage\Seo\Elements\HomepageSeoHeader;
 use App\Application\Pages\Homepage\Seo\Elements\HomepageSeoTitle;
 use App\Services\Seo\SeoElements;
-use App\Repository\Repositories\Settings\SettingsRepository;
 
 class HomepageSeoElements extends SeoElements
 {
     public function __construct(
-        SettingsRepository  $settingsRepository,
         HomepageSeoTitle        $seoTitle,
         HomepageSeoHeader       $seoHeader,
         HomepageSeoDescription  $seoDescription,
         HomepageSeoCanonical    $seoCanonical
     ) {
-        parent::__construct($settingsRepository, $seoTitle, $seoHeader, $seoDescription, $seoCanonical);
+        parent::__construct($seoTitle, $seoHeader, $seoDescription, $seoCanonical);
     }
 
     /**

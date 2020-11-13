@@ -3,7 +3,7 @@ namespace App\Application\Pages\Page\Types\Shops;
 
 use App\Application\Locale\Locale;
 use App\Application\Pages\Page\PageSubpagesManager;
-use App\Application\Pages\Page\Seo\PageSeo;
+use App\Application\Pages\Page\Types\Shops\Seo\ShopsSeo;
 
 /**
  * Class ShopsSubpagesManager
@@ -12,7 +12,7 @@ use App\Application\Pages\Page\Seo\PageSeo;
 class ShopsSubpagesManager extends PageSubpagesManager
 {
     public function __construct(
-        PageSeo $seo,
+        ShopsSeo $seo,
         ShopsSubpage $subpageResource,
         Locale $locale
     ) {

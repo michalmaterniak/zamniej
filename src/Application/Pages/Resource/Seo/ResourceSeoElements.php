@@ -6,18 +6,24 @@ use App\Application\Pages\Shop\Seo\Elements\ShopSeoDescription;
 use App\Application\Pages\Shop\Seo\Elements\ShopSeoHeader;
 use App\Application\Pages\Shop\Seo\Elements\ShopSeoTitle;
 use App\Services\Seo\SeoElements;
-use App\Repository\Repositories\Settings\SettingsRepository;
 
 class ResourceSeoElements extends SeoElements
 {
+    /**
+     * ResourceSeoElements constructor.
+     * @param ShopSeoTitle $seoTitle
+     * @param ShopSeoHeader $seoHeader
+     * @param ShopSeoDescription $seoDescription
+     * @param ShopSeoCanonical $seoCanonical
+     */
     public function __construct(
-        SettingsRepository  $settingsRepository,
-        ShopSeoTitle        $seoTitle,
-        ShopSeoHeader       $seoHeader,
-        ShopSeoDescription  $seoDescription,
-        ShopSeoCanonical    $seoCanonical
-    ) {
-        parent::__construct($settingsRepository, $seoTitle, $seoHeader, $seoDescription, $seoCanonical);
+        ShopSeoTitle $seoTitle,
+        ShopSeoHeader $seoHeader,
+        ShopSeoDescription $seoDescription,
+        ShopSeoCanonical $seoCanonical
+    )
+    {
+        parent::__construct($seoTitle, $seoHeader, $seoDescription, $seoCanonical);
     }
 
     /**

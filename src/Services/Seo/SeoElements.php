@@ -24,6 +24,11 @@ abstract class SeoElements
     protected $resource;
 
     /**
+     * @var SeoMethodsManager $seoMethods
+     */
+    protected $seoMethods;
+
+    /**
      * @var array|string[] $settings
      */
     protected $settings;
@@ -48,26 +53,47 @@ abstract class SeoElements
      */
     protected $seoCanonical;
 
+    /**
+     * SeoElements constructor.
+     * @param SeoTitle $seoTitle
+     * @param SeoHeader $seoHeader
+     * @param SeoDescription $seoDescription
+     * @param SeoCanonical $seoCanonical
+     */
     public function __construct(
-        SettingsRepository      $settingsRepository,
-        SeoTitle                $seoTitle,
-        SeoHeader               $seoHeader,
-        SeoDescription          $seoDescription,
-        SeoCanonical            $seoCanonical
-    ) {
-        $this->settingsRepository =     $settingsRepository;
-        $this->seoTitle =               $seoTitle;
-        $this->seoHeader =              $seoHeader;
-        $this->seoDescription =         $seoDescription;
-        $this->seoCanonical =           $seoCanonical;
+        SeoTitle $seoTitle,
+        SeoHeader $seoHeader,
+        SeoDescription $seoDescription,
+        SeoCanonical $seoCanonical
+    )
+    {
+        $this->seoTitle = $seoTitle;
+        $this->seoHeader = $seoHeader;
+        $this->seoDescription = $seoDescription;
+        $this->seoCanonical = $seoCanonical;
     }
 
+    /**
+     * @return string
+     */
     public function getNameSetting()
     {
-        return 'Seo-'.$this->resource->getComponents()->getResourceConfig()->getTypeName();
+        return 'Seo-' . $this->resource->getComponents()->getResourceConfig()->getTypeName();
     }
-    public function loadResource(Resource $resource)
+
+    /**
+     * @param Resource $resource
+     * @param SettingsRepository $settingsRepository
+     * @param SeoMethodsManager $seoMethods
+     */
+    public function load(
+        Resource $resource,
+        SettingsRepository $settingsRepository,
+        SeoMethodsManager $seoMethods
+    )
     {
+        $this->seoMethods = $seoMethods;
+        $this->settingsRepository = $settingsRepository;
         if (!$this->resource || $this->resource->getModelEntity()->getIdResource() != $resource->getModelEntity()->getIdResource()) {
             $this->resource = $resource;
             if (!$this->settings) {
@@ -76,17 +102,30 @@ abstract class SeoElements
         }
     }
 
-    public function checkAvailableProperty(string $key) : bool
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function checkAvailableProperty(string $key): bool
     {
-        return (bool) $this->getAvailableProperty($key);
+        return (bool)$this->getAvailableProperty($key);
     }
 
-    abstract public function getAvailableProperties() : array;
 
-    public function getAvailableProperty(string $key) : ?string
+    /**
+     * @return array
+     */
+    abstract public function getAvailableProperties(): array;
+
+    /**
+     * @param string $key
+     * @return string|null
+     */
+    public function getAvailableProperty(string $key): ?string
     {
-        return static::getAvailableProperties()[$key] ?? null;
+        return $this->getAvailableProperties()[$key] ?? null;
     }
+
     /**
      * @return Resource
      */
@@ -95,30 +134,51 @@ abstract class SeoElements
         return $this->resource;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle()
     {
         return
             $this->getResource()->getSubpage()->getSubpage()->getSeo()->getTitle() ?:
-            $this->seoTitle->getTitle($this, $this->settings[self::TITLE] ?? 'title empty');
+                $this->seoTitle->getTitle($this, $this->settings[self::TITLE] ?? 'title empty');
     }
 
+    /**
+     * @return string|null
+     */
     public function getHeader()
     {
         return
             $this->getResource()->getSubpage()->getSubpage()->getSeo()->getHeader() ?:
-            $this->seoHeader->getHeader($this, $this->settings[self::HEADER] ?? 'header empty');
+                $this->seoHeader->getHeader($this, $this->settings[self::HEADER] ?? 'header empty');
     }
+
+    /**
+     * @return string|null
+     */
     public function getDescription()
     {
         return
             $this->getResource()->getSubpage()->getSubpage()->getSeo()->getDescription() ?:
-            $this->seoDescription->getDescription($this, $this->settings[self::DESCRIPTION] ?? 'description empty');
+                $this->seoDescription->getDescription($this, $this->settings[self::DESCRIPTION] ?? 'description empty');
     }
 
+    /**
+     * @return string|null
+     */
     public function getCanonical()
     {
         return
             $this->getResource()->getSubpage()->getSubpage()->getSeo()->getCanonical() ?:
-            $this->seoCanonical->getCanonical($this->resource);
+                $this->seoCanonical->getCanonical($this->resource);
+    }
+
+    /**
+     * @return SeoMethodsManager
+     */
+    public function getSeoMethods(): SeoMethodsManager
+    {
+        return $this->seoMethods;
     }
 }

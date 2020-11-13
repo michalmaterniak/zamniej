@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Seo;
 
+use App\Repository\Repositories\Settings\SettingsRepository;
 use App\Services\Pages\Resource\Resource as Resource;
 use App\Services\Seo\Interfaces\SeoInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -12,14 +13,36 @@ abstract class Seo implements SeoInterface
      */
     protected $seoElements;
 
-    public function __construct(SeoElements $seoElements)
+    /**
+     * @var SettingsRepository $settingsRepository
+     */
+    protected $settingsRepository;
+
+    /**
+     * @var SeoMethodsManager $seoMethods
+     */
+    protected $seoMethods;
+
+    /**
+     * Seo constructor.
+     * @param SeoElements $seoElements
+     * @param SettingsRepository $settingsRepository
+     * @param SeoMethodsManager $seoMethods
+     */
+    public function __construct(
+        SeoElements $seoElements,
+        SettingsRepository $settingsRepository,
+        SeoMethodsManager $seoMethods
+    )
     {
         $this->seoElements = $seoElements;
+        $this->seoMethods = $seoMethods;
+        $this->settingsRepository = $settingsRepository;
     }
 
     public function loadResource(Resource $resource)
     {
-        $this->seoElements->loadResource($resource);
+        $this->seoElements->load($resource, $this->settingsRepository, $this->seoMethods);
     }
 
     /**
