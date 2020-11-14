@@ -3,7 +3,6 @@ namespace App\Entity\Entities\Affiliations\Webepartners;
 
 use App\Entity\Entities\Affiliations\Interfaces\OfferBannerInterface;
 use App\Entity\Entities\Affiliations\OffersAffiliation;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -23,13 +22,13 @@ class WebepartnersBanners extends OffersAffiliation implements OfferBannerInterf
 
     /**
      * @var string $bannerId
-     * @ORM\Column(name="banner_id", type="string", length=100, nullable=false, unique=true)
+     * @ORM\Column(name="banner_id", type="string", length=50, nullable=false, unique=true)
      */
     protected $bannerId;
 
     /**
      * @var string|null $shortBannerId
-     * @ORM\Column(name="short_banner_id", type="string", length=100, nullable=true)
+     * @ORM\Column(name="short_banner_id", type="string", length=50, nullable=true)
      */
     protected $shortBannerId;
 
@@ -46,26 +45,26 @@ class WebepartnersBanners extends OffersAffiliation implements OfferBannerInterf
     protected $height;
 
     /**
-     * @var DateTime $publicDate
+     * @var \DateTime $publicDate
      * @ORM\Column(name="public_date", type="datetime", nullable=false)
      */
     protected $publicDate;
 
     /**
-     * @var DateTime|null $unpublicDate
+     * @var \DateTime|null $unpublicDate
      * @ORM\Column(name="unpublic_date", type="datetime", nullable=true)
      */
     protected $unpublicDate;
 
     /**
      * @var string|null $landingUrl
-     * @ORM\Column(name="landing_url", type="string", length=700, nullable=true)
+     * @ORM\Column(name="landing_url", type="string", length=200, nullable=true)
      */
     protected $landingUrl;
 
     /**
      * @var string|null $fileMime
-     * @ORM\Column(name="file_mime", type="string", length=50, nullable=true)
+     * @ORM\Column(name="file_mime", type="string", length=20, nullable=true)
      */
     protected $fileMime;
 
@@ -162,41 +161,41 @@ class WebepartnersBanners extends OffersAffiliation implements OfferBannerInterf
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
-    public function getPublicDate(): DateTime
+    public function getPublicDate(): \DateTime
     {
         return $this->publicDate;
     }
 
     /**
-     * @param DateTime $publicDate
+     * @param \DateTime $publicDate
      */
     public function setPublicDate($publicDate): void
     {
         if (is_string($publicDate)) {
-            $this->publicDate = new DateTime($publicDate);
-        } elseif ($publicDate instanceof DateTime) {
+            $this->publicDate = new \DateTime($publicDate);
+        } elseif ($publicDate instanceof \DateTime) {
             $this->publicDate = $publicDate;
         }
     }
 
     /**
-     * @return DateTime|null
+     * @return \DateTime|null
      */
-    public function getUnpublicDate(): ?DateTime
+    public function getUnpublicDate(): ?\DateTime
     {
         return $this->unpublicDate;
     }
 
     /**
-     * @param DateTime|string|null $unpublicDate
+     * @param \DateTime|string|null $unpublicDate
      */
     public function setUnpublicDate($unpublicDate): void
     {
         if (is_string($unpublicDate)) {
-            $this->unpublicDate = new DateTime($unpublicDate);
-        } elseif ($unpublicDate instanceof DateTime) {
+            $this->unpublicDate = new \DateTime($unpublicDate);
+        } elseif ($unpublicDate instanceof \DateTime) {
             $this->unpublicDate = $unpublicDate;
         } elseif (is_null($unpublicDate)) {
             $this->unpublicDate = null;
@@ -284,19 +283,19 @@ class WebepartnersBanners extends OffersAffiliation implements OfferBannerInterf
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      * @Groups({"resource-admin-listing"})
      */
-    public function getDatetimeFrom(): DateTime
+    public function getDatetimeFrom(): \DateTime
     {
         return $this->getPublicDate();
     }
 
     /**
-     * @return DateTime|null
+     * @return \DateTime|null
      * @Groups({"resource-admin-listing"})
      */
-    public function getDatetimeTo(): ?DateTime
+    public function getDatetimeTo(): ?\DateTime
     {
         return $this->getUnpublicDate();
     }

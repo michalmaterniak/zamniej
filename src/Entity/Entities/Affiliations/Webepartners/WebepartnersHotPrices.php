@@ -3,7 +3,6 @@ namespace App\Entity\Entities\Affiliations\Webepartners;
 
 use App\Entity\Entities\Affiliations\Interfaces\OfferProductInterface;
 use App\Entity\Entities\Affiliations\OffersAffiliation;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -23,13 +22,13 @@ class WebepartnersHotPrices extends OffersAffiliation implements OfferProductInt
 
     /**
      * @var string|null $shopProductId
-     * @ORM\Column(name="shop_product_id", type="string", length=100, nullable=true)
+     * @ORM\Column(name="shop_product_id", type="string", length=10, nullable=true)
      */
     protected $shopProductId;
 
     /**
      * @var string|null $shopCategoryName
-     * @ORM\Column(name="shop_category_name", type="string", length=700, nullable=true)
+     * @ORM\Column(name="shop_category_name", type="string", length=400, nullable=true)
      */
     protected $shopCategoryName;
 
@@ -71,13 +70,13 @@ class WebepartnersHotPrices extends OffersAffiliation implements OfferProductInt
 
     /**
      * @var string|null $programName
-     * @ORM\Column(name="program_name", type="string", length=200, nullable=true)
+     * @ORM\Column(name="program_name", type="string", length=100, nullable=true)
      */
     protected $programName;
 
     /**
      * @var string|null $programLogoUrl
-     * @ORM\Column(name="program_logo_url", type="string", length=700, nullable=true)
+     * @ORM\Column(name="program_logo_url", type="string", length=200, nullable=true)
      */
     protected $programLogoUrl;
 
@@ -421,19 +420,19 @@ class WebepartnersHotPrices extends OffersAffiliation implements OfferProductInt
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      * @Groups({"resource-admin-listing"})
      */
-    public function getDatetimeFrom(): DateTime
+    public function getDatetimeFrom(): \DateTime
     {
         return $this->getDatetimeUpdate();
     }
 
     /**
-     * @return DateTime|null
+     * @return \DateTime|null
      * @Groups({"resource-admin-listing"})
      */
-    public function getDatetimeTo(): ?DateTime
+    public function getDatetimeTo(): ?\DateTime
     {
         return null;
     }
