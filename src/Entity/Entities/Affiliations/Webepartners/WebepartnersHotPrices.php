@@ -3,6 +3,7 @@ namespace App\Entity\Entities\Affiliations\Webepartners;
 
 use App\Entity\Entities\Affiliations\Interfaces\OfferProductInterface;
 use App\Entity\Entities\Affiliations\OffersAffiliation;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -88,7 +89,7 @@ class WebepartnersHotPrices extends OffersAffiliation implements OfferProductInt
 
     /**
      * @var string|null $ean
-     * @ORM\Column(name="ean", type="string", length=50, nullable=true)
+     * @ORM\Column(name="ean", type="string", length=100, nullable=true)
      */
     protected $ean;
 
@@ -420,19 +421,19 @@ class WebepartnersHotPrices extends OffersAffiliation implements OfferProductInt
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      * @Groups({"resource-admin-listing"})
      */
-    public function getDatetimeFrom(): \DateTime
+    public function getDatetimeFrom(): DateTime
     {
         return $this->getDatetimeUpdate();
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      * @Groups({"resource-admin-listing"})
      */
-    public function getDatetimeTo(): ?\DateTime
+    public function getDatetimeTo(): ?DateTime
     {
         return null;
     }
