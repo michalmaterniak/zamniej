@@ -2,6 +2,7 @@
 namespace App\Entity\Entities\Affiliations\Webepartners;
 use App\Entity\Entities\Affiliations\Interfaces\OfferPromotionInterface;
 use App\Entity\Entities\Affiliations\OffersAffiliation;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -15,7 +16,7 @@ class WebepartnersPromotions extends OffersAffiliation implements OfferPromotion
 
     /**
      * @var string $voucherId
-     * @ORM\Column(name="voucher_id", type="string", length=50, nullable=false, unique=true)
+     * @ORM\Column(name="voucher_id", type="string", length=100, nullable=false, unique=true)
      */
     protected $voucherId;
 
@@ -32,13 +33,13 @@ class WebepartnersPromotions extends OffersAffiliation implements OfferPromotion
     protected $voucherText;
 
     /**
-     * @var \DateTime $dateFrom
+     * @var DateTime $dateFrom
      * @ORM\Column(name="date_from", type="datetime", nullable=false)
      */
     protected $dateFrom;
 
     /**
-     * @var \DateTime $dateTo
+     * @var DateTime $dateTo
      * @ORM\Column(name="date_to", type="datetime", nullable=false)
      */
     protected $dateTo;
@@ -51,7 +52,7 @@ class WebepartnersPromotions extends OffersAffiliation implements OfferPromotion
 
     /**
      * @var string $affiliateProgramId
-     * @ORM\Column(name="affiliate_program_id", type="string", length=50, nullable=false)
+     * @ORM\Column(name="affiliate_program_id", type="string", length=100, nullable=false)
      */
     protected $affiliateProgramId;
 
@@ -63,7 +64,7 @@ class WebepartnersPromotions extends OffersAffiliation implements OfferPromotion
 
     /**
      * @var string|null $voucherUrl
-     * @ORM\Column(name="voucher_url", type="string", length=400, nullable=true)
+     * @ORM\Column(name="voucher_url", type="string", length=700, nullable=true)
      */
     protected $voucherUrl;
 
@@ -81,7 +82,7 @@ class WebepartnersPromotions extends OffersAffiliation implements OfferPromotion
 
     /**
      * @var string|null $voucherTypeName
-     * @ORM\Column(name="voucher_type_name", type="string", length=20, nullable=true)
+     * @ORM\Column(name="voucher_type_name", type="string", length=100, nullable=true)
      */
     protected $voucherTypeName;
 
@@ -134,42 +135,42 @@ class WebepartnersPromotions extends OffersAffiliation implements OfferPromotion
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getDateFrom(): \DateTime
+    public function getDateFrom(): DateTime
     {
         return $this->dateFrom;
     }
 
     /**
-     * @param \DateTime|string $dateFrom
+     * @param DateTime|string $dateFrom
      */
     public function setDateFrom($dateFrom): void
     {
-        if(is_string($dateFrom))
-            $this->dateFrom = new \DateTime($dateFrom);
-        else if($dateFrom instanceof \DateTime)
+        if (is_string($dateFrom))
+            $this->dateFrom = new DateTime($dateFrom);
+        else if ($dateFrom instanceof DateTime)
             $this->dateFrom = $dateFrom;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getDateTo(): \DateTime
+    public function getDateTo(): DateTime
     {
         return $this->dateTo;
     }
 
     /**
-     * @param \DateTime $dateTo
+     * @param DateTime $dateTo
      */
     public function setDateTo($dateTo): void
     {
-        if(is_string($dateTo))
-            $this->dateTo = new \DateTime($dateTo);
-        else if($dateTo instanceof \DateTime)
+        if (is_string($dateTo))
+            $this->dateTo = new DateTime($dateTo);
+        else if ($dateTo instanceof DateTime)
             $this->dateTo = $dateTo;
-        else if(is_null($dateTo))
+        else if (is_null($dateTo))
             $this->dateTo = null;
     }
 
@@ -307,19 +308,19 @@ class WebepartnersPromotions extends OffersAffiliation implements OfferPromotion
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      * @Groups({"resource-admin-listing"})
      */
-    public function getDatetimeFrom(): \DateTime
+    public function getDatetimeFrom(): DateTime
     {
         return $this->getDateFrom();
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      * @Groups({"resource-admin-listing"})
      */
-    public function getDatetimeTo(): ?\DateTime
+    public function getDatetimeTo(): ?DateTime
     {
         return $this->getDateTo();
     }
