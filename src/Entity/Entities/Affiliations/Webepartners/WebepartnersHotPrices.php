@@ -89,7 +89,7 @@ class WebepartnersHotPrices extends OffersAffiliation implements OfferProductInt
 
     /**
      * @var string|null $ean
-     * @ORM\Column(name="ean", type="string", length=100, nullable=true)
+     * @ORM\Column(name="ean", type="string", length=50, nullable=true)
      */
     protected $ean;
 
