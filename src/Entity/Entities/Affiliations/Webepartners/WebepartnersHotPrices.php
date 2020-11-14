@@ -23,13 +23,13 @@ class WebepartnersHotPrices extends OffersAffiliation implements OfferProductInt
 
     /**
      * @var string|null $shopProductId
-     * @ORM\Column(name="shop_product_id", type="string", length=10, nullable=true)
+     * @ORM\Column(name="shop_product_id", type="string", length=100, nullable=true)
      */
     protected $shopProductId;
 
     /**
      * @var string|null $shopCategoryName
-     * @ORM\Column(name="shop_category_name", type="string", length=400, nullable=true)
+     * @ORM\Column(name="shop_category_name", type="string", length=700, nullable=true)
      */
     protected $shopCategoryName;
 
@@ -71,13 +71,13 @@ class WebepartnersHotPrices extends OffersAffiliation implements OfferProductInt
 
     /**
      * @var string|null $programName
-     * @ORM\Column(name="program_name", type="string", length=100, nullable=true)
+     * @ORM\Column(name="program_name", type="string", length=200, nullable=true)
      */
     protected $programName;
 
     /**
      * @var string|null $programLogoUrl
-     * @ORM\Column(name="program_logo_url", type="string", length=200, nullable=true)
+     * @ORM\Column(name="program_logo_url", type="string", length=700, nullable=true)
      */
     protected $programLogoUrl;
 
