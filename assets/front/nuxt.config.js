@@ -1,3 +1,5 @@
+import sitemap from "./config/sitemap";
+
 var webpack = require('webpack');
 export default {
   /*
@@ -126,6 +128,9 @@ export default {
       ]
     },
   },
+
+  sitemap,
+
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
