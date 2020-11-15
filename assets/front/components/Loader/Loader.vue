@@ -10,13 +10,6 @@
         </div>
       </div>
     </div>
-    <noscript inline-template>
-      <style type="text/css">
-        .preloader {
-          display: none;
-        }
-      </style>
-    </noscript>
   </div>
 </template>
 
@@ -40,6 +33,10 @@ export default {
     finishLoader()
     {
       this.DOMLoading = false;
+      let loaders = document.getElementsByClassName('preloader');
+      for (let item in loaders) {
+        loaders[item].style.display = 'block';
+      }
     },
     anime()
     {
