@@ -34,11 +34,19 @@ class SubpagesRepository extends GlobalRepository
      * @param string $name
      * @return static
      */
-    public function searchSubpagesByName(string $name) : self
+    public function searchSubpagesByName(string $name): self
     {
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.name LIKE :name AND {$this->getRootAlias()}.active = 1")
             ->setParameter('name', "%$name%");
-        ;
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function findAllToSitemap()
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 1");
         return $this;
     }
 }

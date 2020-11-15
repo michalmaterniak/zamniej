@@ -1,25 +1,14 @@
 const axios = require('axios')
-
-export default [
-  {
-    path: '/sitemap-products.xml',
-    routes: [
-      // array of URL
-    ]
-  },
-  {
-    path: '/sitemap-news.xml',
+let baseURL = process.env.NODE_ENV === 'production' ? process.env.PROD_HOST : process.env.DEV_HOST;
+export default {
+  path: '/sitemap.xml',
     routes: async () => {
-      const {data} = await axios.get('https://jsonplaceholder.typicode.com/users')
-      return data.map((user) => `/users/${user.username}`)
+      const {data} = await axios.post(`http://apizamniej.loc/page/api/sitemap`)
+      return data.urls.map((url) => url.path)
+    },
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date()
     }
-  },
-  {
-    path: '/sitemapindex.xml',
-    sitemaps: [
-      {
-        // array of Sitemap configuration
-      }
-    ]
-  }
-]
+}
