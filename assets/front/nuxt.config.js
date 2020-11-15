@@ -1,4 +1,7 @@
+import sitemap from "./config/sitemap";
+
 var webpack = require('webpack');
+
 export default {
   /*
   ** Nuxt rendering mode
@@ -126,6 +129,9 @@ export default {
       ]
     },
   },
+
+  sitemap,
+
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -133,7 +139,7 @@ export default {
   axios: {
     // proxy: true,
     headers: process.env.NODE_ENV === 'development' ? {
-      common:{
+      common: {
         "Access-Control-Allow-Origin": '*',
         "Access-Control-Expose-Headers": 'X-Debug-Token,X-Debug-Token-Link,Symfony-Debug-Toolbar-Replace'
         //"Access-Control-Expose-Headers": 'X-Debug-Token,X-Debug-Token-Link,Symfony-Debug-Toolbar-Replace'

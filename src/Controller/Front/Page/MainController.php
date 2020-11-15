@@ -2,16 +2,15 @@
 namespace App\Controller\Front\Page;
 
 use App\Application\Pages\PagesManager;
-use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
 use App\Repository\Repositories\Shops\Offers\OffersRepository;
-use App\Repository\Repositories\Subpages\ResourcesRepository;
 use App\Twig\TemplateVars;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as GlobalController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends GlobalController
@@ -28,14 +27,17 @@ class MainController extends GlobalController
 
     /**
      * @param PagesManager $modelPagesManager
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      * @Route("/{slug?}", name="page-pages-main", requirements={"slug"="^((?!elfinder|efconnect).)*$"}, methods={"GET"})
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      */
     public function main(
-        PagesManager $modelPagesManager
-    ) {
-
+        PagesManager $modelPagesManager, KernelInterface $httpKernel
+    )
+    {
+        if ($httpKernel->getEnvironment() == 'prod') {
+            return new Response('', 404);
+        }
         $page = $modelPagesManager->getCurrentResourceModel(true);
 
         if (!$page) {
@@ -43,9 +45,9 @@ class MainController extends GlobalController
         }
 
         $this->templateVars->insert('page', $page);
-        $className = 'App\\Controller\\Front\\Page\\'.$page->getComponents()->getResourceConfig()->getController().'Controller';
+        $className = 'App\\Controller\\Front\\Page\\' . $page->getComponents()->getResourceConfig()->getController() . 'Controller';
 
-        return $this->forward($className.'::index', [
+        return $this->forward($className . '::index', [
             'page' => $page,
         ]);
     }

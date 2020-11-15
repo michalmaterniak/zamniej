@@ -138,4 +138,12 @@ abstract class ResourceConfig
     {
         return in_array($type, $this->getAvailableTypesChildren());
     }
+
+    /**
+     * @return false|string|string[]
+     */
+    public function getSlug()
+    {
+        return mb_strtolower($this->getTypeName());
+    }
 }
