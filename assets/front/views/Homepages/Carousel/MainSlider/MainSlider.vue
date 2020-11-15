@@ -23,8 +23,13 @@
                     <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="text-right">
                         <!--                  <button class="itg-btn box-btn white" >{{ offer.slide.extra.code }}<span></span></button>-->
-                        <button class="itg-btn white btn  btn-orange btn-promo" @click.prevent="redirectOffer(offer.slide.offer.idOffer)" v-if="offer.slide.type === 2">Pobierz kupon</button>
-                        <button class="itg-btn white btn  btn-orange btn-promo" @click.prevent="redirectOffer(offer.slide.offer.idOffer)" v-else>Przejdź do promocji</button>
+                        <button @click.prevent="redirect(offer.slide.offer.idOffer)"
+                                class="itg-btn white btn  btn-orange btn-promo" v-if="offer.slide.type === 2">Pobierz
+                          kupon
+                        </button>
+                        <button @click.prevent="redirect(offer.slide.offer.idOffer)"
+                                class="itg-btn white btn  btn-orange btn-promo" v-else>Przejdź do promocji
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -69,13 +74,21 @@ export default {
       this.resetInterval();
     }
   },
-  methods:{
-    changeSlide(i = 1)
-    {
-      if(this.activeSlide+i >= this.offers.length)
+  methods: {
+    redirect(idOffer) {
+      this.$gtagEv({
+        action: 'redirect',
+        category: 'offer',
+        label: 'main-slider',
+        value: idOffer
+      });
+      this.redirectOffer(idOffer)
+    },
+    changeSlide(i = 1) {
+      if (this.activeSlide + i >= this.offers.length)
         this.activeSlide = 0;
-      else if(this.activeSlide+i < 0)
-        this.activeSlide = this.offers.length-1;
+      else if (this.activeSlide + i < 0)
+        this.activeSlide = this.offers.length - 1;
       else
         this.activeSlide = this.activeSlide + i;
     },

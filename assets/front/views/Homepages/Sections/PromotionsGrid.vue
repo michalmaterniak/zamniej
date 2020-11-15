@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="masonry masonry-columns-4">
-          <div class="masonry-item" v-for="(offer, index) in promotions" @click="openPopupPromo(offer.idOffer, true)">
+          <div @click="redirect(offer)" class="masonry-item" v-for="(offer, index) in promotions">
             <div class="box-a white-gradient">
               <figure>
                 <img :src="offer.logo.modifyPath" :alt="offer.logo.original.data.alt">
@@ -36,10 +36,20 @@
 
 <script>
 import RatingShopShowing from "@/components/Elements/Rating/RatingShopShowing";
+
 export default {
   name: "PromotionsGrid",
   components: {RatingShopShowing},
-  props: ['promotions']
+  props: ['promotions'],
+  methods: {
+    redirect(offer) {
+      this.openPopupPromo(offer.idOffer, true, {
+        action: 'redirect',
+        category: 'offer',
+        label: 'promotions'
+      })
+    }
+  }
 }
 </script>
 

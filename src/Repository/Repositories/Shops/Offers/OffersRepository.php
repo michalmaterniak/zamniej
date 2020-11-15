@@ -188,6 +188,8 @@ class OffersRepository extends GlobalRepository
     {
         $this->orderBy(['datetimeTo' => 'DESC', 'datetimeFrom' => 'DESC'])
             ->withPhoto()
+            ->withShopAffil()
+            ->withSubpage()
             ->byPageRequest();
         $this->queryBuilder
             ->andWhere(
@@ -216,6 +218,15 @@ class OffersRepository extends GlobalRepository
     public function listingHomepage(): self
     {
         $this->withPhoto()->withShopAffil()->withContent()->lastMax(8);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function withSubpage() : self
+    {
+        $this->addLeftJoin('subpage');
         return $this;
     }
 }

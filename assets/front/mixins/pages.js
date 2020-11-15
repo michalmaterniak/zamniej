@@ -44,20 +44,25 @@ export default {
     getShopPageWithShopOfferHash(slug, idOffer) {
       return slug + this.$generateHash({shopOffer: idOffer});
     },
-    openPopupPromo(idOffer, redirect = false)
-    {
-
+    openPopupPromo(idOffer, withRedirect = false, gtag = {}) {
       this.changeHash(this.$generateHash({offer: idOffer}));
+      if (withRedirect) {
+        gtag.value = idOffer;
+        this.$gtagEv(gtag);
+        setTimeout(() => {
+          this.redirectOutside(this.$store.getters.redirectLinkOffer(idOffer));
+        }, 200);
+      }
       this.$store.commit('setPopup', {
         template: () => import("@/components/Popup/PopupPromotionOffer"),
         title: 'Przejdź do promocji',
-        options:{
+        options: {
           blockedExit: true,
           actionAfterClose: (obj = {}) => {
             this.$router.push({hash: '', params: {scroll: false}});
           },
         },
-        data:{
+        data: {
           idOffer
         }
       })
