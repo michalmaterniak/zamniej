@@ -32,7 +32,7 @@
           <div class="col-md-12">
               <span class="orange">
                 <button class="btn btn-orange"
-                        v-text="shop.subpage.subpage.content.data.details.contact.www" @click.prevent="force"></button>
+                        v-text="shop.subpage.subpage.content.data.details.contact.www" @click.prevent="redirectInsideShop"></button>
               </span>
           </div>
         </div>
@@ -202,10 +202,8 @@ export default {
   components: {PopularShopsTag, BlogArticlesLatest, RatingShop, ContactDetails},
   props:['shop'],
   methods:{
-    force(ev)
-    {
-      if(ev.type === 'click')
-        this.openWindow(this.shop.subpage.urlTracking);
+    redirectInsideShop() {
+      this.redirectInside(this.$store.getters.redirectLinkShop(this.shop.subpage.idShopAffil));
     },
   }
 }

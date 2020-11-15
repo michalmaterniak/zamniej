@@ -91,7 +91,7 @@ class HomepageSubpage extends ResourceSubpage
     {
         if(!$this->promotions) {
             $promotions = $this->getComponents()->getOffersManager()->createModelsOffers(
-                $this->getComponents()->getOffersRepository()->select()->getTypeOffer(OffersPromotion::class)->withPhoto()->withShopAffil()->withContent()->lastMax(8)->getResults()
+                $this->getComponents()->getOffersRepository()->select()->listingHomepage()->getTypeOffer(OffersPromotion::class)->getResults()
             );
 
             $this->promotions = new ArrayCollection();
@@ -164,7 +164,8 @@ class HomepageSubpage extends ResourceSubpage
     {
         if (!$this->vouchers) {
             $vouchers = $this->getComponents()->getOffersManager()->createModelsOffers(
-                $this->getComponents()->getOffersRepository()->select()->getTypeOffer(OffersVoucher::class)->withShopAffil()->withContent()->withPhoto()->lastMax(8)->getResults()
+                $this->getComponents()->getOffersRepository()->select()->listingHomepage()->getTypeOffer(OffersVoucher::class)->getResults()
+
             );
 
             $this->vouchers = new ArrayCollection();

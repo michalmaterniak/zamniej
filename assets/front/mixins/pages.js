@@ -5,6 +5,14 @@ export default {
     }
   },
   methods: {
+    redirectInside(url) {
+      window.open(url);
+      // location.href = url;
+    },
+    redirectOutside(url) {
+      window.open(location.href);
+      location.href = url;
+    },
     redirectShop(idShop) {
       window.open(this.$store.getters.redirectLinkShop(idShop));
     },

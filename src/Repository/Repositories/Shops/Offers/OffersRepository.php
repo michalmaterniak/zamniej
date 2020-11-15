@@ -186,7 +186,7 @@ class OffersRepository extends GlobalRepository
      */
     public function listigPromotions(): self
     {
-        $this->orderBy(['datetimeFrom' => 'ASC', 'datetimeTo' => 'ASC'])
+        $this->orderBy(['datetimeTo' => 'DESC', 'datetimeFrom' => 'DESC'])
             ->withPhoto()
             ->byPageRequest();
         $this->queryBuilder
@@ -203,10 +203,19 @@ class OffersRepository extends GlobalRepository
      * @param int $countMax
      * @return $this
      */
-    public function lastMax(int $countMax) : self
+    public function lastMax(int $countMax): self
     {
-        $this->orderBy(['datetimeFrom' => 'DESC', 'datetimeTo' => 'DESC']);
+        $this->orderBy(['datetimeTo' => 'DESC', 'datetimeFrom' => 'DESC']);
         $this->queryBuilder->setMaxResults($countMax);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function listingHomepage(): self
+    {
+        $this->withPhoto()->withShopAffil()->withContent()->lastMax(8);
         return $this;
     }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="box-a marB30 pointer" :class="{'promo-no-loger-current' : !offer.offer.actual}" @click.prevent="$emit('shopPopupOffer', {idOffer: offer.offer.idOffer, redirect: false})">
+    <div class="box-a marB30 pointer" :class="{'promo-no-loger-current' : !offer.offer.actual}" @click.prevent="$emit('shopPopupOffer', {idOffer: offer.offer.idOffer, redirect: true})">
       <div class="box-detail box-height">
         <h4 class="hover marB5 pointer header-promo-grid" v-text="offer.offer.title"></h4>
         <div class="wrapper-box-detail">
