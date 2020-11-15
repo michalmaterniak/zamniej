@@ -9,7 +9,7 @@
         <vue-glide-slide v-for="(offer, index) in offers" :key="index">
           <div class="item">
             <figure>
-              <img class="img-slider" :src="offer.photo.modifyPath" :alt="offer.photo.original.alt" data-not-lazy>
+              <img class="img-slider" :src="offer.photo.modifyPath" :alt="offer.slide.header" data-not-lazy>
               <div class="box-slider">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <h4 v-text="offer.slide.header"></h4>
