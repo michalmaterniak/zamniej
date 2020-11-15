@@ -5,8 +5,6 @@ use App\Application\Affiliations\Webepartners\Api\HotPrice\HotPriceWebepartners;
 use App\Application\Affiliations\Webepartners\Api\Vouchers\VouchersWebepartners;
 use App\Application\Images\ImageManager;
 use App\Application\Offers\Factory\OfferFactoryManager;
-use App\Application\Offers\Factory\Offers\OfferPromotionFactory;
-use App\Application\Offers\Factory\Offers\OfferVoucherFactory;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersBanners;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersHotPrices;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
@@ -17,8 +15,10 @@ use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersHotPricesR
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersPromotionsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersVouchersRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Throwable;
 
 class OffersFactoryWebepartners
 {
@@ -145,7 +145,7 @@ class OffersFactoryWebepartners
      */
     public function findOffers($programId) : void
     {
-        $this->keyVoucher = (new \DateTime())->format('dmY');
+        $this->keyVoucher = (new DateTime())->format('dmY');
 
         try
         {
@@ -155,15 +155,12 @@ class OffersFactoryWebepartners
             else if(is_numeric($programId))
                 $program = $this->getProgram($programId);
 
-            if($program && $program->isEnable())
-            {
+            if ($program && $program->isEnable() && (bool)$program->getSubpage()) {
                 $this->loadVouchers($program);
                 $this->loadBanners($program);
                 $this->loadHotPrices($program);
             }
-        }
-        catch (\Throwable $exception)
-        {
+        } catch (Throwable $exception) {
             dump($exception);
             die;
         }
@@ -175,8 +172,8 @@ class OffersFactoryWebepartners
         {
             $this->vouchers = [];
             $vouchersWebe = $this->vouchersWebepartners->getVouchers(
-                (new \DateTime())->modify('-2 years'),
-                new \DateTime()
+                (new DateTime())->modify('-2 years'),
+                new DateTime()
             );
             foreach ($vouchersWebe as $item)
             {
@@ -198,6 +195,7 @@ class OffersFactoryWebepartners
                 $entity->$method($value);
         }
     }
+
     protected function loadVouchers(WebepartnersPrograms $program)
     {
         $vouchers = $this->getVouchers();
