@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class='preloader' :class="{'loaderout' : !loader}">
+    <div :class="{'loaderout' : !loader}" class='preloader' id="preloader">
       <div class='loader-center'>
         <div class='loader'>
           <div class='circle circle-1'></div>
@@ -30,12 +30,11 @@ export default {
     }
   },
   methods:{
-    finishLoader()
-    {
+    finishLoader() {
       this.DOMLoading = false;
-      let loaders = document.getElementsByClassName('preloader');
-      for (let item in loaders) {
-        loaders[item].style.display = 'block';
+      let loader = document.getElementById('preloader');
+      if (loader) {
+        loader.style.display = 'block';
       }
     },
     anime()
