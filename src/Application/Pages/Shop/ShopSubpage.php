@@ -114,7 +114,7 @@ class ShopSubpage extends ResourceSubpage
      */
     public function getLogo()
     {
-        return $this->getPhoto()->getModifiedPhoto('adaptive', 270, 200, [
+        return $this->getPhoto()->getModifiedPhoto('insertCenter', 270, 200, [
             'position' => 'center'
         ]);
 

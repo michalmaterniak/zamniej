@@ -4,6 +4,7 @@ namespace App\Command\Webepartners;
 
 use App\Application\Affiliations\Webepartners\Api\Programs\ProgramsWebepartners;
 use App\Application\Affiliations\Webepartners\ProgramsFactoryWebepartners;
+use GuzzleHttp\Exception\ConnectException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,9 +39,15 @@ class ProgramsWebepartnersCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $programs = $this->programsWebepartners->getPrograms();
-        foreach ($programs as $program) {
-            $programEntity = $this->programsFactoryWebepartners->updateProgram($program, true);
+        try {
+
+            $programs = $this->programsWebepartners->getPrograms();
+            foreach ($programs as $program) {
+                $programEntity = $this->programsFactoryWebepartners->updateProgram($program, true);
+            }
+
+        } catch (ConnectException $connectException) {
+            dump('Nie można pobrać programów z webepartners');
         }
 
         return 0;
