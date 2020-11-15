@@ -10,7 +10,7 @@
                 Bądź na bieżąco z najnowszymi promocjami
               </p>
               <p>
-                "Pieniądze szczęścia nie dają. Dpiero zakupy."
+                "Pieniądze szczęścia nie dają. Dopiero zakupy."
               </p>
             </div>
           </div>
