@@ -197,12 +197,19 @@ import ContactDetails from "@/views/Shops/Shop/ContactDetails";
 import RatingShop from "@/components/Elements/Rating/RatingShop";
 import BlogArticlesLatest from "@/components/Elements/Linking/BlogArticlesLatest";
 import PopularShopsTag from "~/components/Elements/Linking/PopularShopsTag";
+
 export default {
   name: "ShopDetails",
   components: {PopularShopsTag, BlogArticlesLatest, RatingShop, ContactDetails},
   props:['shop'],
   methods:{
     redirectInsideShop() {
+      this.$gtagEv({
+        action: 'redirect',
+        category: 'shop',
+        label: 'shop-link-details',
+        value: this.shop.subpage.subpage.idSubpage
+      });
       this.redirectInside(this.$store.getters.redirectLinkShop(this.shop.subpage.idShopAffil));
     },
   }

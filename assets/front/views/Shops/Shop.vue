@@ -130,7 +130,7 @@ export default {
         action: 'redirect',
         category: 'shop',
         label: 'empty-shop-link',
-        value: this.offer.idOffer
+        value: this.model.subpage.subpage.idSubpage
       });
       this.redirectInsideShop();
     },
