@@ -129,7 +129,14 @@ export default {
     },
   },
 
-  sitemap,
+  sitemap: {
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date()
+    },
+    routes: ['foo/3', 'foo/2'],
+  },
 
   /*
   ** Axios module configuration
@@ -138,7 +145,7 @@ export default {
   axios: {
     // proxy: true,
     headers: process.env.NODE_ENV === 'development' ? {
-      common:{
+      common: {
         "Access-Control-Allow-Origin": '*',
         "Access-Control-Expose-Headers": 'X-Debug-Token,X-Debug-Token-Link,Symfony-Debug-Toolbar-Replace'
         //"Access-Control-Expose-Headers": 'X-Debug-Token,X-Debug-Token-Link,Symfony-Debug-Toolbar-Replace'

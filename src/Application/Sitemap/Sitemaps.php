@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Sitemap;
 
 use App\Application\Pages\PagesManager;
@@ -10,5 +9,12 @@ class Sitemaps extends GlobalSitemaps
     public function __construct(PagesManager $resourcesManager)
     {
         parent::__construct($resourcesManager);
+    }
+
+    public function getSitemaps()
+    {
+        return [
+            'route'
+        ]
     }
 }
