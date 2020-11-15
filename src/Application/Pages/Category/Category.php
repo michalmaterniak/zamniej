@@ -53,9 +53,7 @@ class Category extends Resource
     {
         if (!$this->shops) {
             $this->shops = $this->getComponents()->getResourcesManager()->loadShops(
-                $this->getComponents()->getShopRepository()->select()->byParent(
-                    $this->getModelEntity()
-                )->listingCategory()->getResults()
+                $this->getComponents()->getShopRepository()->select()->category($this->getModelEntity())->listingCategory()->getResults()
             );
         }
         return $this->shops;

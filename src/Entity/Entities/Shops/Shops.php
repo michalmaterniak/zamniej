@@ -32,12 +32,6 @@ class Shops implements ResourcesInterface
      */
     protected $tag;
 
-    /**
-     * @var int $priority
-     * @ORM\Column(name="priority", type="smallint", nullable=false)
-     */
-    protected $priority = 0;
-
     public function __construct(string $name)
     {
         $this->setName($name);
@@ -65,26 +59,5 @@ class Shops implements ResourcesInterface
     public function setTag(ShopTags $tag): void
     {
         $this->tag = $tag;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPriority(): int
-    {
-        return $this->priority;
-    }
-
-    /**
-     * @param int $priority
-     */
-    public function setPriority(int $priority): void
-    {
-        $this->priority = $priority;
-    }
-
-    public function addPriority(int $count = 1)
-    {
-        $this->priority += $count;
     }
 }
