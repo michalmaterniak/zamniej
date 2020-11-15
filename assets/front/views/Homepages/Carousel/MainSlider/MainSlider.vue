@@ -23,9 +23,8 @@
                     <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="text-right">
                         <!--                  <button class="itg-btn box-btn white" >{{ offer.slide.extra.code }}<span></span></button>-->
-                        <button class="itg-btn white btn  btn-orange btn-promo" @click.prevent="toPopupPromo($event, offer.slide.offer)" v-if="offer.slide.type === 2">Pobierz kupon</button>
-                        <button class="itg-btn white btn  btn-orange btn-promo" @click.prevent="toPopupPromo($event, offer.slide.offer)" v-else>Przejdź do promocji</button>
-
+                        <button class="itg-btn white btn  btn-orange btn-promo" @click.prevent="redirectOffer(offer.slide.offer.idOffer)" v-if="offer.slide.type === 2">Pobierz kupon</button>
+                        <button class="itg-btn white btn  btn-orange btn-promo" @click.prevent="redirectOffer(offer.slide.offer.idOffer)" v-else>Przejdź do promocji</button>
                       </div>
                     </div>
                   </div>

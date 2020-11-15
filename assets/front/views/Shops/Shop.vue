@@ -29,11 +29,11 @@
               <div class="col-md-12 box1 marB30">
                 <div class="section-box section-box-white">
                   <div class="boxbg">
-                    <h3>
+                    <div class="h3">
                       <i class="flaticon-label"></i>Niestety, nie posiadamy w tej chwili żadnych promocji
-                    </h3>
+                    </div>
                     <div class="ask-btn text-right">
-                      <button class="itg-btn cart-btn"> <span>Przejdz do sklepu</span> </button>
+                      <button class="itg-btn cart-btn" @click="redirectInsideShop"> <span>Przejdź do sklepu</span> </button>
                     </div>
                   </div>
                 </div>
@@ -44,10 +44,10 @@
                 <div class="ask-btn btn-fixed hidden-lg hidden-md hidden-sm button-details" >
                   <button class="itg-btn cart-btn" @click="showDetailsShop"><font-awesome-icon icon="arrow-left" /></button>
                 </div>
-                <h3 class="h5"><i class="flaticon-label"></i>
+                <div class="h4"><i class="flaticon-label"></i>
                   <span class="hidden-xs hidden-sm">Nieaktualne promocje</span>
                   <a href="#" @click.prevent="showNotActualOffers" class="hidden-md hidden-lg pointer">Pokaż nieaktualne promocje</a>
-                </h3>
+                </div>
               </div>
               <div class="col-md-12">
                 <div class="row">
@@ -124,6 +124,12 @@ export default {
     },
   },
   methods: {
+    redirectOutsideShop() {
+      this.redirectOutside(this.$store.getters.redirectLinkShop(this.model.subpage.idShopAffil));
+    },
+    redirectInsideShop() {
+      this.redirectInside(this.$store.getters.redirectLinkShop(this.model.subpage.idShopAffil));
+    },
     findIndexOffer(idOffer)
     {
       return  _.findIndex(this.offers, offer => {
@@ -155,11 +161,10 @@ export default {
       if(withRedirect)
       {
         setTimeout(() => {
-          window.open(location.href);
           if(this.offers[index].offer.actual)
-            location.href = this.$store.getters.redirectLinkOffer(this.offers[index].offer.idOffer);
+            this.redirectOutside(this.$store.getters.redirectLinkOffer(this.offers[index].offer.idOffer));
           else
-            location.href = this.$store.getters.redirectLinkShop(this.model.subpage.idShopAffil);
+            this.redirectOutside(this.$store.getters.redirectLinkShop(this.model.subpage.idShopAffil));
         },200);
       }
       this.$store.commit('setPopup', {

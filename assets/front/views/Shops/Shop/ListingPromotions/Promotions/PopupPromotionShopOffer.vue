@@ -15,7 +15,7 @@
           <liking-offer :offer="offer" @setNewLiking="offerShopLiking"/>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-          <button class="itg-btn cart-btn" @click.prevent="redirect">
+          <button class="itg-btn cart-btn" @click.prevent="redirectToShop">
             <span class="hidden-md hidden-lg">Przejdź</span>
             <span class="hidden-xs hidden-sm" ><span v-if="offer.offer.actuall">Przejdź do promocji</span><span v-else>Przejdź do sklepu</span></span>
           </button>
