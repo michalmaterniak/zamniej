@@ -153,7 +153,7 @@ class WebepartnersVouchers extends OffersAffiliation implements OfferVoucherInte
      */
     public function setVoucherText(?string $voucherText): void
     {
-        $this->voucherText = $voucherText;
+        $this->voucherText = $voucherText ?: $this->voucherName;
     }
 
     /**

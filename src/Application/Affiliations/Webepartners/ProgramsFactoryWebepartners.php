@@ -6,6 +6,7 @@ use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\AffiliationsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 class ProgramsFactoryWebepartners
 {
@@ -55,7 +56,7 @@ class ProgramsFactoryWebepartners
      * @param array $webeProgram
      * @param false $withOffers
      * @return WebepartnersPrograms
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function updateProgram(array $webeProgram, $withOffers = false) : WebepartnersPrograms
     {
@@ -83,7 +84,7 @@ class ProgramsFactoryWebepartners
 //        }
         $this->entityManager->flush();
 
-        if ($withOffers && $program->isEnable() && $program->getSubpage()) {
+        if ($withOffers && $program->isEnable() && (bool)$program->getSubpage()) {
             $this->offersFactoryWebepartners->findOffers($program);
         }
 
