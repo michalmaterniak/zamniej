@@ -159,6 +159,12 @@ class Resources implements EntityInterface
     protected $resourceId;
 
     /**
+     * @var int $priority
+     * @ORM\Column(name="priority", type="smallint", nullable=false)
+     */
+    protected $priority = 0;
+
+    /**
      * Resources constructor.
      * @param string $name
      * @param int $type
@@ -411,5 +417,26 @@ class Resources implements EntityInterface
     public function setResourceType(string $resourceType): void
     {
         $this->resourceType = $resourceType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param int $priority
+     */
+    public function setPriority(int $priority): void
+    {
+        $this->priority = $priority;
+    }
+
+    public function addPriority(int $count = 1)
+    {
+        $this->priority += $count;
     }
 }

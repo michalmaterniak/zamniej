@@ -2,6 +2,7 @@
 namespace App\Repository\Repositories\Subpages\Pages;
 
 use App\Application\Pages\Shop\ShopConfig;
+use App\Entity\Entities\Subpages\Resources;
 use App\Repository\Repositories\Subpages\CustomResourceRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Persistence\ManagerRegistry;
@@ -59,4 +60,16 @@ class ShopRepository extends CustomResourceRepository
         $this->queryBuilder->setMaxResults($max)->orderBy("{$this->getRootAlias()}.idResource", "DESC");
         return $this;
     }
+
+    /**
+     * @return $this
+     */
+    public function category(Resources $category): self
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.parent = :category")->setParameter('category', $category);
+        $this->queryBuilder->orderBy("{$this->getRootAlias()}.priority", "DESC");
+        return $this;
+    }
+
+
 }
