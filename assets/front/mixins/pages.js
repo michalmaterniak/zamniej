@@ -48,7 +48,7 @@ export default {
       this.changeHash(this.$generateHash({offer: idOffer}));
       if (withRedirect) {
         gtag.value = idOffer;
-        this.$gtag(gtag);
+        this.$gtagEv(gtag);
         setTimeout(() => {
           this.redirectOutside(this.$store.getters.redirectLinkOffer(idOffer));
         }, 200);
