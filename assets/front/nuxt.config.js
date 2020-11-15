@@ -1,6 +1,7 @@
 import sitemap from "./config/sitemap";
 
 var webpack = require('webpack');
+
 export default {
   /*
   ** Nuxt rendering mode
@@ -129,14 +130,7 @@ export default {
     },
   },
 
-  sitemap: {
-    defaults: {
-      changefreq: 'daily',
-      priority: 1,
-      lastmod: new Date()
-    },
-    routes: ['foo/3', 'foo/2'],
-  },
+  sitemap,
 
   /*
   ** Axios module configuration
