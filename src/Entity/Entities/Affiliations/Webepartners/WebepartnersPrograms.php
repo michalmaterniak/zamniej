@@ -2,6 +2,7 @@
 namespace App\Entity\Entities\Affiliations\Webepartners;
 
 use App\Entity\Entities\Affiliations\ShopsAffiliation;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -21,20 +22,20 @@ class WebepartnersPrograms extends ShopsAffiliation
 
     /**
      * @var string $affiliateProgramId
-     * @ORM\Column(name="affiliate_program_id", type="string", length=50, nullable=false)
+     * @ORM\Column(name="affiliate_program_id", type="string", length=100, nullable=false)
      * @Groups({"program-admin"})
      */
     protected $affiliateProgramId;
 
     /**
-     * @var \DateTime $createDate
+     * @var DateTime $createDate
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
      * @Groups({"program-admin"})
      */
     protected $createDate;
 
     /**
-     * @var \DateTime|null $updateDate
+     * @var DateTime|null $updateDate
      * @ORM\Column(name="update_date", type="datetime", nullable=true)
      * @Groups({"program-admin"})
      */
@@ -49,21 +50,21 @@ class WebepartnersPrograms extends ShopsAffiliation
 
     /**
      * @var string|null $programLogoUrl
-     * @ORM\Column(name="program_logo_url", type="string", length=400, nullable=true)
+     * @ORM\Column(name="program_logo_url", type="string", length=700, nullable=true)
      * @Groups({"program-admin"})
      */
     protected $programLogoUrl;
 
     /**
      * @var string|null $programUrl
-     * @ORM\Column(name="program_url", type="string", length=400, nullable=true)
+     * @ORM\Column(name="program_url", type="string", length=700, nullable=true)
      * @Groups({"program-admin"})
      */
     protected $programUrl;
 
     /**
      * @var string|null $affiliateTrackingProgramUrl
-     * @ORM\Column(name="affiliate_tracking_program_url", type="string", length=400, nullable=true)
+     * @ORM\Column(name="affiliate_tracking_program_url", type="string", length=700, nullable=true)
      * @Groups({"program-admin"})
      */
     protected $affiliateTrackingProgramUrl;
@@ -147,7 +148,7 @@ class WebepartnersPrograms extends ShopsAffiliation
 
     /**
      * @var string|null $feedUrl
-     * @ORM\Column(name="feed_url", type="string", length=400, nullable=true)
+     * @ORM\Column(name="feed_url", type="string", length=700, nullable=true)
      * @Groups({"program-admin"})
      */
     protected $feedUrl;
@@ -185,41 +186,41 @@ class WebepartnersPrograms extends ShopsAffiliation
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getCreateDate(): \DateTime
+    public function getCreateDate(): DateTime
     {
         return $this->createDate;
     }
 
     /**
-     * @param \DateTime|string $createDate
+     * @param DateTime|string $createDate
      */
     public function setCreateDate($createDate): void
     {
         if (is_string($createDate)) {
-            $this->createDate = new \DateTime($createDate);
-        } elseif ($createDate instanceof \DateTime) {
+            $this->createDate = new DateTime($createDate);
+        } elseif ($createDate instanceof DateTime) {
             $this->createDate = $createDate;
         }
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getUpdateDate(): ?\DateTime
+    public function getUpdateDate(): ?DateTime
     {
         return $this->updateDate;
     }
 
     /**
-     * @param \DateTime|string|null $updateDate
+     * @param DateTime|string|null $updateDate
      */
     public function setUpdateDate($updateDate): void
     {
         if (is_string($updateDate)) {
-            $this->updateDate = new \DateTime($updateDate);
-        } elseif ($updateDate instanceof \DateTime) {
+            $this->updateDate = new DateTime($updateDate);
+        } elseif ($updateDate instanceof DateTime) {
             $this->updateDate = $updateDate;
         }
     }

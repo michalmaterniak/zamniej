@@ -48,11 +48,12 @@ class ShopsRepository extends PageResourceRepository
      */
     public function lastPopular(int $priority = 2, int $count = 5): self
     {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.priority > :priority")->setParameter('priority', $priority);
         $aliasRootTag = $this->addLeftJoin('tag');
         $this->addLeftJoin('tags', $aliasRootTag);
 
         $aliasRootResource = $this->addLeftJoin('resource');
+        $this->queryBuilder->andWhere("{$aliasRootResource}.priority > :priority")->setParameter('priority', $priority);
+
         $this->addLeftJoin('subpages', $aliasRootResource);
         return $this;
     }

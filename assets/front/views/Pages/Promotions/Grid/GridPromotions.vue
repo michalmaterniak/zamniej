@@ -5,7 +5,7 @@
         <img :src="offer.logo.modifyPath" :alt="offer.logo.original.data.alt">
       </figure>
       <div class="box-detail box-detail-white-back">
-        <h4 class="hover marB5" v-text="offer.idOffer+' - '+offer.title"></h4>
+        <h4 class="hover marB5" v-text="offer.title"></h4>
         <div class="content-promo" v-html="offer.content"></div>
       </div>
     </div>
