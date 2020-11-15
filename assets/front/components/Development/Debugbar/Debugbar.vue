@@ -689,6 +689,20 @@ export default {
       responseType: 'text',
     }).then(res => {
       this.toolbar = res.data;
+      setTimeout(() => {
+        let close = document.getElementById('sfToolbarHideButton-' + this.token);
+        if (close) {
+          close.addEventListener('click', e => {
+            e.stopPropagation();
+            e.preventDefault();
+            let p = e.target.parentNode.parentNode;
+            p.style.display = 'none';
+            (p.previousElementSibling || p.previousSibling).style.display = 'none';
+            document.getElementById('sfMiniToolbar-' + this.token).style.display = 'block';
+          })
+        }
+      }, 500);
+
     });
   }
 }

@@ -8,7 +8,7 @@
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12 marT20 marB10 text-left">
         <div class="row">
-          <button class="itg-btn cart-btn hover-black-button-promo" @click="openPopupPromo(offer.idOffer, true)"> Kod promocyjny </button>
+          <button @click="redirect" class="itg-btn cart-btn hover-black-button-promo"> Kod promocyjny</button>
         </div>
       </div>
     </div>
@@ -18,10 +18,16 @@
 <script>
 export default {
   name: "SliderPromotion",
-  props:['i', 'offer'],
-  methods:{
-
-  }
+  props: ['i', 'offer'],
+  methods: {
+    redirect() {
+      this.openPopupPromo(this.offer.idOffer, true, {
+        action: 'redirect',
+        category: 'offer',
+        label: 'vouchers'
+      })
+    }
+  },
 }
 </script>
 

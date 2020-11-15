@@ -33,7 +33,7 @@
                       <i class="flaticon-label"></i>Niestety, nie posiadamy w tej chwili żadnych promocji
                     </div>
                     <div class="ask-btn text-right">
-                      <button class="itg-btn cart-btn" @click="redirectInsideShop"> <span>Przejdź do sklepu</span> </button>
+                      <button @click="redirectEmpty" class="itg-btn cart-btn"><span>Przejdź do sklepu</span></button>
                     </div>
                   </div>
                 </div>
@@ -85,6 +85,7 @@ import ShopDetails from "@/views/Shops/Shop/ShopDetails";
 import ShopOffersGrid from "~/views/Shops/Shop/ListingPromotions/ShopOffersGrid";
 import ShopOffersList from "~/views/Shops/Shop/ListingPromotions/ShopOffersList";
 import OpinionsComments from "@/views/Shops/Shop/OpinionsComments";
+
 export default {
   name: "Shop",
   components: {
@@ -124,15 +125,23 @@ export default {
     },
   },
   methods: {
+    redirectEmpty() {
+      this.$gtagEv({
+        action: 'redirect',
+        category: 'shop',
+        label: 'empty-shop-link',
+        value: this.offer.idOffer
+      });
+      this.redirectInsideShop();
+    },
     redirectOutsideShop() {
       this.redirectOutside(this.$store.getters.redirectLinkShop(this.model.subpage.idShopAffil));
     },
     redirectInsideShop() {
       this.redirectInside(this.$store.getters.redirectLinkShop(this.model.subpage.idShopAffil));
     },
-    findIndexOffer(idOffer)
-    {
-      return  _.findIndex(this.offers, offer => {
+    findIndexOffer(idOffer) {
+      return _.findIndex(this.offers, offer => {
         return offer.offer.idOffer === idOffer;
       })
     },

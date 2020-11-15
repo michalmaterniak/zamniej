@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-12 col-sm-12 col-xs-12" @click="goToShop">
+  <div @click="redirect" class="col-md-12 col-sm-12 col-xs-12">
     <div class="box-a">
       <figure>
         <img :src="offer.logo.modifyPath" :alt="offer.logo.original.data.alt">
@@ -17,7 +17,13 @@ export default {
   name: "GridPromotions",
   props:['offer'],
   methods: {
-    goToShop() {
+    redirect() {
+      this.$gtagEv({
+        action: 'redirect',
+        category: 'offer',
+        label: 'promotions',
+        value: this.offer.idOffer
+      });
       window.open(this.getShopPageWithShopOfferHash(this.offer.slug, this.offer.idOffer));
       location.href = this.$store.getters.redirectLinkOffer(this.offer.idOffer)
     }

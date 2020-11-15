@@ -5,16 +5,22 @@ class Functions {
   }
   functions(){
     return {
-      isTouchedEnable()
-      {
+      gtagEv(gtagData) {
+        // action - akcja,
+        // category - umiejscowienie w serwisie
+        // label - umiejscowienie na zakładce
+        // value - unikalna wartość
+        gtagData.event = gtagData.action;
+        this.$gtm.push(gtagData)
+      },
+      isTouchedEnable() {
         return 'TouchEvent' in window;
       },
-      generateHash(object){
+      generateHash(object) {
         return '#' + btoa(JSON.stringify(object));
       },
-      parseHash(){
-        if(this.$router.currentRoute.hash)
-        {
+      parseHash() {
+        if (this.$router.currentRoute.hash) {
           let hash = this.$router.currentRoute.hash.replace(/^#/g,'');
           try {
             return JSON.parse(atob(hash));
@@ -88,4 +94,5 @@ export default (context, inject) => {
   context.$parseHash = functions.parseHash;
   context.$generateHash = functions.generateHash;
   context.$isTouchedEnable = functions.isTouchedEnable;
+  context.$gtagEv = functions.gtagEv;
 }
