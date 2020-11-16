@@ -196,7 +196,7 @@ class HomepageSubpage extends ResourceSubpage
                 $slideModel = $this->getComponents()->getSlide()->createSlide($slide);
                 $this->mainSlider->add([
                     'slide' => $slideModel->getSlide(),
-                    'photo' => $slideModel->getPhoto()->getModifiedPhoto('insertCenter', 848, 389, []),
+                    'photo' => $slideModel->getPhoto()->getModifiedPhoto('resize', 848, 290, []),
 
                 ]);
             }
