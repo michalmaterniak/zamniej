@@ -54,6 +54,13 @@ abstract class ShopsAffiliation implements EntityInterface
     protected $subpage;
 
     /**
+     * @var string|null $linkForce
+     * @ORM\Column(name="link_force", type="string", length=700, nullable=true)
+     * @Groups({"program-admin"})
+     */
+    protected $linkForce = null;
+
+    /**
      * @var bool $isNew
      * @ORM\Column(name="is_new", type="boolean", nullable=false)
      * @Groups({"program-admin"})
@@ -142,6 +149,22 @@ abstract class ShopsAffiliation implements EntityInterface
         if ($subpage) {
             $this->setIsNew(false);
         }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLinkForce(): ?string
+    {
+        return $this->linkForce;
+    }
+
+    /**
+     * @param string|null $linkForce
+     */
+    public function setLinkForce(?string $linkForce): void
+    {
+        $this->linkForce = $linkForce;
     }
 
     /**

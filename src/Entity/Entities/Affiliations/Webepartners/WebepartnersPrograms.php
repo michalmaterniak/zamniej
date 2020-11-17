@@ -488,23 +488,35 @@ class WebepartnersPrograms extends ShopsAffiliation
         $this->feedUrl = $feedUrl;
     }
 
+    /**
+     * @param string $name
+     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
+    /**
+     * @return float
+     */
     public function getCps(): float
     {
         return $this->getCpsCommission();
     }
 
+    /**
+     * @return float
+     */
     public function getCpc(): float
     {
         return 0.0;
     }
 
+    /**
+     * @return string
+     */
     public function getTrackingUrl(): string
     {
-        return $this->getAffiliateTrackingProgramUrl();
+        return $this->getLinkForce() ?: $this->getAffiliateTrackingProgramUrl();
     }
 }
