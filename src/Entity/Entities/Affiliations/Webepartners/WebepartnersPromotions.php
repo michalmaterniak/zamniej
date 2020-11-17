@@ -131,7 +131,7 @@ class WebepartnersPromotions extends OffersAffiliation implements OfferPromotion
      */
     public function setVoucherText(?string $voucherText): void
     {
-        $this->voucherText = $voucherText;
+        $this->voucherText = $voucherText ?: $this->voucherName;
     }
 
     /**
