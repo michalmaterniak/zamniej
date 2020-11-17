@@ -41,7 +41,6 @@ class ShopsSubpage extends PageSubpage
                     'rating' => $shop->getRating(),
                     'description' => $shop->getSubpage()->getSubpage()->getContent()->getExtra('description', ''),
                     'idShop' => $shop->getSubpage()->getSubpage()->getIdSubpage(),
-                    'urlTracking' => $shop->getSubpage()->getUrlTracking()
                 ]);
             }
         }

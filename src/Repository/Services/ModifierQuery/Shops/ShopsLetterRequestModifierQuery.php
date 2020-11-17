@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository\Services\ModifierQuery\Shops;
 
+use App\Application\Pages\Page\Types\Shops\ShopsSubpage;
 use App\Repository\Repositories\GlobalRepository;
 use App\Repository\Services\ModifierQuery\ModifierQuery;
 use App\Services\System\Request\Retrievers\RequestDataManager;
