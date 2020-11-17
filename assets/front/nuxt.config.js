@@ -92,7 +92,7 @@ export default {
       }
     ],
     ['nuxt-lazy-load', {
-      defaultImage: '/page/loader.gif',
+      defaultImage: '/page/loader.png',
     }],
   ],
   pwa: {
