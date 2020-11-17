@@ -1,5 +1,5 @@
 <template>
-  <div class="shop-box">
+  <div class="shop-box pointer" @click="$router.push({path: shop.slug})">
     <div class="deals">
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 box-r">

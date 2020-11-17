@@ -79,8 +79,7 @@ export default {
       this.$gtagEv({
         action: 'redirect',
         category: 'offer',
-        label: 'main-slider',
-        value: idOffer
+        label: 'main-slider:' + idOffer,
       });
       this.redirectOffer(idOffer)
     },
