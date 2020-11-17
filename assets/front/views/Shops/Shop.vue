@@ -93,14 +93,12 @@ import ButtonDetails from "@/views/Shops/Shop/ButtonDetails";
 import ShopOffersGrid from "~/views/Shops/Shop/ListingPromotions/ShopOffersGrid";
 import ShopOffersList from "~/views/Shops/Shop/ListingPromotions/ShopOffersList";
 import OpinionsComments from "@/views/Shops/Shop/OpinionsComments";
-import ShopContent from "./Shop/ShopContent";
 import ShopDetails from "./Shop/ShopDetails";
 
 export default {
   name: "Shop",
   components: {
     ShopDetails,
-    ShopContent,
     OpinionsComments, ShopOffersList, ShopOffersGrid, ButtonDetails, RatingShop, BreadCrumbs},
   data() {
     return {
