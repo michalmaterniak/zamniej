@@ -41,9 +41,6 @@
             </div>
             <div class="row">
               <div class="col-md-12 box1 marB30 marT10" v-if="offersNotActual.length > 0">
-                <div class="ask-btn btn-fixed hidden-lg hidden-md hidden-sm button-details" >
-                  <button class="itg-btn cart-btn" @click="showDetailsShop"><font-awesome-icon icon="arrow-left" /></button>
-                </div>
                 <div class="h4"><i class="flaticon-label"></i>
                   <span class="hidden-xs hidden-sm">Nieaktualne promocje</span>
                   <a href="#" @click.prevent="showNotActualOffers" class="hidden-md hidden-lg pointer">Pokaż nieaktualne promocje</a>
@@ -55,9 +52,22 @@
                 </div>
               </div>
             </div>
+            <div class="row" v-if="isContent">
+              <div class="col-md-12 col-sm-12 col-xs-12 lazy-hidden-xs">
+                <div v-html="model.subpage.content.content"></div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <opinions-comments v-if="model.subpage.opinions.length > 0"/>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 box1 marB30 marT10">
+                <div class="ask-btn btn-fixed hidden-lg hidden-md hidden-sm button-details" >
+                  <button class="itg-btn cart-btn" @click="showDetailsShop"><font-awesome-icon icon="arrow-left" /></button>
+                </div>
               </div>
             </div>
           </div>
@@ -66,7 +76,6 @@
               <shop-details :shop="model"/>
             </div>
           </div>
-
         </div>
 
       </div>
@@ -81,15 +90,18 @@
 import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
 import RatingShop from "@/components/Elements/Rating/RatingShop";
 import ButtonDetails from "@/views/Shops/Shop/ButtonDetails";
-import ShopDetails from "@/views/Shops/Shop/ShopDetails";
 import ShopOffersGrid from "~/views/Shops/Shop/ListingPromotions/ShopOffersGrid";
 import ShopOffersList from "~/views/Shops/Shop/ListingPromotions/ShopOffersList";
 import OpinionsComments from "@/views/Shops/Shop/OpinionsComments";
+import ShopContent from "./Shop/ShopContent";
+import ShopDetails from "./Shop/ShopDetails";
 
 export default {
   name: "Shop",
   components: {
-    OpinionsComments, ShopOffersList, ShopOffersGrid, ShopDetails, ButtonDetails, RatingShop, BreadCrumbs},
+    ShopDetails,
+    ShopContent,
+    OpinionsComments, ShopOffersList, ShopOffersGrid, ButtonDetails, RatingShop, BreadCrumbs},
   data() {
     return {
       shopDetailsHeight: null,
@@ -97,6 +109,9 @@ export default {
     }
   },
   computed: {
+    isContent() {
+      return  Boolean(this.model.subpage.content.content);
+    },
     offersActual()
     {
       let dateNow = new Date();

@@ -182,6 +182,10 @@
 <!--      </div>-->
 <!--    </div>-->
 
+
+    <div class="lazy-hidden-lg lazy-hidden-md lazy-hidden-sm col-xs-12">
+      <div v-html="shop.subpage.content.content"></div>
+    </div>
     <div class="col-md-12 col-sm-12 col-xs-12">
       <blog-articles-latest/>
     </div>
