@@ -62,6 +62,7 @@
           url: '/admin/api/pages/resource-store/' + this.id,
           responseCallbackSuccess: res => {
             this.$store.commit('setResource', res.data.resource);
+            this.$store.commit('setChanges', {});
             this.showAlert('Poprawnie zapisano', 'success');
           },
           responseCallbackError: res => {
@@ -93,6 +94,7 @@
     destroyed() {
       this.$store.commit('setResource', null);
       this.$store.commit('setForms', null);
+      this.$store.commit('setChanges', {});
     }
   }
 </script>
