@@ -89,7 +89,7 @@ class ShopSubpage extends ResourceSubpage
     public function getOffersPromo()
     {
         return $this->getOffers()->filter(function (Offer $offer) {
-            return $offer instanceof OfferPromotion || $offer instanceof OfferVoucher;
+            return $offer instanceof Offer || $offer instanceof OfferPromotion || $offer instanceof OfferVoucher;
         })->getValues();
     }
 
