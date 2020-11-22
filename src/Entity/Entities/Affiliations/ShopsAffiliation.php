@@ -141,6 +141,14 @@ abstract class ShopsAffiliation implements EntityInterface
     }
 
     /**
+     * @return bool
+     */
+    public function hasSubpage(): bool
+    {
+        return (bool)$this->getSubpage();
+    }
+
+    /**
      * @param Subpages|null $subpage
      */
     public function setSubpage(?Subpages $subpage): void

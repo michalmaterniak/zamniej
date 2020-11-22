@@ -73,31 +73,36 @@ abstract class ResourceFactory extends Factory
         $this->slugGenerator = $slugGenerator;
     }
 
-    protected function afterCreatePage() : void
+    protected function afterCommit()
     {
     }
 
-    protected function beforeCreatePage()
+    protected function afterCreatePage(): void
     {
     }
 
-    protected function afterCreateResource() : void
+    protected function beforeCreatePage(): void
     {
     }
 
-    protected function beforeCreateResource() : void
+    protected function afterCreateResource(): void
     {
     }
 
-    protected function afterCreateSubpage() : void
+    protected function beforeCreateResource(): void
     {
     }
 
-    protected function beforeCreateSubpage() : void
+    protected function afterCreateSubpage(): void
     {
     }
 
-    public function create(string $name, ?Resources $parent = null, array $data = []) : self
+    protected function beforeCreateSubpage(): void
+    {
+    }
+
+
+    public function create(string $name, ?Resources $parent = null, array $data = []): self
     {
         $this->data = $data;
         $this->entityManager->beginTransaction();
@@ -168,6 +173,8 @@ abstract class ResourceFactory extends Factory
     {
         try {
             $this->entityManager->getConnection()->commit();
+            $this->afterCommit();
+
         } catch (Exception $exception) {
             $this->rollback();
         }

@@ -25,6 +25,7 @@ parameters:
             login: 'michal.materniak@commit-m.pl'
             access: '53e68742-2049-4b30-9c3b-d185365ca273'
     rabbitmq:
+        queue: 'zamniej'
         host: '%env(RABBITMQ_HOST)%'
         port: '%env(RABBITMQ_PORT)%'
         user: '%env(RABBITMQ_USER)%'
@@ -62,9 +63,6 @@ services:
         lazy: true
 
     App\Application\Pages\Homepage\HomepageComponents:
-        lazy: true
-
-    App\Application\Pages\Page\PagesComponents:
         lazy: true
 
     App\Application\Pages\Shop\ShopComponents:
