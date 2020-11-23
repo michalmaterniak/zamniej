@@ -6,7 +6,7 @@ use App\Entity\Entities\Shops\Offers\Offers;
 use App\Services\Photos\Photo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-class Offer extends OfferAbstract
+abstract class Offer extends OfferAbstract
 {
     /**
      * @var Photo $photo
