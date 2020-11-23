@@ -11,7 +11,7 @@ use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPromotions;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersVouchers;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersPromotionsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersVouchersRepository;
-use App\Services\System\EntityServices\Updater\EntityUpdater;
+use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
@@ -56,7 +56,7 @@ class OffersPromotionsWebepartnersFactory extends OffersWebepartnersFactory
 
     public function __construct(
         OfferFactoryManager $offerFactoryManager,
-        EntityUpdater $entityUpdater,
+        SimpleEntityUpdater $entityUpdater,
         ImageManager $imageManager,
 
         VouchersWebepartners $apiVouchersWebepartners,
@@ -97,26 +97,38 @@ class OffersPromotionsWebepartnersFactory extends OffersWebepartnersFactory
                         $voucher = $this->webepartnersPromotionsRepository->select(false)->findOneByWebeId($voucherWebe['voucherId'])->getResultOrNull();
 
                     if (!$voucher) {
-                        if ($voucherWebe['voucherCode'])
-                            $voucher = new WebepartnersVouchers();
-                        else
-                            $voucher = new WebepartnersPromotions();
-                        $voucher->setShopAffiliation($program);
+                        try {
+                            $this->entityUpdater->getEntityManager()->beginTransaction();
 
-                        $this->entityUpdater->setEntity($voucher);
-                        $this->entityUpdater->update($voucherWebe);
+                            if ($voucherWebe['voucherCode'])
+                                $voucher = new WebepartnersVouchers();
+                            else
+                                $voucher = new WebepartnersPromotions();
+                            $voucher->setShopAffiliation($program);
 
-                        $this->entityUpdater->persist($voucher);
-                        $this->entityUpdater->flush();
+                            $this->entityUpdater->setEntity($voucher);
+                            $this->entityUpdater->update($voucherWebe);
 
-                        $this->offerFactoryManager->create($voucher);
+                            $this->entityUpdater->persist($voucher);
+                            $this->entityUpdater->flush();
+
+                            $this->offerFactoryManager->create($voucher);
+
+                            $this->entityUpdater->getEntityManager()->commit();
+                        } catch (Exception $exception) {
+                            dump('nie udało się utworzyć oferty webe');
+                            $this->entityUpdater->getEntityManager()->rollback();
+
+                        }
+
+
                     }
                 }
             }
         } catch (ConnectException $connectException) {
-            dump("błąd podczas połączenia z webepartners. Oferty ze sklepu " . $program->getProgramName() . " nie zostaną pobrane");
+            dump("błąd podczas połączenia z webepartners. Promocje ze sklepu " . $program->getProgramName() . " nie zostaną pobrane");
         } catch (Exception $exception) {
-            dump("Oferty ze sklepu " . $program->getProgramName() . " nie zostaną pobrane");
+            dump("Promocje ze sklepu " . $program->getProgramName() . " nie zostaną pobrane: " . $exception->getMessage());
         }
     }
 

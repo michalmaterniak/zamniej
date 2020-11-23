@@ -14,7 +14,7 @@ class OffersProducer extends ProducerManager
     public function addToQueue(int $programId)
     {
         $message = [
-            'program' => $programId,
+            'externalId' => $programId,
         ];
         $this->add($message);
     }

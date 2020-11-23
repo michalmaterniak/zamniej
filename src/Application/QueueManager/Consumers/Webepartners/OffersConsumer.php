@@ -1,24 +1,23 @@
 <?php
 namespace App\Application\QueueManager\Consumers\Webepartners;
 
-use App\Application\Affiliations\Webepartners\OffersWebepartnersFactoryFacade;
+use App\Application\Affiliations\Webepartners\FinderOffersWebepartners;
 use App\Services\QueueManager\Interfaces\Consumer;
 
 class OffersConsumer implements Consumer
 {
     /**
-     * @var OffersWebepartnersFactoryFacade $offersFactory
+     * @var FinderOffersWebepartners $finderOffersWebepartners
      */
-    protected $offersFactory;
+    protected $finderOffersWebepartners;
 
-    public function __construct(OffersWebepartnersFactoryFacade $offersFactory)
+    public function __construct(FinderOffersWebepartners $finderOffersWebepartners)
     {
-        $this->offersFactory = $offersFactory;
+        $this->finderOffersWebepartners = $finderOffersWebepartners;
     }
 
-    public function run(array $data): void
+    public function run(array $data = []): void
     {
-        $this->offersFactory->loadOffers($data);
-        $this->offersFactory->save($data['program']);
+        $this->finderOffersWebepartners->loadOffersByExternalId((int)$data['externalId']);
     }
 }

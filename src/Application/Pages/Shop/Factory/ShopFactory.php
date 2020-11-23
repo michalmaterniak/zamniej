@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Application\Pages\Shop\Factory;
 
 use App\Application\Images\ImageManager;
 use App\Application\Pages\Shop\Factory\Tags\RandomizerShopsTag;
 use App\Application\Pages\Shop\ShopConfig;
+use App\Application\QueueManager\Producers\Webepartners\OffersProducer;
 use App\Entity\Entities\Shops\Shops;
 use App\Entity\Entities\System\Files;
 use App\Services\Pages\Resource\Factory\ResourceFactory;
@@ -31,6 +33,11 @@ class ShopFactory extends ResourceFactory
      */
     protected $imageManager;
 
+    /**
+     * @var OffersProducer $offersProducer
+     */
+    protected $offersProducer;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         ShopSubpageFactory $subpageFactory,
@@ -38,7 +45,8 @@ class ShopFactory extends ResourceFactory
         RandomizerShopsTag $randomizerShopsTag,
         ImageManager $imageManager,
         SlugGenerator $slugGenerator
-    ) {
+    )
+    {
         parent::__construct($entityManager, $subpageFactory, $resourceConfig, $slugGenerator);
         $this->randomizerShopsTag = $randomizerShopsTag;
         $this->imageManager = $imageManager;

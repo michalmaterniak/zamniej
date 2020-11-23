@@ -29,7 +29,7 @@ abstract class QueueManager
 
     abstract protected function setChannel(): void;
 
-    public function getNameQueue() : string
+    protected function getNameQueue(): string
     {
         return $this->nameQueue;
     }

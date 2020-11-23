@@ -8,7 +8,7 @@ use App\Application\Images\ImageManager;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersBanners;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersBannersRepository;
-use App\Services\System\EntityServices\Updater\EntityUpdater;
+use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 use GuzzleHttp\Exception\ConnectException;
@@ -31,7 +31,7 @@ class OffersBannersWebepartnersFactory extends OffersWebepartnersFactory
     protected $offers;
 
     public function __construct(
-        EntityUpdater $entityUpdater,
+        SimpleEntityUpdater $entityUpdater,
         ImageManager $imageManager,
 
         BannersWebepartners $apiBannersWebepartners,
@@ -55,6 +55,7 @@ class OffersBannersWebepartnersFactory extends OffersWebepartnersFactory
     {
         try {
             $bannersWebe = $this->apiBannersWebepartners->getBanners($program->getProgramId());
+            dump($program->getProgramId());
             foreach ($bannersWebe as $bannerWebe) {
                 $banner = $this->webepartnersBannersRepository->select(false)->findOneByWebeId($bannerWebe['bannerId'])->getResultOrNull();
                 if (!$banner) {
@@ -62,17 +63,16 @@ class OffersBannersWebepartnersFactory extends OffersWebepartnersFactory
                     $banner->setShopAffiliation($program);
 
                     $this->entityUpdater->setEntity($banner);
-                    $this->entityUpdater->update($bannersWebe);
+                    $this->entityUpdater->update($bannerWebe);
 
                     $this->entityUpdater->persist($banner);
                     $this->entityUpdater->flush();
-
                 }
             }
         } catch (ConnectException $connectException) {
-            dump("błąd podczas połączenia z webepartners. Oferty ze sklepu " . $program->getProgramName() . " nie zostaną pobrane");
+            dump("błąd podczas połączenia z webepartners. Banery ze sklepu " . $program->getProgramName() . " nie zostaną pobrane");
         } catch (Exception $exception) {
-            dump("Oferty ze sklepu " . $program->getProgramName() . " nie zostaną pobrane");
+            dump("Banery ze sklepu " . $program->getProgramName() . " nie zostaną pobrane: " . $exception->getMessage());
         }
     }
 }

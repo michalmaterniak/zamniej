@@ -38,6 +38,14 @@ class EntityUpdater
     }
 
     /**
+     * @return EntityManagerInterface
+     */
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->entityManager;
+    }
+
+    /**
      * @param EntityInterface $entity
      */
     public function setEntity(EntityInterface $entity)

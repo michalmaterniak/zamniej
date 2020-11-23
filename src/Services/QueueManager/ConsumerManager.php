@@ -2,6 +2,7 @@
 namespace App\Services\QueueManager;
 
 use App\Application\QueueManager\MainConsumer;
+use Exception;
 use PhpAmqpLib\Message\AMQPMessage;
 
 class ConsumerManager extends QueueManager
@@ -53,7 +54,7 @@ class ConsumerManager extends QueueManager
                         $msg->delivery_info['channel']->basic_ack(
                             $msg->delivery_info['delivery_tag']
                         );
-                    } catch (\Exception $exception) {
+                    } catch (Exception $exception) {
                         $msg->delivery_info['channel']->basic_ack(
                             $msg->delivery_info['delivery_tag']
                         );
@@ -65,8 +66,12 @@ class ConsumerManager extends QueueManager
 
     public function receive()
     {
-        while (count($this->channel->callbacks)) {
-            $this->channel->wait();
+        while (true) {
+            if (count($this->channel->callbacks)) {
+                $this->channel->wait();
+            } else {
+                sleep(3);
+            }
         }
     }
 }

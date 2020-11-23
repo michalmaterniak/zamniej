@@ -2,9 +2,10 @@
 
 namespace App\Application\Affiliations\Webepartners;
 
+use App\Application\Affiliations\Interfaces\FinderProgramsInterface;
 use App\Application\Affiliations\Webepartners\Api\Programs\ProgramsWebepartners;
 
-class FinderProgramsWebepartners
+class FinderProgramsWebepartners implements FinderProgramsInterface
 {
     /**
      * @var ProgramsWebepartners $programsWebepartners
@@ -25,7 +26,7 @@ class FinderProgramsWebepartners
         $this->programsWebepartnersFactory = $programsWebepartnersFactory;
     }
 
-    public function findPrograms()
+    public function find()
     {
         $programs = $this->programsWebepartners->getPrograms();
         foreach ($programs as $program) {

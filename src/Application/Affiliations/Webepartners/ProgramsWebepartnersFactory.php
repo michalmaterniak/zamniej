@@ -7,6 +7,7 @@ use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\AffiliationsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 use App\Services\System\EntityServices\Updater\EntityUpdater;
+use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 use Doctrine\ORM\NonUniqueResultException;
 
 class ProgramsWebepartnersFactory
@@ -37,7 +38,7 @@ class ProgramsWebepartnersFactory
     protected $affiliationsRepository;
 
     public function __construct(
-        EntityUpdater $entityUpdater,
+        SimpleEntityUpdater $entityUpdater,
         WebepartnersProgramsRepository $webepartnersProgramsRepository,
         AffiliationsRepository $affiliationsRepository
     )

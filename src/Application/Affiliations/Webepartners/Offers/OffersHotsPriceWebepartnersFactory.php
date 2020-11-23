@@ -9,7 +9,7 @@ use App\Entity\Entities\Affiliations\Webepartners\WebepartnersBanners;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersHotPrices;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersHotPricesRepository;
-use App\Services\System\EntityServices\Updater\EntityUpdater;
+use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 use GuzzleHttp\Exception\ConnectException;
@@ -32,7 +32,7 @@ class OffersHotsPriceWebepartnersFactory extends OffersWebepartnersFactory
     protected $offers;
 
     public function __construct(
-        EntityUpdater $entityUpdater,
+        SimpleEntityUpdater $entityUpdater,
         ImageManager $imageManager,
 
         HotPriceWebepartners $apiHotPriceWebepartners,
@@ -78,9 +78,9 @@ class OffersHotsPriceWebepartnersFactory extends OffersWebepartnersFactory
                 $this->entityUpdater->flush();
             }
         } catch (ConnectException $connectException) {
-            dump("błąd podczas połączenia z webepartners. Oferty ze sklepu " . $program->getProgramName() . " nie zostaną pobrane");
+            dump("błąd podczas połączenia z webepartners. HotPrice ze sklepu " . $program->getProgramName() . " nie zostaną pobrane");
         } catch (Exception $exception) {
-            dump("Oferty ze sklepu " . $program->getProgramName() . " nie zostaną pobrane");
+            dump("HotPrice ze sklepu " . $program->getProgramName() . " nie zostaną pobrane: " . $exception->getMessage());
         }
     }
 }
