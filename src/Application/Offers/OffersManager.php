@@ -36,7 +36,6 @@ class OffersManager
     protected $offerPromotionModel;
 
     public function __construct(
-        Offer           $offer,
         OfferProduct    $offerProduct,
         OfferVoucher    $offerVoucher,
         OfferBanner     $offerBanner,
@@ -46,7 +45,6 @@ class OffersManager
         $this->offerBannerModel =       $offerBanner;
         $this->offerVoucherModel =      $offerVoucher;
         $this->offerPromotionModel =    $offerPromotion;
-        $this->offer =                  $offer;
     }
 
     /**
@@ -81,7 +79,7 @@ class OffersManager
         } elseif ($offer instanceof OffersProduct) {
             $model = $this->offerProductModel;
         } else {
-            $model = $this->offer;
+            $model = $this->offerPromotionModel;
         }
 
 
