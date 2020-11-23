@@ -2,12 +2,13 @@
 namespace App\Entity\Entities\Affiliations;
 
 use App\Entity\Entities\Shops\Offers\Offers;
+use App\Entity\Interfaces\EntityInterface;
 use App\Entity\Interfaces\UpdateDatetimeInterface;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-abstract class OffersAffiliation implements UpdateDatetimeInterface
+abstract class OffersAffiliation implements EntityInterface, UpdateDatetimeInterface
 {
     /**
      * @var int $idOffer

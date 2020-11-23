@@ -6,14 +6,15 @@ use App\Services\QueueManager\ProducerManager;
 
 class OffersProducer extends ProducerManager
 {
-    public function getCustomerClass() : string
+    public function getCustomerClass(): string
     {
         return OffersConsumer::class;
     }
+
     public function addToQueue(int $programId)
     {
         $message = [
-            'program' => $programId,
+            'externalId' => $programId,
         ];
         $this->add($message);
     }

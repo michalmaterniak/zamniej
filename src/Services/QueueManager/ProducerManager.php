@@ -7,7 +7,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 abstract class ProducerManager extends QueueManager implements Producer
 {
 
-    protected function setChannel() : void
+    protected function setChannel(): void
     {
         $this->channel = $this->connection->getConnection()->channel();
 
@@ -24,13 +24,13 @@ abstract class ProducerManager extends QueueManager implements Producer
     }
     abstract protected function getCustomerClass() : string;
 
-    final protected function add(array $data)
+    final protected function add(array $data, $config = [])
     {
         $message = [];
         $message['class'] = $this->getCustomerClass();
         $message['data'] = $data;
 
-        $msg = new AMQPMessage(json_encode($message));
+        $msg = new AMQPMessage(json_encode($message), $config);
         $this->channel->basic_publish($msg, '', $this->getNameQueue());
     }
 }

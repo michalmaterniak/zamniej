@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Command\Webepartners;
 
-use App\Application\Affiliations\Webepartners\Api\Programs\ProgramsWebepartners;
-use App\Application\Affiliations\Webepartners\ProgramsFactoryWebepartners;
+use App\Application\Affiliations\Webepartners\FinderProgramsWebepartners;
 use GuzzleHttp\Exception\ConnectException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,21 +11,17 @@ class ProgramsWebepartnersCommand extends Command
 {
     protected static $defaultName = 'webepartners_programs';
 
-    protected $programsWebepartners;
-
     /**
-     * @var ProgramsFactoryWebepartners $programsFactoryWebepartners
+     * @var FinderProgramsWebepartners $finderProgramsWebepartners
      */
-    protected $programsFactoryWebepartners;
+    protected $finderProgramsWebepartners;
 
     public function __construct(
-        ProgramsWebepartners  $programsWebepartners,
-        ProgramsFactoryWebepartners $programsFactoryWebepartners,
+        FinderProgramsWebepartners $finderProgramsWebepartners,
         string $name = null
     ) {
         parent::__construct($name);
-        $this->programsWebepartners = $programsWebepartners;
-        $this->programsFactoryWebepartners = $programsFactoryWebepartners;
+        $this->finderProgramsWebepartners = $finderProgramsWebepartners;
     }
 
     protected function configure()
@@ -40,12 +34,7 @@ class ProgramsWebepartnersCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
-
-            $programs = $this->programsWebepartners->getPrograms();
-            foreach ($programs as $program) {
-                $programEntity = $this->programsFactoryWebepartners->updateProgram($program, true);
-            }
-
+            $this->finderProgramsWebepartners->find();
         } catch (ConnectException $connectException) {
             dump('Nie można pobrać programów z webepartners');
         }

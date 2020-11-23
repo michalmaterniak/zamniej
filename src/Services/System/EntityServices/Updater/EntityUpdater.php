@@ -38,6 +38,14 @@ class EntityUpdater
     }
 
     /**
+     * @return EntityManagerInterface
+     */
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->entityManager;
+    }
+
+    /**
      * @param EntityInterface $entity
      */
     public function setEntity(EntityInterface $entity)
@@ -148,7 +156,6 @@ class EntityUpdater
 
     /**
      * @param array $properties
-     * @return mixed
      */
     public function update(array $properties)
     {
@@ -181,6 +188,11 @@ class EntityUpdater
                 }
             }
         }
+    }
+
+    public function persist($entity)
+    {
+        $this->entityManager->persist($entity);
     }
 
     public function flush()
