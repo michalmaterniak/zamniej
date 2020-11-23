@@ -34,7 +34,7 @@ class ProgramsWebepartnersCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
-            $this->finderProgramsWebepartners->findPrograms();
+            $this->finderProgramsWebepartners->find();
         } catch (ConnectException $connectException) {
             dump('Nie można pobrać programów z webepartners');
         }
