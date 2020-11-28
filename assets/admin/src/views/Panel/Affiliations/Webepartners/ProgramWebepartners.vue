@@ -10,6 +10,7 @@
         <button class="btn btn-success" @click="searchSubpage">Wyszukaj</button>
       </span>
       <span v-else>
+        <button class="btn btn-success" @click="update">Aktualizuj</button>
         <router-link :to="{name: 'panel-pages-page', params: {id: program.subpage.idSubpage}}" class="btn btn-primary">Podstrona</router-link>
       </span>
       <span>
@@ -37,6 +38,14 @@ export default {
     }
   },
   methods:{
+    update() {
+      this.ajax({
+        url: '/admin/api/affiliations/program/update/' + this.program.idShop,
+        responseCallbackSuccess: res => {
+          this.program = res.data.program;
+        }
+      })
+    },
     trash()
     {
       this.ajax({

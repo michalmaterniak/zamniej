@@ -139,10 +139,7 @@ class OffersPromotionsWebepartnersFactory extends OffersWebepartnersFactory
     {
         if (!isset($this->vouchers[$this->keyVoucher])) {
             $this->vouchers = [];
-            $vouchersWebe = $this->apiVouchersWebepartners->getVouchers(
-                (new DateTime())->modify('-2 years'),
-                (new DateTime())
-            );
+            $vouchersWebe = $this->apiVouchersWebepartners->getVouchers();
             foreach ($vouchersWebe as $item) {
                 if (empty($this->vouchers[$this->keyVoucher][$item['programId']]))
                     $this->vouchers[$this->keyVoucher][$item['programId']] = [];

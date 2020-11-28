@@ -1,8 +1,8 @@
 <?php
-
-namespace App\Application\Affiliations\Webepartners;
+namespace App\Application\Affiliations\Webepartners\Programs;
 
 use App\Entity\Entities\Affiliations\Affiliations;
+use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\AffiliationsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
@@ -49,31 +49,42 @@ class ProgramsWebepartnersFactory
     }
 
     /**
+     * @return Affiliations
+     */
+    protected function getAffiliation(): Affiliations
+    {
+        if (!$this->affiliation) {
+            $this->affiliation = $this->affiliationsRepository->select()->findOneByName('webepartners')->getResultOrNull();
+
+        }
+        return $this->affiliation;
+    }
+
+    /**
      * @param array $webeProgram
      * @return WebepartnersPrograms
      * @throws NonUniqueResultException
      */
-    public function updateProgram(array $webeProgram): WebepartnersPrograms
+    public function updateProgram(array $data): WebepartnersPrograms
     {
-        $this->affiliation = $this->affiliationsRepository->select()->findOneByName('webepartners')->getResultOrNull();
-
-        $this->program = $this->webepartnersProgramsRepository->select(false)->getProgramByWebeId($webeProgram['programId'])->getResultOrNull();
+        $this->program = $this->webepartnersProgramsRepository->select(false)->getProgramByWebeId($data['programId'])->getResultOrNull();
 
         if ($this->program == null) {
             $this->createProgram();
             $this->entityUpdater->setEntity($this->program);
-            $this->entityUpdater->update($webeProgram);
-
-        } else {
-            $this->entityUpdater->update($webeProgram);
         }
+        $this->entityUpdater->update($data);
 
         return $this->program;
     }
 
-    protected function createProgram()
+    /**
+     * @return ShopsAffiliation
+     */
+    public function createProgram(): ShopsAffiliation
     {
         $this->program = new WebepartnersPrograms();
-        $this->program->setAffiliation($this->affiliation);
+        $this->program->setAffiliation($this->getAffiliation());
+        return $this->program;
     }
 }
