@@ -14,7 +14,10 @@ class KillProducer extends ProducerManager
 
     public function addToQueue()
     {
-        $this->add([], [
+        $message = [
+            'kill' => true
+        ];
+        $this->add($message, [
             'config' => 999
         ]);
     }

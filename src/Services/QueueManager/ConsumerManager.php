@@ -2,7 +2,6 @@
 namespace App\Services\QueueManager;
 
 use App\Application\QueueManager\MainConsumer;
-use App\Services\QueueManager\Consumers\KillConsumer;
 use Exception;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -47,16 +46,7 @@ class ConsumerManager extends QueueManager
              */
             $data = json_decode($msg->getBody(), true);
             if ($data && array_key_exists('data', $data) && array_key_exists('class', $data)) {
-
                 $consumer = $this->mainConsumer->getConsumer($data['class']);
-
-                if ($data['class'] === KillConsumer::class) {
-                    $msg->delivery_info['channel']->basic_ack(
-                        $msg->delivery_info['delivery_tag']
-                    );
-                    exit;
-                }
-
                 if ($consumer) {
                     try {
                         //throw new \ErrorException('wrong');
@@ -65,7 +55,6 @@ class ConsumerManager extends QueueManager
                             $msg->delivery_info['delivery_tag']
                         );
                     } catch (Exception $exception) {
-                        dump($exception);
                         $msg->delivery_info['channel']->basic_ack(
                             $msg->delivery_info['delivery_tag']
                         );

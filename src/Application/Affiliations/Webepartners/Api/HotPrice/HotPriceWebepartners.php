@@ -1,10 +1,9 @@
 <?php
 namespace App\Application\Affiliations\Webepartners\Api\HotPrice;
 
-use App\Application\Affiliations\Interfaces\Offers\FinderOffersInterface;
 use App\Application\Affiliations\Webepartners\Api\Webepartners;
 
-class HotPriceWebepartners extends Webepartners implements FinderOffersInterface
+class HotPriceWebepartners extends Webepartners
 {
     protected function getUrl(): string
     {
@@ -19,13 +18,5 @@ class HotPriceWebepartners extends Webepartners implements FinderOffersInterface
         return $this->getResponse([
             'programId' => $programId,
         ]);
-    }
-
-    /**
-     * @param int $idProgram
-     */
-    public function getOffers($idProgram)
-    {
-        return $this->getHotPrice($idProgram);
     }
 }

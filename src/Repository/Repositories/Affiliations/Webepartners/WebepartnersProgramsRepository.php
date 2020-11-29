@@ -13,6 +13,10 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Entity|null  findOneBy(array $criteria, array $orderBy = null)
  * @method Entity[]     findAllResult()
  * @method Entity[]     findAll()
+ * @method Entity[]     getEnablePrograms()
+ * @method Entity[]     getNewPrograms()
+ * @method Entity[]     getUnactivePrograms()
+ * @method Entity[]     getActivePrograms()
  * @method Entity[]|ArrayCollection getResults()
  * @method Entity|null              getResultOrNull()
  * @method Entity[]|Paginator       getPaginate()
@@ -44,16 +48,5 @@ class WebepartnersProgramsRepository extends ShopsAffiliationRepository
         }
 
         return $programsIndexByProgramAffiliation;
-    }
-
-    /**
-     * @param int $programId
-     * @return $this
-     */
-    public function getProgramByWebeId(int $programId): self
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.programId = :programId")
-            ->setParameter('programId', $programId);
-        return $this;
     }
 }

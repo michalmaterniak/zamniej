@@ -1,10 +1,9 @@
 <?php
 namespace App\Application\Affiliations\Webepartners\Api\Programs;
 
-use App\Application\Affiliations\Interfaces\Programs\FinderProgramsInterface;
 use App\Application\Affiliations\Webepartners\Api\Webepartners;
 
-class ProgramsWebepartners extends Webepartners implements FinderProgramsInterface
+class ProgramsWebepartners extends Webepartners
 {
     protected function getUrl(): string
     {

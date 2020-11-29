@@ -2,7 +2,7 @@
 
 namespace App\Application\Affiliations\Webepartners;
 
-use App\Application\Affiliations\Interfaces\Offers\FinderOffersToProgramInterface;
+use App\Application\Affiliations\Interfaces\FinderOffersInterface;
 use App\Application\Affiliations\Webepartners\Offers\OffersBannersWebepartnersFactory;
 use App\Application\Affiliations\Webepartners\Offers\OffersHotsPriceWebepartnersFactory;
 use App\Application\Affiliations\Webepartners\Offers\OffersPromotionsWebepartnersFactory;
@@ -10,7 +10,7 @@ use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 
-class FinderOffersWebepartners implements FinderOffersToProgramInterface
+class FinderOffersWebepartners implements FinderOffersInterface
 {
     /**
      * @var OffersPromotionsWebepartnersFactory $offersPromotionsWebepartnersFactory
@@ -47,10 +47,20 @@ class FinderOffersWebepartners implements FinderOffersToProgramInterface
         $this->offersHotsPriceWebepartnersFactory = $offersHotsPriceWebepartnersFactory;
     }
 
+    public function loadOffersByExternalId($externalId)
+    {
+        $program = $this->webepartnersProgramsRepository->select(false)->getProgramByWebeId($externalId)->getResultOrNull();
+        if ($program) {
+            $this->loadOffers($program);
+        } else {
+            dump('nie znaleziono programu o podanym programId: ' . $externalId);
+        }
+    }
+
     /**
      * @param ShopsAffiliation|WebepartnersPrograms $program
      */
-    public function loadOffers(ShopsAffiliation $program): void
+    public function loadOffers(ShopsAffiliation $program)
     {
         if ($program->isEnable() && $program->hasSubpage()) {
             $this->offersPromotionsWebepartnersFactory->findOffers($program);

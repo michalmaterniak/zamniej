@@ -1,10 +1,9 @@
 <?php
 namespace App\Application\Affiliations\Webepartners\Api\Banners;
 
-use App\Application\Affiliations\Interfaces\Offers\FinderOffersInterface;
 use App\Application\Affiliations\Webepartners\Api\Webepartners;
 
-class BannersWebepartners extends Webepartners implements FinderOffersInterface
+class BannersWebepartners extends Webepartners
 {
     protected function getUrl(): string
     {
@@ -19,13 +18,5 @@ class BannersWebepartners extends Webepartners implements FinderOffersInterface
         return $this->getResponse([
             'programId' => $programId,
         ]);
-    }
-
-    /**
-     * @param int $idProgram
-     */
-    public function getOffers($idProgram)
-    {
-        return $this->getBanners($idProgram);
     }
 }

@@ -55,6 +55,7 @@ class OffersBannersWebepartnersFactory extends OffersWebepartnersFactory
     {
         try {
             $bannersWebe = $this->apiBannersWebepartners->getBanners($program->getProgramId());
+            dump($program->getProgramId());
             foreach ($bannersWebe as $bannerWebe) {
                 $banner = $this->webepartnersBannersRepository->select(false)->findOneByWebeId($bannerWebe['bannerId'])->getResultOrNull();
                 if (!$banner) {
