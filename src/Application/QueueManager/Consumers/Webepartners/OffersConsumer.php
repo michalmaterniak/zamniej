@@ -32,7 +32,7 @@ class OffersConsumer implements Consumer
             $this->finderOffersWebepartners->loadOffers($program);
             dump('pobrano z ' . $program->getName());
         } else {
-            dump("nie znaleziono progrmau o zewnętrzyn id: {$data['externalId']} w {$program->getAffiliation()->getName()}");
+            dump("nie znaleziono progrmau o zewnętrzyn id: {$data['externalId']}");
         }
     }
 }
