@@ -2,8 +2,8 @@
 namespace App\Command\Webepartners;
 
 use App\Application\Affiliations\Webepartners\Api\Programs\ProgramsWebepartners;
-use App\Application\Affiliations\Webepartners\FinderOffersWebepartners;
 use App\Application\Affiliations\Webepartners\Programs\ProgramsWebepartnersFactory;
+use App\Application\QueueManager\Producers\Webepartners\OffersProducer;
 use GuzzleHttp\Exception\ConnectException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,21 +24,21 @@ class ProgramsWebepartnersCommand extends Command
     protected $programsWebepartners;
 
     /**
-     * @var FinderOffersWebepartners $finderOffersWebepartners
+     * @var OffersProducer $offersProducer
      */
-    protected $finderOffersWebepartners;
+    protected $offersProducer;
 
     public function __construct(
         ProgramsWebepartnersFactory $programsWebepartnersFactory,
         ProgramsWebepartners $programsWebepartners,
-        FinderOffersWebepartners $finderOffersWebepartners,
+        OffersProducer $offersProducer,
         string $name = null
     )
     {
         parent::__construct($name);
         $this->programsWebepartnersFactory = $programsWebepartnersFactory;
         $this->programsWebepartners = $programsWebepartners;
-        $this->finderOffersWebepartners = $finderOffersWebepartners;
+        $this->offersProducer = $offersProducer;
     }
 
     protected function configure()
@@ -53,6 +53,7 @@ class ProgramsWebepartnersCommand extends Command
         try {
             foreach ($this->programsWebepartners->getPrograms() as $program) {
                 $shopAffil = $this->programsWebepartnersFactory->updateProgram($program);
+                $this->offersProducer->addToQueue($shopAffil->getExternalId());
             }
 
         } catch (ConnectException $connectException) {

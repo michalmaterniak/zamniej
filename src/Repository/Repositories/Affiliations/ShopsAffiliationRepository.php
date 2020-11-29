@@ -85,13 +85,13 @@ class ShopsAffiliationRepository extends GlobalRepository
     }
 
     /**
-     * @param int $webeProgramId
+     * @param mixed $webeProgramId
      * @return $this
      */
-    public function getProgramByWebeId(int $webeProgramId)
+    public function getProgramByAfiliationExternal($externalId)
     {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.programId = :programId")
-            ->setParameter('programId', $webeProgramId);
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.externalId = :externalId")
+            ->setParameter('externalId', $externalId);
         return $this;
     }
 }

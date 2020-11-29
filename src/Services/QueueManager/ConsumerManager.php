@@ -55,6 +55,7 @@ class ConsumerManager extends QueueManager
                             $msg->delivery_info['delivery_tag']
                         );
                     } catch (Exception $exception) {
+                        dump($exception);
                         $msg->delivery_info['channel']->basic_ack(
                             $msg->delivery_info['delivery_tag']
                         );

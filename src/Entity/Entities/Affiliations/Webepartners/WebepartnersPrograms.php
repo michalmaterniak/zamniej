@@ -167,6 +167,7 @@ class WebepartnersPrograms extends ShopsAffiliation
     public function setProgramId(int $programId): void
     {
         $this->programId = $programId;
+        $this->setExternalId($this->getProgramId());
     }
 
     /**
@@ -518,5 +519,13 @@ class WebepartnersPrograms extends ShopsAffiliation
     public function getTrackingUrl(): string
     {
         return $this->getLinkForce() ?: $this->getAffiliateTrackingProgramUrl();
+    }
+
+    /**
+     * @return string
+     */
+    public function getExternalId(): string
+    {
+        return $this->getProgramId();
     }
 }
