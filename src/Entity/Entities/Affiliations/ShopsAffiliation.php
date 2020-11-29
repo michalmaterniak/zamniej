@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="shops_affiliation",
  *    uniqueConstraints={
  *        @ORM\UniqueConstraint(name="name_type", columns={"name", "type"}),
- *        @ORM\UniqueConstraint(name="affiliation_external", columns={"affiliation_id", "type"})
+ *        @ORM\UniqueConstraint(name="affiliation_external", columns={"affiliation_id", "external_id"})
  *      })
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="integer")

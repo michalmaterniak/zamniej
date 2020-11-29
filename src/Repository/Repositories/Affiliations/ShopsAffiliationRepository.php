@@ -94,4 +94,14 @@ class ShopsAffiliationRepository extends GlobalRepository
             ->setParameter('externalId', $externalId);
         return $this;
     }
+
+    /**
+     * @return $this
+     */
+    public function withoutExternalId(): self
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.externalId IS NULL OR {$this->getRootAlias()}.externalId = ''");
+        return $this;
+    }
+
 }
