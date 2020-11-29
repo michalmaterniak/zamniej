@@ -167,6 +167,7 @@ class WebepartnersPrograms extends ShopsAffiliation
     public function setProgramId(int $programId): void
     {
         $this->programId = $programId;
+        $this->setExternalId($this->getProgramId());
     }
 
     /**

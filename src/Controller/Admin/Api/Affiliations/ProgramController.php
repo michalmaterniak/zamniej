@@ -7,15 +7,18 @@ use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Subpages\Resources;
 use App\Repository\Repositories\Subpages\Pages\ShopRepository;
 use App\Services\System\Request\Retrievers\RequestData\RequestPostContentData;
+use ErrorException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class ProgramController extends AbstractController
 {
     /**
      * @param RequestPostContentData $contentData
      * @param ShopRepository $shopRepository
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @return JsonResponse
+     * @throws ExceptionInterface
      * @Route("/admin/api/affiliations/program/searchSubpages", name="admin-api-affiliations-program-searchSubpages", methods={"POST"})
      */
     public function searchSubpages(RequestPostContentData  $contentData, ShopRepository $shopRepository)
@@ -35,8 +38,8 @@ class ProgramController extends AbstractController
      * @param ShopsAffiliation $idShop
      * @param RequestPostContentData $contentData
      * @param TieProgramWithSubpage $tieProgramWithSubpage
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @return JsonResponse
+     * @throws ExceptionInterface
      * @Route("/admin/api/affiliations/program/tie/{idShop}", name="admin-api-affiliations-program-tie", methods={"POST"})
      */
     public function tie(ShopsAffiliation  $idShop, RequestPostContentData  $contentData, TieProgramWithSubpage  $tieProgramWithSubpage)
@@ -56,8 +59,8 @@ class ProgramController extends AbstractController
 
     /**
      * @param ShopsAffiliation $idShop
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @return JsonResponse
+     * @throws ExceptionInterface
      * @Route("/admin/api/affiliations/program/trash/{idShop}", name="admin-api-affiliations-program-trash", methods={"POST"})
      */
     public function trash(ShopsAffiliation $idShop)
@@ -74,8 +77,8 @@ class ProgramController extends AbstractController
      * @param Resources $idCategory
      * @param ShopsAffiliation $idShop
      * @param ShopFactoryAffiliation $shopFactoryAffiliation
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @return JsonResponse
+     * @throws ExceptionInterface
      * @Route("/admin/api/affiliations/program/createShopSubpage/{idCategory}/{idShop}", name="admin-api-affiliations-program-createSubpage", methods={"POST"})
      */
     public function createSubpage(
@@ -90,9 +93,7 @@ class ProgramController extends AbstractController
             return $this->json([
                 'program' => $this->normalizer->normalize($idShop, null, ['groups' => 'program-admin'])
             ]);
-        }
-        catch (\ErrorException $exception)
-        {
+        } catch (ErrorException $exception) {
             return $this->json([
                 'message' => $exception->getMessage()
             ], 500);
