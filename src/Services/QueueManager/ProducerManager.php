@@ -29,6 +29,7 @@ abstract class ProducerManager extends QueueManager implements Producer
         $message = [];
         $message['class'] = $this->getCustomerClass();
         $message['data'] = $data;
+
         $msg = new AMQPMessage(json_encode($message), $config);
         $this->channel->basic_publish($msg, '', $this->getNameQueue());
     }

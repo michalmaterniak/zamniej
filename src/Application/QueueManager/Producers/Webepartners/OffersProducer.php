@@ -11,10 +11,10 @@ class OffersProducer extends ProducerManager
         return OffersConsumer::class;
     }
 
-    public function addToQueue($externalId)
+    public function addToQueue(int $programId)
     {
         $message = [
-            'externalId' => $externalId,
+            'externalId' => $programId,
         ];
         $this->add($message);
     }
