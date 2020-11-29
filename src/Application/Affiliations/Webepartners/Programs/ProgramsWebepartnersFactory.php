@@ -8,7 +8,6 @@ use App\Repository\Repositories\Affiliations\AffiliationsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 use App\Services\System\EntityServices\Updater\EntityUpdater;
 use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
-use Doctrine\ORM\NonUniqueResultException;
 
 class ProgramsWebepartnersFactory
 {
@@ -61,21 +60,13 @@ class ProgramsWebepartnersFactory
     }
 
     /**
-     * @param WebepartnersPrograms $program
-     */
-    public function setProgram(WebepartnersPrograms $program): void
-    {
-        $this->program = $program;
-    }
-
-    /**
-     * @param array $webeProgram
+     * @param array $data
+     * @param WebepartnersPrograms|null $program
      * @return WebepartnersPrograms
-     * @throws NonUniqueResultException
      */
-    public function updateProgram(array $data): WebepartnersPrograms
+    public function updateProgram(array $data, WebepartnersPrograms $program = null): WebepartnersPrograms
     {
-        $this->program = $this->program ?: $this->webepartnersProgramsRepository->select(false)->getProgramByWebeId($data['programId'])->getResultOrNull();
+        $this->program = $program ?: $this->webepartnersProgramsRepository->select(false)->getProgramByWebeId($data['programId'])->getResultOrNull();
 
         if (!$this->program) {
             $this->createProgram();
