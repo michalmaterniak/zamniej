@@ -11,7 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Class ShopsAffiliation
  * @ORM\Table(name="shops_affiliation",
  *    uniqueConstraints={
- *        @ORM\UniqueConstraint(name="name_type", columns={"name", "type"})
+ *        @ORM\UniqueConstraint(name="name_type", columns={"name", "type"}),
+ *        @ORM\UniqueConstraint(name="affiliation_external", columns={"affiliation_id", "external_id"})
  *      })
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="integer")
@@ -74,6 +75,13 @@ abstract class ShopsAffiliation implements EntityInterface
      * @Groups({"program-admin", "program-admin-list"})
      */
     protected $affiliation;
+
+    /**
+     * @var string $externalId
+     * @ORM\Column(name="external_id", type="string", length=700, nullable=true)
+     * @Groups({"program-admin"})
+     */
+    protected $externalId;
 
     /**
      * @var bool $enable
@@ -259,8 +267,24 @@ abstract class ShopsAffiliation implements EntityInterface
     /**
      * @param int $count
      */
-    public function addRedirect(int $count = 1) : void
+    public function addRedirect(int $count = 1): void
     {
         $this->redirectCount += $count;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExternalId(): string
+    {
+        return $this->externalId;
+    }
+
+    /**
+     * @param string $externalId
+     */
+    public function setExternalId(string $externalId): void
+    {
+        $this->externalId = $externalId;
     }
 }

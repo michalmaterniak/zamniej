@@ -1,9 +1,10 @@
 <?php
 namespace App\Application\Affiliations\Webepartners\Api\Programs;
 
+use App\Application\Affiliations\Interfaces\Programs\FinderProgramInterface;
 use App\Application\Affiliations\Webepartners\Api\Webepartners;
 
-class ProgramWebepartners extends Webepartners
+class ProgramWebepartners extends Webepartners implements FinderProgramInterface
 {
 
     protected function getUrl(): string
@@ -15,7 +16,7 @@ class ProgramWebepartners extends Webepartners
      * @param int $idProgram
      * @return array
      */
-    public function getProgram(int $idProgram)
+    public function getProgram($idProgram)
     {
         return $this->getResponse(['programId' => $idProgram]);
     }

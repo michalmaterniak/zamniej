@@ -243,7 +243,7 @@ export default {
       })
         .then((res) => {
           if (res.status === 200) {
-            if(res.data.success === true && res.data.message)
+            if(res.data.message)
               this.showAlert(res.data.message, 'success')
 
             if (obj.responseCallbackSuccess !== undefined)
