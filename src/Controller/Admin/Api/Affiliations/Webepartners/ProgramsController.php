@@ -96,10 +96,9 @@ class ProgramsController extends AbstractController
         OffersProducer $offersProducer
     )
     {
-        $programsWebepartnersFactory->setProgram($shop);
         $webeData = $apiProgramWebepartners->getProgram($shop->getExternalId());
 
-        $programsWebepartnersFactory->updateProgram($webeData);
+        $programsWebepartnersFactory->updateProgram($webeData, $shop);
 
         $offersProducer->addToQueue($shop->getExternalId());
 
