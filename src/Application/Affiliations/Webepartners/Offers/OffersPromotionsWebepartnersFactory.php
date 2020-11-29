@@ -87,41 +87,34 @@ class OffersPromotionsWebepartnersFactory extends OffersWebepartnersFactory
     protected function loadPromotions(WebepartnersPrograms $program)
     {
         try {
-            $vouchers = $this->getPromotions();
+            foreach ($this->apiVouchersWebepartners->getOffers($program->getProgramId()) as $voucherWebe) {
+                $voucher = $this->webepartnersVouchersRepository->select(false)->findOneByWebeId($voucherWebe['voucherId'])->getResultOrNull();
 
-            if (!empty($vouchers[$this->keyVoucher][$program->getProgramId()])) {
-                foreach ($vouchers[$this->keyVoucher][$program->getProgramId()] as $voucherWebe) {
-                    $voucher = $this->webepartnersVouchersRepository->select(false)->findOneByWebeId($voucherWebe['voucherId'])->getResultOrNull();
+                if (!$voucher)
+                    $voucher = $this->webepartnersPromotionsRepository->select(false)->findOneByWebeId($voucherWebe['voucherId'])->getResultOrNull();
 
-                    if (!$voucher)
-                        $voucher = $this->webepartnersPromotionsRepository->select(false)->findOneByWebeId($voucherWebe['voucherId'])->getResultOrNull();
+                if (!$voucher) {
+                    try {
+                        $this->entityUpdater->getEntityManager()->beginTransaction();
 
-                    if (!$voucher) {
-                        try {
-                            $this->entityUpdater->getEntityManager()->beginTransaction();
+                        if ($voucherWebe['voucherCode'])
+                            $voucher = new WebepartnersVouchers();
+                        else
+                            $voucher = new WebepartnersPromotions();
+                        $voucher->setShopAffiliation($program);
 
-                            if ($voucherWebe['voucherCode'])
-                                $voucher = new WebepartnersVouchers();
-                            else
-                                $voucher = new WebepartnersPromotions();
-                            $voucher->setShopAffiliation($program);
+                        $this->entityUpdater->setEntity($voucher);
+                        $this->entityUpdater->update($voucherWebe);
 
-                            $this->entityUpdater->setEntity($voucher);
-                            $this->entityUpdater->update($voucherWebe);
+                        $this->entityUpdater->persist($voucher);
+                        $this->entityUpdater->flush();
 
-                            $this->entityUpdater->persist($voucher);
-                            $this->entityUpdater->flush();
+                        $this->offerFactoryManager->create($voucher);
 
-                            $this->offerFactoryManager->create($voucher);
-
-                            $this->entityUpdater->getEntityManager()->commit();
-                        } catch (Exception $exception) {
-                            dump('nie udało się utworzyć oferty webe');
-                            $this->entityUpdater->getEntityManager()->rollback();
-
-                        }
-
-
+                        $this->entityUpdater->getEntityManager()->commit();
+                    } catch (Exception $exception) {
+                        dump('nie udało się utworzyć oferty webe');
+                        $this->entityUpdater->getEntityManager()->rollback();
                     }
                 }
             }
@@ -131,27 +124,4 @@ class OffersPromotionsWebepartnersFactory extends OffersWebepartnersFactory
             dump("Promocje ze sklepu " . $program->getProgramName() . " nie zostaną pobrane: " . $exception->getMessage());
         }
     }
-
-    /**
-     * @return array
-     */
-    private function getPromotions()
-    {
-        if (!isset($this->vouchers[$this->keyVoucher])) {
-            $this->vouchers = [];
-            $vouchersWebe = $this->apiVouchersWebepartners->getVouchers(
-                (new DateTime())->modify('-2 years'),
-                (new DateTime())
-            );
-            foreach ($vouchersWebe as $item) {
-                if (empty($this->vouchers[$this->keyVoucher][$item['programId']]))
-                    $this->vouchers[$this->keyVoucher][$item['programId']] = [];
-
-                $this->vouchers[$this->keyVoucher][$item['programId']][] = $item;
-            }
-        }
-        return $this->vouchers;
-    }
-
-
 }

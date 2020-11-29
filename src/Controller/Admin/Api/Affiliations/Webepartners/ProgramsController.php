@@ -2,10 +2,17 @@
 
 namespace App\Controller\Admin\Api\Affiliations\Webepartners;
 
+use App\Application\Affiliations\Webepartners\Api\Programs\ProgramWebepartners;
+use App\Application\Affiliations\Webepartners\Programs\ProgramsWebepartnersFactory;
+use App\Application\QueueManager\Producers\Webepartners\OffersProducer;
 use App\Controller\Admin\Api\AbstractController;
+use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 use App\Twig\TemplateVars;
+use Doctrine\ORM\NonUniqueResultException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ProgramsController extends AbstractController
@@ -69,6 +76,36 @@ class ProgramsController extends AbstractController
 
         return $this->json([
             'program' => $this->normalizer->normalize($program, null, ['groups' => 'program-admin']),
+        ], 200);
+    }
+
+    /**
+     * @param WebepartnersPrograms $shop
+     * @param ProgramWebepartners $apiProgramWebepartners
+     * @param ProgramsWebepartnersFactory $programsWebepartnersFactory
+     * @param OffersProducer $offersProducer
+     * @return JsonResponse
+     * @throws ExceptionInterface
+     * @throws NonUniqueResultException
+     * @Route("/admin/api/affiliations/webepartners/programs-update/{shop}", name="admin-api-affiliations-program-update", methods={"POST"})
+     */
+    public function update(
+        WebepartnersPrograms $shop,
+        ProgramWebepartners $apiProgramWebepartners,
+        ProgramsWebepartnersFactory $programsWebepartnersFactory,
+        OffersProducer $offersProducer
+    )
+    {
+        $programsWebepartnersFactory->setProgram($shop);
+        $webeData = $apiProgramWebepartners->getProgram($shop->getExternalId());
+
+        $programsWebepartnersFactory->updateProgram($webeData);
+
+        $offersProducer->addToQueue($shop->getExternalId());
+
+        return $this->json([
+            'program' => $this->normalizer->normalize($shop, null, ['groups' => 'program-admin']),
+            'message' => "Zaktualizowano program oraz dodano do kolejki pobranie nowych ofert"
         ], 200);
     }
 }
