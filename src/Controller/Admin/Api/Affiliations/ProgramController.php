@@ -61,22 +61,6 @@ class ProgramController extends AbstractController
      * @param ShopsAffiliation $idShop
      * @return JsonResponse
      * @throws ExceptionInterface
-     * @Route("/admin/api/affiliations/program/update/{idShop}", name="admin-api-affiliations-program-update", methods={"POST"})
-     */
-    public function update(ShopsAffiliation $idShop)
-    {
-        $idShop->setSubpage(null);
-        $idShop->setIsNew(false);
-        $this->getDoctrine()->getManager()->flush();
-        return $this->json([
-            'program' => $this->normalizer->normalize($idShop, null, ['groups' => 'program-admin'])
-        ], 200);
-    }
-
-    /**
-     * @param ShopsAffiliation $idShop
-     * @return JsonResponse
-     * @throws ExceptionInterface
      * @Route("/admin/api/affiliations/program/trash/{idShop}", name="admin-api-affiliations-program-trash", methods={"POST"})
      */
     public function trash(ShopsAffiliation $idShop)

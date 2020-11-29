@@ -61,15 +61,23 @@ class ProgramsWebepartnersFactory
     }
 
     /**
+     * @param WebepartnersPrograms $program
+     */
+    public function setProgram(WebepartnersPrograms $program): void
+    {
+        $this->program = $program;
+    }
+
+    /**
      * @param array $webeProgram
      * @return WebepartnersPrograms
      * @throws NonUniqueResultException
      */
     public function updateProgram(array $data): WebepartnersPrograms
     {
-        $this->program = $this->webepartnersProgramsRepository->select(false)->getProgramByWebeId($data['programId'])->getResultOrNull();
+        $this->program = $this->program ?: $this->webepartnersProgramsRepository->select(false)->getProgramByWebeId($data['programId'])->getResultOrNull();
 
-        if ($this->program == null) {
+        if (!$this->program) {
             $this->createProgram();
             $this->entityUpdater->setEntity($this->program);
         }

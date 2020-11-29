@@ -40,7 +40,7 @@ export default {
   methods:{
     update() {
       this.ajax({
-        url: '/admin/api/affiliations/program/update/' + this.program.idShop,
+        url: '/admin/api/affiliations/webepartners/programs-update/' + this.program.idShop,
         responseCallbackSuccess: res => {
           this.program = res.data.program;
         }
