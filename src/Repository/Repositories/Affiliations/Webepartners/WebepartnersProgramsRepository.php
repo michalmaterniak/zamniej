@@ -56,4 +56,14 @@ class WebepartnersProgramsRepository extends ShopsAffiliationRepository
             ->setParameter('programId', $programId);
         return $this;
     }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function byUrlProgram(string $url): self
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.programUrl LIKE :url")->setParameter('url', "%{$url}%");
+        return $this;
+    }
 }

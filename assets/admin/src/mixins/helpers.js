@@ -132,6 +132,12 @@ export default {
           this.setToken('');
           if (this.$router.currentRoute.name !== 'auth-login')
             this.$router.push({name: 'auth-login'})
+        },
+        alwaysCallbackResponse: res => {
+          this.$store.commit('setDebug', {
+            token: res.headers['x-debug-token'],
+            dev: process.env.VUE_APP_HTTPLOCALE
+          });
         }
       });
     },

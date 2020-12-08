@@ -484,6 +484,6 @@ class WebepartnersHotPrices extends OffersAffiliation implements OfferProductInt
     }
     public function getHistoryPrices(): ArrayCollection
     {
-        // TODO: Implement getHistoryPrices() method.
+        return new ArrayCollection();
     }
 }

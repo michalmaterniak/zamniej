@@ -18,14 +18,14 @@ class Affiliations implements EntityInterface
      * @ORM\Column(name="id_affiliation", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"program-admin", "program-admin-list"})
+     * @Groups({"program-admin", "program-admin-list", "resource-admin"})
      */
     protected $idAffiliation;
 
     /**
      * @var string $name
      * @ORM\Column(name="name", type="string", length=50, nullable=false)
-     * @Groups({"program-admin", "program-admin-list"})
+     * @Groups({"program-admin", "program-admin-list", "resource-admin"})
      */
     protected $name;
 

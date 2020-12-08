@@ -15,11 +15,10 @@
 </template>
 <script>
 	import PopUpView from "./components/PopUp/PopUpView";
-
 	export default {
 		components: {PopUpView},
 		created() {
-			this.$http.defaults.validateStatus = (status) => {
+		  this.$http.defaults.validateStatus = (status) => {
 				return true;
 			};
 		},

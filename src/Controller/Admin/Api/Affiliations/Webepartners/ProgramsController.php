@@ -4,10 +4,12 @@ namespace App\Controller\Admin\Api\Affiliations\Webepartners;
 
 use App\Application\Affiliations\Webepartners\Api\Programs\ProgramWebepartners;
 use App\Application\Affiliations\Webepartners\Programs\ProgramsWebepartnersFactory;
+use App\Application\Affiliations\Webepartners\Urls\UrlToTrackingConverterWebepartners;
 use App\Application\QueueManager\Producers\Webepartners\OffersProducer;
 use App\Controller\Admin\Api\AbstractController;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
+use App\Services\System\Request\Retrievers\RequestData\RequestPostContentData;
 use App\Twig\TemplateVars;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,6 +28,26 @@ class ProgramsController extends AbstractController
     {
         parent::__construct($normalizer, $templateVars);
         $this->webepartnersProgramsRepository = $webepartnersProgramsRepository;
+    }
+
+    /**
+     * @Route("/admin/api/affiliations/webepartners/programs-convertUrl", name="admin-api-affiliations-programs-convertUrl", methods={"POST"})
+     */
+    public function convertUrl(UrlToTrackingConverterWebepartners $trackingUrlWebepartners, RequestPostContentData $requestPostContentData)
+    {
+        if ($url = $trackingUrlWebepartners->getUrl($requestPostContentData->getValue('url', false))) {
+            return $this->responseJson(
+                [
+                    'success' => true,
+                    'tracking-url-webeparnets' => $url
+                ]);
+        } else {
+            return $this->json([
+                'success' => false,
+                'message' => 'nie znaleziono adresu'
+            ]);
+        }
+
     }
 
     /**
