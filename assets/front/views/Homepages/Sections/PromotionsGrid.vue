@@ -24,6 +24,7 @@
               </figure>
               <div class="box-detail box-detail-white-back">
                 <h4 class="hover marB5" v-text="offer.title"></h4>
+                <h5 class="h4" v-text="offer.shop"></h5>
                 <button class="btn btn-orange">Przejdź do promocji</button>
               </div>
             </div>

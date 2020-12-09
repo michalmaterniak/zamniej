@@ -207,7 +207,6 @@ class OffersRepository extends GlobalRepository
      */
     public function lastMax(int $countMax): self
     {
-        $this->orderBy(['datetimeTo' => 'DESC', 'datetimeFrom' => 'DESC']);
         $this->queryBuilder->setMaxResults($countMax);
         return $this;
     }
@@ -217,16 +216,26 @@ class OffersRepository extends GlobalRepository
      */
     public function listingHomepage(): self
     {
-        $this->withPhoto()->withShopAffil()->withContent()->lastMax(8);
+        $this->orderBy(['datetimeFrom' => 'DESC', 'datetimeCreate' => 'DESC']);
+        $this->withPhoto()->withShopAffil()->withContent()->lastMax(16);
         return $this;
     }
 
     /**
      * @return $this
      */
-    public function withSubpage() : self
+    public function withSubpage(): self
     {
         $this->addLeftJoin('subpage');
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function withLiking(): self
+    {
+        $this->addLeftJoin('liking');
         return $this;
     }
 }
