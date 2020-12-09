@@ -1,13 +1,9 @@
 <?php
 namespace App\Repository\Repositories\Sliders;
 
-use App\Entity\Entities\Sliders\Sliders;
 use App\Entity\Entities\Sliders\Sliders as Entity;
-use App\Entity\Entities\Sliders\Slides;
-use App\Entity\Entities\System\Files;
 use App\Repository\Repositories\GlobalRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
@@ -68,14 +64,23 @@ class SlidersRepository extends GlobalRepository
      */
     public function getSlidersByNames(array $names)
     {
-        $this->queryBuilder            ->andWhere("{$this->getRootAlias()}.active = 1")
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 1")
             ->andWhere("{$this->getRootAlias()}.name IN (:names)")
-            ->setParameter('names', $names)
-        ;
+            ->setParameter('names', $names);
 
         $aliasRootSlides = $this->addLeftJoin('slides');
         $this->addLeftJoin('photo', $aliasRootSlides);
 
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function mainSlider()
+    {
+        $aliasRootSlides = $this->addLeftJoin('slides');
+        $this->addLeftJoin('offer', $aliasRootSlides);
         return $this;
     }
 }

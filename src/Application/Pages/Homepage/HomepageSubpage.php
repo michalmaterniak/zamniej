@@ -100,7 +100,7 @@ class HomepageSubpage extends ResourceSubpage
                 $this->promotions->add([
                     'idOffer' => $promotion->getOffer()->getIdOffer(),
                     'title' => $promotion->getOffer()->getTitle(),
-//                    'content' => $promotion->getOffer()->getContent()->getContent(),
+                    'shop' => $promotion->getOffer()->getSubpage()->getName(),
                     'logo' => $promotion->getPhoto()->getModifiedPhoto('insertCenter', 292, 292),
                 ]);
             }
@@ -190,14 +190,15 @@ class HomepageSubpage extends ResourceSubpage
     {
         if (!$this->mainSlider) {
             $this->mainSlider = new ArrayCollection();
-            $this->sliders = $this->getComponents()->getSliderRepository()->select()->indexByName()->getResults();
+            $this->sliders = $this->getComponents()->getSliderRepository()->indexByName()->mainSlider()->getResults();
 
             foreach ($this->sliders->get('homepage_sliders')->getSlides() as $slide) {
                 $slideModel = $this->getComponents()->getSlide()->createSlide($slide);
                 $this->mainSlider->add([
-                    'slide' => $slideModel->getSlide(),
+                    'header' => $slideModel->getSlide()->getHeader(),
+                    'type' => $slideModel->getSlide()->getType(),
+                    'idOffer' => $slideModel->getSlide()->getOffer()->getIdOffer(),
                     'photo' => $slideModel->getPhoto()->getModifiedPhoto('resize', 848, 290, []),
-
                 ]);
             }
         }
