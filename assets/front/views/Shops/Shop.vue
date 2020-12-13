@@ -29,7 +29,7 @@
               <div class="col-md-12 box1 marB30">
                 <div class="section-box section-box-white">
                   <div class="boxbg">
-                    <h1 class="h4" v-text="model.subpage.subpage.content.data.description"></h1>
+                    <h1 class="h4 description-text" v-text="model.subpage.subpage.content.data.description"></h1>
                     <div class="ask-btn text-right">
                       <button @click="redirectEmpty" class="itg-btn cart-btn"><span>Przejdź do sklepu</span></button>
                     </div>
@@ -231,10 +231,13 @@ export default {
   right: 0;
   margin-bottom: 0px;
 }
-.icon-h1
-{
+
+.icon-h1 {
   font-size: 30px;
   font-style: normal;
 }
 
+h1.description-text {
+  text-transform: unset;
+}
 </style>
