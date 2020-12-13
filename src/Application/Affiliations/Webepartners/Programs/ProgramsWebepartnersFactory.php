@@ -73,7 +73,7 @@ class ProgramsWebepartnersFactory
             $this->entityUpdater->setEntity($this->program);
         }
         $this->entityUpdater->update($data);
-
+        $this->entityUpdater->flush();
         return $this->program;
     }
 
