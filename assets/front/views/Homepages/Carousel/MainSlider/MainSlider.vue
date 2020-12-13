@@ -9,10 +9,10 @@
         <vue-glide-slide v-for="(offer, index) in offers" :key="index">
           <div class="item">
             <figure>
-              <img class="img-slider" :src="offer.photo.modifyPath" :alt="offer.slide.header" data-not-lazy>
+              <img class="img-slider" :src="offer.photo.modifyPath" :alt="offer.header" data-not-lazy>
               <div class="box-slider">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <h4 v-text="offer.slide.header"></h4>
+                  <h4 v-text="offer.header"></h4>
                   <div class="row">
                     <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="text-left">
@@ -23,11 +23,11 @@
                     <div class="col-md-6 col-sm-12 col-xs-12">
                       <div class="text-right">
                         <!--                  <button class="itg-btn box-btn white" >{{ offer.slide.extra.code }}<span></span></button>-->
-                        <button @click.prevent="redirect(offer.slide.offer.idOffer)"
-                                class="itg-btn white btn  btn-orange btn-promo" v-if="offer.slide.type === 2">Pobierz
+                        <button @click.prevent="redirect(offer.idOffer)"
+                                class="itg-btn white btn  btn-orange btn-promo" v-if="offer.type === 2">Pobierz
                           kupon
                         </button>
-                        <button @click.prevent="redirect(offer.slide.offer.idOffer)"
+                        <button @click.prevent="redirect(offer.idOffer)"
                                 class="itg-btn white btn  btn-orange btn-promo" v-else>Przejdź do promocji
                         </button>
                       </div>
