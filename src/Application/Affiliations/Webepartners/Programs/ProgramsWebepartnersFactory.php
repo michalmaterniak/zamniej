@@ -70,9 +70,11 @@ class ProgramsWebepartnersFactory
 
         if (!$this->program) {
             $this->createProgram();
-            $this->entityUpdater->setEntity($this->program);
         }
+        $this->entityUpdater->setEntity($this->program);
+
         $this->entityUpdater->update($data);
+
         $this->entityUpdater->flush();
         return $this->program;
     }
