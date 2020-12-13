@@ -29,11 +29,12 @@
               <div class="col-md-12 box1 marB30">
                 <div class="section-box section-box-white">
                   <div class="boxbg">
-                    <div class="h3">
-                      <i class="flaticon-label"></i>Niestety, nie posiadamy w tej chwili żadnych promocji
-                    </div>
+                    <h1 class="h4" v-text="model.subpage.subpage.content.data.description"></h1>
                     <div class="ask-btn text-right">
                       <button @click="redirectEmpty" class="itg-btn cart-btn"><span>Przejdź do sklepu</span></button>
+                    </div>
+                    <div class="h4">
+                      <i class="flaticon-label"></i>Niestety, nie posiadamy w tej chwili żadnych promocji
                     </div>
                   </div>
                 </div>
