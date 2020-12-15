@@ -140,7 +140,7 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
         $this->content = new Contents();
         $this->datetimeUpdate = new DateTime();
         $this->datetimeCreate = new DateTime();
-        $this->liking = new OfferLikings();
+        $this->liking = new OfferLiking();
     }
 
     /**

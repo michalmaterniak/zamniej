@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller\Admin\Api\Affiliations\Webepartners;
 
+use App\Application\Offers\Factory\Offers\Promotion\OfferCustomPromotionFactory;
+use App\Application\Offers\Factory\Offers\Voucher\OfferCustomVoucherFactory;
 use App\Application\Offers\Factory\Offers\Voucher\OfferEntityVoucherFactory;
 use App\Controller\Admin\Api\AbstractController;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
@@ -61,28 +63,23 @@ class VouchersController extends AbstractController
 
     /**
      * @param RequestPostContentData $requestPostContentData
-     * @param OfferVoucherFactory $offerVoucherFactory
-     * @param OfferPromotionFactory $offerPromotionFactory
+     * @param OfferCustomVoucherFactory $offerVoucherFactory
+     * @param OfferCustomPromotionFactory $offerPromotionFactory
      * @return JsonResponse
      * @Route("/admin/api/affiliations/webepartners/vouchers/createCustomOffer", name="admin-api-affiliations-webepartners-vouchers-createCustomOffer", methods={"POST"})
      */
     public function createCustomOffer(
         RequestPostContentData $requestPostContentData,
-        OfferVoucherFactory $offerVoucherFactory,
-        OfferPromotionFactory $offerPromotionFactory
+        OfferCustomVoucherFactory $offerVoucherFactory,
+        OfferCustomPromotionFactory $offerPromotionFactory
     )
     {
-        $code = $requestPostContentData->getValue('');
-        $offerFactory = $code ? $offerVoucherFactory : $offerPromotionFactory;
-        $vouchers = $this->webepartnersVouchersRepository->findAllByIdsOfferIsNull($requestPostContentData->getValue('vouchers', []));
-        $count = 0;
-        foreach ($vouchers as $voucher) {
-            $count++;
-            $offerVoucherFactory->create($voucher);
-        }
+        $offer = $requestPostContentData->getValue('offer');
+        $offerFactory = isset($offer['code']) ? $offerVoucherFactory : $offerPromotionFactory;
+
 
         return $this->json([
-            'message' => 'Utworzono ' . $count . ' ofert',
+            'message' => 'Utworzono nową ofertę',
         ]);
     }
 }

@@ -3,7 +3,7 @@ namespace App\Application\Offers\Factory\Offers\Promotion;
 
 use App\Application\Offers\Factory\OfferEntityFactory;
 use App\Entity\Entities\Affiliations\Interfaces\OfferInterface;
-use App\Entity\Entities\Shops\Offers\OffersPromotion;
+use App\Entity\Entities\Shops\Offers\Types\OffersPromotion;
 
 /**
  * Class OfferCustomPromotionFactory
