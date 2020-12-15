@@ -74,6 +74,7 @@ class VouchersController extends AbstractController
     )
     {
         $code = $requestPostContentData->getValue('');
+        $offerFactory = $code ? $offerVoucherFactory : $offerPromotionFactory;
         $vouchers = $this->webepartnersVouchersRepository->findAllByIdsOfferIsNull($requestPostContentData->getValue('vouchers', []));
         $count = 0;
         foreach ($vouchers as $voucher) {

@@ -2,8 +2,8 @@
 namespace App\Application\Pages\Homepage;
 
 use App\Application\Offers\Offer;
-use App\Application\Offers\OfferPromotion;
-use App\Application\Offers\OfferVoucher;
+use App\Application\Offers\Types\OfferPromotion;
+use App\Application\Offers\Types\OfferVoucher;
 use App\Application\Sliders\Slide;
 use App\Entity\Entities\Shops\Offers\OffersPromotion;
 use App\Entity\Entities\Shops\Offers\OffersVoucher;

@@ -32,7 +32,7 @@
           Treść
         </div>
         <div class="col-md-11">
-          <input type="text" class="form-control border-black" v-model="contentOffer">
+          <ckeditor v-model="contentOffer" :config="configCkeditor"/>
         </div>
       </div>
 
@@ -52,7 +52,8 @@
       <div class="row mt-5">
         <label for="datetimeTo" class="col-md-1">Data do</label>
         <div class="col-md-11">
-          <datetime class="border-black" v-model="datetimeToOffer" id="datetimeTo"></datetime>
+          <datetime placeholder="Bez końca" class="border-black" v-model="datetimeToOffer" id="datetimeTo"></datetime><button class="btn btn-success" @click="datetimeToOffer = null">
+          <i class="mdi mdi-delete-empty"></i></button>
         </div>
       </div>
 
@@ -64,7 +65,9 @@
 </template>
 
 <script>
+import WysiwygComponent from "../../FormFieldsComponents/TextComponent/WysiwygComponent";
 export default {
+  components: {WysiwygComponent},
   props: ['title', 'data'],
   name: "PopupOffersNewWebepartners",
   data() {
@@ -74,8 +77,22 @@ export default {
       titleOffer: '',
       datetimeFromOffer: '',
       datetimeToOffer: '',
+      datetimeToOfferNull: '',
+
       codeOffer: '',
-      contentOffer: ''
+      contentOffer: '',
+
+      configCkeditor:{
+        width: '100%',
+        toolbar: [
+          ['Bold','Italic','Underline','StrikeThrough','-','Undo','Redo','-','Cut','Copy','Paste','Find','Replace','-','Outdent','Indent','-','Print'],
+          ['NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+          ['Image','Table','-','Link','Flash','Smiley','TextColor','BGColor','Source']
+        ],
+        language: 'pl',
+        filebrowserBrowseUrl: '/elfinder',
+        uiColor : '#b7c6ee'
+      }
     }
   },
   computed:{
@@ -112,7 +129,12 @@ export default {
           url: '/admin/api/affiliations/webepartners/vouchers/createCustomOffer',
           data: {
             offer: {
-              this.
+              datetimeTo: this.datetimeToOffer,
+              datetimeFrm: this.datetimeFromOffer,
+              content: this.contentOffer,
+              title: this.titleOffer,
+              subpage: this.data.subpage.isSubpage,
+              url: this.trackingUrlOffer
             }
           },
           responseCallbackSuccess: res => {

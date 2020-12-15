@@ -1,6 +1,10 @@
 <?php
 namespace App\Application\Offers;
 
+use App\Application\Offers\Types\OfferBanner;
+use App\Application\Offers\Types\OfferProduct;
+use App\Application\Offers\Types\OfferPromotion;
+use App\Application\Offers\Types\OfferVoucher;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\Shops\Offers\OffersBanner;
 use App\Entity\Entities\Shops\Offers\OffersProduct;

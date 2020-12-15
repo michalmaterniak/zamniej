@@ -5,7 +5,7 @@ namespace App\Application\Affiliations\Webepartners\Offers;
 use App\Application\Affiliations\Webepartners\Api\Vouchers\VouchersWebepartners;
 use App\Application\Affiliations\Webepartners\OffersWebepartnersFactory;
 use App\Application\Images\ImageManager;
-use App\Application\Offers\Factory\OfferFactoryManager;
+use App\Application\Offers\Factory\OfferEntityFactoryManager;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPromotions;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersVouchers;
@@ -35,7 +35,7 @@ class OffersPromotionsWebepartnersFactory extends OffersWebepartnersFactory
     protected $webepartnersPromotionsRepository;
 
     /**
-     * @var OfferFactoryManager $offerFactoryManager
+     * @var OfferEntityFactoryManager $offerFactoryManager
      */
     protected $offerFactoryManager;
 
@@ -55,7 +55,7 @@ class OffersPromotionsWebepartnersFactory extends OffersWebepartnersFactory
     private $vouchers;
 
     public function __construct(
-        OfferFactoryManager $offerFactoryManager,
+        OfferEntityFactoryManager $offerFactoryManager,
         SimpleEntityUpdater $entityUpdater,
         ImageManager $imageManager,
 

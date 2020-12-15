@@ -2,9 +2,9 @@
 namespace App\Application\Pages\Shop;
 
 use App\Application\Offers\Offer;
-use App\Application\Offers\OfferProduct;
-use App\Application\Offers\OfferPromotion;
-use App\Application\Offers\OfferVoucher;
+use App\Application\Offers\Types\OfferProduct;
+use App\Application\Offers\Types\OfferPromotion;
+use App\Application\Offers\Types\OfferVoucher;
 use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\Shops\Offers\OffersProduct;

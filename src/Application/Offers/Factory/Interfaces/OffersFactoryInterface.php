@@ -6,5 +6,5 @@ use App\Entity\Entities\Shops\Offers\Offers;
 
 interface OffersFactoryInterface
 {
-    public function create(OfferInterface $offer) : Offers;
+    public function createByEntity(OfferInterface $offer): Offers;
 }
