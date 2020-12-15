@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Application\Pages\Resource\Factory;
 
 

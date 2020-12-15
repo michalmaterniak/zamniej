@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Affiliations\Interfaces\Offers;
 
 use App\Entity\Entities\Affiliations\ShopsAffiliation;

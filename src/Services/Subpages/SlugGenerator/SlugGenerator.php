@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Services\Subpages\SlugGenerator;
 
 use App\Entity\Entities\Subpages\Resources;

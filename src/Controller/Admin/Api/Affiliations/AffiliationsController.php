@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Admin\Api\Affiliations;
 
 use App\Controller\Admin\Api\AbstractController;

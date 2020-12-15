@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Entity\Traits;
 
 use App\Entity\Entities\Homepages\Homepages;

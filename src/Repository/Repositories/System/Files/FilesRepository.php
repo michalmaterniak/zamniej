@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repository\Repositories\System\Files;
 
 use App\Entity\Entities\System\Files as Entity;

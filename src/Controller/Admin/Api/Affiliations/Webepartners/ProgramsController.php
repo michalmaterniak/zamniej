@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Admin\Api\Affiliations\Webepartners;
 
 use App\Application\Affiliations\Webepartners\Api\Programs\ProgramWebepartners;

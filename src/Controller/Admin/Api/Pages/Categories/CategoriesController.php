@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Admin\Api\Pages\Categories;
 
 use App\Controller\Admin\Api\Pages\AbstractResourceController;

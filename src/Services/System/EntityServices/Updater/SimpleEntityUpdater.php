@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\System\EntityServices\Updater;
 
 class SimpleEntityUpdater extends EntityUpdater

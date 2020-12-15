@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Offers\Factory;
 
 use App\Application\Offers\Factory\Interfaces\OffersFactoryInterface;

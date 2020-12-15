@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Front\Api\Pages\Promotions;
 
 use App\Application\Pages\Page\Types\Promotions\Promotions;

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Affiliations\Webepartners\Urls;
 
 use App\Application\Affiliations\Webepartners\Api\TrackingUrlWebepartners;

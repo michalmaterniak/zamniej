@@ -45,6 +45,9 @@ export default {
       }
       return '/';
     },
+    elfinderForm() {
+	    return '/admin/elfinder/form';
+    },
     isAuth() {
       return this.$store.getters.isAuth;
     },

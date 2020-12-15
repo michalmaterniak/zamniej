@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Offers\Factory\Offers\Banner;
 
 use App\Application\Offers\Factory\OfferFactory;

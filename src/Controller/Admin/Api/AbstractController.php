@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Admin\Api;
 
 use App\Twig\TemplateVars;

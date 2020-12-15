@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Admin\Resources\Listing;
 
 use App\Application\Admin\Resources\Listing\ChildrenConfig\ChildrenConfigAdapter;

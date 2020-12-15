@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Application\Pages\Homepage\Factory\Slug;
 
 use App\Entity\Entities\Subpages\Subpages;

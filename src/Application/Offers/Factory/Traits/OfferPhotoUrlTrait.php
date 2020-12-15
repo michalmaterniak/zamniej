@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Offers\Factory\Traits;
 
 use App\Application\Images\ImageManager;

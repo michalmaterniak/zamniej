@@ -29,14 +29,14 @@
           value: '',
           config:{
             //width: 500,
-            width: '50%',
+            width: '80%',
             toolbar: [
               ['Bold','Italic','Underline','StrikeThrough','-','Undo','Redo','-','Cut','Copy','Paste','Find','Replace','-','Outdent','Indent','-','Print'],
               ['NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
               ['Image','Table','-','Link','Flash','Smiley','TextColor','BGColor','Source']
             ],
             language: 'pl',
-            filebrowserBrowseUrl: '/elfinder',
+            filebrowserBrowseUrl: '/admin/elfinder',
             uiColor : '#b7c6ee'
           }
         }

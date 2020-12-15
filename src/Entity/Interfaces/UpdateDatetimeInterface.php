@@ -1,17 +1,17 @@
 <?php
-
-
 namespace App\Entity\Interfaces;
+
+use DateTime;
 
 interface UpdateDatetimeInterface
 {
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getDatetimeUpdate(): \DateTime;
+    public function getDatetimeUpdate(): DateTime;
 
     /**
-     * @param \DateTime $datetimeUpdate
+     * @param DateTime $datetimeUpdate
      */
-    public function setDatetimeUpdate(\DateTime $datetimeUpdate): void;
+    public function setDatetimeUpdate(DateTime $datetimeUpdate): void;
 }

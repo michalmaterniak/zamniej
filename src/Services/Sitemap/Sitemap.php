@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\Sitemap;
 
 use App\Repository\Repositories\Subpages\SubpagesRepository;

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Command\Queue;
 
 use App\Services\QueueManager\Producers\TestProducer;

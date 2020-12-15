@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Twig\Interfaces;
 
 use Doctrine\Common\Collections\ArrayCollection;

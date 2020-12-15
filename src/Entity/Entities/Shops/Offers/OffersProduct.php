@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OffersProduct extends Offers
 {
-    
+
 
     public function getPrice()
     {

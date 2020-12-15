@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Application\Affiliations;
 
 use GuzzleHttp\Client;

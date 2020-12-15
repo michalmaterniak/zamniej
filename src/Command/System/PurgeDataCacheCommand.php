@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Command\System;
 
 use App\Services\Files\CacheData\PurgeDataCache;

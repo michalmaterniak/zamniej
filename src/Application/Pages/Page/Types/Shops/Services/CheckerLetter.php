@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Pages\Page\Types\Shops\Services;
 
 use App\Services\System\Request\Retrievers\RequestDataManager;

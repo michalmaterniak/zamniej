@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Offers\Factory\Managers;
 
 use App\Application\Offers\Factory\OfferEntityFactory;

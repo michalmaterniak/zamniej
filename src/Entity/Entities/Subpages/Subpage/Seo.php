@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity\Entities\Subpages\Subpage;
 
 use App\Entity\Interfaces\EntityInterface;

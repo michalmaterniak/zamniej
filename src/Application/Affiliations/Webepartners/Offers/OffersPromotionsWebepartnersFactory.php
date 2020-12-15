@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Affiliations\Webepartners\Offers;
 
 use App\Application\Affiliations\Webepartners\Api\Vouchers\VouchersWebepartners;

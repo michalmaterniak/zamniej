@@ -26,7 +26,7 @@
           config:{
             allowedContent: true,
             language: 'pl',
-            filebrowserBrowseUrl: '/elfinder',
+            filebrowserBrowseUrl: '/admin/elfinder',
             uiColor : '#b7c6ee'
           }
         }

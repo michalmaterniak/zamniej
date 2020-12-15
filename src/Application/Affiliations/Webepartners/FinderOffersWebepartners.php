@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Affiliations\Webepartners;
 
 use App\Application\Affiliations\Interfaces\Offers\FinderOffersToProgramInterface;

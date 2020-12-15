@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\QueueManager\Consumers;
 
 use App\Services\QueueManager\Interfaces\Consumer;

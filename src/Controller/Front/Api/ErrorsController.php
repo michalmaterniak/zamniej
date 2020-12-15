@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Controller\Front\Api;
 
 class ErrorsController extends AbstractController

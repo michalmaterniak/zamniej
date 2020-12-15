@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Pages\Page\Types\Shops\Seo;
 
 use App\Application\Pages\Page\Seo\PageSeoElements;

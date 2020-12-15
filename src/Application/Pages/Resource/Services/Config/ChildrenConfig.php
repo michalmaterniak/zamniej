@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Pages\Resource\Services\Config;
 
 use App\Application\Pages\PagesManager;
