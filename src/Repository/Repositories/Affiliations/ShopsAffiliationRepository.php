@@ -2,6 +2,7 @@
 namespace App\Repository\Repositories\Affiliations;
 
 use App\Entity\Entities\Affiliations\ShopsAffiliation as Entity;
+use App\Entity\Entities\Subpages\Subpages;
 use App\Repository\Repositories\GlobalRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -104,4 +105,9 @@ class ShopsAffiliationRepository extends GlobalRepository
         return $this;
     }
 
+    public function bySubpage(Subpages $subpage)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.subpage = :subpage")->setParameter('subpage', $subpage);
+        return $this;
+    }
 }

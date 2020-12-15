@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller\Admin\Api\Affiliations\Webepartners;
 
-use App\Application\Offers\Factory\Offers\OfferPromotionFactory;
-use App\Application\Offers\Factory\Offers\OfferVoucherFactory;
+use App\Application\Offers\Factory\Offers\Voucher\OfferEntityVoucherFactory;
 use App\Controller\Admin\Api\AbstractController;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersVouchersRepository;
@@ -42,11 +41,11 @@ class VouchersController extends AbstractController
 
     /**
      * @param RequestPostContentData $requestPostContentData
-     * @param OfferVoucherFactory $offerVoucherFactory
+     * @param OfferEntityVoucherFactory $offerVoucherFactory
      * @return JsonResponse
      * @Route("/admin/api/affiliations/webepartners/vouchers/createOffer", name="admin-api-affiliations-webepartners-vouchers-createOffer", methods={"POST"})
      */
-    public function createOffer(RequestPostContentData $requestPostContentData, OfferVoucherFactory $offerVoucherFactory)
+    public function createOffer(RequestPostContentData $requestPostContentData, OfferEntityVoucherFactory $offerVoucherFactory)
     {
         $vouchers = $this->webepartnersVouchersRepository->findAllByIdsOfferIsNull($requestPostContentData->getValue('vouchers', []));
         $count = 0;

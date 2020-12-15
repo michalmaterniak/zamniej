@@ -1,8 +1,9 @@
 <?php
-namespace App\Repository\Repositories\Subpages;
 
-use App\Entity\Entities\Subpages\Subpages;
-use App\Entity\Entities\Subpages\Subpages as Entity;
+namespace App\Repository\Repositories\System\Files;
+
+use App\Entity\Entities\System\Files;
+use App\Entity\Entities\System\Files as Entity;
 use App\Repository\Repositories\GlobalRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,44 +19,29 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Entity|null              getResultOrNull()
  * @method Entity[]|Paginator       getPaginate()
  */
-class SubpagesRepository extends GlobalRepository
+class PhotosRepository extends GlobalRepository
 {
+    public function __construct(
+        ManagerRegistry $registry,
+        ServicesRepositoriesManager $servicesRepositoriesManager
+    )
+    {
+        parent::__construct($registry, $servicesRepositoriesManager);
+    }
+
+    public function byPath(string $path)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.path = :path")->setParameter('path', $path);
+        return $this;
+    }
+
     protected function getEntityName(): string
     {
         return Entity::class;
     }
 
-    public function __construct(
-        ManagerRegistry $registry,
-        ServicesRepositoriesManager $servicesRepositoriesManager
-    ) {
-        parent::__construct($registry, $servicesRepositoriesManager);
-    }
-
-    /**
-     * @param string $name
-     * @return static
-     */
-    public function searchSubpagesByName(string $name): self
+    protected function qualifySelect()
     {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.name LIKE :name AND {$this->getRootAlias()}.active = 1")
-            ->setParameter('name', "%$name%");
-        return $this;
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.type = :type")->setParameter('type', Files::PHOTO);
     }
-
-    /**
-     * @return $this
-     */
-    public function findAllToSitemap()
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 1");
-        return $this;
-    }
-
-    public function bySubpage(Subpages $subpage)
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.subpage = :subpage")->setParameter('subpage', $subpage);
-        return $this;
-    }
-
 }

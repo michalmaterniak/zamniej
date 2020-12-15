@@ -1,9 +1,8 @@
 <?php
 namespace App\Repository\Repositories\Subpages;
 
+use App\Entity\Entities\Subpages\Resources;
 use App\Entity\Entities\Subpages\Resources as Entity;
-use App\Repository\Repositories\GlobalRepository;
-use App\Repository\Repositories\Subpages\Pages\ShopRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use App\Services\Pages\Resource\ResourceConfig;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,20 +34,24 @@ abstract class CustomResourceRepository extends ResourcesRepository
         ResourceConfig $resourceConfig,
         ManagerRegistry $registry,
         ServicesRepositoriesManager $servicesRepositoriesManager
-    ) {
+    )
+    {
         parent::__construct($registry, $servicesRepositoriesManager);
         $this->resourceConfig = $resourceConfig;
     }
 
+    protected function qualifySelect(bool $cache = true)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.resourceType = :type")->setParameter('type', $this->resourceConfig->getKey());
+    }
+
     /**
-     * @param int $type
-     * @param bool $cache
+     * @param Resources $resource
      * @return $this
      */
-    public function select(bool $cache = true): self
+    public function byResource(Resources $resource): self
     {
-        parent::select($cache);
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.resourceType = :type")->setParameter('type', $this->resourceConfig->getKey());
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.resource = :resource")->setParameter('resource', $resource);
         return $this;
     }
 }

@@ -64,7 +64,7 @@ class OfferEntityFactoryManager
      */
     public function create(OfferInterface $offer) : Offers
     {
-        return $this->getFactory($offer)->create($offer);
+        return $this->getFactory($offer)->createByEntity($offer);
     }
 
     /**

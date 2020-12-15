@@ -37,12 +37,12 @@ class OfferEntityFactory extends OfferFactory implements OffersFactoryInterface
     public function updateByEntity(OfferInterface $sourceOffer, Offers $offerEntity = null)
     {
         $this->offer = $offerEntity ?: $this->offer;
-        $offerEntity->setShopAffiliation($sourceOffer->getShopAffiliation());
-        $offerEntity->setSubpage($sourceOffer->getShopAffiliation()->getSubpage());
-        $offerEntity->setContent(strip_tags($sourceOffer->getContent()));
-        $offerEntity->setTitle($sourceOffer->getTitle());
-        $offerEntity->setDatetimeFrom($sourceOffer->getDatetimeFrom());
-        $offerEntity->setDatetimeTo($sourceOffer->getDatetimeTo());
-        $offerEntity->setUrl($sourceOffer->getUrlTracking());
+        $this->offer->setShopAffiliation($sourceOffer->getShopAffiliation());
+        $this->offer->setSubpage($sourceOffer->getShopAffiliation()->getSubpage());
+        $this->offer->setContent(strip_tags($sourceOffer->getContent()));
+        $this->offer->setTitle($sourceOffer->getTitle());
+        $this->offer->setDatetimeFrom($sourceOffer->getDatetimeFrom());
+        $this->offer->setDatetimeTo($sourceOffer->getDatetimeTo());
+        $this->offer->setUrl($sourceOffer->getUrlTracking());
     }
 }

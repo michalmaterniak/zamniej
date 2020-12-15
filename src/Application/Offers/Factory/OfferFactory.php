@@ -65,7 +65,6 @@ class OfferFactory extends OfferAbstractFactory
     {
         $this->entityUpdater->setEntity($this->offer);
         $this->entityUpdater->update($offer);
-        $this->entityUpdater->getEntityManager()->flush();
     }
 
     protected function createPhoto(): void

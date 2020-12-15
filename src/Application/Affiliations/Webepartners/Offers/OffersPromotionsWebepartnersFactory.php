@@ -5,7 +5,7 @@ namespace App\Application\Affiliations\Webepartners\Offers;
 use App\Application\Affiliations\Webepartners\Api\Vouchers\VouchersWebepartners;
 use App\Application\Affiliations\Webepartners\OffersWebepartnersFactory;
 use App\Application\Images\ImageManager;
-use App\Application\Offers\Factory\OfferEntityFactoryManager;
+use App\Application\Offers\Factory\Managers\OfferEntityFactoryManager;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPromotions;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersVouchers;
