@@ -2,6 +2,7 @@
 namespace App\Entity\Entities\Affiliations\Webepartners;
 use App\Entity\Entities\Affiliations\Interfaces\OfferVoucherInterface;
 use App\Entity\Entities\Affiliations\OffersAffiliation;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
