@@ -4,7 +4,7 @@
       <div class="col-md-2">
         <button class="btn btn-primary" @click="hideOutOfDate = !hideOutOfDate">
           <span v-if="hideOutOfDate"><i class="mdi mdi-arrow-down"></i>Pokaż ukryte</span>
-          <span v-else><<i class="mdi mdi-arrow-up"></i>Schowaj ukryte</span>
+          <span v-else><i class="mdi mdi-arrow-up"></i>Schowaj ukryte</span>
         </button>
       </div>
       <div class="col-md-2">

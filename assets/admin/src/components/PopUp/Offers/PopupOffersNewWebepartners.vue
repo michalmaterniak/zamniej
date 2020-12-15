@@ -58,7 +58,7 @@
 
     </div>
     <div class="modal-footer">
-
+      <button class="btn btn-success" :disabled="!isValidate" @click="addOffer"><i class="mdi mdi-plus"></i> Dodaj</button>
     </div>
   </div>
 </template>
@@ -85,6 +85,12 @@ export default {
     subpage() {
       return this.data.subpage;
     },
+    isValidate() {
+      return (!!this.trackingUrlOffer
+        && !!this.titleOffer
+        && !!this.datetimeFromOffer
+        && !!this.contentOffer);
+    }
   },
   methods: {
     convertUrlWebepartners() {
@@ -99,6 +105,23 @@ export default {
           }
         }
       })
+    },
+    addOffer() {
+      if(this.isValidate) {
+        this.ajax({
+          url: '/admin/api/affiliations/webepartners/vouchers/createCustomOffer',
+          data: {
+            offer: {
+              this.
+            }
+          },
+          responseCallbackSuccess: res => {
+            if(res.data.success === true) {
+              this.trackingUrlOffer = res.data['tracking-url-webeparnets'];
+            }
+          }
+        })
+      }
     }
   },
 }
