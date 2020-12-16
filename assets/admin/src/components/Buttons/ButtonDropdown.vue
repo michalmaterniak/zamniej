@@ -4,7 +4,7 @@
     <slot/>
   </button>
   <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" v-for="(action, index) in actions" :key="index" v-text="action.name" @click.prevent="action.action"></a>
+    <a class="dropdown-item" href="#" v-for="(action, index) in actions" :key="index" v-text="action.name + ' ' + countAffiliations(action.name)" @click.prevent="action.action"></a>
   </div>
 </div>
 </template>
@@ -26,6 +26,20 @@ export default {
         }
        */
       default: []
+    },
+    shopsAffiliations: {
+      type: Array,
+      default: []
+    }
+  },
+  methods:{
+    countAffiliations(name) {
+      let count = 0;
+      this.shopsAffiliations.forEach(item => {
+        if(item.affiliation.name === name)
+          count++;
+      });
+      return '(' + count + ')';
     }
   }
 }
