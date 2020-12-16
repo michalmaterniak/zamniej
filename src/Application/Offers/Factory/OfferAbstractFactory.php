@@ -34,14 +34,28 @@ abstract class OfferAbstractFactory
         $this->imageManager = $imageManager;
     }
 
-    protected function createPhoto(): void
+    protected function createPhoto(array $data = []): void
     {
         $photo = new Files();
         $photo->setGroup('offer');
         $photo->setPath($this->offer->getSubpage()->getPhoto('logo')->getPath());
         $photo->setData($this->offer->getTitle(), 'alt');
+        $this->getOffer()->setPhoto($photo);
+    }
 
-        $this->entityUpdater->getEntityManager()->persist($photo);
-        $this->offer->setPhoto($photo);
+    /**
+     * @return ImageManager
+     */
+    public function getImageManager(): ImageManager
+    {
+        return $this->imageManager;
+    }
+
+    /**
+     * @return Offers
+     */
+    public function getOffer(): Offers
+    {
+        return $this->offer;
     }
 }

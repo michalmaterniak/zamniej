@@ -2,6 +2,7 @@
 namespace App\Application\Offers\Factory\Offers\Product;
 
 use App\Application\Offers\Factory\OfferEntityFactory;
+use App\Application\Offers\Factory\Traits\OfferPhotoUrlTrait;
 use App\Entity\Entities\Affiliations\Interfaces\OfferInterface;
 use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\Shops\Offers\OffersProduct;
@@ -13,6 +14,8 @@ use App\Entity\Entities\Shops\Offers\OffersProduct;
  */
 class OfferCustomProductFactory extends OfferEntityFactory
 {
+    use OfferPhotoUrlTrait;
+
     /**
      * @var OffersProduct $offer
      */
@@ -33,5 +36,10 @@ class OfferCustomProductFactory extends OfferEntityFactory
         $this->offer->setPrice($offer->getCurrentPrice());
         $this->offer->setCutPrice($offer->getCutPrice());
         parent::updateByEntity($offer, $offerEntity);
+    }
+
+    protected function createPhoto(array $data = []): void
+    {
+        $this->createPhotoByUrl($data['url']);
     }
 }

@@ -60,7 +60,7 @@ class ProductsController extends AbstractController
         $offersProduct = [];
         foreach ($products as $product) {
             $count++;
-            $offersProduct[$product->getIdOffer()] = $offerProductFactory->create($product);
+            $offersProduct[$product->getIdOffer()] = $offerProductFactory->createByEntity($product);
         }
 
         return $this->json([

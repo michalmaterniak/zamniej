@@ -2,6 +2,7 @@
 namespace App\Application\Offers\Factory\Offers\Banner;
 
 use App\Application\Offers\Factory\OfferFactory;
+use App\Application\Offers\Factory\Traits\OfferPhotoUrlTrait;
 use App\Entity\Entities\Shops\Offers\OffersBanner;
 
 /**
@@ -11,6 +12,8 @@ use App\Entity\Entities\Shops\Offers\OffersBanner;
  */
 class OfferCustomBannerFactory extends OfferFactory
 {
+    use OfferPhotoUrlTrait;
+
     /**
      * @var OffersBanner $offer
      */
@@ -19,5 +22,10 @@ class OfferCustomBannerFactory extends OfferFactory
     public function getNewOfferEntity(): void
     {
         $this->offer = new OffersBanner();
+    }
+
+    protected function createPhoto(array $data = []): void
+    {
+        $this->createPhotoByUrl($data['url']);
     }
 }

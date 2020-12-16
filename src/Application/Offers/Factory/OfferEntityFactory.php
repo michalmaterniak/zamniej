@@ -26,7 +26,9 @@ class OfferEntityFactory extends OfferAbstractFactory implements OffersFactoryIn
             $this->entityUpdater->getEntityManager()->persist($this->offer);
             $offer->setOffer($this->offer);
             $this->entityUpdater->getEntityManager()->flush();
-            $this->createPhoto();
+            $this->createPhoto(['url' => $offer->getUrlImage()]);
+            $this->entityUpdater->getEntityManager()->persist($this->getOffer()->getPhoto());
+            $this->entityUpdater->flush();
             $this->entityUpdater->getEntityManager()->commit();
         } catch (Exception $exception) {
             $this->entityUpdater->getEntityManager()->rollback();

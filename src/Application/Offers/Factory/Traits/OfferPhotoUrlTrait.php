@@ -20,8 +20,9 @@ trait OfferPhotoUrlTrait
             $photo->setGroup('offer');
             $photo->setPath($imagePath);
             $photo->setData($this->getOffer()->getTitle(), 'alt');
+            $this->getOffer()->setPhoto($photo);
         } else {
-            $this->createPhoto();
+            parent::createPhoto();
         }
     }
 
@@ -35,6 +36,6 @@ trait OfferPhotoUrlTrait
      */
     abstract public function getOffer(): Offers;
 
-    abstract protected function createPhoto(): void;
+    abstract protected function createPhoto(array $data = []): void;
 
 }

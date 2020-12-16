@@ -54,7 +54,7 @@ class BannersController extends AbstractController
         $offersBanner = [];
         foreach ($banners as $banner) {
             $count++;
-            $offersBanner[$banner->getIdOffer()] = $offerBannerFactory->create($banner);
+            $offersBanner[$banner->getIdOffer()] = $offerBannerFactory->createByEntity($banner);
         }
 
         return $this->json([
