@@ -1,6 +1,6 @@
 <template>
 <div>
-  <button-dropdown :actions="affiliations">
+  <button-dropdown :actions="affiliations" :shops-affiliations="shopsAffiliations">
     <i class="mdi mdi-arrow-right"></i>Dodaj nową ofertę
   </button-dropdown>
 </div>
@@ -16,9 +16,10 @@ export default {
   data() {
     return {
       systemAffiliations: [],
+      shopsAffiliations: [],
       affiliations: [
         {
-          name: 'Webepartners',
+          name: 'webepartners',
           action: this.newWebepartnersOffer
         }
       ]
@@ -31,21 +32,21 @@ export default {
         classDialog: 'maxWidth75',
         data: {
           subpage: this.idSubpage,
-          affiliation: this.getAffiliation('webepartners')
+          shops: this.getShopAffiliation('webepartners')
         }
       });
     },
-    getAffiliation(name) {
-      return this.systemAffiliations[_.findIndex(this.systemAffiliations, affiliation => {
-        return affiliation.name === name;
-      })]
+    getShopAffiliation(name) {
+      return _.filter(this.shopsAffiliations, item => {
+        return item.affiliation.name === name;
+      })
     }
   },
   created() {
     this.ajax({
-      url: '/admin/api/affiliations/affiliations-listing',
+      url: '/admin/api/affiliations/shopaffiliations-subpage/' + this.idSubpage,
       responseCallbackSuccess: res => {
-        this.systemAffiliations = res.data.affiliations;
+        this.shopsAffiliations = res.data.affiliations;
       }
     })
   }
