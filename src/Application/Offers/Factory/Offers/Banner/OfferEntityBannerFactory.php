@@ -2,6 +2,7 @@
 namespace App\Application\Offers\Factory\Offers\Banner;
 
 use App\Application\Offers\Factory\OfferEntityFactory;
+use App\Application\Offers\Factory\Traits\OfferPhotoUrlTrait;
 use App\Entity\Entities\Affiliations\Interfaces\OfferBannerInterface;
 use App\Entity\Entities\Affiliations\Interfaces\OfferInterface;
 use App\Entity\Entities\Shops\Offers\Offers;
@@ -14,6 +15,7 @@ use App\Entity\Entities\Shops\Offers\OffersBanner;
  */
 class OfferEntityBannerFactory extends OfferEntityFactory
 {
+    use OfferPhotoUrlTrait;
     /**
      * @var OffersBanner $offer
      */
@@ -31,5 +33,10 @@ class OfferEntityBannerFactory extends OfferEntityFactory
     public function updateByEntity(OfferInterface $offer, Offers $offerEntity = null)
     {
         parent::updateByEntity($offer, $offerEntity);
+    }
+
+    protected function createPhoto(array $data = []): void
+    {
+        $this->createPhotoByUrl($data['url']);
     }
 }

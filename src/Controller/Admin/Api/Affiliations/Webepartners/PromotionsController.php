@@ -51,7 +51,7 @@ class PromotionsController extends AbstractController
         $count = 0;
         foreach ($promotions as $promotion) {
             $count++;
-            $offerPromotionFactory->create($promotion);
+            $offerPromotionFactory->createByEntity($promotion);
         }
 
         return $this->json([

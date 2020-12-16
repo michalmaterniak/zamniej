@@ -49,6 +49,10 @@ class SlidersController extends AbstractController
     }
 
     /**
+     * @param Offers $offer
+     * @param Sliders $slider
+     * @param SlidersManager $slidersManager
+     * @return JsonResponse
      * @Route("/admin/api/sliders/sliders/add-offer-to-slider/{offer}/{slider}", name="admin-api-sliders-sliders-addOfferToSlider", methods={"POST"})
      */
     public function addOfferToSlider(Offers $offer, Sliders $slider, SlidersManager $slidersManager)

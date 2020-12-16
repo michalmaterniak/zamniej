@@ -53,7 +53,7 @@ class VouchersController extends AbstractController
         $count = 0;
         foreach ($vouchers as $voucher) {
             $count++;
-            $offerVoucherFactory->create($voucher);
+            $offerVoucherFactory->createByEntity($voucher);
         }
 
         return $this->json([

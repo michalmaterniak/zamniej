@@ -60,7 +60,8 @@ class OfferFactory extends OfferAbstractFactory
 
         if (isset($data['code'])) {
             if ($data['code']) {
-
+                $data['data']['code'] = $data['code'];
+                unset($data['code']);
             } else {
                 unset($data['code']);
             }
@@ -85,8 +86,9 @@ class OfferFactory extends OfferAbstractFactory
             $this->getNewOfferEntity();
             $this->update($data);
             $this->entityUpdater->getEntityManager()->persist($this->offer);
-            $this->createPhoto();
             $this->entityUpdater->getEntityManager()->flush();
+            $this->createPhoto($data);
+            $this->entityUpdater->flush();
             $this->entityUpdater->getEntityManager()->commit();
         } catch (Exception $exception) {
             $this->entityUpdater->getEntityManager()->rollback();
