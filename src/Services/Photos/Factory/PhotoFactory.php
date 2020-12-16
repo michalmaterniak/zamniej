@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Services\Photos\Factory;
 
 use App\Entity\Entities\System\Files;

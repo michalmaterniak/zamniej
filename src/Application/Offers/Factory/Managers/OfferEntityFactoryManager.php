@@ -1,23 +1,29 @@
 <?php
-namespace App\Application\Offers\Factory;
+namespace App\Application\Offers\Factory\Managers;
 
-use App\Application\Offers\Factory\Offers\OfferBannerFactory;
-use App\Application\Offers\Factory\Offers\OfferProductFactory;
-use App\Application\Offers\Factory\Offers\OfferPromotionFactory;
-use App\Application\Offers\Factory\Offers\OfferVoucherFactory;
+use App\Application\Offers\Factory\OfferEntityFactory;
+use App\Application\Offers\Factory\Offers\Banner\OfferEntityBannerFactory as OfferBannerFactory;
+use App\Application\Offers\Factory\Offers\Product\OfferEntityProductFactory as OfferProductFactory;
+use App\Application\Offers\Factory\Offers\Promotion\OfferEntityPromotionFactory as OfferPromotionFactory;
+use App\Application\Offers\Factory\Offers\Voucher\OfferEntityVoucherFactory as OfferVoucherFactory;
 use App\Entity\Entities\Affiliations\Interfaces\OfferBannerInterface;
 use App\Entity\Entities\Affiliations\Interfaces\OfferInterface;
 use App\Entity\Entities\Affiliations\Interfaces\OfferProductInterface;
 use App\Entity\Entities\Affiliations\Interfaces\OfferPromotionInterface;
 use App\Entity\Entities\Affiliations\Interfaces\OfferVoucherInterface;
 use App\Entity\Entities\Shops\Offers\Offers;
+use App\Entity\Entities\Shops\Offers\OffersBanner;
+use App\Entity\Entities\Shops\Offers\OffersProduct;
+use App\Entity\Entities\Shops\Offers\OffersPromotion;
+use App\Entity\Entities\Shops\Offers\OffersVoucher;
 
-class OfferFactoryManager
+class OfferEntityFactoryManager
 {
     /**
-     * @var OfferFactory $offerVoucherFactory
+     * @var OfferEntityFactory $offerVoucherFactory
      */
-    protected $offerFactory;
+    protected $OfferEntityFactory;
+
     /**
      * @var OfferVoucherFactory $offerVoucherFactory
      */
@@ -39,14 +45,14 @@ class OfferFactoryManager
     protected $offerPromotionFactory;
 
     public function __construct(
-        OfferFactory            $offerFactory,
-        OfferVoucherFactory     $offerVoucherFactory,
-        OfferBannerFactory      $offerBannerFactory,
-        OfferProductFactory     $offerProductFactory,
-        OfferPromotionFactory   $offerPromotionFactory
+        OfferEntityFactory $OfferEntityFactory,
+        OfferVoucherFactory $offerVoucherFactory,
+        OfferBannerFactory $offerBannerFactory,
+        OfferProductFactory $offerProductFactory,
+        OfferPromotionFactory $offerPromotionFactory
     ) {
-        $this->offerFactory =           $offerFactory;
-        $this->offerVoucherFactory =    $offerVoucherFactory;
+        $this->OfferEntityFactory = $OfferEntityFactory;
+        $this->offerVoucherFactory = $offerVoucherFactory;
         $this->offerBannerFactory =     $offerBannerFactory;
         $this->offerProductFactory =    $offerProductFactory;
         $this->offerPromotionFactory =  $offerPromotionFactory;
@@ -54,16 +60,16 @@ class OfferFactoryManager
 
     /**
      * @param OfferInterface $offer
-     * @return Offers|\App\Entity\Entities\Shops\Offers\OffersBanner|\App\Entity\Entities\Shops\Offers\OffersProduct|\App\Entity\Entities\Shops\Offers\OffersPromotion|\App\Entity\Entities\Shops\Offers\OffersVoucher
+     * @return Offers|OffersBanner|OffersProduct|OffersPromotion|OffersVoucher
      */
     public function create(OfferInterface $offer) : Offers
     {
-        return $this->getFactory($offer)->create($offer);
+        return $this->getFactory($offer)->createByEntity($offer);
     }
 
     /**
      * @param OfferInterface $offer
-     * @return OfferFactory|OfferBannerFactory|OfferProductFactory|OfferPromotionFactory|OfferVoucherFactory
+     * @return OfferEntityFactory|OfferBannerFactory|OfferProductFactory|OfferPromotionFactory|OfferVoucherFactory
      */
     protected function getFactory(OfferInterface $offer)
     {
@@ -76,7 +82,7 @@ class OfferFactoryManager
         } elseif ($offer instanceof OfferPromotionInterface) {
             return $this->offerPromotionFactory;
         } else {
-            return $this->offerFactory;
+            return $this->OfferEntityFactory;
         }
     }
 }

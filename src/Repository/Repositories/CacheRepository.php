@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repository\Repositories;
 
 class CacheRepository extends GlobalRepository

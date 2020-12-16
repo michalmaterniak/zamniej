@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Admin\Api\Pages\Homepages;
 
 use App\Application\Pages\Homepage\Homepage;

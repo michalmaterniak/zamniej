@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\Pages\Resource\Remove;
 
 use App\Services\Pages\Resource\Resource;

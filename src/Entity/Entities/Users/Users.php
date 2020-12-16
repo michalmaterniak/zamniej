@@ -189,7 +189,6 @@ class Users implements UserInterface, EntityInterface
 
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
     }
 
     public function getUsername()
@@ -199,7 +198,6 @@ class Users implements UserInterface, EntityInterface
 
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
     }
 
     /**

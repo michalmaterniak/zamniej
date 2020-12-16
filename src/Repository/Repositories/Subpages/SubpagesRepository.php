@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository\Repositories\Subpages;
 
+use App\Entity\Entities\Subpages\Subpages;
 use App\Entity\Entities\Subpages\Subpages as Entity;
 use App\Repository\Repositories\GlobalRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
@@ -23,6 +24,7 @@ class SubpagesRepository extends GlobalRepository
     {
         return Entity::class;
     }
+
     public function __construct(
         ManagerRegistry $registry,
         ServicesRepositoriesManager $servicesRepositoriesManager
@@ -47,6 +49,18 @@ class SubpagesRepository extends GlobalRepository
     public function findAllToSitemap()
     {
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 1");
+        return $this;
+    }
+
+    public function bySubpage(Subpages $subpage)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.subpage = :subpage")->setParameter('subpage', $subpage);
+        return $this;
+    }
+
+    public function byId(int $id)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.idSubpage = :id")->setParameter('id', $id);
         return $this;
     }
 }

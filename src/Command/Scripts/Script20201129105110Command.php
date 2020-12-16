@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Command\Scripts;
 
 use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;

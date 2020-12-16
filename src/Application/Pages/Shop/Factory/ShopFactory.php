@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Pages\Shop\Factory;
 
 use App\Application\Images\ImageManager;

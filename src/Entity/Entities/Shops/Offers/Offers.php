@@ -77,9 +77,9 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
     protected $content;
 
     /**
-     * @var ShopsAffiliation $shopAffiliation
+     * @var ShopsAffiliation|null $shopAffiliation
      * @ORM\ManyToOne(targetEntity="App\Entity\Entities\Affiliations\ShopsAffiliation")
-     * @ORM\JoinColumn(name="shop_affiliation", referencedColumnName="id_shop", nullable=false)
+     * @ORM\JoinColumn(name="shop_affiliation", referencedColumnName="id_shop", nullable=true)
      * @Groups({"resource-admin"})
      */
     protected $shopAffiliation;
@@ -254,17 +254,17 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
     }
 
     /**
-     * @return ShopsAffiliation
+     * @return ShopsAffiliation|null
      */
-    public function getShopAffiliation(): ShopsAffiliation
+    public function getShopAffiliation(): ?ShopsAffiliation
     {
         return $this->shopAffiliation;
     }
 
     /**
-     * @param ShopsAffiliation $shopAffiliation
+     * @param ShopsAffiliation|null $shopAffiliation
      */
-    public function setShopAffiliation(ShopsAffiliation $shopAffiliation): void
+    public function setShopAffiliation(?ShopsAffiliation $shopAffiliation): void
     {
         $this->shopAffiliation = $shopAffiliation;
     }

@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Application\Sliders;
 
 use App\Entity\Entities\Sliders\Slides;

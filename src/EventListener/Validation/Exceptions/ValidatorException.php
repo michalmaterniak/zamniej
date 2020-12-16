@@ -1,9 +1,9 @@
 <?php
-
-
 namespace App\EventListener\Validation\Exceptions;
 
-class ValidatorException extends \ErrorException
+use ErrorException;
+
+class ValidatorException extends ErrorException
 {
 
 }

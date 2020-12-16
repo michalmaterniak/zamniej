@@ -1,8 +1,6 @@
 <?php
 namespace App\Repository\Repositories;
 
-use App\Entity\Entities\Subpages\Resources;
-use App\Entity\Entities\Subpages\Subpages;
 use App\Repository\Services\ServicesRepositoriesManager;
 use App\Repository\Traits\RepositoryCacheTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -146,7 +144,12 @@ abstract class GlobalRepository extends ServiceEntityRepository
             ->select("count({$this->getRootAlias()}.{$identifier})")
             ->from($this->getEntityName(), $this->getRootAlias());
 
+        $this->qualifySelect();
         return $this;
+    }
+
+    protected function qualifySelect()
+    {
     }
 
     /**
@@ -159,6 +162,7 @@ abstract class GlobalRepository extends ServiceEntityRepository
         $this->queryBuilder
             ->select($this->getRootAlias())
             ->from($this->getEntityName(), $this->getRootAlias());
+        $this->qualifySelect();
         return $this;
     }
 
@@ -193,31 +197,5 @@ abstract class GlobalRepository extends ServiceEntityRepository
         }
 
         return $query->getSingleScalarResult();
-    }
-
-    public function bySubpage(Subpages $subpage)
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.subpage = :subpage")->setParameter('subpage', $subpage);
-        return $this;
-    }
-
-    /**
-     * @param Resources $resource
-     * @return $this
-     */
-    public function byResource(Resources $resource): self
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.resource = :resource")->setParameter('resource', $resource);
-        return $this;
-    }
-
-    /**
-     * @param $by
-     * @param $ordering
-     * @return $this
-     */
-    public function orderBy($by, $ordering): self
-    {
-        return $this;
     }
 }

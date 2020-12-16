@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Pages\Resource\Seo\Methods;
 
 use App\Services\Seo\Methods\SeoMethod;

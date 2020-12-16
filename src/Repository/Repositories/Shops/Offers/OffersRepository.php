@@ -60,7 +60,7 @@ class OffersRepository extends GlobalRepository
      * @param Subpages $subpage
      * @return $this
      */
-    public function findOffersBySubpage(Subpages $subpage)
+    public function findOffersBySubpage(Subpages $subpage, $orderBy = 'idOffer', $ordering = 'ASC')
     {
         $this->queryBuilder
             ->andWhere("{$this->getRootAlias()}.subpage = :subpage")
@@ -69,6 +69,8 @@ class OffersRepository extends GlobalRepository
         $this->addLeftJoin('content');
         $this->addLeftJoin('photo');
         $this->addLeftJoin('liking');
+
+        $this->queryBuilder->orderBy("{$this->getRootAlias()}.$orderBy ", $ordering);
 
         return $this;
     }

@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Application\Affiliations\Webepartners\Api\XMLFeed;
 
 use App\Application\Affiliations\Webepartners\Api\WebepartersInterface;

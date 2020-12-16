@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Repository\Services\ModifierQuery\Interfaces;
 
 use Doctrine\ORM\QueryBuilder;

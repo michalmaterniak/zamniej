@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Services\System\ModelsManager;
 
 use App\Entity\Interfaces\EntityInterface;

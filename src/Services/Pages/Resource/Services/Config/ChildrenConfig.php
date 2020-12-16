@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\Pages\Resource\Services\Config;
 
 use App\Entity\Entities\Subpages\Resources;

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Affiliations\Interfaces\Programs;
 
 interface FinderProgramInterface

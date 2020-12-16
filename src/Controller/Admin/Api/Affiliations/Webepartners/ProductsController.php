@@ -1,13 +1,15 @@
 <?php
 namespace App\Controller\Admin\Api\Affiliations\Webepartners;
 
-use App\Application\Offers\Factory\Offers\OfferProductFactory;
+use App\Application\Offers\Factory\Offers\Product\OfferEntityProductFactory;
 use App\Controller\Admin\Api\AbstractController;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersHotPricesRepository;
 use App\Services\System\Request\Retrievers\RequestData\RequestPostContentData;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class ProductsController extends AbstractController
 {
@@ -42,11 +44,15 @@ class ProductsController extends AbstractController
             'products' => $this->normalizer->normalize($products, null, ['groups' => ['resource-admin-listing', 'offers-admin-listing', 'resource-admin-listing-shops']]),
         ], 200);
     }
+
     /**
      * @param RequestPostContentData $requestPostContentData
+     * @param OfferEntityProductFactory $offerProductFactory
+     * @return JsonResponse
+     * @throws ExceptionInterface
      * @Route("/admin/api/affiliations/webepartners/products/createOffer", name="admin-api-affiliations-webepartners-products-createOffer", methods={"POST"})
      */
-    public function createOffer(RequestPostContentData $requestPostContentData, OfferProductFactory $offerProductFactory)
+    public function createOffer(RequestPostContentData $requestPostContentData, OfferEntityProductFactory $offerProductFactory)
     {
         $products = $this->webepartnersHotPricesRepository->select()->findAllByIdsOfferIsNull($requestPostContentData->getValue('products', []))->getResults();
 

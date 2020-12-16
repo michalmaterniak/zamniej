@@ -1,112 +1,105 @@
 <?php
-
-
 namespace App\Application\Offers\Factory;
 
 use App\Application\Images\ImageManager;
-use App\Application\Offers\Factory\Interfaces\OffersFactoryInterface;
-use App\Entity\Entities\Affiliations\Interfaces\OfferInterface;
+use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Shops\Offers\Offers;
-use App\Entity\Entities\System\Files;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
+use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 use ErrorException;
 use Exception;
 
-class OfferFactory implements OffersFactoryInterface
+class OfferFactory extends OfferAbstractFactory
 {
     /**
-     * @var EntityManagerInterface $entityManager
+     * @var ShopsAffiliationRepository $shopsAffiliationRepository
      */
-    protected $entityManager;
-
-    /**
-     * @var ImageManager $imageManager
-     */
-    protected $imageManager;
+    protected $shopsAffiliationRepository;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ImageManager $imageManager
+        SimpleEntityUpdater $entityUpdater,
+        ImageManager $imageManager,
+        ShopsAffiliationRepository $shopsAffiliationRepository
     )
     {
-        $this->entityManager = $entityManager;
-        $this->imageManager = $imageManager;
+        parent::__construct($entityUpdater, $imageManager);
+        $this->shopsAffiliationRepository = $shopsAffiliationRepository;
     }
 
-    public function getOfferEntity(): Offers
+    public function getNewOfferEntity(): void
     {
-        return new Offers();
+        $this->offer = new Offers();
     }
 
-    public function create(OfferInterface $offer): Offers
+    protected function prepareData(array &$data)
     {
-        if ($offer->getShopAffiliation()->getSubpage() === null) {
-            throw new ErrorException("Subpage have to be defined");
+
+        if (isset($data['shopAffiliation']) && is_numeric($data['shopAffiliation']) && $data['shopAffiliation'] > 0) {
+            $data['shopAffiliation'] = $this->shopsAffiliationRepository->select()->byId($data['shopAffiliation'])->getResultOrNull();
+            if (!$data['shopAffiliation']) {
+                throw new ErrorException('Shop affiliation is not found');
+            }
+        } else {
+            throw new ErrorException('Shop affiliation is not defined');
         }
-        try {
-            $this->entityManager->beginTransaction();
-            $newOfferEntity = $this->getOfferEntity();
-            $this->update($newOfferEntity, $offer, false);
-            $this->entityManager->persist($newOfferEntity);
-            $offer->setOffer($newOfferEntity);
-            $this->entityManager->flush();
 
-            $this->createPhoto($newOfferEntity, $offer);
-            $this->entityManager->commit();
-        } catch (Exception $exception) {
-            $this->entityManager->rollback();
+        if (isset($data['subpage']) && is_numeric($data['subpage']) && $data['subpage'] > 0) {
+            /**
+             * @var ShopsAffiliation $shopAffiliation
+             */
+            $shopAffiliation = $data['shopAffiliation'];
+
+            $data['subpage'] = $shopAffiliation->getSubpage();
+
+            if (!$data['subpage']) {
+                throw new ErrorException('Subpage is not found');
+            }
+        } else {
+            throw new ErrorException('Subpage is not defined');
         }
-        return $newOfferEntity;
-    }
 
-    public function createPhoto(Offers $offerEntity, OfferInterface $offer)
-    {
-        $imagePath = $this->imageManager->saveAsOffer($offerEntity, $offer->getUrlImage(), 'offer');
-        if ($imagePath) {
-            $photo = new Files();
-            $photo->setGroup('offer');
-            $photo->setPath($imagePath);
-            $photo->setData($offerEntity->getTitle(), 'alt');
+        if (isset($data['code'])) {
+            if ($data['code']) {
 
-            $this->entityManager->persist($photo);
-            $offerEntity->setPhoto($photo);
-            $this->entityManager->flush();
+            } else {
+                unset($data['code']);
+            }
+        }
+
+        if (array_key_exists('datetimeTo', $data) && $data['datetimeTo'] == null) {
+            unset($data['datetimeTo']);
         }
     }
 
     /**
-     * @param Offers         $offerEntity
-     * @param OfferInterface $offer
-     * @param bool           $withFlush
+     * @param array $data
+     * @return Offers
      */
-    public function update(Offers $offerEntity, OfferInterface $offer, bool $withFlush = true)
+    public function create(array $data): Offers
     {
-        $offerEntity->setShopAffiliation($offer->getShopAffiliation());
-        $offerEntity->setSubpage($offer->getShopAffiliation()->getSubpage());
-        $offerEntity->setContent(strip_tags($offer->getContent()));
-        $offerEntity->setTitle($offer->getTitle());
-        $offerEntity->setDatetimeFrom($offer->getDatetimeFrom());
-        $offerEntity->setDatetimeTo($offer->getDatetimeTo());
-        $offerEntity->setUrl($offer->getUrlTracking());
 
-        if ($withFlush) {
-            $this->entityManager->flush();
+        $this->prepareData($data);
+
+        try {
+            $this->entityUpdater->getEntityManager()->beginTransaction();
+            $this->getNewOfferEntity();
+            $this->update($data);
+            $this->entityUpdater->getEntityManager()->persist($this->offer);
+            $this->createPhoto();
+            $this->entityUpdater->getEntityManager()->flush();
+            $this->entityUpdater->getEntityManager()->commit();
+        } catch (Exception $exception) {
+            $this->entityUpdater->getEntityManager()->rollback();
         }
+        return $this->offer;
     }
 
-    public function setPhotoBySubpage(Offers $offerEntity, OfferInterface $offer)
+    /**
+     * @param array $offer
+     */
+    public function update(array $offer): void
     {
-        if (!$offer->getShopAffiliation()->getSubpage()->getPhoto('logo')) {
-            throw new ErrorException('Photo have to be defined in subpage');
-        }
-
-        $photo = new Files();
-        $photo->setGroup('offer');
-        $photo->setPath($offer->getShopAffiliation()->getSubpage()->getPhoto('logo')->getPath());
-        $photo->setData($offerEntity->getTitle(), 'alt');
-
-        $this->entityManager->persist($photo);
-        $offerEntity->setPhoto($photo);
-        $this->entityManager->flush();
+        $this->entityUpdater->setEntity($this->offer);
+        $this->entityUpdater->update($offer);
     }
 }

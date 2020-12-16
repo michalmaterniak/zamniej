@@ -16,17 +16,20 @@
                 </div>
             </div>
         </div>
+      <debugbar v-if="isLocalhostDev()"/>
+
     </div>
 </template>
 
 <script>
 	import HeaderMenu from "../components/Menu/HeaderMenu";
 	import SidebarMenu from "../components/Menu/SidebarMenu";
+  import Debugbar from "../components/Development/Debugbar/Debugbar";
 
 	export default {
 
 		name: "Panel",
-		components: {SidebarMenu, HeaderMenu},
+		components: {Debugbar, SidebarMenu, HeaderMenu},
 		data() {
 			return {
 				scrolling: 0,
@@ -35,6 +38,9 @@
 		},
 		computed: {},
 		methods: {
+      isLocalhostDev() {
+        return process.env.NODE_ENV && process.env.NODE_ENV === 'development' && location.hostname === 'localhost';
+      },
 			setSidebar(force = false) {
 				if (force === false)
 					this.sidebarMini = !this.sidebarMini;

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Application\Pages\Page\Types\Shops\Seo\Methods;
 
 use App\Application\Pages\Resource\Seo\Methods\PageSeoMethod as GlobalPageSeoMethod;

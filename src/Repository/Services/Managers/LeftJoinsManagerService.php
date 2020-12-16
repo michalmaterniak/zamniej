@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repository\Services\Managers;
 
 use Doctrine\ORM\QueryBuilder;
