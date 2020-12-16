@@ -2,40 +2,73 @@
 namespace App\Application\Offers\Factory;
 
 use App\Application\Images\ImageManager;
+use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Shops\Offers\Offers;
-use App\Entity\Entities\System\Files;
-use App\Services\System\EntityServices\Updater\EntityUpdater;
+use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
+use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
+use ErrorException;
 use Exception;
 
 class OfferFactory extends OfferAbstractFactory
 {
     /**
-     * @var EntityUpdater $entityUpdater
+     * @var ShopsAffiliationRepository $shopsAffiliationRepository
      */
-    protected $entityUpdater;
-
-    /**
-     * @var ImageManager $imageManager
-     */
-    protected $imageManager;
-
-    /**
-     * @var Offers $offer
-     */
-    protected $offer;
+    protected $shopsAffiliationRepository;
 
     public function __construct(
-        EntityUpdater $entityUpdater,
-        ImageManager $imageManager
+        SimpleEntityUpdater $entityUpdater,
+        ImageManager $imageManager,
+        ShopsAffiliationRepository $shopsAffiliationRepository
     )
     {
-        $this->entityUpdater = $entityUpdater;
-        $this->imageManager = $imageManager;
+        parent::__construct($entityUpdater, $imageManager);
+        $this->shopsAffiliationRepository = $shopsAffiliationRepository;
     }
 
     public function getNewOfferEntity(): void
     {
         $this->offer = new Offers();
+    }
+
+    protected function prepareData(array &$data)
+    {
+
+        if (isset($data['shopAffiliation']) && is_numeric($data['shopAffiliation']) && $data['shopAffiliation'] > 0) {
+            $data['shopAffiliation'] = $this->shopsAffiliationRepository->select()->byId($data['shopAffiliation'])->getResultOrNull();
+            if (!$data['shopAffiliation']) {
+                throw new ErrorException('Shop affiliation is not found');
+            }
+        } else {
+            throw new ErrorException('Shop affiliation is not defined');
+        }
+
+        if (isset($data['subpage']) && is_numeric($data['subpage']) && $data['subpage'] > 0) {
+            /**
+             * @var ShopsAffiliation $shopAffiliation
+             */
+            $shopAffiliation = $data['shopAffiliation'];
+
+            $data['subpage'] = $shopAffiliation->getSubpage();
+
+            if (!$data['subpage']) {
+                throw new ErrorException('Subpage is not found');
+            }
+        } else {
+            throw new ErrorException('Subpage is not defined');
+        }
+
+        if (isset($data['code'])) {
+            if ($data['code']) {
+
+            } else {
+                unset($data['code']);
+            }
+        }
+
+        if (array_key_exists('datetimeTo', $data) && $data['datetimeTo'] == null) {
+            unset($data['datetimeTo']);
+        }
     }
 
     /**
@@ -44,13 +77,16 @@ class OfferFactory extends OfferAbstractFactory
      */
     public function create(array $data): Offers
     {
+
+        $this->prepareData($data);
+
         try {
             $this->entityUpdater->getEntityManager()->beginTransaction();
             $this->getNewOfferEntity();
             $this->update($data);
             $this->entityUpdater->getEntityManager()->persist($this->offer);
-            $this->entityUpdater->getEntityManager()->flush();
             $this->createPhoto();
+            $this->entityUpdater->getEntityManager()->flush();
             $this->entityUpdater->getEntityManager()->commit();
         } catch (Exception $exception) {
             $this->entityUpdater->getEntityManager()->rollback();
@@ -65,16 +101,5 @@ class OfferFactory extends OfferAbstractFactory
     {
         $this->entityUpdater->setEntity($this->offer);
         $this->entityUpdater->update($offer);
-    }
-
-    protected function createPhoto(): void
-    {
-        $photo = new Files();
-        $photo->setGroup('offer');
-        $photo->setPath($this->offer->getSubpage()->getPhoto('logo')->getPath());
-        $photo->setData($this->offer->getTitle(), 'alt');
-
-        $this->entityUpdater->getEntityManager()->persist($photo);
-        $this->offer->setPhoto($photo);
     }
 }

@@ -7,8 +7,13 @@ use App\Entity\Entities\Shops\Offers\Offers;
 use ErrorException;
 use Exception;
 
-class OfferEntityFactory extends OfferFactory implements OffersFactoryInterface
+class OfferEntityFactory extends OfferAbstractFactory implements OffersFactoryInterface
 {
+    public function getNewOfferEntity(): void
+    {
+        $this->offer = new Offers();
+    }
+
     public function createByEntity(OfferInterface $offer): Offers
     {
         if ($offer->getShopAffiliation()->getSubpage() === null) {

@@ -35,14 +35,14 @@ abstract class ShopsAffiliation implements EntityInterface
      * @ORM\Column(name="id_shop", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"program-admin", "program-admin-list"})
+     * @Groups({"resource-admin", "program-admin", "program-admin-list"})
      */
     protected $idShop;
 
     /**
      * @var string $name
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
-     * @Groups({"program-admin", "program-admin-list"})
+     * @Groups({"resource-admin", "program-admin", "program-admin-list"})
      */
     protected $name;
 
@@ -57,14 +57,14 @@ abstract class ShopsAffiliation implements EntityInterface
     /**
      * @var string|null $linkForce
      * @ORM\Column(name="link_force", type="string", length=700, nullable=true)
-     * @Groups({"program-admin"})
+     * @Groups({"resource-admin", "program-admin"})
      */
     protected $linkForce = null;
 
     /**
      * @var bool $isNew
      * @ORM\Column(name="is_new", type="boolean", nullable=false)
-     * @Groups({"program-admin"})
+     * @Groups({"resource-admin", "program-admin"})
      */
     protected $isNew = true;
 
@@ -72,21 +72,21 @@ abstract class ShopsAffiliation implements EntityInterface
      * @var Affiliations $affiliation
      * @ORM\ManyToOne(targetEntity="App\Entity\Entities\Affiliations\Affiliations")
      * @ORM\JoinColumn(name="affiliation_id", referencedColumnName="id_affiliation")
-     * @Groups({"program-admin", "program-admin-list"})
+     * @Groups({"resource-admin", "program-admin", "program-admin-list"})
      */
     protected $affiliation;
 
     /**
      * @var string $externalId
      * @ORM\Column(name="external_id", type="string", length=700, nullable=true)
-     * @Groups({"program-admin"})
+     * @Groups({"resource-admin", "program-admin"})
      */
     protected $externalId;
 
     /**
      * @var bool $enable
      * @ORM\Column(name="enable", type="boolean", nullable=false)
-     * @Groups({"program-admin", "program-admin-list"})
+     * @Groups({"resource-admin", "program-admin", "program-admin-list"})
      */
     protected $enable;
 
@@ -98,7 +98,7 @@ abstract class ShopsAffiliation implements EntityInterface
 
     /**
      * @var int $redirectCount
-     * @ORM\Column(name="redirect_count", type="integer", nullable=true)
+     * @ORM\Column("resource-admin", name="redirect_count", type="integer", nullable=true)
      */
     protected $redirectCount = 0;
 

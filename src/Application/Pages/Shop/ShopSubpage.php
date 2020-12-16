@@ -75,7 +75,7 @@ class ShopSubpage extends ResourceSubpage
     {
         if (!$this->offers) {
             $this->offers = $this->getComponents()->getOffersManager()->createModelsOffers(
-                $this->getComponents()->getOffersRepository()->select()->findOffersByAffiliations([$this->getAffiliation()], 'datetimeTo', 'DESC')->getResults()
+                $this->getComponents()->getOffersRepository()->select()->findOffersBySubpage($this->getSubpage(), 'datetimeCreate', 'DESC')->getResults()
             );
         }
 

@@ -58,4 +58,9 @@ class SubpagesRepository extends GlobalRepository
         return $this;
     }
 
+    public function byId(int $id)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.idSubpage = :id")->setParameter('id', $id);
+        return $this;
+    }
 }

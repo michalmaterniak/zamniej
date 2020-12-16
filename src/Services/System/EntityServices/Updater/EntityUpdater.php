@@ -161,7 +161,14 @@ class EntityUpdater
     {
         $this->properties = $properties;
         foreach ($this->properties as $key => $property) {
+            if ($property instanceof EntityInterface) {
+                $setter = $this->getSetterMethod($key);
+                if ($setter)
+                    $this->updateValue($property, $setter);
+                continue;
+            }
             if ($getter = $this->getGetterMethod($key)) {
+
                 $value = $this->entity->$getter();
                 if ($value instanceof EntityInterface) { // dla encji
                     $this->updateEntity($value, $property);

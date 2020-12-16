@@ -8,6 +8,16 @@
     </div>
     <div class="modal-body">
 
+      <div class="row">
+        <label class="col-md-1">Afiliacja</label>
+        <div class="col-md-11">
+          <div class="custom-control custom-radio" v-for="(shopAffiliation, index) in data.shops" :key="index">
+            <input type="radio" class="custom-control-input" :id="shopAffiliation.affiliation.name" name="radio-stacked" :value="shopAffiliation.idShop" v-model="shopAffiliationOffer">
+            <label class="custom-control-label"  :for="shopAffiliation.affiliation.name" v-text="shopAffiliation.affiliation.name + ' - ' + shopAffiliation.name"></label>
+          </div>
+        </div>
+      </div>
+
       <div class="row mt-5">
         <div class="col-md-1">
           Url
@@ -17,7 +27,6 @@
           Url afiliacyjny: <span v-if="trackingUrlOffer" v-text="trackingUrlOffer.substr(0, 50) + '...'"></span>
         </div>
       </div>
-
       <div class="row mt-5">
         <div class="col-md-1">
           Tytuł
@@ -26,7 +35,6 @@
           <input type="text" class="form-control border-black" v-model="titleOffer">
         </div>
       </div>
-
       <div class="row mt-5">
         <div class="col-md-1">
           Treść
@@ -35,14 +43,12 @@
           <ckeditor v-model="contentOffer" :config="configCkeditor"/>
         </div>
       </div>
-
       <div class="row mt-5">
         <div class="col-md-1">Kod rabatowy</div>
         <div class="col-md-11">
           <input type="text" class="form-control border-black" v-model="codeOffer">
         </div>
       </div>
-
       <div class="row mt-5">
         <label for="datetimeFrom" class="col-md-1">Data od</label>
         <div class="col-md-11">
@@ -56,7 +62,6 @@
           <i class="mdi mdi-delete-empty"></i></button>
         </div>
       </div>
-
     </div>
     <div class="modal-footer">
       <button class="btn btn-success" :disabled="!isValidate" @click="addOffer"><i class="mdi mdi-plus"></i> Dodaj</button>
@@ -75,6 +80,7 @@ export default {
       url: '',
       trackingUrlOffer: null,
       titleOffer: '',
+      shopAffiliationOffer: null,
       datetimeFromOffer: '',
       datetimeToOffer: '',
       datetimeToOfferNull: '',
@@ -130,22 +136,29 @@ export default {
           data: {
             offer: {
               datetimeTo: this.datetimeToOffer,
-              datetimeFrm: this.datetimeFromOffer,
+              datetimeFrom: this.datetimeFromOffer,
               content: this.contentOffer,
+              code: this.codeOffer,
               title: this.titleOffer,
-              subpage: this.data.subpage.isSubpage,
+              subpage: this.data.subpage,
+              shopAffiliation: this.shopAffiliationOffer,
               url: this.trackingUrlOffer
             }
           },
           responseCallbackSuccess: res => {
             if(res.data.success === true) {
-              this.trackingUrlOffer = res.data['tracking-url-webeparnets'];
+              this.closePopup();
             }
           }
         })
       }
     }
   },
+  created() {
+    if (this.data.shops[0] !== undefined) {
+      this.shopAffiliationOffer = this.data.shops[0].idShop;
+    }
+  }
 }
 </script>
 

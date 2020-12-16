@@ -1,6 +1,7 @@
 <?php
 namespace App\Application\Sliders;
 
+use App\Entity\Entities\Sliders\Slides;
 use App\Services\Photos\Photo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;

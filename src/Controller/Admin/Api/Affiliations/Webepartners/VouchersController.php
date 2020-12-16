@@ -75,10 +75,11 @@ class VouchersController extends AbstractController
     )
     {
         $offer = $requestPostContentData->getValue('offer');
-        $offerFactory = isset($offer['code']) ? $offerVoucherFactory : $offerPromotionFactory;
-
+        $offerFactory = (isset($offer['code']) && $offer['code']) ? $offerVoucherFactory : $offerPromotionFactory;
+        $offerFactory->create($offer);
 
         return $this->json([
+            'success' => true,
             'message' => 'Utworzono nową ofertę',
         ]);
     }
