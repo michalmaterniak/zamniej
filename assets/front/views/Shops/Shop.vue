@@ -117,18 +117,26 @@ export default {
       return _.filter(this.offers, offer => {
         if (!offer.offer.datetimeTo)
           return true;
-        let dateTo = new Date(offer.offer.datetimeTo);
-        let dateFrom = new Date(offer.offer.datetimeFrom);
-        return dateNow > dateFrom && dateNow < dateTo;
+        if (offer.offer.datetimeTo) {
+          let dateTo = new Date(offer.offer.datetimeTo);
+          let dateFrom = new Date(offer.offer.datetimeFrom);
+          return dateNow > dateFrom && dateNow < dateTo;
+        } else {
+          return true;
+        }
       });
     },
     offersNotActual() {
       let dateNow = new Date();
       return _.filter(this.offers, offer => {
+        if (offer.offer.datetimeTo) {
+          let dateTo = new Date(offer.offer.datetimeTo);
+          let dateFrom = new Date(offer.offer.datetimeFrom);
+          return (dateNow < dateFrom) || (dateNow > dateTo);
+        } else {
+          return false;
+        }
 
-        let dateTo = new Date(offer.offer.datetimeTo);
-        let dateFrom = new Date(offer.offer.datetimeFrom);
-        return (dateNow < dateFrom) || (dateNow > dateTo);
       });
     },
     offers() {
