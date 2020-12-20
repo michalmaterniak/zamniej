@@ -70,8 +70,8 @@ class OffersRepository extends GlobalRepository
         $this->addLeftJoin('photo');
         $this->addLeftJoin('liking');
 
-        $this->queryBuilder->orderBy("{$this->getRootAlias()}.$orderBy ", $ordering);
-
+        $this->queryBuilder->addOrderBy("{$this->getRootAlias()}.priority ", "DESC");
+        $this->queryBuilder->addOrderBy("{$this->getRootAlias()}.$orderBy ", $ordering);
         return $this;
     }
 

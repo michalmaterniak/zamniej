@@ -28,6 +28,11 @@
             <td v-text="offer.title"></td>
             <td v-html="showDateText(offer.datetimeFrom, '---')+'<br>'+showDateText(offer.datetimeTo, '---')"></td>
             <td>
+              <span>
+                <button class="btn btn-dark" @click="priority(offer.idOffer, -1)"><i class="mdi mdi-minus"></i></button>
+                <span class="btn btn-link " v-text="offer.priority"></span>
+                <button class="btn btn-dark" @click="priority(offer.idOffer, 1)"><i class="mdi mdi-plus"></i></button>
+              </span>
               <router-link class="btn btn-primary" :to="{name: 'panel-offers-offer', params: {id: offer.idOffer }}"><i class="mdi mdi-arrow-right"></i> </router-link>
             </td>
           </tr>
@@ -58,6 +63,17 @@ export default {
     },
   },
   methods:{
+    priority(idOffer, value = 1) {
+      this.ajax({
+        url: '/admin/api/offers/priority/'+idOffer+'/'+value,
+        responseCallbackSuccess: res => {
+          let index = _.findIndex(this.offers, offer => {
+            return offer.idOffer === idOffer
+          })
+          this.offers[index].priority = res.data.offer.priority;
+        }
+      })
+    },
     checkActualOffer(offer)
     {
       if(this.hideOutOfDate === false)
