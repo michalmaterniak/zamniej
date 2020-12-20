@@ -50,20 +50,20 @@ class FooterLinks implements FrontInitInterface
                 'group' => 'Sklepy',
                 'links' => [
                     [
-                        'name' => 'Elektronicon',
-                        'link' => '/sklepy/elektronicon',
+                        'name' => 'TaniaKsiazka',
+                        'link' => '/sklepy/taniaksiazka-pl',
                     ],
                     [
-                        'name' => 'TermoKubki',
-                        'link' => '/sklepy/termokubki',
+                        'name' => 'Mr. Whitening',
+                        'link' => '/sklepy/mr-whitening',
                     ],
                     [
-                        'name' => 'Biżuteria i zegarki',
-                        'link' => '/sklepy/bizuteria-zegarki-pl',
+                        'name' => 'Iglaco',
+                        'link' => '/sklepy/iglaco',
                     ],
                     [
-                        'name' => 'OutletRTVAGD',
-                        'link' => '/sklepy/outletrtvagd-pl',
+                        'name' => 'ButyRaj',
+                        'link' => '/sklepy/butyraj',
                     ],
                     [
                         'name' => 'wec.com.pl',
