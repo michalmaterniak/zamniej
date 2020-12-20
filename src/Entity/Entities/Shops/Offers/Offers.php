@@ -133,6 +133,13 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
      */
     protected $active = true;
 
+    /**
+     * @var int $priority
+     * @ORM\Column(name="priority", type="integer", nullable=false)
+     * @Groups({"resource", "resource-admin","resource-admin"})
+     */
+    protected $priority = 0;
+
     use DataTrait;
 
     public function __construct()
@@ -393,5 +400,26 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
         }
 
         return $this->isActive() && (!$this->getDatetimeTo() || $this->getDatetimeTo() > static::$datetime);
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param int $priority
+     */
+    public function setPriority(int $priority): void
+    {
+        $this->priority = $priority;
+    }
+
+    public function addPriority(int $priority = 1)
+    {
+        $this->priority += $priority;
     }
 }

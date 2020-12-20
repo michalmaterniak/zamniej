@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin\Api\Offers;
 
+use App\Application\Offers\Offer;
 use App\Application\Offers\Remove\RemoveOffer;
 use App\Controller\Admin\Api\AbstractController;
 use App\Entity\Entities\Shops\Offers\Offers;
@@ -17,6 +18,19 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class OffersController extends AbstractController
 {
+
+    /**
+     * @param Offers $offer
+     * @param int $priority
+     * @Route("/admin/api/offers/priority/{offer}/{priority}", name="admin-api-offers-priority", methods={"POST"})
+     */
+    public function priority(Offers $offer, int $priority) {
+        $offer->addPriority($priority);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->json([
+            'offer' => $this->normalizer->normalize($offer, null, ['groups' => ['resource-admin']]),
+        ], 200);
+    }
 
     /**
      * @param Offers $offer
