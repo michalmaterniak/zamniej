@@ -24,6 +24,7 @@
         </div>
         <div class="col-md-11">
           <input type="text" class="form-control border-black" placeholder="Url" v-model="url" @input="convertUrlWebepartners">
+          <span style="display: flex">Skopiuj link url <input type="checkbox" class="form-check" placeholder="ForceUrl" v-model="forceUrl"></span>
           Url afiliacyjny: <span v-if="trackingUrlOffer" v-text="trackingUrlOffer.substr(0, 50) + '...'"></span>
         </div>
       </div>
@@ -77,7 +78,9 @@ export default {
   name: "PopupOffersNewWebepartners",
   data() {
     return {
+      forceUrl: false,
       url: '',
+      trackingUrlOfferTmp: null,
       trackingUrlOffer: null,
       titleOffer: '',
       shopAffiliationOffer: null,
@@ -98,6 +101,15 @@ export default {
         language: 'pl',
         filebrowserBrowseUrl: '/admin/elfinder',
         uiColor : '#b7c6ee'
+      }
+    }
+  },
+  watch:{
+    forceUrl(to, from) {
+      if (to) {
+        this.trackingUrlOffer = this.url;
+      } else {
+        this.convertUrlWebepartners();
       }
     }
   },
