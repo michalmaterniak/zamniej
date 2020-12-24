@@ -46,7 +46,7 @@
         {
           this.$store.commit('setChanges', {
             path: this.path,
-            value: this.value,
+            value: this.value.trim(),
             type: this.form.type
           })
         }
