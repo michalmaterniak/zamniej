@@ -18,7 +18,7 @@ export default {
 
   setChanges(state, payload)
   {
-    if(payload) {
+    if(!_.isEmpty(payload)) {
       _.set(state.changes, payload.path, payload.value);
     } else {
       state.changes = {};
