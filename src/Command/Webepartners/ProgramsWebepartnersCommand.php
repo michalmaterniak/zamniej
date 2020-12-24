@@ -2,8 +2,10 @@
 namespace App\Command\Webepartners;
 
 use App\Application\Affiliations\Webepartners\Api\Programs\ProgramsWebepartners;
+use App\Application\Affiliations\Webepartners\FinderOffersWebepartners;
 use App\Application\Affiliations\Webepartners\Programs\ProgramsWebepartnersFactory;
 use App\Application\QueueManager\Producers\Webepartners\OffersProducer;
+use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 use GuzzleHttp\Exception\ConnectException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,10 +30,23 @@ class ProgramsWebepartnersCommand extends Command
      */
     protected $offersProducer;
 
+    /**
+     * @var WebepartnersProgramsRepository $webepartnersProgramsRepository
+     */
+    protected $webepartnersProgramsRepository;
+
+    /**
+     * @var FinderOffersWebepartners $finderOffersWebepartners
+     */
+    protected $finderOffersWebepartners;
+
     public function __construct(
         ProgramsWebepartnersFactory $programsWebepartnersFactory,
         ProgramsWebepartners $programsWebepartners,
         OffersProducer $offersProducer,
+
+        FinderOffersWebepartners $finderOffersWebepartners,
+        WebepartnersProgramsRepository $webepartnersProgramsRepository,
         string $name = null
     )
     {
@@ -39,6 +54,9 @@ class ProgramsWebepartnersCommand extends Command
         $this->programsWebepartnersFactory = $programsWebepartnersFactory;
         $this->programsWebepartners = $programsWebepartners;
         $this->offersProducer = $offersProducer;
+
+        $this->finderOffersWebepartners = $finderOffersWebepartners;
+        $this->webepartnersProgramsRepository = $webepartnersProgramsRepository;
     }
 
     protected function configure()
@@ -50,14 +68,15 @@ class ProgramsWebepartnersCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        try {
-            foreach ($this->programsWebepartners->getPrograms() as $program) {
+        foreach ($this->programsWebepartners->getPrograms() as $program) {
+            try {
                 $shopAffil = $this->programsWebepartnersFactory->updateProgram($program);
-                $this->offersProducer->addToQueue($shopAffil->getExternalId());
-            }
+                $this->finderOffersWebepartners->loadOffers($shopAffil);
+                dump('pobrano z ' . $shopAffil->getName());
 
-        } catch (ConnectException $connectException) {
-            dump('Nie można pobrać programów z webepartners');
+            } catch (ConnectException $connectException) {
+                dump('Nie można pobrać programów z webepartners');
+            }
         }
 
         return 0;
