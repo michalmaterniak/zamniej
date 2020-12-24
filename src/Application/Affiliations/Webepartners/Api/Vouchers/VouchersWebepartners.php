@@ -35,16 +35,17 @@ class VouchersWebepartners extends Webepartners implements FinderOffersInterface
      */
     public function getOffers($idProgram)
     {
-        $key = (new DateTime())->format('dmY');
-        if (!$this->vouchers || !isset($this->vouchers[$key])) {
-            $this->vouchers = [$key => []];
+        if (empty($this->vouchers)) {
+            $this->vouchers = [];
             foreach ($this->getVouchers((new DateTime())->modify('-2 years'), (new DateTime())) as $voucher) {
-                if (!isset($this->vouchers[$key][$voucher['programId']]))
-                    $this->vouchers[$key][$voucher['programId']] = [];
+                if (!isset($this->vouchers[$voucher['programId']])) {
+                    $this->vouchers[$voucher['programId']] = [];
+                }
 
-                $this->vouchers[$key][$voucher['programId']][] = $voucher;
+                $this->vouchers[$voucher['programId']][] = $voucher;
             }
         }
-        return $this->vouchers[$key][$idProgram] ?? [];
+
+        return $this->vouchers[$idProgram] ?? [];
     }
 }

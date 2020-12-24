@@ -11,7 +11,6 @@ use App\Entity\Entities\Affiliations\Webepartners\WebepartnersVouchers;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersPromotionsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersVouchersRepository;
 use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 use GuzzleHttp\Exception\ConnectException;
@@ -75,8 +74,6 @@ class OffersPromotionsWebepartnersFactory extends OffersWebepartnersFactory
 
     public function findOffers($program): void
     {
-        $this->keyVoucher = (new DateTime())->format('dmY');
-
         $this->loadPromotions($program);
     }
 
