@@ -82,6 +82,7 @@
         this.ajax({
           url: '/admin/api/pages/resource-item/' + this.id,
           responseCallbackSuccess: res => {
+            this.$store.commit('setChanges', {});
             this.$store.commit('setResource', res.data.resource);
             this.$store.commit('setForms', res.data.form);
           }
