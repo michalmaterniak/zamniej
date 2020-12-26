@@ -6,13 +6,16 @@
 export default {
   name: "ProgramsNew",
   methods:{
-
     setPrograms(){
       this.ajax({
         url: '/admin/api/affiliations/webepartners/programs-new',
         responseCallbackSuccess: res => {
           //this.programs = res.data.programs;
           this.$emit('setPrograms', res.data.programs);
+          this.$emit('setOrdering', {
+            by: 'idShop',
+            ordering: 'asc'
+          });
         }
       })
     }
