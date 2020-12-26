@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <router-view @setPrograms="setPrograms"/>
+          <router-view @setPrograms="setPrograms" @setOrdering="setOrdering"/>
         </div>
       </div>
     </div>
@@ -63,29 +63,38 @@ export default {
         nameFilter: '',
         enableFilter: 1,
         affiliationFilter: ''
+      },
+      orderingTable: {
+        by: 'idShop',
+        ordering: 'asc'
       }
     }
   },
-  watch:{
-    $route() {
-
-      this.$nextTick(() => {
-      });
-    }
-  },
   computed:{
-    programsReverse() {
-      return this.programs.reverse();
+    programsOrdering() {
+      return this.programs.sort((a, b) => {
+        if(this.orderingTable.ordering === 'desc') {
+          return _.get(a, this.orderingTable.by) < _.get(b, this.orderingTable.by);
+        } else {
+          return _.get(a, this.orderingTable.by) >= _.get(b, this.orderingTable.by);
+        }
+      });
     },
     programsFiltered() {
-      return _.filter(this.programsReverse, item => {
+      return _.filter(this.programsOrdering, item => {
 
-        if (this.filtersTable.nameFilter.toUpperCase() !== '' && !item.name.toUpperCase().includes(this.filtersTable.nameFilter.toUpperCase()))
+        if (this.filtersTable.nameFilter.toUpperCase() !== '' && !item.name.toUpperCase().includes(this.filtersTable.nameFilter.toUpperCase())) {
           return false;
-        if (this.filtersTable.affiliationFilter.toUpperCase() !== '' && !item.affiliation.name.toUpperCase().includes(this.filtersTable.affiliationFilter.toUpperCase()))
+        }
+
+        if (this.filtersTable.affiliationFilter.toUpperCase() !== '' && !item.affiliation.name.toUpperCase().includes(this.filtersTable.affiliationFilter.toUpperCase())) {
           return false;
-        if (this.filtersTable.enableFilter !== 2 && this.filtersTable.enableFilter != item.enable)
+        }
+
+        if (this.filtersTable.enableFilter !== 2 && Boolean(this.filtersTable.enableFilter) !== item.enable) {
           return false;
+        }
+
         return true;
       });
     }
@@ -94,6 +103,9 @@ export default {
     setPrograms(programs)
     {
       this.programs = programs;
+    },
+    setOrdering(ordering) {
+      this.orderingTable = ordering;
     }
   },
 
