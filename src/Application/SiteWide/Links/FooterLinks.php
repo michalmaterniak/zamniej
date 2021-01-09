@@ -58,24 +58,24 @@ class FooterLinks implements FrontInitInterface
                         'link' => '/sklepy/mr-whitening',
                     ],
                     [
-                        'name' => 'Iglaco',
-                        'link' => '/sklepy/iglaco',
+                        'name' => 'Piękno w Domu',
+                        'link' => '/sklepy/piekno-w-domu',
                     ],
                     [
                         'name' => 'ButyRaj',
                         'link' => '/sklepy/butyraj',
                     ],
                     [
-                        'name' => 'wec.com.pl',
-                        'link' => '/sklepy/wec-com-pl',
+                        'name' => '4KOM',
+                        'link' => '/sklepy/4kom',
                     ],
                     [
                         'name' => 'Złoty sklep FABER-CASTELL',
                         'link' => '/sklepy/zloty-sklep-faber-castell',
                     ],
                     [
-                        'name' => 'DrTusz',
-                        'link' => '/sklepy/drtusz',
+                        'name' => 'Rafjolka',
+                        'link' => '/sklepy/rafjolka',
                     ],
                 ],
             ],

@@ -35,7 +35,7 @@ class MainController extends GlobalController
     public function main(PagesManager $modelPagesManager, RequestPostContentData $requestPostContentData)
     {
         $page = $modelPagesManager->getCurrentResourceModel(true);
-        if (!$page) {
+        if (!$page || !$page->getSubpage()->getSubpage()->isActive()) {
             return $this->forward("App\Controller\Front\Api\ErrorsController" . '::error404', [
             ]);
         }

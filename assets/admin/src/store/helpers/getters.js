@@ -5,4 +5,7 @@ export default {
   debug: state => {
     return state.debug;
   },
+  searchTextListingPages: state => {
+    return state.searchTextListingPages;
+  },
 }

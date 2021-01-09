@@ -154,7 +154,7 @@ class ItemController extends AbstractResourceController
 
         $controller = $resourceModel->getComponents()->getResourceConfig()->getController();
         if ($this->canForward($controller, 'remove')) {
-            return $this->forward($this->returnClassNameController($controller) . "::item", [
+            return $this->forward($this->returnClassNameController($controller) . "::remove", [
                 'resource' => $resourceModel,
             ]);
         }
@@ -185,7 +185,7 @@ class ItemController extends AbstractResourceController
         $resourceModel = $this->pagesManager->loadEntity($resource);
         $controller = $resourceModel->getComponents()->getResourceConfig()->getController();
         if ($this->canForward($controller, 'store')) {
-            return $this->forward($this->returnClassNameController($controller) . "::item", [
+            return $this->forward($this->returnClassNameController($controller) . "::store", [
                 'resource' => $resourceModel,
             ]);
         }
