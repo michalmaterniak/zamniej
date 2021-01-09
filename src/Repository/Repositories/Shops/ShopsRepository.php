@@ -52,6 +52,7 @@ class ShopsRepository extends PageResourceRepository
         $this->addLeftJoin('tags', $aliasRootTag);
 
         $aliasRootResource = $this->addLeftJoin('resource');
+        $this->queryBuilder->andWhere("{$aliasRootResource}.active = 1");
         $this->queryBuilder->andWhere("{$aliasRootResource}.priority > :priority")->setParameter('priority', $priority);
 
         $this->addLeftJoin('subpages', $aliasRootResource);

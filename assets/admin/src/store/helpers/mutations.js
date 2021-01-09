@@ -7,4 +7,7 @@ export default {
     state.debug.token = payload.token;
     state.debug.dev = payload.dev;
   },
+  setSearchTextListingPages(state, payload) {
+	  state.searchTextListingPages = payload;
+  }
 }

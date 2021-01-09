@@ -213,7 +213,7 @@ class Subpages implements EntityInterface
      */
     public function isActive(): bool
     {
-        return $this->active;
+        return $this->getResource()->isActive() && $this->active;
     }
 
     /**

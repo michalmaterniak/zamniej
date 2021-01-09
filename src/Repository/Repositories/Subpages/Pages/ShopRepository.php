@@ -30,6 +30,7 @@ class ShopRepository extends CustomResourceRepository
      */
     public function listingCategory(): self
     {
+        $this->active();
         $aliasRootSubpages = $this->addLeftJoin('subpages');
         $this->addLeftJoin('files', $aliasRootSubpages);
         return $this;
@@ -41,10 +42,12 @@ class ShopRepository extends CustomResourceRepository
     public function letterRequest(): self
     {
         $this->getServicesRepositoriesManager()->getShopsLetterRequestModifierQuery()->modify($this->queryBuilder);
+        $this->active();
         $aliasRootSubpages = $this->addLeftJoin('subpages');
         $this->addLeftJoin('files', $aliasRootSubpages);
         $this->addLeftJoin('content');
         $this->addLeftJoin('content', $aliasRootSubpages);
+
         return $this;
     }
 

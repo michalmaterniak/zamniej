@@ -6,5 +6,7 @@ export default {
   },
 
 
-	loading: true
+	loading: true,
+
+  searchTextListingPages: ''
 }

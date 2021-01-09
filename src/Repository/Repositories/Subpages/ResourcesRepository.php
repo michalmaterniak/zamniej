@@ -141,4 +141,24 @@ class ResourcesRepository extends GlobalRepository
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.parent = :parent")->setParameter('parent', $resource);
         return $this;
     }
+
+    /**
+     * @param Entity $resource
+     * @return $this
+     */
+    public function active(): self
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 1");
+        return $this;
+    }
+
+    /**
+     * @param Entity $resource
+     * @return $this
+     */
+    public function inactive(): self
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 0");
+        return $this;
+    }
 }

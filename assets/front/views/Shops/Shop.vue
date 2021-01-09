@@ -111,6 +111,7 @@ export default {
     isContent() {
       return  Boolean(this.model.subpage.content.content);
     },
+
     offersActual()
     {
       let dateNow = new Date();

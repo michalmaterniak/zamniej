@@ -4,9 +4,9 @@
       <table class="table table-striped" v-if="resources.length > 0">
         <thead>
         <tr>
-          <th scope="col" style="wparentth: 10%">LP.</th>
-          <th scope="col" style="wparentth: 60%">Nazwa</th>
-          <th scope="col" style="wparentth: 30%">Działania</th>
+          <th scope="col" style="width: 10%">LP.</th>
+          <th scope="col" style="width: 60%">Nazwa</th>
+          <th scope="col" style="width: 30%">Działania</th>
         </tr>
         </thead>
         <tbody>
@@ -16,13 +16,19 @@
             <router-link :to="{name: 'panel-pages-page', params: {id: model.modelEntity.idResource} }">
               <span v-text="model.modelEntity.name"></span>
             </router-link>
-
           </td>
           <td>
             <router-link tag="a" class="btn btn-info"
                          :to="{name: 'panel-pages-page', params: {id: model.modelEntity.idResource} }">
               <i class="mdi mdi-arrow-right-bold"></i>
             </router-link>
+
+            <button-list :parentRes="model.modelEntity.idResource"
+                         :active="model.modelEntity.active"
+                         :changeable="model.modelEntity.config.unactivable"
+                         :callbackAction="toggleActiveResource">
+              <i class="mdi mdi-check"></i>
+            </button-list>
 
             <router-link tag="button" class="btn btn-info" :title="model.modelEntity.countChildren + ' podstron'" :disabled="model.modelEntity.countChildren === 0"
                          :to="{name: 'panel-pages-list-parent', params: {parent: model.modelEntity.idResource} }">
@@ -40,14 +46,20 @@
 </template>
 
 <script>
+import activeManage from "../../../../mixins/Resources/activeManage";
+import ButtonActiveSubpage from "../../../../components/Subpages/ButtonActiveSubpage";
+import ButtonList from "../../../../components/Buttons/ButtonList";
+
 export default {
   name: "Search",
+  components: {ButtonList, ButtonActiveSubpage},
   props: {
     search: {
       type: String,
       default: ''
     }
   },
+  mixins:[activeManage],
   data() {
     return {
       searchText: '',
@@ -57,10 +69,26 @@ export default {
   watch:{
     search(from, to) {
       this.loadResources();
-      this.loadResources();
     }
   },
   methods: {
+    toggleActiveResource(parentResource) {
+      let index = _.findIndex(this.resources, ({modelEntity}) => modelEntity.idResource === parentResource);
+
+      this.ajax({
+        url: '/admin/api/pages/resource-store/' + this.resources[index].modelEntity.idResource,
+        data: {
+          modelEntity: {
+            active: !this.resources[index].modelEntity.active
+          }
+        },
+        responseCallbackSuccess: res => {
+          if (res.data.status === true) {
+            this.resources[index].modelEntity.active = res.data.resource.modelEntity.active;
+          }
+        }
+      });
+    },
     loadResources() {
       this.ajax({
         url: '/admin/api/pages/resource-listing-search',
@@ -75,6 +103,7 @@ export default {
   },
   created() {
     this.$emit('setIdParent', null);
+    this.$store.commit('setSearchTextListingPages', this.search);
     this.searchText = this.search;
     this.loadResources();
   }

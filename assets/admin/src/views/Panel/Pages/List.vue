@@ -38,9 +38,18 @@ export default {
     }
   },
   watch: {
+    searchTextGlobal() {
+      this.searchText = this.searchTextGlobal;
+    },
+
     $route(to, from) {
       this.idParent = to.params.parent ? to.params.parent : null;
       this.searchText = to.params.search ? to.params.search : null;
+    }
+  },
+  computed:{
+    searchTextGlobal() {
+      return this.$store.getters.searchTextListingPages;
     }
   },
   methods: {
