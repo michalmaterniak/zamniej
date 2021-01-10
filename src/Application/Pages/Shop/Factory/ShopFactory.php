@@ -56,6 +56,11 @@ class ShopFactory extends ResourceFactory
         $this->pageCreate->setTag($this->randomizerShopsTag->random());
     }
 
+    protected function beforeCreateResource(): void
+    {
+        $this->resourceCreate->setActive(false);
+    }
+
     public function afterCreateSubpage(): void
     {
         if (!empty($this->data['logo'])) {
