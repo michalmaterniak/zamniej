@@ -117,7 +117,7 @@ class HomepageSubpage extends ResourceSubpage
     {
         if (!$this->shops) {
             $shops = $this->getComponents()->getResourcesManager()->loadShops(
-                $this->getComponents()->getShopRepository()->select()->getLatest($max)->getResults()
+                $this->getComponents()->getShopRepository()->select()->getLatest($max)->active()->getResults()
             );
             $this->shops = new ArrayCollection();
             foreach ($shops as $shop) {
