@@ -59,7 +59,7 @@ class ShopRepository extends CustomResourceRepository
     {
         $aliasRootSubpages = $this->addLeftJoin('subpages');
         $this->addLeftJoin('files', $aliasRootSubpages);
-
+        $this->queryBuilder->andWhere("$aliasRootSubpages.active = 1");
         $this->queryBuilder->setMaxResults($max)->orderBy("{$this->getRootAlias()}.idResource", "DESC");
         return $this;
     }
