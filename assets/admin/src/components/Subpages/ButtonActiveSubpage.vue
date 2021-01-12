@@ -1,5 +1,6 @@
 <template>
-  <button class="btn " :class="{'btn-danger' : !active, 'btn-success' : active}" @click="setActive">
+  <button :class="{'btn-danger' : !active, 'btn-success' : active}" :disabled="!changeable" @click="setActive"
+          class="btn ">
     <i class="mdi " :class="{'mdi-minus' : !active, 'mdi-check' : active}"></i>
   </button>
 </template>
@@ -8,7 +9,11 @@
 import activeManage from "../../mixins/Resources/activeManage";
 
 export default {
-  props:{
+  props: {
+    changeable: {
+      type: Boolean,
+      default: true
+    },
     active: {
       type: Boolean,
       default: false

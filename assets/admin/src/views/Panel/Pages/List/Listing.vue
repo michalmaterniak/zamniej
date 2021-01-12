@@ -35,12 +35,10 @@
               <i class="mdi mdi-arrow-down-bold"></i>
             </router-link>
 
-            <button-list :parentRes="model.modelEntity.idResource"
-                         :active="model.modelEntity.active"
-                         :changeable="model.modelEntity.config.unactivable"
-                         :callbackAction="toggleActiveResource">
-              <i class="mdi mdi-check"></i>
-            </button-list>
+            <button-active-subpage :active="model.modelEntity.subpages[$store.getters.currentLocale].active"
+                                   :changeable="model.modelEntity.config.unactivable"
+                                   :id-subpage="model.modelEntity.subpages[$store.getters.currentLocale].idSubpage"
+                                   @setActive="toggleActiveResource(index, !model.modelEntity.subpages[$store.getters.currentLocale].active)"/>
 
             <button-list :parentRes="model.modelEntity.idResource" color="danger"
                          :active="true"
@@ -64,6 +62,9 @@
 import ButtonList from "../../../../components/Buttons/ButtonList";
 import PopUpCallback from "../../../../components/PopUp/PopUpCallback";
 import CreatePage from "./CreatePage";
+import activeManage from "../../../../mixins/Resources/activeManage";
+import ButtonActiveSubpage from "../../../../components/Subpages/ButtonActiveSubpage";
+
 export default {
   name: "Listing",
   props: {
@@ -72,12 +73,13 @@ export default {
       default: 0
     },
   },
-  components: {CreatePage, ButtonList},
+  components: {ButtonActiveSubpage, CreatePage, ButtonList},
+  mixins: [activeManage],
   data() {
     return {
       resources: [],
       configListing: {
-        childrenTypesResource : []
+        childrenTypesResource: []
       },
       allResources: false
     }
@@ -102,23 +104,6 @@ export default {
     }
   },
   methods:{
-    toggleActiveResource(parentResource) {
-      let index = _.findIndex(this.resources, ({modelEntity}) => modelEntity.idResource === parentResource);
-
-      this.ajax({
-        url: '/admin/api/pages/resource-store/' + this.resources[index].modelEntity.idResource,
-        data: {
-          modelEntity: {
-            active: !this.resources[index].modelEntity.active
-          }
-        },
-        responseCallbackSuccess: res => {
-          if (res.data.status === true) {
-            this.resources[index].modelEntity.active = res.data.resource.modelEntity.active;
-          }
-        }
-      });
-    },
     removeResource(parentResource) {
       let index = _.findIndex(this.resources, ({modelEntity}) => modelEntity.idResource === parentResource);
       if (index !== -1) {

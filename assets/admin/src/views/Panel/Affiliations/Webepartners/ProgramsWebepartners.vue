@@ -35,14 +35,19 @@
               <td v-text="program.affiliation.name"></td>
               <td v-text="program.name"></td>
               <td>
-                <router-link v-if="program.subpage && program.subpage.idSubpage" :to="{name: 'panel-pages-page', params: {id: program.subpage.idSubpage}}" v-text="program.subpage.name"></router-link>
+                <router-link :to="{name: 'panel-pages-page', params: {id: program.subpage.idSubpage}}"
+                             v-if="isSubpage(program)" v-text="program.subpage.name"></router-link>
                 <button class="btn btn-info" v-else>Brak podstrony</button>
               </td>
               <td>
                 <button class="btn" :class="{'btn-success' : program.enable, 'btn-danger' : !program.enable}" ><span v-text="program.enable ? 'Dostępny' : 'Niedostępny'"></span></button>
               </td>
               <td>
-                <router-link class="btn btn-info" :to="{name: 'panel-affiliations-webepartners-program', params: {id: program.idShop}}"><i class="mdi mdi-arrow-right"></i></router-link>
+                <router-link class="btn btn-info"
+                             :to="{name: 'panel-affiliations-webepartners-program', params: {id: program.idShop}}"><i
+                  class="mdi mdi-arrow-right"></i></router-link>
+                <button-active-subpage :active="program.subpage.active" :id-subpage="program.subpage.idSubpage"
+                                       @setActive="toggleActivePrograms(index, !program.subpage.active)"/>
               </td>
             </tr>
             </tbody>
@@ -54,12 +59,17 @@
 </template>
 
 <script>
+import ButtonActiveSubpage from "../../../../components/Subpages/ButtonActiveSubpage";
+import activeManage from "../../../../mixins/Resources/activeManage";
+
 export default {
   name: "Programs",
-  data(){
+  components: {ButtonActiveSubpage},
+  mixins: [activeManage],
+  data() {
     return {
       programs: [],
-      filtersTable:{
+      filtersTable: {
         nameFilter: '',
         enableFilter: 1,
         affiliationFilter: ''
@@ -99,9 +109,11 @@ export default {
       });
     }
   },
-  methods:{
-    setPrograms(programs)
-    {
+  methods: {
+    isSubpage(program) {
+      return Boolean(program.subpage) && Boolean(program.subpage.idSubpage);
+    },
+    setPrograms(programs) {
       this.programs = programs;
     },
     setOrdering(ordering) {

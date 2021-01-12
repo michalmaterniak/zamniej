@@ -14,7 +14,7 @@ class ActiveController extends AbstractResourceController
      * @param Subpages $subpage
      * @return Response
      * @throws ExceptionInterface
-     * @Route("/admin/api/pages/subpage-active/{active}/{subpage}", name="admin-api-pages-subpage-active", methods={"POST"}, requirements={"resource"="\d+"})
+     * @Route("/admin/api/pages/subpage-active/{active}/{subpage}", name="admin-api-pages-subpage-active", methods={"POST"}, requirements={"active"="0|1","subpage"="\d+"})
      */
     public function active(
         bool $active,
