@@ -288,7 +288,6 @@ export default {
                 var stackElement = {error: false, url: url, method: method, type: 'fetch', start: new Date()};
                 var idx = requestStack.push(stackElement) - 1;
                 promise.then(function (r) {
-                  console.log(r);
                   stackElement.duration = new Date() - stackElement.start;
                   stackElement.error = r.status < 200 || r.status >= 400;
                   stackElement.statusCode = r.status;
@@ -413,7 +412,6 @@ export default {
                   event.preventDefault();
                   var p = this.parentNode;
                   p.style.display = 'none';
-                  console.log(p);
                   (p.previousElementSibling || p.previousSibling).style.display = 'none';
                   document.getElementById('sfMiniToolbar-' + newToken).style.display = 'block';
                   setPreference('toolbar/displayState', 'none');

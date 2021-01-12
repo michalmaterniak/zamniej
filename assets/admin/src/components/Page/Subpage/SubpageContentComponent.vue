@@ -2,7 +2,9 @@
   <div>
     <div class="row mb-3">
       <div class="col-md-12">
-        Aktywność: <button-active-subpage :id-subpage="subpage.idSubpage" :active="subpageActive" @setActive="setActiveInStore"/>
+        Aktywność:
+        <button-active-subpage :active="subpageActive" :id-subpage="subpage.idSubpage"
+                               @setActive="setActiveInStore(!subpageActive)"/>
       </div>
     </div>
     <div class="row">
@@ -18,29 +20,28 @@
 
 <script>
 
-  import ContentFormComponent from "../../FormFieldsComponents/ContentFormComponent";
-  import ButtonActiveSubpage from "../../Subpages/ButtonActiveSubpage";
-  import activeManage from "../../../mixins/Resources/activeManage";
-  export default {
-    components: {ButtonActiveSubpage, ContentFormComponent},
-    props: {
-      form: {
-        type: String,
-        default: {}
-      }
-    },
-    name: "SubpageContentComponent",
-    mixins: [activeManage],
-    data(){
+import ContentFormComponent from "../../FormFieldsComponents/ContentFormComponent";
+import ButtonActiveSubpage from "../../Subpages/ButtonActiveSubpage";
+import activeManage from "../../../mixins/Resources/activeManage";
+
+export default {
+  components: {ButtonActiveSubpage, ContentFormComponent},
+  props: {
+    form: {
+      type: String,
+      default: {}
+    }
+  },
+  name: "SubpageContentComponent",
+  mixins: [activeManage],
+  data() {
       return {
         subtab: 'main',
       }
     },
     computed:{
       subpageActive() {
-        let ac = this.$store.getters.resource.modelEntity.subpages[this.$store.getters.currentLocale].active;
-        console.log(ac);
-        return ac;
+        return this.$store.getters.resource.modelEntity.subpages[this.$store.getters.currentLocale].active;
       },
       subpage()
       {

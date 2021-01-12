@@ -26,7 +26,8 @@ export default {
   },
   changeValueResource(state, payload)
   {
-    if(_.get(state.resource, payload.path) || payload.forceCreate === true)
+    if (_.get(state.resource, payload.path) !== undefined || payload.forceCreate === true) {
       _.set(state.resource, payload.path, payload.value);
+    }
   },
 }
