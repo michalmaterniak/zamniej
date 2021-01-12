@@ -11,6 +11,10 @@ export default {
         url: '/admin/api/affiliations/webepartners/programs-active',
         responseCallbackSuccess: res => {
           this.$emit('setPrograms', res.data.programs);
+          this.$emit('setOrdering', {
+            by: 'subpage.datetimeCreate',
+            ordering: 'desc'
+          });
         }
       })
     }

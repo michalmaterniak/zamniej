@@ -68,7 +68,7 @@ class Subpages implements EntityInterface
     /**
      * @var bool $active
      * @ORM\Column(name="active", type="boolean", nullable=false)
-     * @Groups({"resource", "resource-admin", "resource-admin-list"})
+     * @Groups({"resource", "resource-admin", "resource-admin-list", "program-admin-list"})
      */
     protected $active = true;
 
@@ -125,7 +125,7 @@ class Subpages implements EntityInterface
     /**
      * @var DateTime $datetimeCreate
      * @ORM\Column(name="datetime_create", type="datetime", nullable=false)
-     * @Groups({"resource", "resource-admin"})
+     * @Groups({"resource", "resource-admin", "program-admin-list"})
      */
     protected $datetimeCreate;
 

@@ -23,14 +23,13 @@
               <i class="mdi mdi-arrow-right-bold"></i>
             </router-link>
 
-            <button-list :parentRes="model.modelEntity.idResource"
-                         :active="model.modelEntity.active"
-                         :changeable="model.modelEntity.config.unactivable"
-                         :callbackAction="toggleActiveResource">
-              <i class="mdi mdi-check"></i>
-            </button-list>
+            <button-active-subpage :active="model.modelEntity.subpages[$store.getters.currentLocale].active"
+                                   :changeable="model.modelEntity.config.unactivable"
+                                   :id-subpage="model.modelEntity.subpages[$store.getters.currentLocale].idSubpage"
+                                   @setActive="toggleActiveResource(index, !model.modelEntity.subpages[$store.getters.currentLocale].active)"/>
 
-            <router-link tag="button" class="btn btn-info" :title="model.modelEntity.countChildren + ' podstron'" :disabled="model.modelEntity.countChildren === 0"
+            <router-link tag="button" class="btn btn-info" :title="model.modelEntity.countChildren + ' podstron'"
+                         :disabled="model.modelEntity.countChildren === 0"
                          :to="{name: 'panel-pages-list-parent', params: {parent: model.modelEntity.idResource} }">
               <i class="mdi mdi-arrow-down-bold"></i>
             </router-link>
@@ -72,23 +71,6 @@ export default {
     }
   },
   methods: {
-    toggleActiveResource(parentResource) {
-      let index = _.findIndex(this.resources, ({modelEntity}) => modelEntity.idResource === parentResource);
-
-      this.ajax({
-        url: '/admin/api/pages/resource-store/' + this.resources[index].modelEntity.idResource,
-        data: {
-          modelEntity: {
-            active: !this.resources[index].modelEntity.active
-          }
-        },
-        responseCallbackSuccess: res => {
-          if (res.data.status === true) {
-            this.resources[index].modelEntity.active = res.data.resource.modelEntity.active;
-          }
-        }
-      });
-    },
     loadResources() {
       this.ajax({
         url: '/admin/api/pages/resource-listing-search',
