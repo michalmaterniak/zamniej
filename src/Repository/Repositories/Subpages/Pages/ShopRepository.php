@@ -42,8 +42,9 @@ class ShopRepository extends CustomResourceRepository
     public function letterRequest(): self
     {
         $this->getServicesRepositoriesManager()->getShopsLetterRequestModifierQuery()->modify($this->queryBuilder);
-        $this->active();
+
         $aliasRootSubpages = $this->addLeftJoin('subpages');
+        $this->active();
         $this->addLeftJoin('files', $aliasRootSubpages);
         $this->addLeftJoin('content');
         $this->addLeftJoin('content', $aliasRootSubpages);

@@ -43,15 +43,6 @@ class SubpagesRepository extends GlobalRepository
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function findAllToSitemap()
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 1");
-        return $this;
-    }
-
     public function bySubpage(Subpages $subpage)
     {
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.subpage = :subpage")->setParameter('subpage', $subpage);

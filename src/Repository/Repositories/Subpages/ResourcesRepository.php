@@ -149,6 +149,9 @@ class ResourcesRepository extends GlobalRepository
     public function active(): self
     {
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 1");
+        $leftSubpages = $this->addLeftJoin('subpages');
+        $this->queryBuilder->andWhere("{$leftSubpages}.active = 1");
+
         return $this;
     }
 
@@ -161,4 +164,14 @@ class ResourcesRepository extends GlobalRepository
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 0");
         return $this;
     }
+
+    /**
+     * @return $this
+     */
+    public function findAllToSitemap()
+    {
+        $this->active();
+        return $this;
+    }
+
 }
