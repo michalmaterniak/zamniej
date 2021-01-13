@@ -47,7 +47,8 @@
                              :to="{name: 'panel-affiliations-webepartners-program', params: {id: program.idShop}}"><i
                   class="mdi mdi-arrow-right"></i></router-link>
                 <button-active-subpage :active="program.subpage.active" :id-subpage="program.subpage.idSubpage"
-                                       @setActive="toggleActivePrograms(index, !program.subpage.active)"/>
+                                       @setActive="toggleActivePrograms(index, !program.subpage.active)"
+                                       v-if="isSubpage(program)"/>
               </td>
             </tr>
             </tbody>
