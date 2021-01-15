@@ -2,6 +2,7 @@
 
 namespace App\Application\Affiliations;
 
+use App\Application\Affiliations\Convertiser\UpdaterConvertiser;
 use App\Application\Affiliations\Interfaces\UpdaterAffiliationInterface;
 use App\Application\Affiliations\Webepartners\UpdaterWebepartners;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,10 +15,12 @@ class UpdaterAffiliations
     protected $updatersAffiliation;
 
     public function __construct(
-        UpdaterWebepartners $updaterWebepartners
+        UpdaterWebepartners $updaterWebepartners,
+        UpdaterConvertiser $updaterConvertiser
     )
     {
         $this->updatersAffiliation = new ArrayCollection();
+        $this->register($updaterConvertiser);
         $this->register($updaterWebepartners);
     }
 

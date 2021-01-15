@@ -1,62 +1,43 @@
 <?php
 namespace App\Application\Affiliations\Webepartners\Programs;
 
-use App\Entity\Entities\Affiliations\Affiliations;
+use App\Application\Affiliations\ProgramsAffiliationFactory;
 use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\AffiliationsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
-use App\Services\System\EntityServices\Updater\EntityUpdater;
 use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 
-class ProgramsWebepartnersFactory
+class ProgramsWebepartnersFactory extends ProgramsAffiliationFactory
 {
-    /**
-     * @var EntityUpdater $entityUpdater
-     */
-    protected $entityUpdater;
-
-    /**
-     * @var WebepartnersProgramsRepository $webepartnersProgramsRepository
-     */
-    protected $webepartnersProgramsRepository;
-
-    /**
-     * @var Affiliations $affiliation
-     */
-    protected $affiliation;
-
     /**
      * @var WebepartnersPrograms|null $program
      */
     protected $program;
 
     /**
-     * @var AffiliationsRepository $affiliationsRepository
+     * @var WebepartnersProgramsRepository $webepartnersProgramsRepository
      */
-    protected $affiliationsRepository;
-
+    protected $webepartnersProgramsRepository;
     public function __construct(
         SimpleEntityUpdater $entityUpdater,
         WebepartnersProgramsRepository $webepartnersProgramsRepository,
         AffiliationsRepository $affiliationsRepository
     )
     {
+        parent::__construct($affiliationsRepository, $entityUpdater);
         $this->entityUpdater = $entityUpdater;
         $this->webepartnersProgramsRepository = $webepartnersProgramsRepository;
-        $this->affiliationsRepository = $affiliationsRepository;
     }
 
-    /**
-     * @return Affiliations
-     */
-    protected function getAffiliation(): Affiliations
+    protected function getEntityProgram(): ShopsAffiliation
     {
-        if (!$this->affiliation) {
-            $this->affiliation = $this->affiliationsRepository->select()->findOneByName('webepartners')->getResultOrNull();
+        return new WebepartnersPrograms();
+    }
 
-        }
-        return $this->affiliation;
+    protected function getAffiliationName(): string
+    {
+        return 'webepartners';
     }
 
     /**
@@ -70,22 +51,19 @@ class ProgramsWebepartnersFactory
 
         if (!$this->program) {
             $this->createProgram();
+            $this->entityUpdater->persist($this->program);
         }
         $this->entityUpdater->setEntity($this->program);
 
         $this->entityUpdater->update($data);
 
-        $this->entityUpdater->flush();
-        return $this->program;
-    }
+        if ($this->isPersist) {
+            $this->entityUpdater->persist($this->program);
+            $this->isPersist = false;
+        }
 
-    /**
-     * @return ShopsAffiliation
-     */
-    public function createProgram(): ShopsAffiliation
-    {
-        $this->program = new WebepartnersPrograms();
-        $this->program->setAffiliation($this->getAffiliation());
+        $this->entityUpdater->flush();
+
         return $this->program;
     }
 }
