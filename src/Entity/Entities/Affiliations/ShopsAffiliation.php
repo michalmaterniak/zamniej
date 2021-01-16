@@ -18,6 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\DiscriminatorColumn(name="type", type="integer")
  * @ORM\DiscriminatorMap({
  *     0 = "App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms",
+ *     1 = "App\Entity\Entities\Affiliations\Convertiser\ConvertiserPrograms",
  * })
  * @ORM\Entity(repositoryClass="App\Repository\Repositories\Affiliations\ShopsAffiliationRepository")
  *
@@ -71,7 +72,7 @@ abstract class ShopsAffiliation implements EntityInterface
     /**
      * @var Affiliations $affiliation
      * @ORM\ManyToOne(targetEntity="App\Entity\Entities\Affiliations\Affiliations")
-     * @ORM\JoinColumn(name="affiliation_id", referencedColumnName="id_affiliation")
+     * @ORM\JoinColumn(name="affiliation_id", referencedColumnName="id_affiliation", nullable=false)
      * @Groups({"resource-admin", "program-admin", "program-admin-list"})
      */
     protected $affiliation;
@@ -103,8 +104,10 @@ abstract class ShopsAffiliation implements EntityInterface
     protected $redirectCount = 0;
 
     abstract public function getCps() : float;
-    abstract public function getCpc() : float;
 
+    abstract public function getCpc(): float;
+
+    abstract public function setExternalId($id): void;
 
     /**
      * @return string
@@ -278,13 +281,5 @@ abstract class ShopsAffiliation implements EntityInterface
     public function getExternalId(): string
     {
         return $this->externalId;
-    }
-
-    /**
-     * @param string $externalId
-     */
-    public function setExternalId(string $externalId): void
-    {
-        $this->externalId = $externalId;
     }
 }

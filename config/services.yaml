@@ -8,7 +8,6 @@ parameters:
     locales:
         - 'pl'
     cacheEnable: '%env(bool:CACHE_REDIS_ENABLE)%'
-
     nameFolderPath: 'uploads'
     filePath: '/%nameFolderPath%/'
     fileUploadsPath:
@@ -19,7 +18,9 @@ parameters:
             relative: '/cache'
             absolute: '%kernel.project_dir%/var/cache/data'
         tmp: '%kernel.project_dir%/var/'
-
+    convertiser:
+        base_url: 'https://api.convertiser.com/'
+        token: 'CGcxDh1E5Y4VNmnh6aOIfTtP9qSJE0'
     webepartners:
         api_access:
             login: 'michal.materniak@commit-m.pl'
@@ -81,6 +82,10 @@ services:
     App\Application\Affiliations\Webepartners\Api\WebepartnersAuthorization:
         arguments:
             $webepartners: '%webepartners%'
+
+    App\Application\Affiliations\Convertiser\Api\ConvertiserAuthorization:
+        arguments:
+            $convertiser: '%convertiser%'
 
     App\Services\System\Cache\CacheManager:
         arguments:

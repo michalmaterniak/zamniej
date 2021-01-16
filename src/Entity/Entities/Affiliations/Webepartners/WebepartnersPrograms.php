@@ -520,4 +520,12 @@ class WebepartnersPrograms extends ShopsAffiliation
     {
         return $this->getLinkForce() ?: $this->getAffiliateTrackingProgramUrl();
     }
+
+    /**
+     * @param string $externalId
+     */
+    public function setExternalId($externalId): void
+    {
+        $this->externalId = $externalId;
+    }
 }

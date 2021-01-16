@@ -8,8 +8,9 @@ class SimpleEntityUpdater extends EntityUpdater
         $this->properties = $properties;
         foreach ($this->properties as $key => $property) {
             $setter = $this->getSetterMethod($key);
-            if ($setter)
+            if ($setter) {
                 $this->updateValue($property, $setter);
+            }
         }
     }
 }

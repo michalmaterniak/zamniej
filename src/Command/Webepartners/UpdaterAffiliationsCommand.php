@@ -27,7 +27,7 @@ class UpdaterAffiliationsCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('webepartners_programs')
+            ->setDescription('Aktualizacja wszystkich firm afiliacyjnych')
         ;
     }
 

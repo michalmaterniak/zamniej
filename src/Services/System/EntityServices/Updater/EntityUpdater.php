@@ -5,6 +5,7 @@ use App\Entity\Interfaces\EntityInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\PersistentCollection;
+use function Symfony\Component\String\u;
 
 class EntityUpdater
 {
@@ -87,7 +88,7 @@ class EntityUpdater
      */
     protected function getSetterMethod(string $methodName)
     {
-        $method = 'set' . ucfirst($methodName);
+        $method = 'set' . ucfirst(u($methodName)->camel());
         return method_exists($this->entity, $method) ? $method : null;
     }
 
