@@ -220,6 +220,9 @@ class OffersRepository extends GlobalRepository
     {
         $this->orderBy(['datetimeFrom' => 'DESC', 'datetimeCreate' => 'DESC']);
         $this->withPhoto()->withShopAffil()->withContent()->lastMax(16);
+        $aliasRootSubpages = $this->addLeftJoin('subpage');
+        $this->queryBuilder->andWhere("{$aliasRootSubpages}.active = 1");
+
         return $this;
     }
 
@@ -228,7 +231,8 @@ class OffersRepository extends GlobalRepository
      */
     public function withSubpage(): self
     {
-        $this->addLeftJoin('subpage');
+        $aliasRootSubpages = $this->addLeftJoin('subpage');
+        $this->queryBuilder->andWhere("{$aliasRootSubpages}.active = 1");
         return $this;
     }
 
