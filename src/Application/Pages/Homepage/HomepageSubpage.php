@@ -140,7 +140,7 @@ class HomepageSubpage extends ResourceSubpage
     {
         if (!$this->blog) {
             $articles = $this->getComponents()->getResourcesManager()->loadBlogArticles(
-                $this->getComponents()->getBlogArticleRepository()->select()->getLatest($max)->getResults()
+                $this->getComponents()->getBlogArticleRepository()->select()->getLatest($max)->active()->getResults()
             );
             $this->blog = new ArrayCollection();
             foreach ($articles as $article) {
