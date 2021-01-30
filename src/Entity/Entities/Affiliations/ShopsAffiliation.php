@@ -229,7 +229,7 @@ abstract class ShopsAffiliation implements EntityInterface
      */
     public function isEnable(): bool
     {
-        return $this->enable;
+        return $this->isForceActive() ? $this->isForceActive() : $this->enable;
     }
 
     /**
