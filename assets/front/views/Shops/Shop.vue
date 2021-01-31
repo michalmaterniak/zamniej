@@ -65,9 +65,16 @@
             </div>
 
             <div class="row">
-              <div class="col-md-12 box1 marB30 marT10">
-                <div class="ask-btn btn-fixed hidden-lg hidden-md hidden-sm button-details" >
-                  <button class="itg-btn cart-btn" @click="showDetailsShop"><font-awesome-icon icon="arrow-left" /></button>
+              <div class="col-md-8 box1 marB30 marT10">
+                <div class="ask-btn btn-fixed button-center hidden-lg hidden-md hidden-sm button-details ">
+                  <button class="itg-btn cart-btn btn-red">Przejdź do sklepu</button>
+                </div>
+              </div>
+              <div class="col-md-4 box1 marB30 marT10">
+                <div class="ask-btn btn-fixed hidden-lg hidden-md hidden-sm button-details ">
+                  <button @click="showDetailsShop" class="itg-btn cart-btn">
+                    <font-awesome-icon icon="arrow-left"/>
+                  </button>
                 </div>
               </div>
             </div>
@@ -248,5 +255,15 @@ export default {
 
 h1.description-text {
   text-transform: unset;
+}
+
+.button-center {
+  left: 20%;
+  width: 60%;
+}
+
+.btn-red {
+  background-color: red;
+  width: 100%;
 }
 </style>
