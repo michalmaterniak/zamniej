@@ -21,6 +21,7 @@
 
 import RatingShop from "@/components/Elements/Rating/RatingShop";
 import ShopDetails from "@/views/Shops/Shop/ShopDetails";
+
 export default {
   components: {ShopDetails, RatingShop},
   props: ['title', 'data', 'options'],
@@ -32,6 +33,7 @@ export default {
         this.openWindow(this.shop.subpage.urlTracking);
     },
     closePopup() {
+      this.data.afterClose();
       this.$store.commit('setPopup', {title: '', options: null, template: null, data: {}});
     }
   },
