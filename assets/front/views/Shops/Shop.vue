@@ -67,13 +67,13 @@
             <div class="row">
               <div class="col-md-8 box1 marB30 marT10">
                 <div class="ask-btn btn-fixed button-center hidden-lg hidden-md hidden-sm button-details ">
-                  <button class="itg-btn cart-btn btn-red">Przejdź do sklepu</button>
+                  <button @click="redirectMainButton" class="itg-btn cart-btn btn-red">Przejdź do sklepu</button>
                 </div>
               </div>
               <div class="col-md-4 box1 marB30 marT10">
                 <div class="ask-btn btn-fixed hidden-lg hidden-md hidden-sm button-details ">
                   <button @click="showDetailsShop" class="itg-btn cart-btn">
-                    <font-awesome-icon icon="arrow-left"/>
+                    <font-awesome-icon :icon="isPopupDetailShop ? 'arrow-right' : 'arrow-left'"/>
                   </button>
                 </div>
               </div>
@@ -111,7 +111,8 @@ export default {
   data() {
     return {
       shopDetailsHeight: null,
-      contactShow: false
+      contactShow: false,
+      isPopupDetailShop: false
     }
   },
   computed: {
@@ -164,6 +165,15 @@ export default {
       });
       this.redirectInsideShop();
     },
+    redirectMainButton() {
+      this.$gtagEv({
+        action: 'redirect',
+        category: 'shop',
+        label: 'button-main-link',
+        value: this.model.subpage.subpage.idSubpage
+      });
+      this.redirectInsideShop();
+    },
     redirectOutsideShop() {
       this.redirectOutside(this.$store.getters.redirectLinkShop(this.model.subpage.idShopAffil));
     },
@@ -186,14 +196,22 @@ export default {
     {
       $('#offers-not-actual').toggleClass('hidden-xs').toggleClass('hidden-sm');
     },
-    showDetailsShop()
-    {
-      this.$store.commit('setPopup', {
-        template: () => import("@/views/Shops/Shop/PopupShopDetails"),
-        data:{
-          shop: this.model
-        },
-      })
+    showDetailsShop() {
+      this.isPopupDetailShop = !this.isPopupDetailShop;
+      if (this.isPopupDetailShop) {
+        this.$store.commit('setPopup', {
+          template: () => import("@/views/Shops/Shop/PopupShopDetails"),
+          data: {
+            shop: this.model,
+            afterClose: () => {
+              this.isPopupDetailShop = !this.isPopupDetailShop;
+            }
+          },
+        })
+      } else {
+        this.$store.commit('setPopup', {title: '', options: null, template: null, data: {}});
+      }
+
     },
     popupShopOffer(index, withRedirect = false)
     {
@@ -242,10 +260,10 @@ export default {
 
 .btn-fixed {
   position: fixed;
-  z-index: 1000;
+  z-index: 1500;
   bottom: 0;
   right: 0;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .icon-h1 {
