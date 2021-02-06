@@ -177,14 +177,14 @@ class ConvertiserPrograms extends ShopsAffiliation
 
     /**
      * @var array $geoTargets
-     * @ORM\Column(name="geo_targets", type="array", nullable=false)
+     * @ORM\Column(name="geo_targets", type="json", nullable=false)
      * @Groups({"program-admin"})
      */
     protected $geoTargets;
 
     /**
      * @var array $geoTargetsDetails
-     * @ORM\Column(name="geo_targets_details", type="array", nullable=false)
+     * @ORM\Column(name="geo_targets_details", type="json", nullable=false)
      * @Groups({"program-admin"})
      */
     protected $geoTargetsDetails;
@@ -198,14 +198,14 @@ class ConvertiserPrograms extends ShopsAffiliation
 
     /**
      * @var array $goals
-     * @ORM\Column(name="goals", type="array", nullable=false)
+     * @ORM\Column(name="goals", type="json", nullable=false)
      * @Groups({"program-admin"})
      */
     protected $goals;
 
     /**
      * @var array $stats
-     * @ORM\Column(name="stats", type="array", nullable=false)
+     * @ORM\Column(name="stats", type="json", nullable=false)
      * @Groups({"program-admin"})
      */
     protected $stats;

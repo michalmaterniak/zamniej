@@ -5,6 +5,7 @@ namespace App\Application\Affiliations\Webepartners;
 use App\Application\Affiliations\Interfaces\UpdaterAffiliationInterface;
 use App\Application\Affiliations\Webepartners\Api\Programs\ProgramsWebepartners;
 use App\Application\Affiliations\Webepartners\Programs\ProgramsWebepartnersFactory;
+use Exception;
 use GuzzleHttp\Exception\ConnectException;
 
 class UpdaterWebepartners implements UpdaterAffiliationInterface
@@ -48,6 +49,8 @@ class UpdaterWebepartners implements UpdaterAffiliationInterface
 
             } catch (ConnectException $connectException) {
                 dump('Nie można pobrać programów z webepartners');
+            } catch (Exception $exception) {
+                dump($exception->getMessage());
             }
         }
     }
