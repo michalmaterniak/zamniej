@@ -1,5 +1,5 @@
 <?php
-namespace App\Command\Webepartners;
+namespace App\Command\Affiliations;
 
 use App\Application\Affiliations\UpdaterAffiliations;
 use Symfony\Component\Console\Command\Command;

@@ -5,6 +5,7 @@ namespace App\Application\Affiliations\Convertiser;
 use App\Application\Affiliations\Convertiser\Api\Programs\ProgramsConvertiser;
 use App\Application\Affiliations\Convertiser\Programs\ProgramsConvertiserFactory;
 use App\Application\Affiliations\Interfaces\UpdaterAffiliationInterface;
+use Exception;
 use GuzzleHttp\Exception\ConnectException;
 
 class UpdaterConvertiser implements UpdaterAffiliationInterface
@@ -39,6 +40,8 @@ class UpdaterConvertiser implements UpdaterAffiliationInterface
 
             } catch (ConnectException $connectException) {
                 dump('Nie można pobrać programów z convertiser');
+            } catch (Exception $exception) {
+                dump($exception->getMessage());
             }
         }
     }
