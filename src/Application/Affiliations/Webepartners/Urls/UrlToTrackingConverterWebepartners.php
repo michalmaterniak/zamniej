@@ -1,11 +1,12 @@
 <?php
 namespace App\Application\Affiliations\Webepartners\Urls;
 
+use App\Application\Affiliations\Interfaces\Urls\UrlTrackingConverterInterface;
 use App\Application\Affiliations\Webepartners\Api\TrackingUrlWebepartners;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 use Exception;
 
-class UrlToTrackingConverterWebepartners
+class UrlToTrackingConverterWebepartners implements UrlTrackingConverterInterface
 {
     /**
      * @var WebepartnersProgramsRepository $webepartnersProgramsRepository

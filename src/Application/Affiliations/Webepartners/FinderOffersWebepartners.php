@@ -7,7 +7,6 @@ use App\Application\Affiliations\Webepartners\Offers\OffersHotsPriceWebepartners
 use App\Application\Affiliations\Webepartners\Offers\OffersPromotionsWebepartnersFactory;
 use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
-use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 
 class FinderOffersWebepartners implements FinderOffersToProgramInterface
 {
@@ -26,20 +25,12 @@ class FinderOffersWebepartners implements FinderOffersToProgramInterface
      */
     protected $offersHotsPriceWebepartnersFactory;
 
-    /**
-     * @var WebepartnersProgramsRepository $webepartnersProgramsRepository
-     */
-    protected $webepartnersProgramsRepository;
-
     public function __construct(
-        WebepartnersProgramsRepository $webepartnersProgramsRepository,
-
         OffersPromotionsWebepartnersFactory $offersPromotionsWebepartnersFactory,
         OffersBannersWebepartnersFactory $offersBannersWebepartnersFactory,
         OffersHotsPriceWebepartnersFactory $offersHotsPriceWebepartnersFactory
     )
     {
-        $this->webepartnersProgramsRepository = $webepartnersProgramsRepository;
 
         $this->offersPromotionsWebepartnersFactory = $offersPromotionsWebepartnersFactory;
         $this->offersBannersWebepartnersFactory = $offersBannersWebepartnersFactory;

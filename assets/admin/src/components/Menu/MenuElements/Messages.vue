@@ -5,21 +5,41 @@
     </a>
     <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" :class="{'show' : isOpen}" aria-labelledby="2">
       <ul class="list-style-none">
-        <li>
+        <li v-if="newProgramsCount.webepartners > 0">
           <div class="">
             <!-- Message webepartners -->
-            <a href="javascript:void(0)" class="link border-top" v-if="newProgramsCount > 0">
+            <a href="javascript:void(0)" class="link border-top" v-if="newProgramsCount.webepartners > 0">
               <div class="d-flex no-block align-items-center p-10">
                 <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
                 <div class="m-l-10">
-                  <h5 class="m-b-0">Nowe progrmy webepartners (<span v-text="newProgramsCount"></span>)</h5>
+
                   <span class="mail-desc">
-                    <router-link :to="{name: 'panel-affiliations-webepartners-programs-new'}" >Zaakceptuj program afiliacyjny</router-link>
+                    <router-link :to="{name: 'panel-affiliations-webepartners-programs-new'}" >
+                      <h5 class="m-b-0">Nowe progrmy webepartners<br>(<span v-text="newProgramsCount.webepartners"></span>)</h5>
+                    </router-link>
                   </span>
                 </div>
               </div>
             </a>
             <!-- Message webepartners -->
+          </div>
+        </li>
+        <li v-if="newProgramsCount.convertiser > 0">
+          <div class="">
+            <!-- Message convertiser -->
+            <a href="javascript:void(0)" class="link border-top" v-if="newProgramsCount.convertiser > 0">
+              <div class="d-flex no-block align-items-center p-10">
+                <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
+                <div class="m-l-10">
+                  <span class="mail-desc">
+                    <router-link :to="{name: 'panel-affiliations-convertiser-programs-new'}" >
+                      <h5 class="m-b-0">Nowe progrmy convertiser<br>(<span v-text="newProgramsCount.convertiser"></span>)</h5>
+                    </router-link>
+                  </span>
+                </div>
+              </div>
+            </a>
+            <!-- Message convertiser -->
           </div>
         </li>
       </ul>
@@ -37,7 +57,7 @@ export default {
   },
   computed:{
     isMessages(){
-      return (this.newProgramsCount > 0)
+      return (this.newProgramsCount.total > 0)
     },
     system()
     {

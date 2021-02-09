@@ -44,7 +44,7 @@
               </td>
               <td>
                 <router-link class="btn btn-info"
-                             :to="{name: 'panel-affiliations-webepartners-program', params: {id: program.idShop}}"><i
+                             :to="{name: 'panel-affiliations-convertiser-program', params: {id: program.idShop}}"><i
                   class="mdi mdi-arrow-right"></i></router-link>
                 <button-active-subpage :active="program.subpage.active" :id-subpage="program.subpage.idSubpage"
                                        @setActive="toggleActivePrograms(index, !program.subpage.active)"
@@ -64,7 +64,7 @@ import ButtonActiveSubpage from "../../../../components/Subpages/ButtonActiveSub
 import activeManage from "../../../../mixins/Resources/activeManage";
 
 export default {
-  name: "ProgramsWebepartners",
+  name: "ProgramsConvertiser",
   components: {ButtonActiveSubpage},
   mixins: [activeManage],
   data() {

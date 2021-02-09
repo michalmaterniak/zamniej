@@ -2,11 +2,11 @@
 
 namespace App\Application\Affiliations\Convertiser\Programs;
 
+use App\Application\Affiliations\AffiliationManager;
 use App\Application\Affiliations\Convertiser\Api\TrackingUrlConvertiser;
 use App\Application\Affiliations\ProgramsAffiliationFactory;
 use App\Entity\Entities\Affiliations\Convertiser\ConvertiserPrograms;
 use App\Entity\Entities\Affiliations\ShopsAffiliation;
-use App\Repository\Repositories\Affiliations\AffiliationsRepository;
 use App\Repository\Repositories\Affiliations\Convertiser\ConvertiserProgramsRepository;
 use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 
@@ -23,26 +23,20 @@ class ProgramsConvertiserFactory extends ProgramsAffiliationFactory
     protected $program;
 
     /**
-     * @var AffiliationsRepository $affiliationsRepository
-     */
-    protected $affiliationsRepository;
-
-    /**
      * @var TrackingUrlConvertiser $trackingUrlConvertiser
      */
     protected $trackingUrlConvertiser;
 
     public function __construct(
-        AffiliationsRepository $affiliationsRepository,
+        AffiliationManager $affiliationManager,
         SimpleEntityUpdater $entityUpdater,
         ConvertiserProgramsRepository $convertiserProgramsRepository,
         TrackingUrlConvertiser $trackingUrlConvertiser
     )
     {
-        parent::__construct($affiliationsRepository, $entityUpdater);
+        parent::__construct($affiliationManager, $entityUpdater);
         $this->convertiserProgramsRepository = $convertiserProgramsRepository;
         $this->trackingUrlConvertiser = $trackingUrlConvertiser;
-
     }
 
     /**
@@ -56,7 +50,12 @@ class ProgramsConvertiserFactory extends ProgramsAffiliationFactory
 
         if (!$this->program) {
             $this->createProgram();
-            $this->program->setTrackingUrl($this->trackingUrlConvertiser->getTrackingUrl($data['id'], $this->getAffiliation()->getData('website')));
+            $this->program->setTrackingUrl(
+                $this->trackingUrlConvertiser->getTrackingUrl(
+                    $data['id'],
+                    $this->program->getAffiliation()->getData('website')
+                )
+            );
         }
         $this->entityUpdater->setEntity($this->program);
 

@@ -33,7 +33,7 @@ class Affiliations implements EntityInterface
 
     public function __construct(string $name)
     {
-        $this->name = $name;
+        $this->setName($name);
     }
 
     /**

@@ -27,6 +27,12 @@ import ProgramsWebepartnersActive from "../views/Panel/Affiliations/Webepartners
 import ProgramsWebepartnersUnactive from "../views/Panel/Affiliations/Webepartners/Programs/ProgramsWebepartnersUnactive";
 import ProgramWebepartners from "../views/Panel/Affiliations/Webepartners/ProgramWebepartners";
 import PageNew from "../views/Panel/Pages/PageNew";
+import Convertiser from "../views/Panel/Affiliations/Convertiser";
+import ProgramsConvertiserNew from "../views/Panel/Affiliations/Convertiser/Programs/ProgramsConvertiserNew";
+import ProgramsConvertiserActive from "../views/Panel/Affiliations/Convertiser/Programs/ProgramsConvertiserActive";
+import ProgramsConvertiserUnactive from "../views/Panel/Affiliations/Convertiser/Programs/ProgramsConvertiserUnactive";
+import ProgramConvertiser from "../views/Panel/Affiliations/Convertiser/ProgramConvertiser";
+import ProgramsConvertiser from "../views/Panel/Affiliations/Convertiser/ProgramsConvertiser";
 
 export default [
   {
@@ -168,6 +174,62 @@ export default [
             name: 'panel-affiliations-webepartners-program',
             path: 'program/:id',
             component: ProgramWebepartners,
+            props: true,
+            meta: {
+              middleware: [auth],
+            },
+          }
+        ]
+      },
+      {
+        name: 'panel-affiliations-convertiser',
+        path: 'affiliations-convertiser',
+        component: Convertiser,
+        meta: {
+          middleware: [auth],
+        },
+        redirect: {
+          name: 'panel-affiliations-convertiser-programs-new'
+        },
+        children:[
+          {
+            name: 'panel-affiliations-convertiser-programs',
+            path: 'programs',
+            component: ProgramsConvertiser,
+            meta: {
+              middleware: [auth],
+            },
+            children:[
+              {
+                name: 'panel-affiliations-convertiser-programs-new',
+                path: 'new',
+                component: ProgramsConvertiserNew,
+                meta: {
+                  middleware: [auth],
+                },
+              },
+              {
+                name: 'panel-affiliations-convertiser-programs-active',
+                path: 'active',
+                component: ProgramsConvertiserActive,
+                meta: {
+                  middleware: [auth],
+                },
+              },
+              {
+                name: 'panel-affiliations-convertiser-programs-unactive',
+                path: 'unactive',
+                component: ProgramsConvertiserUnactive,
+                meta: {
+                  middleware: [auth],
+                },
+              }
+            ]
+          },
+          {
+            name: 'panel-affiliations-convertiser-program',
+            path: 'program/:id',
+            component: ProgramConvertiser,
             props: true,
             meta: {
               middleware: [auth],

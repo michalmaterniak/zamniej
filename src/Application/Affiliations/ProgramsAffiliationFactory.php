@@ -4,7 +4,6 @@ namespace App\Application\Affiliations;
 
 use App\Entity\Entities\Affiliations\Affiliations;
 use App\Entity\Entities\Affiliations\ShopsAffiliation;
-use App\Repository\Repositories\Affiliations\AffiliationsRepository;
 use App\Services\System\EntityServices\Updater\EntityUpdater;
 use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 
@@ -28,18 +27,17 @@ abstract class ProgramsAffiliationFactory
     protected $program;
 
     /**
-     * @var AffiliationsRepository $affiliationsRepository
+     * @var AffiliationManager $affiliationManager
      */
-    protected $affiliationsRepository;
-
+    protected $affiliationManager;
 
     public function __construct(
-        AffiliationsRepository $affiliationsRepository,
+        AffiliationManager $affiliationManager,
         SimpleEntityUpdater $entityUpdater
     )
     {
-        $this->affiliationsRepository = $affiliationsRepository;
         $this->entityUpdater = $entityUpdater;
+        $this->affiliationManager = $affiliationManager;
     }
 
     /**
@@ -48,7 +46,10 @@ abstract class ProgramsAffiliationFactory
     public function createProgram(): ShopsAffiliation
     {
         $this->program = $this->getEntityProgram();
-        $this->program->setAffiliation($this->getAffiliation());
+        $this->program->setAffiliation($this->affiliationManager->getAffiliation(
+            $this->getAffiliationName()
+        ));
+
         $this->isPersist = true;
         return $this->program;
     }
@@ -57,20 +58,6 @@ abstract class ProgramsAffiliationFactory
      * @return ShopsAffiliation
      */
     abstract protected function getEntityProgram(): ShopsAffiliation;
-
-    /**
-     * @return Affiliations
-     */
-    protected function getAffiliation(): Affiliations
-    {
-        if (!$this->affiliation) {
-            $this->affiliation = $this->affiliationsRepository->select()->findOneByName(
-                $this->getAffiliationName()
-            )->getResultOrNull();
-
-        }
-        return $this->affiliation;
-    }
 
     abstract protected function getAffiliationName(): string;
 }

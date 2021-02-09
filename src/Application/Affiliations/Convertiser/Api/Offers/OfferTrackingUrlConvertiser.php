@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Application\Affiliations\Convertiser\Api;
+namespace App\Application\Affiliations\Convertiser\Api\Offers;
 
+use App\Application\Affiliations\Convertiser\Api\Convertiser;
 use GuzzleHttp\Exception\RequestException;
 
-class TrackingUrlConvertiser extends Convertiser
+class OfferTrackingUrlConvertiser extends Convertiser
 {
-    public function getTrackingUrl(string $id, string $website, string $deepLink = null)
+    public function getOfferTrackingUrl(string $id, string $website, string $deepLink = null)
     {
         $data = ['id' => $id, 'website' => $website];
 
@@ -37,6 +38,6 @@ class TrackingUrlConvertiser extends Convertiser
 
     protected function getUrl(): string
     {
-        return 'https://app.convertiser.com/api/publisher/offers/%s/tracking_link/';
+        return '/publisher/coupons/%s/tracking_link/';
     }
 }

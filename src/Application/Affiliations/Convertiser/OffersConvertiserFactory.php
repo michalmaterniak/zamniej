@@ -1,11 +1,13 @@
 <?php
-namespace App\Application\Affiliations\Webepartners;
+
+namespace App\Application\Affiliations\Convertiser;
+
 use App\Application\Images\ImageManager;
-use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
+use App\Entity\Entities\Affiliations\Convertiser\ConvertiserPrograms;
 use App\Services\System\EntityServices\Updater\EntityUpdater;
 use Doctrine\Common\Collections\ArrayCollection;
 
-abstract class OffersWebepartnersFactory
+abstract class OffersConvertiserFactory
 {
     /**
      * @var ArrayCollection $offers
@@ -16,7 +18,6 @@ abstract class OffersWebepartnersFactory
      * @var ImageManager $imageManager
      */
     protected $imageManager;
-
 
     /**
      * @var EntityUpdater $entityUpdater
@@ -34,7 +35,7 @@ abstract class OffersWebepartnersFactory
     }
 
     /**
-     * @param int|WebepartnersPrograms $programId
+     * @param int|ConvertiserPrograms $programId
      */
     abstract public function findOffers($programId): void;
 }

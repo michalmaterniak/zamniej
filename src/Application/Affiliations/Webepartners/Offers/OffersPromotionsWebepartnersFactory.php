@@ -97,6 +97,7 @@ class OffersPromotionsWebepartnersFactory extends OffersWebepartnersFactory
                             $voucher = new WebepartnersVouchers();
                         else
                             $voucher = new WebepartnersPromotions();
+
                         $voucher->setShopAffiliation($program);
 
                         $this->entityUpdater->setEntity($voucher);

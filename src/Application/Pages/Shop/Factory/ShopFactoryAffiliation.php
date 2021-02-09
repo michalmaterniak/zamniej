@@ -49,7 +49,7 @@ class ShopFactoryAffiliation extends ShopFactory
 
     public function afterCommit()
     {
-        $this->offersProducer->addToQueue($this->program->getExternalId());
+        $this->offersProducer->addToQueue($this->program);
     }
 
     /**

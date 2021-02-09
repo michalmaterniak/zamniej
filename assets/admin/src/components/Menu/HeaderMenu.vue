@@ -26,14 +26,25 @@
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownWebepartners" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="d-none d-md-block">Webepartners <i class="fa fa-angle-down"></i></span>
               <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownWebepartners">
               <router-link class="dropdown-item" :to="{name: 'panel-affiliations-webepartners-programs-new'}">Nowe</router-link>
               <router-link class="dropdown-item" :to="{name: 'panel-affiliations-webepartners-programs-active'}">Aktywne</router-link>
               <router-link class="dropdown-item" :to="{name: 'panel-affiliations-webepartners-programs-unactive'}">Nieaktywne</router-link>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownConvertiser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="d-none d-md-block">Convertiser <i class="fa fa-angle-down"></i></span>
+              <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownConvertiser">
+              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-convertiser-programs-new'}">Nowe</router-link>
+              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-convertiser-programs-active'}">Aktywne</router-link>
+              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-convertiser-programs-unactive'}">Nieaktywne</router-link>
             </div>
           </li>
           <li class="nav-item dropdown">

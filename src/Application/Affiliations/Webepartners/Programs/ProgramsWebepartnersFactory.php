@@ -1,10 +1,10 @@
 <?php
 namespace App\Application\Affiliations\Webepartners\Programs;
 
+use App\Application\Affiliations\AffiliationManager;
 use App\Application\Affiliations\ProgramsAffiliationFactory;
 use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
-use App\Repository\Repositories\Affiliations\AffiliationsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersProgramsRepository;
 use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 
@@ -19,13 +19,14 @@ class ProgramsWebepartnersFactory extends ProgramsAffiliationFactory
      * @var WebepartnersProgramsRepository $webepartnersProgramsRepository
      */
     protected $webepartnersProgramsRepository;
+
     public function __construct(
+        AffiliationManager $affiliationManager,
         SimpleEntityUpdater $entityUpdater,
-        WebepartnersProgramsRepository $webepartnersProgramsRepository,
-        AffiliationsRepository $affiliationsRepository
+        WebepartnersProgramsRepository $webepartnersProgramsRepository
     )
     {
-        parent::__construct($affiliationsRepository, $entityUpdater);
+        parent::__construct($affiliationManager, $entityUpdater);
         $this->entityUpdater = $entityUpdater;
         $this->webepartnersProgramsRepository = $webepartnersProgramsRepository;
     }

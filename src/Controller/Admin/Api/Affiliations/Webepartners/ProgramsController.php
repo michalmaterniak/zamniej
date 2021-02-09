@@ -30,7 +30,7 @@ class ProgramsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/api/affiliations/webepartners/programs-convertUrl", name="admin-api-affiliations-programs-convertUrl", methods={"POST"})
+     * @Route("/admin/api/affiliations/webepartners/programs-convertUrl", name="admin-api-affiliations-webepartners-programs-convertUrl", methods={"POST"})
      */
     public function convertUrl(UrlToTrackingConverterWebepartners $trackingUrlWebepartners, RequestPostContentData $requestPostContentData)
     {
@@ -87,7 +87,6 @@ class ProgramsController extends AbstractController
         ], 200);
     }
 
-
     /**
      * @Route("/admin/api/affiliations/webepartners/programs-program/{id}", name="admin-api-affiliations-programs-program", methods={"POST"})
      */
@@ -121,7 +120,7 @@ class ProgramsController extends AbstractController
 
         $programsWebepartnersFactory->updateProgram($webeData, $shop);
 
-        $offersProducer->addToQueue($shop->getExternalId());
+        $offersProducer->addToQueue($shop);
 
         return $this->json([
             'program' => $this->normalizer->normalize($shop, null, ['groups' => 'program-admin']),
