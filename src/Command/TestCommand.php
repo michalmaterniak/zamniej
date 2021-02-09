@@ -1,7 +1,7 @@
 <?php
 namespace App\Command;
 
-use App\Application\Affiliations\Convertiser\Api\TrackingUrlConvertiser;
+use App\Application\Affiliations\Convertiser\Api\Offers\OfferTrackingUrlConvertiser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,14 +11,14 @@ class TestCommand extends Command
     protected static $defaultName = 'test';
 
     /**
-     * @var TrackingUrlConvertiser $trackingUrlConvertiser
+     * @var OfferTrackingUrlConvertiser $programsConvertiser
      */
-    protected $trackingUrlConvertiser;
+    protected $programsConvertiser;
 
-    public function __construct(TrackingUrlConvertiser $trackingUrlConvertiser, string $name = null)
+    public function __construct(OfferTrackingUrlConvertiser $programsConvertiser, string $name = null)
     {
         parent::__construct($name);
-        $this->trackingUrlConvertiser = $trackingUrlConvertiser;
+        $this->programsConvertiser = $programsConvertiser;
     }
 
     protected function configure()
@@ -29,7 +29,7 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        dump($this->trackingUrlConvertiser->getTrackingUrl('36X57NQDxp', '0pxEKW7z6b'));
+        dump($this->programsConvertiser->getOfferTrackingUrl(499, "0pxEKW7z6b"));
         return 0;
     }
 }

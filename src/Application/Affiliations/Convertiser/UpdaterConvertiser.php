@@ -21,13 +21,20 @@ class UpdaterConvertiser implements UpdaterAffiliationInterface
      */
     protected $programsConvertiser;
 
+    /**
+     * @var FinderOffersConvertiser $finderOffersConvertiser
+     */
+    protected $finderOffersConvertiser;
+
     public function __construct(
         ProgramsConvertiser $programsConvertiser,
-        ProgramsConvertiserFactory $programsConvertiserFactory
+        ProgramsConvertiserFactory $programsConvertiserFactory,
+        FinderOffersConvertiser $finderOffersConvertiser
     )
     {
         $this->programsConvertiser = $programsConvertiser;
         $this->programsConvertiserFactory = $programsConvertiserFactory;
+        $this->finderOffersConvertiser = $finderOffersConvertiser;
     }
 
     public function update()
@@ -35,7 +42,7 @@ class UpdaterConvertiser implements UpdaterAffiliationInterface
         foreach ($this->programsConvertiser->getPrograms() as $program) {
             try {
                 $shopAffil = $this->programsConvertiserFactory->updateProgram($program);
-                // loadOffers
+                $this->finderOffersConvertiser->loadOffers($shopAffil);
                 dump('[convertiser] pobrano z ' . $shopAffil->getName());
 
             } catch (ConnectException $connectException) {

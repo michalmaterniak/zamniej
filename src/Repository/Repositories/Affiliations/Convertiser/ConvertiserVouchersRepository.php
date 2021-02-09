@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Repository\Repositories\Affiliations\Convertiser;
 
-use App\Entity\Entities\Affiliations\Convertiser\ConvertiserPrograms as Entity;
+use App\Entity\Entities\Affiliations\Convertiser\ConvertiserVouchers as Entity;
 use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,7 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Entity|null              getResultOrNull()
  * @method Entity[]|Paginator       getPaginate()
  */
-class ConvertiserProgramsRepository extends ShopsAffiliationRepository
+class ConvertiserVouchersRepository extends ShopsAffiliationRepository
 {
     public function __construct(
         ManagerRegistry $registry,
@@ -28,19 +29,11 @@ class ConvertiserProgramsRepository extends ShopsAffiliationRepository
     }
 
     /**
-     * @param $id
      * @return $this
      */
-    public function byId($id): self
+    public function externalId(string $exteralId)
     {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.id = :id")->setParameter('id', $id);
-        return $this;
-    }
-
-    public function byUrlProgram(string $url): self
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.previewUrl = :url")->setParameter('url', $url);
-
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.id = :id")->setParameter('id', $exteralId);
         return $this;
     }
 

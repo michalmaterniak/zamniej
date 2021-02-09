@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Repository\Repositories\Affiliations\Convertiser;
 
-use App\Entity\Entities\Affiliations\Convertiser\ConvertiserPrograms as Entity;
+use App\Entity\Entities\Affiliations\Convertiser\ConvertiserPromotions as Entity;
 use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,7 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Entity|null              getResultOrNull()
  * @method Entity[]|Paginator       getPaginate()
  */
-class ConvertiserProgramsRepository extends ShopsAffiliationRepository
+class ConvertiserPromotionsRepository extends ShopsAffiliationRepository
 {
     public function __construct(
         ManagerRegistry $registry,
@@ -27,25 +28,18 @@ class ConvertiserProgramsRepository extends ShopsAffiliationRepository
         parent::__construct($registry, $servicesRepositoriesManager);
     }
 
-    /**
-     * @param $id
-     * @return $this
-     */
-    public function byId($id): self
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.id = :id")->setParameter('id', $id);
-        return $this;
-    }
-
-    public function byUrlProgram(string $url): self
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.previewUrl = :url")->setParameter('url', $url);
-
-        return $this;
-    }
-
     protected function getEntityName(): string
     {
         return Entity::class;
     }
+
+    /**
+     * @return $this
+     */
+    public function externalId(string $exteralId)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.id = :id")->setParameter('id', $exteralId);
+        return $this;
+    }
+
 }

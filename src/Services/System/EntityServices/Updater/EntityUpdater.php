@@ -149,10 +149,15 @@ class EntityUpdater
     {
         $method = $this->getSetterMethod($nameMethod);
 
-        foreach ($property as $key => $item)
-        {
+        foreach ($property as $key => $item) {
             $this->entity->$method($item, $key);
         }
+    }
+
+    protected function getMappedEntityField($key)
+    {
+        $functionName = '__MapFields';
+        return method_exists($this->entity, $functionName) ? $this->entity->$functionName($key) : $key;
     }
 
     /**
@@ -162,6 +167,8 @@ class EntityUpdater
     {
         $this->properties = $properties;
         foreach ($this->properties as $key => $property) {
+            $key = $this->getMappedEntityField($key);
+
             if ($property instanceof EntityInterface) {
                 $setter = $this->getSetterMethod($key);
                 if ($setter)
