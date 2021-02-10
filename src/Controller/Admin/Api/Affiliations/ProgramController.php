@@ -7,6 +7,7 @@ use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Subpages\Resources;
 use App\Repository\Repositories\Subpages\Pages\ShopRepository;
 use App\Services\System\Request\Retrievers\RequestData\RequestPostContentData;
+use Doctrine\Common\Collections\ArrayCollection;
 use ErrorException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,12 +24,19 @@ class ProgramController extends AbstractController
      */
     public function searchSubpages(RequestPostContentData  $contentData, ShopRepository $shopRepository)
     {
-        if(!$contentData->checkIfExist('name'))
+        if (!$contentData->checkIfExist('name'))
             return $this->json([
                 'message' => "Nazwa programu musi zostać przesłana"
             ], 500);
 
-        $subpages = $shopRepository->select()->searchSubpagesByName($contentData->getValue('name'))->getResults();
+        $subpages = new ArrayCollection();
+
+        foreach ($shopRepository->select()->searchSubpagesByName($contentData->getValue('name'))->getResults() as $resource) {
+            foreach ($resource->getSubpages() as $subpage) {
+                $subpages->add($subpage);
+            }
+        }
+
         return $this->json([
             'subpages' => $this->normalizer->normalize($subpages, null, ['groups' => 'search-to-tie-programs'])
         ], 200);
@@ -40,11 +48,11 @@ class ProgramController extends AbstractController
      * @param TieProgramWithSubpage $tieProgramWithSubpage
      * @return JsonResponse
      * @throws ExceptionInterface
-     * @Route("/admin/api/affiliations/program/tie/{idShop}", name="admin-api-affiliations-program-tie", methods={"POST"})
+     * @Route("/admin/api/affiliations/program/merge/{idShop}", name="admin-api-affiliations-program-merge", methods={"POST"})
      */
-    public function tie(ShopsAffiliation  $idShop, RequestPostContentData  $contentData, TieProgramWithSubpage  $tieProgramWithSubpage)
+    public function merge(ShopsAffiliation $idShop, RequestPostContentData $contentData, TieProgramWithSubpage $tieProgramWithSubpage)
     {
-        if(!$contentData->checkIfExist('idSubpage'))
+        if (!$contentData->checkIfExist('idSubpage'))
             return $this->json([
                 'message' => "Id podstrony musi zostać zdefiniowane"
             ], 500);

@@ -40,6 +40,7 @@ class UrlToTrackingConverterConvertiser implements UrlTrackingConverterInterface
         }
 
         $programs = $this->convertiserProgramsRepository->select(false)->getActivePrograms()->byUrlProgram(parse_url($subpage, PHP_URL_HOST))->getResults();
+        dump($programs);
         if (count($programs) > 0) {
             try {
                 $program = $programs[0];

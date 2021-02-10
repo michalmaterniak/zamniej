@@ -731,6 +731,7 @@ class ConvertiserPrograms extends ShopsAffiliation
                 return floatval($goal['payout']);
             }
         }
+
         return 0;
     }
 

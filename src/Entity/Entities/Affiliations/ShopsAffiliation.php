@@ -109,6 +109,12 @@ abstract class ShopsAffiliation implements EntityInterface
      */
     protected $forceActive = false;
 
+    /**
+     * @var bool $forceDisable
+     * @ORM\Column("resource-admin", name="force_disable", type="boolean", nullable=false)
+     */
+    protected $forceDisable = false;
+
     abstract public function getCps(): float;
 
     abstract public function getCpc(): float;
@@ -229,6 +235,10 @@ abstract class ShopsAffiliation implements EntityInterface
      */
     public function isEnable(): bool
     {
+        if ($this->forceDisable) {
+            return false;
+        }
+
         return $this->isForceActive() ? $this->isForceActive() : $this->enable;
     }
 
@@ -303,5 +313,21 @@ abstract class ShopsAffiliation implements EntityInterface
     public function setForceActive(bool $forceActive): void
     {
         $this->forceActive = $forceActive;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForceDisable(): bool
+    {
+        return $this->forceDisable;
+    }
+
+    /**
+     * @param bool $forceDisable
+     */
+    public function setForceDisable(bool $forceDisable): void
+    {
+        $this->forceDisable = $forceDisable;
     }
 }

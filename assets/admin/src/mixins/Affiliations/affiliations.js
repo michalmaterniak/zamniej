@@ -50,7 +50,7 @@ export default {
     tieProgramWithSubpage(idSubpage)
     {
       this.ajax({
-        url: '/admin/api/affiliations/program/tie/' + this.program.idShop,
+        url: '/admin/api/affiliations/program/merge/' + this.program.idShop,
         data:{
           idSubpage: idSubpage,
         },
