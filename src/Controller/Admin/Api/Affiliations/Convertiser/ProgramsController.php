@@ -7,6 +7,7 @@ use App\Controller\Admin\Api\AbstractController;
 use App\Repository\Repositories\Affiliations\Convertiser\ConvertiserProgramsRepository;
 use App\Services\System\Request\Retrievers\RequestData\RequestPostContentData;
 use App\Twig\TemplateVars;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -24,6 +25,9 @@ class ProgramsController extends AbstractController
     }
 
     /**
+     * @param UrlToTrackingConverterConvertiser $trackingConverterConvertiser
+     * @param RequestPostContentData $requestPostContentData
+     * @return JsonResponse
      * @Route("/admin/api/affiliations/convertiser/programs-convertUrl", name="admin-api-affiliations-convertiser-programs-convertUrl", methods={"POST"})
      */
     public function convertUrl(UrlToTrackingConverterConvertiser $trackingConverterConvertiser, RequestPostContentData $requestPostContentData)
@@ -32,7 +36,7 @@ class ProgramsController extends AbstractController
             return $this->responseJson(
                 [
                     'success' => true,
-                    'tracking-url-webeparnets' => $url
+                    'tracking-url-convertiser' => $url
                 ]);
         } else {
             return $this->json([

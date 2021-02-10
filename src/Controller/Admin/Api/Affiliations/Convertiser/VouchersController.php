@@ -7,6 +7,7 @@ use App\Application\Offers\Factory\Offers\Voucher\OfferCustomVoucherFactory;
 use App\Application\Offers\Factory\Offers\Voucher\OfferEntityVoucherFactory;
 use App\Controller\Admin\Api\AbstractController;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
+use App\Repository\Repositories\Affiliations\Convertiser\ConvertiserProgramsRepository;
 use App\Repository\Repositories\Affiliations\Webepartners\WebepartnersVouchersRepository;
 use App\Services\System\Request\Retrievers\RequestData\RequestPostContentData;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,30 +16,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class VouchersController extends AbstractController
 {
     /**
-     * @var WebepartnersVouchersRepository $webepartnersVouchersRepository
+     * @var WebepartnersVouchersRepository $convertiserProgramsRepository
      */
-    protected $webepartnersVouchersRepository;
+    protected $convertiserProgramsRepository;
 
     /**
-     * @param WebepartnersVouchersRepository $webepartnersVouchersRepository
+     * @param ConvertiserProgramsRepository $convertiserVouchersRepository
      * @required
      */
-    public function setWebepartnersVouchersRepository(WebepartnersVouchersRepository $webepartnersVouchersRepository): void
+    public function setConvertiserProgramsRepository(ConvertiserProgramsRepository $convertiserProgramsRepository): void
     {
-        $this->webepartnersVouchersRepository = $webepartnersVouchersRepository;
+        $this->convertiserProgramsRepository = $convertiserProgramsRepository;
     }
 
     /**
      * @param WebepartnersPrograms $idShop
-     * @Route("/admin/api/affiliations/webepartners/vouchers/{idShop}", name="admin-api-affiliations-webepartners-vouchers", requirements={"idShop"="\d+"}, methods={"POST"})
+     * @Route("/admin/api/affiliations/convertiser/vouchers/{idShop}", name="admin-api-affiliations-convertiser-vouchers", requirements={"idShop"="\d+"}, methods={"POST"})
      */
     public function getVouchers(WebepartnersPrograms $idShop)
     {
-        $banners = $this->webepartnersVouchersRepository->select()->findAllActiveByShop($idShop)->getResults();
+        $vouchers = $this->convertiserProgramsRepository->select()->findAllActiveByShop($idShop)->getResults();
 
         return $this->json([
-            'count' => $banners->count(),
-            'vouchers' => $this->normalizer->normalize($banners, null, ['groups' => ['resource-admin-listing', 'offers-admin-listing', 'resource-admin-listing-shops']]),
+            'count' => $vouchers->count(),
+            'vouchers' => $this->normalizer->normalize($vouchers, null, ['groups' => ['resource-admin-listing', 'offers-admin-listing', 'resource-admin-listing-shops']]),
         ], 200);
     }
 
@@ -46,11 +47,11 @@ class VouchersController extends AbstractController
      * @param RequestPostContentData $requestPostContentData
      * @param OfferEntityVoucherFactory $offerVoucherFactory
      * @return JsonResponse
-     * @Route("/admin/api/affiliations/webepartners/vouchers/createOffer", name="admin-api-affiliations-webepartners-vouchers-createOffer", methods={"POST"})
+     * @Route("/admin/api/affiliations/convertiser/vouchers/createOffer", name="admin-api-affiliations-convertiser-vouchers-createOffer", methods={"POST"})
      */
     public function createOffer(RequestPostContentData $requestPostContentData, OfferEntityVoucherFactory $offerVoucherFactory)
     {
-        $vouchers = $this->webepartnersVouchersRepository->findAllByIdsOfferIsNull($requestPostContentData->getValue('vouchers', []));
+        $vouchers = $this->convertiserProgramsRepository->findAllByIdsOfferIsNull($requestPostContentData->getValue('vouchers', []));
         $count = 0;
         foreach ($vouchers as $voucher) {
             $count++;
@@ -67,7 +68,7 @@ class VouchersController extends AbstractController
      * @param OfferCustomVoucherFactory $offerVoucherFactory
      * @param OfferCustomPromotionFactory $offerPromotionFactory
      * @return JsonResponse
-     * @Route("/admin/api/affiliations/webepartners/vouchers/createCustomOffer", name="admin-api-affiliations-webepartners-vouchers-createCustomOffer", methods={"POST"})
+     * @Route("/admin/api/affiliations/convertiser/vouchers/createCustomOffer", name="admin-api-affiliations-convertiser-vouchers-createCustomOffer", methods={"POST"})
      */
     public function createCustomOffer(
         RequestPostContentData $requestPostContentData,

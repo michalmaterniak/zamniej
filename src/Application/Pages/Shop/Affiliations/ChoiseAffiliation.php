@@ -22,7 +22,9 @@ class ChoiseAffiliation
     public function loadAffiliations($affiliations)
     {
         $this->affiliations = $affiliations;
-        $this->selectedShopAffiliation = $this->affiliations->first();
+        $this->selectedShopAffiliation = $this->affiliations->filter(function (ShopsAffiliation $shopAffiliation) {
+            return $shopAffiliation->isEnable();
+        })->first();
     }
 
     /**
@@ -30,7 +32,7 @@ class ChoiseAffiliation
      */
     protected function byCps($shopToAnalyze)
     {
-        return $this->selectedShopAffiliation->getCps() < $shopToAnalyze;
+        return $this->selectedShopAffiliation->getCps() < $shopToAnalyze->getCps();
     }
 
     /**
@@ -38,12 +40,17 @@ class ChoiseAffiliation
      */
     protected function byCpc($shopToAnalyze)
     {
-        return $this->selectedShopAffiliation->getCpc() < $shopToAnalyze;
+        return $this->selectedShopAffiliation->getCpc() < $shopToAnalyze->getCpc();
     }
     protected function analyzeAffiliations()
     {
         if ($this->affiliations->count() > 1) {
+
             foreach ($this->affiliations as $shopAffiliation) {
+                if (!$shopAffiliation->isEnable()) {
+                    continue;
+                }
+
                 if ($this->selectedShopAffiliation->getCpc() > 0) {
                     if ($this->byCpc($shopAffiliation)) {
                         $this->selectedShopAffiliation = $shopAffiliation;

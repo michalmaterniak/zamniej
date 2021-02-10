@@ -21,7 +21,7 @@ class ShopRepository extends CustomResourceRepository
     public function searchSubpagesByName(string $name): self
     {
         $aliasRootSubpages = $this->addLeftJoin('subpages');
-        $this->queryBuilder->andWhere("{$aliasRootSubpages}.name = :name")->setParameter('name', "%{$name}%");
+        $this->queryBuilder->andWhere("{$aliasRootSubpages}.name LIKE :name")->setParameter('name', "%{$name}%");
         return $this;
     }
 

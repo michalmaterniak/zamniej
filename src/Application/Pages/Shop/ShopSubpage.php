@@ -62,9 +62,9 @@ class ShopSubpage extends ResourceSubpage
             $this->getComponents()->getChoiseAffiliation()->loadAffiliations(
                 $this->getComponents()->getShopsAffiliationRepository()->select()->bySubpage($this->getSubpage())->getResults()
             );
+
             $this->affiliation = $this->getComponents()->getChoiseAffiliation()->getShopAffiliation();
         }
-
         return $this->affiliation;
     }
 
