@@ -39,7 +39,6 @@ class ConvertiserProgramsRepository extends ShopsAffiliationRepository
 
     public function byUrlProgram(string $url): self
     {
-        dump($url);
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.previewUrl LIKE :url")->setParameter('url', "%{$url}%");
 
         return $this;
