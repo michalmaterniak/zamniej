@@ -17,7 +17,7 @@ class ShopsAffiliationsController extends AbstractController
      */
     public function affiliations(Subpages $subpage, ShopsAffiliationRepository $shopsAffiliationRepository)
     {
-        $affiliations = $shopsAffiliationRepository->select()->findBySubpage($subpage)->getResults();
+        $affiliations = $shopsAffiliationRepository->select()->findBySubpage($subpage)->withAffiliaiton()->getResults();
         $this->templateVars->insert('affiliations', $this->normalizer->normalize($affiliations, null, [
             'groups' => ['resource-admin']
         ]));

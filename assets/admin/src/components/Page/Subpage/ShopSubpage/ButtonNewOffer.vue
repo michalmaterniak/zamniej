@@ -9,6 +9,7 @@
 <script>
 import ButtonDropdown from "../../../Buttons/ButtonDropdown";
 import PopupOffersNewWebepartners from "../../../PopUp/Offers/PopupOffersNewWebepartners";
+import PopupOffersNewConvertiser from "../../../PopUp/Offers/PopupOffersNewConvertiser";
 export default {
   name: "ButtonNewOffer",
   props:['idSubpage'],
@@ -21,6 +22,10 @@ export default {
         {
           name: 'webepartners',
           action: this.newWebepartnersOffer
+        },
+        {
+          name: 'convertiser',
+          action: this.newConvertiserOffer
         }
       ]
     }
@@ -33,6 +38,16 @@ export default {
         data: {
           subpage: this.idSubpage,
           shops: this.getShopAffiliation('webepartners')
+        }
+      });
+    },
+    newConvertiserOffer() {
+      this.openPopup('Tworzenie nowej oferty Convertiser', {
+        template: PopupOffersNewConvertiser,
+        classDialog: 'maxWidth75',
+        data: {
+          subpage: this.idSubpage,
+          shops: this.getShopAffiliation('convertiser')
         }
       });
     },
