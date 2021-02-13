@@ -17,7 +17,6 @@
   </div>
   <!-- //***slider-section End***// -->
   <div class="clear"></div>
-
   <!-- //***latest-deals Start***// -->
   <promotions-grid :promotions="model.subpage.promotions" v-if="model.subpage.promotions"/>
   <div class="clear"></div>
@@ -43,29 +42,35 @@
   <latest-blog :articles="model.subpage.blogLatest"/>
   <!-- //***latest-blog End***// -->
   <div class="clear"></div>
+  <div v-if="model.subpage.content.content" class="row text-center">
+    <div class="col-md-12 col-sm-12 col-xs-9 col-lg-9">
+      <div class="content content-homepage" v-html="model.subpage.content.content"></div>
+    </div>
+  </div>
 </div>
 </template>
 
 <script>
-  import Slider from "@/components/Sliders/Slider";
-  import Categories from "@/components/Menu/Categories/Categories";
-  import MainSlider from "@/views/Homepages/Carousel/MainSlider/MainSlider";
-  import PromotionsGrid from "@/views/Homepages/Sections/PromotionsGrid";
-  import SliderCoupons from "@/views/Homepages/Sections/SliderCoupons";
-  import PopularStores from "@/views/Homepages/Sections/PopularStores";
-  import LatestBlog from "@/views/Homepages/Sections/LatestBlog";
-  import NewOffersCarousel from "~/views/Homepages/Carousel/CarouselPromotions2/NewOffersCarousel";
-  export default {
-    components: {
-      NewOffersCarousel,
-      LatestBlog,
-      PopularStores,
-      SliderCoupons,
-      PromotionsGrid,
-      MainSlider,
-      Categories,
-      Slider
-    },
+import Slider from "@/components/Sliders/Slider";
+import Categories from "@/components/Menu/Categories/Categories";
+import MainSlider from "@/views/Homepages/Carousel/MainSlider/MainSlider";
+import PromotionsGrid from "@/views/Homepages/Sections/PromotionsGrid";
+import SliderCoupons from "@/views/Homepages/Sections/SliderCoupons";
+import PopularStores from "@/views/Homepages/Sections/PopularStores";
+import LatestBlog from "@/views/Homepages/Sections/LatestBlog";
+import NewOffersCarousel from "~/views/Homepages/Carousel/CarouselPromotions2/NewOffersCarousel";
+
+export default {
+  components: {
+    NewOffersCarousel,
+    LatestBlog,
+    PopularStores,
+    SliderCoupons,
+    PromotionsGrid,
+    MainSlider,
+    Categories,
+    Slider
+  },
     data(){
       return {
         activeSlide: 1
