@@ -22,16 +22,14 @@ class TrackingUrlConvertiser extends Convertiser
         $response = null;
         try {
             $response = $this->getClient()->put(sprintf($this->getUrl(), $data['id']), [
-                'json' => [
-                    'website' => $data['website'],
-                    'shorten' => true
-                ]
+                'json' => $data
             ]);
         } catch (RequestException $requestException) {
             $response = $requestException->getResponse();
         }
 
         $return = json_decode($response->getBody()->getContents(), true) ?: [];
+        dump($return);
         return $return['tracking_link'] ?? null;
     }
 
