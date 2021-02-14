@@ -29,7 +29,6 @@ class TrackingUrlConvertiser extends Convertiser
         }
 
         $return = json_decode($response->getBody()->getContents(), true) ?: [];
-        dump($return);
         return $return['tracking_link'] ?? null;
     }
 
