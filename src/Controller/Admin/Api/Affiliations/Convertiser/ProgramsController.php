@@ -64,7 +64,7 @@ class ProgramsController extends AbstractController
      */
     public function active()
     {
-        $programs = $this->convertiserProgramsRepository->select()->getActivePrograms()->getResults();
+        $programs = $this->convertiserProgramsRepository->select()->getActivePrograms()->withSubpageAndResource()->getResults();
 
         return $this->json([
             'programs' => $this->normalizer->normalize($programs, null, ['groups' => 'program-admin-list']),

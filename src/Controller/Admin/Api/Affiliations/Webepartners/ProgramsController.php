@@ -67,7 +67,7 @@ class ProgramsController extends AbstractController
      */
     public function active()
     {
-        $programs = $this->webepartnersProgramsRepository->select()->getActivePrograms()->getResults();
+        $programs = $this->webepartnersProgramsRepository->select()->getActivePrograms()->withSubpageAndResource()->getResults();
 
         return $this->json([
             'programs' => $this->normalizer->normalize($programs, null, ['groups' => 'program-admin-list']),

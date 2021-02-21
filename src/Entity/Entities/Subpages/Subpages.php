@@ -68,7 +68,7 @@ class Subpages implements EntityInterface
     /**
      * @var bool $active
      * @ORM\Column(name="active", type="boolean", nullable=false)
-     * @Groups({"resource", "resource-admin", "resource-admin-list", "program-admin-list"})
+     * @Groups({"resource", "resource-admin", "resource-admin-list"})
      */
     protected $active = true;
 
@@ -76,6 +76,7 @@ class Subpages implements EntityInterface
      * @var Resources $resource
      * @ORM\ManyToOne(targetEntity="Resources", inversedBy="subpages", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="resource_id", referencedColumnName="id_resource", onDelete="CASCADE", nullable=false)
+     * @Groups({"program-admin-list"})
      */
     protected $resource;
 
