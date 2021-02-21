@@ -42,8 +42,11 @@
   <latest-blog :articles="model.subpage.blogLatest"/>
   <!-- //***latest-blog End***// -->
   <div class="clear"></div>
-  <div v-if="model.subpage.content.content" class="row text-center">
-    <div class="col-md-12 col-sm-12 col-xs-9 col-lg-9">
+  <div v-if="model.subpage.content.content && model.subpage.content.data.lead" class="row" :class="{'pointer' : !isShowContent}" >
+    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 text-center" @click="showContent">
+      <div class="content content-homepage" v-html="model.subpage.content.data.lead"></div>
+    </div>
+    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 text-center" :class="{'hidden' : !isShowContent}">
       <div class="content content-homepage" v-html="model.subpage.content.content"></div>
     </div>
   </div>
@@ -73,7 +76,8 @@ export default {
   },
     data(){
       return {
-        activeSlide: 1
+        activeSlide: 1,
+        isShowContent: true
       }
     },
     computed:{
@@ -82,7 +86,36 @@ export default {
         return this.$store.getters.model;
       }
     },
-  }
+    methods:{
+      showContent() {
+        if (!this.isShowContent) {
+          this.isShowContent = true;
+        }
+
+        if (typeof window.ontouchstart !== 'undefined') {
+          this.isShowContent = false;
+          this.$store.commit('setPopup', {
+            template: () => import("@/views/Homepages/Sections/PopupTextHomepage"),
+            title: '',
+            data: {
+              lead: this.model.subpage.content.extra.lead,
+              content: this.model.subpage.content.content
+            },
+            options: {
+              styleDialog: {width: '85%'}
+            }
+          })
+        }
+      }
+    },
+    mounted() {
+      self = this;
+      window.addEventListener('scroll', function handler() {
+        self.isShowContent = false;
+        this.removeEventListener('scroll', handler);
+      });
+    }
+}
 </script>
 
 <style>
