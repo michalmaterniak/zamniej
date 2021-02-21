@@ -25,6 +25,14 @@
               <!-- NAV -->
               <ul class="main-nav nav navbar-nav">
                 <nuxt-link tag="li" v-for="(link, index) in links" :key="index" :to="{path: link.link}" exact-active-class="active"><nuxt-link :to="{path: link.link}" exact-active-class="active" v-text="link.name"></nuxt-link></nuxt-link>
+                <li class="search-input">
+                  <div class="header-searchbar " @click="openSearchPopup">
+                    <input type="text" name="search" placeholder="Szukaj...">
+                    <button type="submit" class="search-btn">
+                      <i class="flaticon-external-link-symbol"></i>
+                    </button>
+                  </div>
+                </li>
               </ul>
               <!-- /NAV -->
             </div>
@@ -78,11 +86,16 @@ export default {
       return this.$store.getters.initFront.data.links.navbar;
     }
   },
-  methods:{
-    toggleResponsiveMenu(e)
-    {
+  methods: {
+    toggleResponsiveMenu(e) {
       this.$store.commit('setResponsiveMenuToggle');
     },
+    openSearchPopup() {
+      this.$store.commit('setPopup', {
+        template: () => import("@/components/Popup/PopupSearch"),
+        title: 'Szukaj sklepu'
+      })
+    }
   },
   mounted() {
     window.addEventListener('scroll', ev => {
@@ -101,5 +114,8 @@ export default {
 <style scoped>
 .row{
   max-width: 100%;
+}
+.search-input{
+  margin-left: 100px;
 }
 </style>
