@@ -35,7 +35,7 @@
               <td v-text="program.affiliation.name"></td>
               <td v-text="program.name"></td>
               <td>
-                <router-link :to="{name: 'panel-pages-page', params: {id: program.subpage.idSubpage}}"
+                <router-link :to="{name: 'panel-pages-page', params: {id: program.subpage.resource.idResource}}"
                              v-if="isSubpage(program)" v-text="program.subpage.name"></router-link>
                 <button class="btn btn-info" v-else>Brak podstrony</button>
               </td>

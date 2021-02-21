@@ -149,4 +149,17 @@ class ShopsAffiliationRepository extends GlobalRepository
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.name = :name")->setParameter('name', $name);
         return $this;
     }
+
+    /**
+     * @return $this
+     */
+    public function withSubpageAndResource()
+    {
+
+//        $this->addLeftJoin('affiliation');
+        $subpagesAlias = $this->addLeftJoin('subpage');
+        $this->addLeftJoin('resource', $subpagesAlias);
+
+        return $this;
+    }
 }
