@@ -21,7 +21,7 @@
       {
         blockedExit()
         {
-          if(this.options.blockedExit && this.options.blockedExit === true)
+          if (this.options.blockedExit && this.options.blockedExit === true)
             return true;
           else
             return false;
