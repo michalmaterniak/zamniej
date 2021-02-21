@@ -4,6 +4,7 @@ namespace App\Repository\Repositories\Subpages\Pages;
 use App\Application\Pages\Shop\ShopConfig;
 use App\Entity\Entities\Subpages\Resources;
 use App\Repository\Repositories\Subpages\CustomResourceRepository;
+use App\Repository\Repositories\Subpages\Pages\Types\ShopsRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -75,5 +76,16 @@ class ShopRepository extends CustomResourceRepository
         return $this;
     }
 
+    /**
+     * @param string $text
+     * @return $this
+     */
+    public function findByText(string $text)
+    {
+        $leftRootSubpages = $this->addLeftJoin('subpages');
+        $this->addLeftJoin('files', $leftRootSubpages);
 
+        $this->queryBuilder->andWhere("{$leftRootSubpages}.name LIKE :text")->setParameter('text', "%$text%");
+        return $this;
+    }
 }
