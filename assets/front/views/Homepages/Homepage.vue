@@ -42,12 +42,15 @@
   <latest-blog :articles="model.subpage.blogLatest"/>
   <!-- //***latest-blog End***// -->
   <div class="clear"></div>
-  <div v-if="model.subpage.content.content && model.subpage.content.data.lead" class="row" :class="{'pointer' : !isShowContent}" >
-    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 text-center" @click="showContent">
-      <div class="content content-homepage" v-html="model.subpage.content.data.lead"></div>
-    </div>
-    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 text-center" :class="{'hidden' : !isShowContent}">
-      <div class="content content-homepage" v-html="model.subpage.content.content"></div>
+  <div v-if="model.subpage.content.content && model.subpage.content.data.lead" class="row"
+       :class="{'pointer' : !isShowContent}">
+    <div class="container">
+      <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 text-center" @click="showContent">
+        <div class="content content-homepage" v-html="model.subpage.content.data.lead"></div>
+      </div>
+      <div :class="{'hidden' : !isShowContent}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12 text-center">
+        <div class="content content-homepage" v-html="model.subpage.content.content"></div>
+      </div>
     </div>
   </div>
 </div>
