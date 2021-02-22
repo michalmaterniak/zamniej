@@ -98,15 +98,23 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('scroll', ev => {
-      this.scrollY = window.scrollY;
-    })
+
+    document.addEventListener('swiped-down', e => {
+      this.hiddenHeader = true;
+    });
+
+    document.addEventListener('swiped-up', e => {
+      this.hiddenHeader = false;
+    });
+
     document.addEventListener('swiped-right', e => {
       this.$store.commit('setResponsiveMenu', true);
     });
+
     document.addEventListener('swiped-left', e => {
       this.$store.commit('setResponsiveMenu', false);
     });
+
   }
 }
 </script>
