@@ -1,10 +1,10 @@
 <?php
 namespace App\Application\SiteWide\Links;
 
-use App\Application\Pages\Page\Types\Categories\CategoriesComponents;
 use App\Application\Pages\PagesManager;
 use App\Application\SiteWide\FrontInitInterface;
 use App\Repository\Repositories\Subpages\Pages\CategoryRepository;
+use App\Repository\Repositories\Subpages\Pages\ShopRepository;
 
 class FooterLinks implements FrontInitInterface
 {
@@ -14,14 +14,24 @@ class FooterLinks implements FrontInitInterface
     protected $categoryRepository;
 
     /**
+     * @var ShopRepository $shopRepository
+     */
+    protected $shopRepository;
+
+    /**
      * @var PagesManager $pagesManager
      */
     protected $pagesManager;
 
-    public function __construct(CategoriesComponents $categoryComponents)
+    public function __construct(
+        PagesManager $pagesManager,
+        CategoryRepository $categoryRepository,
+        ShopRepository $shopRepository
+    )
     {
-        $this->categoryRepository = $categoryComponents->getCategoryRepository();
-        $this->pagesManager = $categoryComponents->getResourcesManager();
+        $this->pagesManager = $pagesManager;
+        $this->categoryRepository = $categoryRepository;
+        $this->shopRepository = $shopRepository;
     }
 
     protected function getCategories()
@@ -38,13 +48,27 @@ class FooterLinks implements FrontInitInterface
         return $categories;
     }
 
+    protected function getLatestShops(int $maxCount = 8): array
+    {
+        $shops = [];
+        foreach ($this->pagesManager->loadShops(
+            $this->shopRepository->select()->getLatest($maxCount)->getResults()
+        ) as $shop) {
+            $shops[] = [
+                'name' => $shop->getSubpage()->getSubpage()->getName(),
+                'link' => $shop->getSubpage()->getSlug()
+            ];
+        }
+
+        return $shops;
+    }
+
     public function getValue(): array
     {
         return [
             'info' => [
-                'group' => 'Informacje',
-                'links' => [
-                ],
+                'group' => 'Najnowsze sklepy',
+                'links' => $this->getLatestShops(),
             ],
             'shops' => [
                 'group' => 'Sklepy',
