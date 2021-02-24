@@ -42,17 +42,11 @@
   <latest-blog :articles="model.subpage.blogLatest"/>
   <!-- //***latest-blog End***// -->
   <div class="clear"></div>
-  <div v-if="model.subpage.content.content && model.subpage.content.data.lead" class="row"
-       :class="{'pointer' : !isShowContent}">
-    <div class="container">
-      <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 text-center" @click="showContent">
-        <div class="content content-homepage" v-html="model.subpage.content.data.lead"></div>
-      </div>
-      <div :class="{'hidden' : !isShowContent}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12 text-center">
-        <div class="content content-homepage" v-html="model.subpage.content.content"></div>
-      </div>
-    </div>
-  </div>
+  <read-more v-if="model.subpage.content.content && model.subpage.content.data.lead"
+             :content="model.subpage.content.content"
+             :lead="model.subpage.content.data.lead"
+  />
+
 </div>
 </template>
 
@@ -65,9 +59,11 @@ import SliderCoupons from "@/views/Homepages/Sections/SliderCoupons";
 import PopularStores from "@/views/Homepages/Sections/PopularStores";
 import LatestBlog from "@/views/Homepages/Sections/LatestBlog";
 import NewOffersCarousel from "~/views/Homepages/Carousel/CarouselPromotions2/NewOffersCarousel";
+import ReadMore from "@/views/Homepages/Homepage/ReadMore";
 
 export default {
   components: {
+    ReadMore,
     NewOffersCarousel,
     LatestBlog,
     PopularStores,
@@ -79,8 +75,7 @@ export default {
   },
     data(){
       return {
-        activeSlide: 1,
-        isShowContent: true
+        activeSlide: 1
       }
     },
     computed:{
@@ -88,43 +83,10 @@ export default {
       {
         return this.$store.getters.model;
       }
-    },
-    methods:{
-      showContent() {
-        if (!this.isShowContent) {
-          this.isShowContent = true;
-        }
-
-        if (typeof window.ontouchstart !== 'undefined') {
-          this.isShowContent = false;
-          this.$store.commit('setPopup', {
-            template: () => import("@/views/Homepages/Sections/PopupTextHomepage"),
-            title: '',
-            data: {
-              lead: this.model.subpage.content.extra.lead,
-              content: this.model.subpage.content.content
-            },
-            options: {
-              styleDialog: {width: '85%'}
-            }
-          })
-        }
-      }
-    },
-    mounted() {
-      self = this;
-      window.addEventListener('scroll', function handler() {
-        self.isShowContent = false;
-        this.removeEventListener('scroll', handler);
-      });
     }
 }
 </script>
 
-<style>
-.equal {
-  display: flex;
-  display: -webkit-flex;
-  flex-wrap: wrap;
-}
+<style scoped>
+
 </style>
