@@ -10,6 +10,7 @@ export default {
         url: '/admin/api/affiliations/program/trash/' + this.program.idShop,
         responseCallbackSuccess: res => {
           this.program = res.data.program;
+          this.$router.back();
         }
       })
     },
