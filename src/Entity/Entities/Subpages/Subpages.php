@@ -68,7 +68,7 @@ class Subpages implements EntityInterface
     /**
      * @var bool $active
      * @ORM\Column(name="active", type="boolean", nullable=false)
-     * @Groups({"resource", "resource-admin", "resource-admin-list"})
+     * @Groups({"resource", "resource-admin", "resource-admin-list", "program-admin-list"})
      */
     protected $active = true;
 
