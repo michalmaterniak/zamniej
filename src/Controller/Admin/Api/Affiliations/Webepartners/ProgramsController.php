@@ -92,7 +92,7 @@ class ProgramsController extends AbstractController
      */
     public function program(int $id)
     {
-        $program = $this->webepartnersProgramsRepository->select()->getProgramById($id)->getResultOrNull();
+        $program = $this->webepartnersProgramsRepository->select()->getProgramById($id)->withSubpageAndResource()->getResultOrNull();
 
         return $this->json([
             'program' => $this->normalizer->normalize($program, null, ['groups' => 'program-admin']),

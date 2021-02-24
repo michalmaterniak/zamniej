@@ -11,7 +11,8 @@
       </span>
         <span v-else>
         <button class="btn btn-success" @click="update">Aktualizuj</button>
-        <router-link :to="{name: 'panel-pages-page', params: {id: program.subpage.idSubpage}}" class="btn btn-primary">Podstrona</router-link>
+        <router-link :to="{name: 'panel-pages-page', params: {id: program.subpage.resource.idResource}}"
+                     class="btn btn-primary">Podstrona</router-link>
       </span>
         <span>
         <button class="btn btn-danger" @click="trash">Do kosza</button>
