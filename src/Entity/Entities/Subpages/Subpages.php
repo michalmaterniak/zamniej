@@ -76,7 +76,7 @@ class Subpages implements EntityInterface
      * @var Resources $resource
      * @ORM\ManyToOne(targetEntity="Resources", inversedBy="subpages", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="resource_id", referencedColumnName="id_resource", onDelete="CASCADE", nullable=false)
-     * @Groups({"program-admin-list"})
+     * @Groups({"program-admin-list", "program-admin"})
      */
     protected $resource;
 

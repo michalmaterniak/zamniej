@@ -88,7 +88,7 @@ class ProgramsController extends AbstractController
      */
     public function program($id)
     {
-        $program = $this->convertiserProgramsRepository->select()->getProgramById($id)->getResultOrNull();
+        $program = $this->convertiserProgramsRepository->select()->getProgramById($id)->withSubpageAndResource()->getResultOrNull();
         return $this->json([
             'program' => $this->normalizer->normalize($program, null, ['groups' => 'program-admin']),
         ], 200);

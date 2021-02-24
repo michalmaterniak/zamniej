@@ -38,7 +38,7 @@ class Resources implements EntityInterface
      * @ORM\Column(name="id_resource", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"resource", "resource-admin", "resource-admin-list", "program-admin-list"})
+     * @Groups({"resource", "resource-admin", "resource-admin-list", "program-admin-list", "program-admin"})
      */
     protected $idResource;
 
