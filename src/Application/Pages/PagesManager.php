@@ -54,7 +54,7 @@ class PagesManager extends ResourcesManager
 
 
     /**
-     * @param \App\Entity\Entities\Categories\Categories[]|Resources[]|ResourcesInterface[] $resources
+     * @param \App\Entity\Entities\Categories\Categories[]|Resources[]|ResourcesInterface[]|ArrayCollection $resources
      * @param bool $isResource
      * @return Category[]|Resource[]|ArrayCollection
      */
@@ -67,7 +67,7 @@ class PagesManager extends ResourcesManager
     }
 
     /**
-     * @param Resources[]|ResourcesInterface[] $resources
+     * @param Resources[]|ResourcesInterface[]|ArrayCollection $resources
      * @param bool $isResource
      * @return Shop[]|Resource[]|ArrayCollection
      */
@@ -80,7 +80,7 @@ class PagesManager extends ResourcesManager
     }
 
     /**
-     * @param Resources[]|ResourcesInterface[] $resources
+     * @param Resources[]|ResourcesInterface[]|ArrayCollection $resources
      * @param bool $isResource
      * @return BlogArticle[]|Resource[]|ArrayCollection
      */

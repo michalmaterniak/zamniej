@@ -162,4 +162,21 @@ class ShopsAffiliationRepository extends GlobalRepository
 
         return $this;
     }
+
+    /**
+     * @param int $max
+     * @return $this
+     */
+    public function getPopular(int $max)
+    {
+        $subpagesAlias = $this->addLeftJoin('subpage');
+        $resourcesAlias = $this->addLeftJoin('resource', $subpagesAlias);
+        $subpagesResourceAlias = $this->addLeftJoin('subpages', $resourcesAlias);
+        $this->addLeftJoin('files', $subpagesResourceAlias);
+        $this->addLeftJoin('files', $resourcesAlias);
+
+        $this->queryBuilder->setMaxResults($max);
+        $this->ordering("{$this->getRootAlias()}.redirectCount", 'DESC');
+        return $this;
+    }
 }

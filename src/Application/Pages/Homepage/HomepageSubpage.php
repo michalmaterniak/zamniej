@@ -113,12 +113,22 @@ class HomepageSubpage extends ResourceSubpage
      * @return ArrayCollection
      * @Groups({"resource"})
      */
-    public function getShopsLatest(int $max = 8)
+    public function getShopsPopular(int $max = 8)
     {
         if (!$this->shops) {
-            $shops = $this->getComponents()->getResourcesManager()->loadShops(
-                $this->getComponents()->getShopRepository()->select()->getLatest($max)->getResults()
-            );
+            $shopsResources = new ArrayCollection();
+            foreach (
+                $this->getComponents()->getShopAffiliationRepository()->select()->getPopular($max)->getResults()
+                as $shopAffiliation) {
+
+                if (!$shopAffiliation->getSubpage()) {
+                    continue;
+                }
+
+                $shopsResources->add($shopAffiliation->getSubpage()->getResource());
+            }
+
+            $shops = $this->getComponents()->getResourcesManager()->loadShops($shopsResources);
             $this->shops = new ArrayCollection();
             foreach ($shops as $shop) {
                 $this->shops->add([

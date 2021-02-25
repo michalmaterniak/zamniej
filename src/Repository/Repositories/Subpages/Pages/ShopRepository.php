@@ -4,7 +4,6 @@ namespace App\Repository\Repositories\Subpages\Pages;
 use App\Application\Pages\Shop\ShopConfig;
 use App\Entity\Entities\Subpages\Resources;
 use App\Repository\Repositories\Subpages\CustomResourceRepository;
-use App\Repository\Repositories\Subpages\Pages\Types\ShopsRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Persistence\ManagerRegistry;
 
