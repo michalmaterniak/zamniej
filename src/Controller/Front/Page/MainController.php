@@ -4,6 +4,7 @@ namespace App\Controller\Front\Page;
 use App\Application\Pages\PagesManager;
 use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
 use App\Repository\Repositories\Shops\Offers\OffersRepository;
+use App\Repository\Repositories\Subpages\Pages\ShopRepository;
 use App\Twig\TemplateVars;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as GlobalController;
@@ -32,9 +33,16 @@ class MainController extends GlobalController
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      */
     public function main(
+        ShopRepository $shopRepository,
         PagesManager $modelPagesManager, KernelInterface $httpKernel
     )
     {
+        $shops = $shopRepository->select()->getPopularShop(6)->getResults();
+        dump($shops);
+
+
+        die;
+
         if ($httpKernel->getEnvironment() == 'prod') {
             return new Response('', 404);
         }

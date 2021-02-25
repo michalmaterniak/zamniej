@@ -34,7 +34,7 @@
 
 
   <!-- //***popular-stores Start***// -->
-  <popular-stores :shops="model.subpage.shopsLatest"/>
+  <popular-stores :shops="model.subpage.shopsPopular"/>
   <div class="clear"></div>
   <!-- //***Offers-section End***// -->
 

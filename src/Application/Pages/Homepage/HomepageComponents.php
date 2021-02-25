@@ -5,6 +5,7 @@ use App\Application\Offers\OffersManager;
 use App\Application\Pages\Category\Factory\CategoryFactory;
 use App\Application\Pages\ResourceComponents;
 use App\Application\Sliders\Slide;
+use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
 use App\Repository\Repositories\Shops\Offers\OffersRepository;
 use App\Repository\Repositories\Sliders\SlidersRepository;
 use App\Repository\Repositories\Subpages\Pages\HomepageRepository;
@@ -44,6 +45,11 @@ class HomepageComponents extends ResourceComponents
      */
     protected $blogArticleRepository;
 
+    /**
+     * @var ShopsAffiliationRepository $shopAffiliationRepository
+     */
+    protected $shopAffiliationRepository;
+
     public function __construct(
         BlogArticleRepository $blogArticleRepository,
         ShopRepository $shopRepository,
@@ -54,7 +60,8 @@ class HomepageComponents extends ResourceComponents
         HomepageConfig $resourceConfig,
         CategoryFactory $resourceFactory,
         RouterInterface $router,
-        Slide $slide
+        Slide $slide,
+        ShopsAffiliationRepository $shopAffiliationRepository
     )
     {
         parent::__construct($homepageRepository, $resourceConfig, $resourceFactory, $router);
@@ -64,6 +71,7 @@ class HomepageComponents extends ResourceComponents
         $this->sliderRepository = $sliderRepository;
         $this->shopRepository = $shopRepository;
         $this->blogArticleRepository = $blogArticleRepository;
+        $this->shopAffiliationRepository = $shopAffiliationRepository;
     }
 
     /**
@@ -112,5 +120,13 @@ class HomepageComponents extends ResourceComponents
     public function getBlogArticleRepository(): BlogArticleRepository
     {
         return $this->blogArticleRepository;
+    }
+
+    /**
+     * @return ShopsAffiliationRepository
+     */
+    public function getShopAffiliationRepository(): ShopsAffiliationRepository
+    {
+        return $this->shopAffiliationRepository;
     }
 }
