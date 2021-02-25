@@ -119,7 +119,7 @@ class HomepageSubpage extends ResourceSubpage
             $shopsResources = new ArrayCollection();
             foreach (
                 $this->getComponents()->getShopAffiliationRepository()->select()->getPopular(
-                    $this->getSubpage()->getData('')
+                    $this->getSubpage()->getData('config.amountPopularShops', 8)
                 )->getResults()
                 as $shopAffiliation) {
 
