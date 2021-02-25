@@ -45,8 +45,8 @@ export default {
           template: () => import("@/views/Homepages/Sections/PopupTextHomepage"),
           title: '',
           data: {
-            lead: this.model.subpage.content.extra.lead,
-            content: this.model.subpage.content.content
+            lead: this.lead,
+            content: this.content
           },
           options: {
             styleDialog: {width: '85%'}
