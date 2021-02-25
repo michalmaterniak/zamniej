@@ -175,6 +175,8 @@ class ShopsAffiliationRepository extends GlobalRepository
         $this->addLeftJoin('files', $subpagesResourceAlias);
         $this->addLeftJoin('files', $resourcesAlias);
 
+        $this->queryBuilder->andWhere("{$subpagesAlias}.active = 1");
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.enable = 1");
         $this->queryBuilder->setMaxResults($max);
         $this->ordering("{$this->getRootAlias()}.redirectCount", 'DESC');
         return $this;

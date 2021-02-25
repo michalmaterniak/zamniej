@@ -113,12 +113,14 @@ class HomepageSubpage extends ResourceSubpage
      * @return ArrayCollection
      * @Groups({"resource"})
      */
-    public function getShopsPopular(int $max = 8)
+    public function getShopsPopular()
     {
         if (!$this->shops) {
             $shopsResources = new ArrayCollection();
             foreach (
-                $this->getComponents()->getShopAffiliationRepository()->select()->getPopular($max)->getResults()
+                $this->getComponents()->getShopAffiliationRepository()->select()->getPopular(
+                    $this->getSubpage()->getData('config.amountPopularShops', 8)
+                )->getResults()
                 as $shopAffiliation) {
 
                 if (!$shopAffiliation->getSubpage()) {

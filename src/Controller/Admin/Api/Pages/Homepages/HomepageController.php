@@ -4,6 +4,7 @@ namespace App\Controller\Admin\Api\Pages\Homepages;
 use App\Application\Admin\Resources\Item\Form\FormBuilderResources;
 use App\Application\Pages\Homepage\Homepage;
 use App\Controller\Admin\Api\Pages\AbstractResourceController;
+use App\Services\Admin\Form\Fields\Text\NumericField;
 use App\Services\Admin\Form\Fields\Text\TextareaField;
 use App\Services\Admin\Form\Fields\Text\TextField;
 use App\Services\Admin\Form\Fields\Text\WysiwygField;
@@ -37,6 +38,8 @@ class HomepageController extends AbstractResourceController
             ->add(new TextField('Nazwa', 'name'))
             ->add(new WysiwygField('Wstęp', 'content.data.lead'))
             ->add(new WysiwygField('Treść', 'content.content'))
+            ->subtab('Konfiguracje', 'config')
+            ->add(new NumericField('Ilość popularnych sklepów', 'data.config.amountPopularShops'))
             ->seo()
             ->add(new TextareaField('Tytuł', 'title'))
             ->add(new TextareaField('Nagłówek H1', 'header'))
