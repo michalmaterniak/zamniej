@@ -5,6 +5,7 @@ namespace App\Application\Affiliations\Webepartners;
 use App\Application\Affiliations\Interfaces\UpdaterAffiliationInterface;
 use App\Application\Affiliations\Webepartners\Api\Programs\ProgramsWebepartners;
 use App\Application\Affiliations\Webepartners\Programs\ProgramsWebepartnersFactory;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use GuzzleHttp\Exception\ConnectException;
 
@@ -26,8 +27,13 @@ class UpdaterWebepartners implements UpdaterAffiliationInterface
      */
     protected $finderOffersWebepartners;
 
+    /**
+     * @var EntityManagerInterface $entityManager
+     */
+    protected $entityManager;
 
     public function __construct(
+        EntityManagerInterface $entityManager,
         ProgramsWebepartnersFactory $programsWebepartnersFactory,
         ProgramsWebepartners $programsWebepartners,
 
@@ -37,6 +43,8 @@ class UpdaterWebepartners implements UpdaterAffiliationInterface
         $this->programsWebepartnersFactory = $programsWebepartnersFactory;
         $this->programsWebepartners = $programsWebepartners;
         $this->finderOffersWebepartners = $finderOffersWebepartners;
+
+        $this->entityManager = $entityManager;
     }
 
     public function update()
@@ -44,6 +52,15 @@ class UpdaterWebepartners implements UpdaterAffiliationInterface
         foreach ($this->programsWebepartners->getPrograms() as $program) {
             try {
                 $shopAffil = $this->programsWebepartnersFactory->updateProgram($program);
+
+                if($shopAffil->hasSubpage()) {
+                    $shopAffil->getSubpage()->setActive(
+                        $shopAffil->isEnable()
+                    );
+
+                    $this->entityManager->flush();
+                }
+
                 $this->finderOffersWebepartners->loadOffers($shopAffil);
                 dump('[webepartners] pobrano z ' . $shopAffil->getName());
 
