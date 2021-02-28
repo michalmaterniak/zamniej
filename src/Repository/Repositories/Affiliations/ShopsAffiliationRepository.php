@@ -164,6 +164,17 @@ class ShopsAffiliationRepository extends GlobalRepository
     }
 
     /**
+     * @param string $affiliationName
+     * @return $this
+     */
+    public function affiliationName(string $affiliationName)
+    {
+        $affiliationAlias = $this->addLeftJoin('affiliation');
+        $this->queryBuilder->andWhere("{$affiliationAlias}.name = :affiliation")->setParameter('affiliation', $affiliationName);
+        return $this;
+    }
+
+    /**
      * @param int $max
      * @return $this
      */
