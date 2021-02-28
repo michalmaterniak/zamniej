@@ -8,7 +8,7 @@
     </div>
     <div class="modal-body popup-shop-details">
       <div class="col-md-12 col-sm-12 col-xs-12" >
-        <shop-details :shop="shop"/>
+        <shop-details :isPopUp="true" :shop="shop"/>
       </div>
     </div>
     <div class="modal-footer">

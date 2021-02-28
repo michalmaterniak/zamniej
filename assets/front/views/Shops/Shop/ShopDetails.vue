@@ -183,7 +183,7 @@
 <!--    </div>-->
 
 
-    <div class="lazy-hidden-lg lazy-hidden-md lazy-hidden-sm col-xs-12">
+    <div v-if="isPopUp" class="lazy-hidden-lg lazy-hidden-md lazy-hidden-sm col-xs-12">
       <div v-html="shop.subpage.content.content"></div>
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -205,8 +205,16 @@ import PopularShopsTag from "~/components/Elements/Linking/PopularShopsTag";
 export default {
   name: "ShopDetails",
   components: {PopularShopsTag, BlogArticlesLatest, RatingShop, ContactDetails},
-  props:['shop'],
-  methods:{
+  props: {
+    shop: {
+      type: Object
+    },
+    isPopUp: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
     redirectInsideShop() {
       this.$gtagEv({
         action: 'redirect',
@@ -216,6 +224,9 @@ export default {
       });
       this.redirectInside(this.$store.getters.redirectLinkShop(this.shop.subpage.idShopAffil));
     },
+  },
+  mounted() {
+    this.isContentShow = window.ontouchmove;
   }
 }
 </script>
