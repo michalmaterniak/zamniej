@@ -1,9 +1,9 @@
 <template>
-  <div class="shop-box pointer" @click="$emit('toPath', shop.slug)">
+  <div class="shop-box pointer">
     <div class="brand-img">
-      <figure>
+      <figure @click="goToShop(shop)">
         <img :alt="shop.logo.original.data.alt" :src="shop.logo.modifyPath">
-        <h5 v-text="shop.name"></h5>
+        <nuxt-link :to="shop.slug"></nuxt-link>
       </figure>
     </div>
   </div>
@@ -22,6 +22,12 @@ export default {
     noLazy: {
       type: Boolean,
       default: true
+    }
+  },
+  methods: {
+    goToShop(shop) {
+      this.$store.commit('setSearchKeyword', '');
+      this.$router.push({path: shop.slug})
     }
   }
 }

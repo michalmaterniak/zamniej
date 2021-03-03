@@ -35,4 +35,10 @@ export default () => ({
     title: '',
     template: null,
   },
+
+  search: {
+    keywordsSearch: '',
+    shops: []
+  }
+
 });

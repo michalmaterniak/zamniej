@@ -38,4 +38,10 @@ export default {
   getPopup: state => {
     return state.popup;
   },
+  searchKeyword: state => {
+    return state.search.keywordsSearch;
+  },
+  searchShops: state => {
+    return state.search.shops;
+  },
 }

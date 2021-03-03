@@ -47,11 +47,17 @@ export default {
     state.models[state.currentKeyModel].rating = payload;
   },
   changeValueModel(state, payload) {
-    if(_.get(state.models[state.currentKeyModel], payload.path) || payload.forceCreate === true)
+    if (_.get(state.models[state.currentKeyModel], payload.path) || payload.forceCreate === true)
       _.set(state.models[state.currentKeyModel], payload.path, payload.value);
   },
   changeValueCurrentSubpage(state, payload) {
-    if(_.get(state.models[state.currentKeyModel].subpage, payload.path) || payload.forceCreate === true)
+    if (_.get(state.models[state.currentKeyModel].subpage, payload.path) || payload.forceCreate === true)
       _.set(state.models[state.currentKeyModel].subpage, payload.path, payload.value);
+  },
+  setSearchKeyword(state, searchText) {
+    state.search.keywordsSearch = searchText;
+  },
+  setSearchShops(state, shops) {
+    state.search.shops = shops;
   }
 }

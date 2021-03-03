@@ -2,6 +2,7 @@
   <div>
     <loader/>
     <navbar-left/>
+    <search-fields v-if="$store.getters.searchKeyword"/>
     <nuxt/>
     <footer-module/>
     <pop-up-view/>
