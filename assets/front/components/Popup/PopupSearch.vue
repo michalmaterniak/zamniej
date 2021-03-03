@@ -61,20 +61,7 @@ export default {
       this.closePopup();
       this.$router.push({path: payload})
     },
-    searchShops() {
-      this.$axios({
-        method: "POST",
-        url: 'page/api/shops/search',
-        responseType: 'json',
-        data: {
-          shop: this.shopName
-        },
-      }).then(res => {
-        if (res.data.count > 0) {
-          this.shops = res.data.shops;
-        }
-      })
-    },
+
     closePopup() {
       this.$store.commit('setPopup', {title: '', options: null, template: null, data: {}});
     }

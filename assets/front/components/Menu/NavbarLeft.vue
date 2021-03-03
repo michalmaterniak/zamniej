@@ -24,15 +24,15 @@
             <div id="responsive-nav" :class="{'active' : showResponsive}">
               <!-- NAV -->
               <ul class="main-nav nav navbar-nav">
-                <nuxt-link tag="li" v-for="(link, index) in links" :key="index" :to="{path: link.link}" exact-active-class="active"><nuxt-link :to="{path: link.link}" exact-active-class="active" v-text="link.name"></nuxt-link></nuxt-link>
-                <li class="search-input">
-                  <div class="header-searchbar " @click="openSearchPopup">
-                    <input type="text" name="search" placeholder="Szukaj...">
-                    <button type="submit" class="search-btn">
-                      <i class="flaticon-external-link-symbol"></i>
-                    </button>
-                  </div>
-                </li>
+                <nuxt-link tag="li" v-for="(link, index) in links" :key="index" :to="{path: link.link}"
+                           exact-active-class="active">
+                  <nuxt-link :to="{path: link.link}" exact-active-class="active" v-text="link.name"></nuxt-link>
+                </nuxt-link>
+                <search/>
+                <nuxt-link v-for="(link, index) in $store.getters.searchShops" :key="index" :to="{path: link.slug}"
+                           exact-active-class="active" tag="li">
+                  <nuxt-link :to="{path: link.slug}" exact-active-class="active" v-text="link.name"></nuxt-link>
+                </nuxt-link>
               </ul>
               <!-- /NAV -->
             </div>
@@ -40,15 +40,6 @@
         </div>
       </div>
     </header>
-    <!-- NAVIGATION -->
-    <nav id="navigation">
-      <!-- container -->
-      <div class="container">
-
-      </div>
-      <!-- /responsive-nav -->
-      <!-- /container -->
-    </nav>
   </div>
 </template>
 
@@ -89,12 +80,6 @@ export default {
   methods: {
     toggleResponsiveMenu(e) {
       this.$store.commit('setResponsiveMenuToggle');
-    },
-    openSearchPopup() {
-      this.$store.commit('setPopup', {
-        template: () => import("@/components/Popup/PopupSearch"),
-        title: 'Szukaj sklepu'
-      })
     }
   },
   mounted() {
