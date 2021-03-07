@@ -28,14 +28,12 @@
                            exact-active-class="active">
                   <nuxt-link :to="{path: link.link}" exact-active-class="active" v-text="link.name"></nuxt-link>
                 </nuxt-link>
-
                 <search/>
-
-                <nuxt-link v-for="(link, index) in $store.getters.searchShops" :key="index" :to="{path: link.slug}"
-                           class="hidden-md hidden-lg"
-                           exact-active-class="active" tag="li">
-                  <nuxt-link :to="{path: link.slug}" exact-active-class="active" v-text="link.name"></nuxt-link>
-                </nuxt-link>
+<!--                <nuxt-link v-for="(link, index) in $store.getters.searchShops" :key="index" :to="{path: link.slug}"-->
+<!--                           class="hidden-md hidden-lg"-->
+<!--                           exact-active-class="active" tag="li">-->
+<!--                  <nuxt-link :to="{path: link.slug}" exact-active-class="active" v-text="link.name"></nuxt-link>-->
+<!--                </nuxt-link>-->
 
               </ul>
               <!-- /NAV -->

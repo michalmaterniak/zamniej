@@ -2,7 +2,7 @@
   <div>
     <loader/>
     <navbar-left/>
-    <search-fields v-if="$store.getters.searchKeyword"/>
+    <search-fields v-if="isSearchContainer"/>
     <nuxt/>
     <footer-module/>
     <pop-up-view/>
@@ -34,11 +34,27 @@ export default {
     }
   },
   computed:{
+    isSearchContainer() {
+      return this.$store.getters.searchKeyword.length >= 3 || (this.$store.getters.isSearchContainer && this.$store.getters.favoriteShops.length > 0);
+    },
     debugActive(){
       return this.$store.getters.debug.active && process.env.NODE_ENV === 'development';
     }
   },
+  methods:{
+    setFavoritesShops() {
+      let localStorageFavoriteShops = localStorage.getItem('favoriteShops');
+      if(localStorageFavoriteShops) {
+        localStorageFavoriteShops = JSON.parse(localStorageFavoriteShops);
+      } else {
+        localStorageFavoriteShops = [];
+      }
+
+      this.$store.commit('setFavoriteShop', localStorageFavoriteShops);
+    }
+  },
   mounted() {
+    this.setFavoritesShops();
   },
 }
 </script>

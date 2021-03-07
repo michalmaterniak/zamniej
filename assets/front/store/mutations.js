@@ -59,5 +59,24 @@ export default {
   },
   setSearchShops(state, shops) {
     state.search.shops = shops;
+  },
+  setFavoriteShop(state, shops) {
+    state.favoriteShops = shops;
+  },
+  addFavoriteShop(state, shop) {
+    state.favoriteShops.push(shop.subpage);
+    localStorage.setItem('favoriteShops', JSON.stringify(state.favoriteShops));
+  },
+  removeFavoriteShop(state, id) {
+    let index = _.findIndex(state.favoriteShops, obj => {
+      return obj.id === id
+    });
+    if (index >= 0) {
+      state.favoriteShops.splice(index, 1);
+      localStorage.setItem('favoriteShops', JSON.stringify(state.favoriteShops));
+    }
+  },
+  setSearchContainerOpen(state, payload) {
+    state.search.isSearchContainer = payload;
   }
 }

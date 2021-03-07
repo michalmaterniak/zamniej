@@ -1,9 +1,10 @@
 <template>
   <div class="shop-box pointer">
     <div class="brand-img">
+      <favorite-shop v-if="withRemove" :id-subpage="shop.id" :remove="true"/>
       <figure @click="goToShop(shop)">
         <img :alt="shop.logo.original.data.alt" :src="shop.logo.modifyPath">
-        <nuxt-link :to="shop.slug"></nuxt-link>
+        <span v-text="shop.name"></span>
       </figure>
     </div>
   </div>
@@ -11,10 +12,11 @@
 
 <script>
 import RatingShopShowing from "@/components/Elements/Rating/RatingShopShowing";
+import FavoriteShop from "@/views/Shops/Shop/FavoriteShop";
 
 export default {
   name: "TileShopSearch",
-  components: {RatingShopShowing},
+  components: {FavoriteShop, RatingShopShowing},
   props: {
     shop: {
       type: Object,
@@ -22,11 +24,16 @@ export default {
     noLazy: {
       type: Boolean,
       default: true
+    },
+    withRemove: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
     goToShop(shop) {
       this.$store.commit('setSearchKeyword', '');
+      this.$store.commit('setSearchContainerOpen', false);
       this.$router.push({path: shop.slug})
     }
   }

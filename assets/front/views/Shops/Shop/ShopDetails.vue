@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+
     <div class="col-md-12 col-sm-12 col-xs-12 text-center">
       <div class="blog-a">
         <img :src="shop.subpage.logo.modifyPath" :alt="shop.subpage.logo.original.data.alt">
@@ -12,6 +13,8 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="latest-tweet marT20" v-if="shop.subpage.subpage.content.extra.details">
         <div class="row">
+          <favorite-shop :id-subpage="shop.subpage.subpage.idSubpage"/>
+
           <div class="col-md-12">
             <h4 class="orange capital marT10" v-text="'Sklep ' + shop.subpage.subpage.name"></h4>
           </div>
@@ -201,10 +204,11 @@ import ContactDetails from "@/views/Shops/Shop/ContactDetails";
 import RatingShop from "@/components/Elements/Rating/RatingShop";
 import BlogArticlesLatest from "@/components/Elements/Linking/BlogArticlesLatest";
 import PopularShopsTag from "~/components/Elements/Linking/PopularShopsTag";
+import FavoriteShop from "@/views/Shops/Shop/FavoriteShop";
 
 export default {
   name: "ShopDetails",
-  components: {PopularShopsTag, BlogArticlesLatest, RatingShop, ContactDetails},
+  components: {FavoriteShop, PopularShopsTag, BlogArticlesLatest, RatingShop, ContactDetails},
   props: {
     shop: {
       type: Object

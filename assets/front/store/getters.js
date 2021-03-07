@@ -44,4 +44,10 @@ export default {
   searchShops: state => {
     return state.search.shops;
   },
+  favoriteShops: ({ favoriteShops }) => {
+    return favoriteShops;
+  },
+  isSearchContainer: state => {
+    return state.search.isSearchContainer;
+  }
 }
