@@ -1,28 +1,30 @@
 <template>
-  <div class=" padT50 padB50 ">
-    <div v-if="isShowResults" class="popular-stores bg hidden-xs hidden-sm">
+  <div class="">
+    <div v-if="isShowResults" :class="{'padB100' : !isFavorites, 'padB30' : isFavorites}"
+         class="popular-stores bg hidden-xs hidden-sm ">
       <div class="container">
         <div class="row">
-          <div v-for="(shop, index) in shops" :key="index" class="col-md-3 col-sm-3 col-xs-6 marB30">
+          <div v-for="(shop, index) in shops" :key="index" class="col-md-3 col-sm-3 col-xs-6">
             <tile-shop-search :shop="shop"/>
           </div>
         </div>
       </div>
     </div>
-    <div v-if="isSearchContainer && favoriteShops.length > 0" class="popular-stores bg hidden-xs hidden-sm">
+    <div v-if="isFavorites" class="popular-stores bg hidden-xs hidden-sm padB30">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <h3 class="h3">Polubione sklepy</h3>
           </div>
         </div>
-        <div class="row marT30">
-          <div v-for="(shop, index) in favoriteShops" :key="index" class="col-md-3 col-sm-3 col-xs-6 marB30">
+        <div class="row ">
+          <div v-for="(shop, index) in favoriteShops" :key="index" class="col-md-3 col-sm-3 col-xs-6">
             <tile-shop-search :shop="shop" :with-remove="true"/>
           </div>
         </div>
       </div>
     </div>
+    <div class="row padB100"></div>
   </div>
 </template>
 
@@ -58,6 +60,9 @@ export default {
     ...mapGetters([
       'favoriteShops',
     ]),
+    isFavorites() {
+      return this.isSearchContainer && this.favoriteShops.length > 0
+    },
     isSearchContainer() {
       return this.$store.getters.isSearchContainer;
     },
