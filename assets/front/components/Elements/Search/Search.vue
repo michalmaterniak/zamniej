@@ -1,8 +1,8 @@
 <template>
   <li class="search-input">
     <div class="header-searchbar">
-      <input v-model="searchText" name="search" placeholder="Szukaj..." type="text">
-      <button class="search-btn hidden-xs hidden-sm" type="submit" @click="openSearchPopup">
+      <input v-model="searchText" name="search" placeholder="Szukaj..." type="text" @click="clickSearch">
+      <button class="search-btn hidden-xs hidden-sm" type="submit">
         <i class="flaticon-external-link-symbol"></i>
       </button>
     </div>
@@ -28,14 +28,15 @@ export default {
     }
   },
   methods: {
+    clickSearch() {
+      this.searchContainer();
+      this.searchText = '';
+    },
+    searchContainer() {
+      this.$store.commit('setSearchContainerOpen', true);
+    },
     setKeywordText(searchText) {
       this.$store.commit('setSearchKeyword', searchText);
-    },
-    openSearchPopup() {
-      this.$store.commit('setPopup', {
-        template: () => import("@/components/Popup/PopupSearch"),
-        title: 'Szukaj sklepu'
-      })
     }
   }
 }

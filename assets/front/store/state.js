@@ -38,7 +38,8 @@ export default () => ({
 
   search: {
     keywordsSearch: '',
-    shops: []
-  }
-
+    shops: [],
+    isSearchContainer: false
+  },
+  favoriteShops: []
 });

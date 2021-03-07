@@ -1,17 +1,19 @@
 <?php
-namespace App\Application\SiteWide\Search;
+
+namespace App\Application\Pages\Shop\Favorite;
 
 use App\Application\Pages\PagesManager;
+use App\Application\SiteWide\Search\SearchAdapter;
 use App\Repository\Repositories\Subpages\Pages\ShopRepository;
-use App\Services\System\Request\Retrievers\RequestData\RequestPostContentData;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Services\System\Request\Retrievers\RequestDataManager;
 
-class ShopsSearch
+class FavoriteShop
 {
     /**
      * @var ShopRepository $shopsRepository
      */
     protected $shopsRepository;
+
     /**
      * @var PagesManager $modelPagesManager
      */
@@ -21,35 +23,31 @@ class ShopsSearch
      * @var SearchAdapter $searchAdapter
      */
     protected $searchAdapter;
+
     /**
-     * @var string $text
+     * @var int $text
      */
-    protected $text;
+    protected $idSubpage;
 
     public function __construct(
         ShopRepository $shopsRepository,
         PagesManager $modelPagesManager,
-        RequestPostContentData $requestPostContentData,
+        RequestDataManager $requestDataManager,
         SearchAdapter $searchAdapter
     )
     {
         $this->shopsRepository = $shopsRepository;
         $this->modelPagesManager = $modelPagesManager;
         $this->searchAdapter = $searchAdapter;
-        $this->text = $requestPostContentData->getValue('shop', '');
+        $this->idSubpage = $requestDataManager->getValue('idSubpage', '');
     }
 
-    public function getShops()
+    public function getShop()
     {
-        $shops = new ArrayCollection();
-        if (strlen($this->text) < 3) {
-            return $shops;
-        }
-
-        return $this->searchAdapter->getSearchShops(
-            $this->modelPagesManager->loadShops(
-                $this->shopsRepository->select()->findByText($this->text)->getResults()
-            )
+        $shop = $this->modelPagesManager->loadShop(
+            $this->shopsRepository->select()->findByIdSubpage($this->idSubpage)->getResultOrNull()
         );
+
+        return $shop ? $this->searchAdapter->getSearchShop($shop) : null;
     }
 }

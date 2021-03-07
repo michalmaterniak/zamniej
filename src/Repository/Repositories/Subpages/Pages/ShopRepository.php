@@ -87,4 +87,17 @@ class ShopRepository extends CustomResourceRepository
         $this->queryBuilder->andWhere("{$leftRootSubpages}.name LIKE :text")->setParameter('text', "%$text%");
         return $this;
     }
+
+    /**
+     * @param int $idSubpage
+     * @return $this
+     */
+    public function findByIdSubpage(int $idSubpage)
+    {
+        $leftRootSubpages = $this->addLeftJoin('subpages');
+        $this->addLeftJoin('files', $leftRootSubpages);
+
+        $this->queryBuilder->andWhere("{$leftRootSubpages}.idSubpage = :id")->setParameter('id', $idSubpage);
+        return $this;
+    }
 }
