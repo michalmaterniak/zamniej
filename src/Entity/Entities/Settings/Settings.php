@@ -21,6 +21,11 @@ class Settings implements ArrayAccess, EntityInterface
      */
     protected $idSetting;
 
+    public function __construct(string $id = null)
+    {
+        $this->idSetting = $id;
+    }
+
     /**
      * @return string
      */

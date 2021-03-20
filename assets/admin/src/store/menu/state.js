@@ -1,16 +1,27 @@
 export default {
 	sidebar: [
-		{
-			text: "Ustawienia",
-			routeName: 'panel-settings',
-			show: true,
-			submenu: [
-				{
-					text: "Ustawienai globalne",
-					routeName: {default: 'panel-settings-global', routesNameSelected: ['panel-settings-global']},
-				}
-			]
-		},
+		// {
+		// 	text: "Ustawienia",
+		// 	routeName: 'panel-settings',
+		// 	show: true,
+		// 	submenu: [
+		// 		{
+		// 			text: "Ustawienai globalne",
+		// 			routeName: {default: 'panel-settings-global', routesNameSelected: ['panel-settings-global']},
+		// 		}
+		// 	]
+		// },
+    {
+      text: "Linkowanie",
+      routeName: 'panel-links',
+      show: true,
+      submenu: [
+        {
+          text: "GSC",
+          routeName: {default: 'panel-links-gscIndexes', routesNameSelected: ['panel-links-gscIndexes']},
+        }
+      ]
+    },
 		// {
 		// 	text: "Programy",
 		// 	routeName: 'panel-affiliations-programs',

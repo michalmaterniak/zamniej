@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     defaultLocale: 'pl'
+    defaultHttpAddress: '%env(ORIGINAL_HOST)%'
     locales:
         - 'pl'
     cacheEnable: '%env(bool:CACHE_REDIS_ENABLE)%'
@@ -55,6 +56,7 @@ services:
 
     App\Application\Locale\Locale:
         arguments:
+            $defaultHttpAddress: '%env(ORIGINAL_HOST)%'
             $defaultLocale: '%defaultLocale%'
 
     App\Application\Pages\PagesManager:

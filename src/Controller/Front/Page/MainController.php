@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Front\Page;
 
+use App\Application\Locale\FinderSubpageBySlug;
 use App\Application\Pages\PagesManager;
 use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
 use App\Repository\Repositories\Shops\Offers\OffersRepository;
@@ -31,8 +32,13 @@ class MainController extends GlobalController
      * @Route("/{slug?}", name="page-pages-main", requirements={"slug"="^((?!elfinder|efconnect).)*$"}, methods={"GET"})
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      */
-    public function main(PagesManager $modelPagesManager, KernelInterface $httpKernel)
+    public function main(
+        PagesManager $modelPagesManager,
+        KernelInterface $httpKernel,
+        FinderSubpageBySlug $finderSubpageBySlug
+    )
     {
+
 
         if ($httpKernel->getEnvironment() == 'prod') {
             return new Response('', 404);
