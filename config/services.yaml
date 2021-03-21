@@ -32,6 +32,7 @@ parameters:
         port: '%env(RABBITMQ_PORT)%'
         user: '%env(RABBITMQ_USER)%'
         pass: '%env(RABBITMQ_PASS)%'
+    countGscIndexesLinks: 5
 
 services:
     # default configuration for services in *this* file
@@ -49,10 +50,14 @@ services:
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
         resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+        tags: [ 'controller.service_arguments' ]
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Application\LinkingInternal\GSCIndexes\GSCIndexesLinking:
+        arguments:
+            $countGscIndexesLinks: '%countGscIndexesLinks%'
 
     App\Application\Locale\Locale:
         arguments:

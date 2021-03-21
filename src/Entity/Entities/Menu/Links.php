@@ -45,6 +45,7 @@ class Links implements EntityInterface
      * @ORM\Column(name="external", type="string", length=200, nullable=true)
      */
     protected $external = '#';
+
     /**
      * @var Links|null $parent
      * @ORM\ManyToOne(targetEntity="Links", inversedBy="children")
@@ -64,9 +65,12 @@ class Links implements EntityInterface
      */
     protected $locale;
 
-    public function __construct()
+    public function __construct(string $group, string $anchor, string $locale)
     {
         $this->children = new ArrayCollection();
+        $this->group = $group;
+        $this->anchor = $anchor;
+        $this->locale = $locale;
     }
 
     /**

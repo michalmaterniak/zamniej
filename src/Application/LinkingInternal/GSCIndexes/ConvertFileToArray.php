@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Links\GSCIndexes;
+namespace App\Application\LinkingInternal\GSCIndexes;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;

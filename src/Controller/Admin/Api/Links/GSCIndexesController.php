@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin\Api\Links;
 
-use App\Application\Links\GSCIndexes\ConvertFileToArray;
-use App\Application\Links\GSCIndexes\OverrideGSCIndexes;
+use App\Application\LinkingInternal\GSCIndexes\ConvertFileToArray;
+use App\Application\LinkingInternal\GSCIndexes\OverrideGSCIndexes;
 use App\Controller\Admin\Api\AbstractController;
 use Exception;
 use Symfony\Component\HttpFoundation\RequestStack;

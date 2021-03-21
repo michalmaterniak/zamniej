@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Application\Links\GSCIndexes;
+namespace App\Application\LinkingInternal\GSCIndexes;
 
 use App\Application\Locale\FinderSubpageBySlug;
 use App\Entity\Entities\GSC\GSCIndexes;

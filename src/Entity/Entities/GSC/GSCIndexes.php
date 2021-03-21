@@ -41,6 +41,13 @@ class GSCIndexes implements EntityInterface
      */
     protected $datetime;
 
+    /**
+     * @var bool $used
+     * @ORM\Column(name="used", type="boolean", nullable=false)
+     */
+    protected $used = false;
+
+
     public function __construct(string $url, DateTime $datetime, Subpages $subpage)
     {
         $this->url = $url;
@@ -94,6 +101,38 @@ class GSCIndexes implements EntityInterface
     public function setDatetime(DateTime $datetime): void
     {
         $this->datetime = $datetime;
+    }
+
+    /**
+     * @return Subpages
+     */
+    public function getSubpage(): Subpages
+    {
+        return $this->subpage;
+    }
+
+    /**
+     * @param Subpages $subpage
+     */
+    public function setSubpage(Subpages $subpage): void
+    {
+        $this->subpage = $subpage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUsed(): bool
+    {
+        return $this->used;
+    }
+
+    /**
+     * @param bool $used
+     */
+    public function setUsed(bool $used): void
+    {
+        $this->used = $used;
     }
 
 }
