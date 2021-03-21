@@ -40,8 +40,10 @@ export default {
         header: {
           'Content-Type': 'multipart/form-data'
         },
-        responseCallbackSuccess: () => {
-          this.showAlert("Zaktualizowano stan zaindeksowanych podstron", 'success');
+        responseCallbackSuccess: res => {
+          if (res.data.success) {
+            this.showAlert("Zaktualizowano stan zaindeksowanych podstron", 'success');
+          }
         }
       })
     },
