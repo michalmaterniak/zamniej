@@ -32,7 +32,9 @@
     </div>
     <div class="copyright-section">
       <div class="col-md-12 col-sm-12 col-xs-12">
-        <p><font-awesome-icon :icon="'copyright'"/> 2020 <a href="https://commit-m.pl/"><span class="itg-color">commit-m</span></a></p>
+        <p>
+          <font-awesome-icon :icon="'copyright'"/>
+          2021 <a href="#"><span class="itg-color">ZaMniej.pl</span></a></p>
       </div>
     </div>
   </div>
