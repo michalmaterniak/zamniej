@@ -16,6 +16,9 @@
                       </div>
                       <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
                         <h1 class="h4 marL10" v-text="model.subpage.seo.header"></h1>
+                        <div class="ask-btn text-right">
+                          <button @click="redirectEmpty" class="itg-btn cart-btn"><span>Przejdź do sklepu</span></button>
+                        </div>
                       </div>
                     </div>
                   </div>

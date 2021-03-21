@@ -71,11 +71,11 @@ class OverrideGSCIndexes
 
             }
 
+
             $this->entityManager->flush();
             $this->entityManager->commit();
 
         } catch (Exception $exception) {
-            dump($exception);
             $this->entityManager->rollback();
 
         }
