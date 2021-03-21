@@ -3,26 +3,25 @@ namespace App\Services\System\Locale;
 
 use App\Services\System\Locale\Interfaces\LocaleInterface;
 use App\Services\System\Request\Retrievers\RequestDataManager;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 abstract class Locale implements LocaleInterface
 {
-    protected RequestStack          $requestStack;
-    protected RequestDataManager    $requestDataManager;
+    protected string $locale;
 
-    protected string                $locale;
+    /**
+     * @var string $address
+     */
+    protected $address;
 
-    public function __construct(string $defaultLocale, RequestDataManager $requestDataManager, RequestStack $requestStack)
+    public function __construct(string $defaultHttpAddress, string $defaultLocale, RequestDataManager $requestDataManager)
     {
-        $this->requestStack =           $requestStack;
-        $this->requestDataManager =     $requestDataManager;
         $this->locale =
-            (string) $this->requestDataManager->getValue(
+            (string)$requestDataManager->getValue(
                 'locale',
-                $this->requestStack->getCurrentRequest() ?
-                    $this->requestStack->getCurrentRequest()->getLocale():
-                    $defaultLocale
+                $defaultLocale
             );
+
+        $this->address = $defaultHttpAddress;
     }
 
     public function getLocale() : string
@@ -40,5 +39,13 @@ abstract class Locale implements LocaleInterface
     public function setLocale(string $locale): void
     {
         $this->locale = $locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress(): string
+    {
+        return $this->address;
     }
 }

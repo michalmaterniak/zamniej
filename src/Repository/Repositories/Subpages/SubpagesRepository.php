@@ -54,4 +54,25 @@ class SubpagesRepository extends GlobalRepository
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.idSubpage = :id")->setParameter('id', $id);
         return $this;
     }
+
+    public function slug(string $slug)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.slug = :slug")->setParameter('slug', $slug);
+        return $this;
+    }
+
+    public function locale(string $locale)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.locale = :locale")->setParameter('locale', $locale);
+        return $this;
+    }
+
+    public function url()
+    {
+        $this->getServicesRepositoriesManager()->getSlugRequestModifierQuery()->modify(
+            $this->queryBuilder
+        );
+
+    }
+
 }

@@ -33,6 +33,7 @@ import ProgramsConvertiserActive from "../views/Panel/Affiliations/Convertiser/P
 import ProgramsConvertiserUnactive from "../views/Panel/Affiliations/Convertiser/Programs/ProgramsConvertiserUnactive";
 import ProgramConvertiser from "../views/Panel/Affiliations/Convertiser/ProgramConvertiser";
 import ProgramsConvertiser from "../views/Panel/Affiliations/Convertiser/ProgramsConvertiser";
+import GSCIndexes from "../views/Panel/Links/GSCIndexes";
 
 export default [
   {
@@ -91,6 +92,14 @@ export default [
             name: 'panel-links-popular',
             path: 'popular',
             component: Popular,
+            meta: {
+              middleware: [auth],
+            },
+          },
+          {
+            name: 'panel-links-gscIndexes',
+            path: 'gscIndexes',
+            component: GSCIndexes,
             meta: {
               middleware: [auth],
             },

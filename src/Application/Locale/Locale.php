@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class Locale extends GlobalLocale
 {
-    public function __construct(string $defaultLocale, RequestDataManager $requestDataManager, RequestStack $requestStack)
+    public function __construct(string $defaultHttpAddress, string $defaultLocale, RequestDataManager $requestDataManager, RequestStack $requestStack)
     {
-        parent::__construct($defaultLocale, $requestDataManager, $requestStack);
+        parent::__construct($defaultHttpAddress, $defaultLocale, $requestDataManager, $requestStack);
     }
 }

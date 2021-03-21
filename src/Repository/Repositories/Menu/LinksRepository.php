@@ -17,8 +17,37 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class LinksRepository extends GlobalRepository
 {
-    protected function getEntityName() : string
+    protected function getEntityName(): string
     {
         return Entity::class;
+    }
+
+    /**
+     * @param $subpages
+     * @return $this
+     */
+    public function subpages($subpages): self
+    {
+        $this->queryBuilder
+            ->andWhere("{$this->getRootAlias()}.internal IN (:subpages)")
+            ->setParameter('subpages', $subpages);
+
+        return $this;
+    }
+
+    public function group(string $group)
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.group = :group")->setParameter('group', $group);
+        $this->addLeftJoin('internal');
+        return $this;
+    }
+
+    public function internalNotNull()
+    {
+        $this->queryBuilder
+            ->andWhere("{$this->getRootAlias()}.internal IS NOT NULL");
+        $this->addLeftJoin('internal');
+
+        return $this;
     }
 }
