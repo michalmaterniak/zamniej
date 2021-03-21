@@ -1,10 +1,12 @@
 <?php
 namespace App\Application\SiteWide\Links;
 
+use App\Application\LinkingInternal\GSCIndexes\GSCIndexesLinking;
 use App\Application\Pages\PagesManager;
 use App\Application\SiteWide\FrontInitInterface;
 use App\Repository\Repositories\Subpages\Pages\CategoryRepository;
 use App\Repository\Repositories\Subpages\Pages\ShopRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class FooterLinks implements FrontInitInterface
 {
@@ -23,28 +25,45 @@ class FooterLinks implements FrontInitInterface
      */
     protected $pagesManager;
 
+    /**
+     * @var GSCIndexesLinking $gscIndexesLinking
+     */
+    protected GSCIndexesLinking $gscIndexesLinking;
+
     public function __construct(
         PagesManager $pagesManager,
         CategoryRepository $categoryRepository,
-        ShopRepository $shopRepository
+        ShopRepository $shopRepository,
+        GSCIndexesLinking $gscIndexesLinking
     )
     {
         $this->pagesManager = $pagesManager;
         $this->categoryRepository = $categoryRepository;
         $this->shopRepository = $shopRepository;
+        $this->gscIndexesLinking = $gscIndexesLinking;
     }
 
     protected function getCategories()
     {
-        $categories = [];
+        $categories = new ArrayCollection();
         foreach ($this->pagesManager->loadCategories(
             $this->categoryRepository->select()->footerLinks()->getResults()
         ) as $category) {
-            $categories[] = [
-                'name' => $category->getSubpage()->getSubpage()->getName(),
-                'link' => $category->getSubpage()->getSlug()
-            ];
+            $categories->add(
+                [
+                    'name' => $category->getSubpage()->getSubpage()->getName(),
+                    'link' => $category->getSubpage()->getSlug()
+                ]
+            );
         }
+
+        $categories->add(
+            [
+                'name' => '<strong>Zobacz więcej</strong>',
+                'link' => '/kategorie',
+            ]
+        );
+
         return $categories;
     }
 
@@ -71,7 +90,7 @@ class FooterLinks implements FrontInitInterface
                 'links' => $this->getLatestShops(),
             ],
             'shops' => [
-                'group' => 'Sklepy',
+                'group' => 'Popularne Sklepy',
                 'links' => [
                     [
                         'name' => 'TaniaKsiazka',
@@ -103,6 +122,10 @@ class FooterLinks implements FrontInitInterface
                     ],
                 ],
             ],
+            'other_shops' => [
+                'group' => 'Inne sklepy',
+                'links' => $this->getGSCIndexesLinks(),
+            ],
             'categories' => [
                 'group' => 'Kategorie',
                 'links' => $this->getCategories(),
@@ -113,5 +136,23 @@ class FooterLinks implements FrontInitInterface
     public function getName(): string
     {
         return 'footer';
+    }
+
+    public function getGSCIndexesLinks()
+    {
+        $links = new ArrayCollection();
+
+        $models = $this->pagesManager->loadEntities(
+            $this->gscIndexesLinking->getLastGSCIndexesResources()
+        );
+
+        foreach ($models as $resource) {
+            $links->add([
+                'name' => $resource->getSubpage()->getSubpage()->getName(),
+                'link' => $resource->getSubpage()->getSlug()
+            ]);
+        }
+
+        return $links;
     }
 }

@@ -39,14 +39,17 @@ class GSCIndexesRepository extends GlobalRepository
      * @param int $count
      * @return static
      */
-    public function lastNotUsed(int $count): self
+    public function lastShopNotUsed(int $count): self
     {
         $this->queryBuilder
             ->setMaxResults($count)
             ->addOrderBy("{$this->getRootAlias()}.datetime", Criteria::ASC)
             ->addOrderBy("{$this->getRootAlias()}.url", Criteria::ASC)
             ->andWhere("{$this->getRootAlias()}.used = 0");
-        $this->addLeftJoin("subpage");
+        $leftSubpages = $this->addLeftJoin("subpage");
+        $leftResources = $this->addLeftJoin("resource", $leftSubpages);
+        $this->queryBuilder->andWhere("{$leftResources}.resourceType = 7");
+
         return $this;
     }
 

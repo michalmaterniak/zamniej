@@ -19,10 +19,10 @@
 
             </div>
           </div>
-          <div class="col-md-2 col-sm-2 col-xs-12" v-for="(group, index) in links" :key="index">
+          <div class="col-md-2 col-sm-2 col-xs-12" v-for="(group, index) in links" v-if="group && group.links.length > 0" :key="index">
             <h4 v-text="group.group"></h4>
             <p v-for="(link, indexLink) in group.links" :key="indexLink">
-              <nuxt-link :to="{path: link.link}" v-text="link.name"></nuxt-link>
+              <nuxt-link :to="{path: link.link}" v-html="link.name"></nuxt-link>
             </p>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12">

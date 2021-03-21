@@ -3,6 +3,7 @@
 namespace App\Application\LinkingInternal\GSCIndexes;
 
 use App\Entity\Entities\GSC\GSCIndexes;
+use App\Entity\Entities\Subpages\Resources;
 use App\Entity\Entities\Subpages\Subpages;
 use App\Repository\Repositories\GSC\GSCIndexesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -39,11 +40,24 @@ class GSCIndexesLinking
     }
 
     /**
+     * @return ArrayCollection|Resources[]
+     */
+    public function getLastGSCIndexesResources()
+    {
+        $resources = new ArrayCollection();
+        foreach ($this->getLastGSCIndexes() as $gscIndex) {
+            $resources->add($gscIndex->getSubpage()->getResource());
+        }
+
+        return $resources;
+    }
+
+    /**
      * @return GSCIndexes[]|ArrayCollection
      */
     public function getLastGSCIndexes()
     {
-        return $this->gscIndexesRepository->select()->lastNotUsed(
+        return $this->gscIndexesRepository->select()->lastShopNotUsed(
             $this->countGscIndexesLinks
         )->getResults();
     }
