@@ -18,6 +18,9 @@ export default {
     }
   },
   watch: {
+    $route (to, from){
+      this.searchText = '';
+    },
     searchText() {
       this.setKeywordText(this.searchText);
     }
