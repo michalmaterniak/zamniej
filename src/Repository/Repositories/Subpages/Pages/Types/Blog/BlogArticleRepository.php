@@ -26,7 +26,7 @@ class BlogArticleRepository extends PageRepository
         $this->addLeftJoin('files', $aliasRootSubpages);
         $this->addLeftJoin('content', $aliasRootSubpages);
 
-        $this->queryBuilder->orderBy("{$this->getRootAlias()}.datetimeCreate", "ASC");
+        $this->queryBuilder->orderBy("{$aliasRootSubpages}.datetimeCreate", "DESC");
 
         return $this;
     }
@@ -42,7 +42,7 @@ class BlogArticleRepository extends PageRepository
         $this->addLeftJoin('content', $aliasRootSubpages);
 
         $this->queryBuilder->setMaxResults($max)->orderBy("{$this->getRootAlias()}.idResource", "DESC");
-        $this->queryBuilder->orderBy("{$this->getRootAlias()}.datetimeCreate", "ASC");
+        $this->queryBuilder->orderBy("{$aliasRootSubpages}.datetimeCreate", "DESC");
         return $this;
     }
 
