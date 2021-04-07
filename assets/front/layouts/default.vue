@@ -19,12 +19,13 @@ import NavbarLeft from "@/components/Menu/NavbarLeft";
 import PopUpView from "@/components/Popup/PopUpView";
 import pages from "@/mixins/pages";
 import Debugbar from "@/components/Development/Debugbar/Debugbar";
+import SearchFields from "../components/Elements/Search/SearchFields";
 
 Vue.mixin(pages);
 
 export default {
   mixins:[pages],
-  components: {Debugbar, PopUpView, NavbarLeft, Navbar, FooterModule, Loader},
+  components: {SearchFields, Debugbar, PopUpView, NavbarLeft, Navbar, FooterModule, Loader},
   watch:{
     $route(to, from)
     {

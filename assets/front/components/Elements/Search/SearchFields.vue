@@ -91,10 +91,7 @@ export default {
           this.enable = true;
         } else if (res.data.count === 1) {
           this.$store.commit('setSearchContainerOpen', false);
-          this.$store.commit('setSearchKeyword', '');
           this.$router.push({path: res.data.shops[0].slug})
-        } else {
-          this.$store.commit('setSearchKeyword', '');
         }
       })
     },
