@@ -99,19 +99,19 @@ abstract class ShopsAffiliation implements EntityInterface
 
     /**
      * @var int $redirectCount
-     * @ORM\Column("resource-admin", name="redirect_count", type="integer", nullable=true)
+     * @ORM\Column(name="redirect_count", type="integer", nullable=true)
      */
     protected $redirectCount = 0;
 
     /**
      * @var bool $forceActive
-     * @ORM\Column("resource-admin", name="force_active", type="boolean", nullable=false)
+     * @ORM\Column(name="force_active", type="boolean", nullable=false)
      */
     protected $forceActive = false;
 
     /**
      * @var bool $forceDisable
-     * @ORM\Column("resource-admin", name="force_disable", type="boolean", nullable=false)
+     * @ORM\Column(name="force_disable", type="boolean", nullable=false)
      */
     protected $forceDisable = false;
 
