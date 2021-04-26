@@ -79,7 +79,7 @@ abstract class ShopsAffiliation implements EntityInterface
 
     /**
      * @var string $externalId
-     * @ORM\Column(name="external_id", type="string", length=700, nullable=true)
+     * @ORM\Column(name="external_id", type="string", length=700, nullable=true, options={"collate"="utf8mb4_bin"})
      * @Groups({"resource-admin", "program-admin"})
      */
     protected $externalId;

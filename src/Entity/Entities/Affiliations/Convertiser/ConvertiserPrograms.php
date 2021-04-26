@@ -16,7 +16,7 @@ class ConvertiserPrograms extends ShopsAffiliation
 {
     /**
      * @var string $id
-     * @ORM\Column(name="id", type="string", nullable=false)
+     * @ORM\Column(name="id", type="string", nullable=false, options={"collate"="utf8mb4_bin"})
      * @Groups({"program-admin"})
      */
     protected $id;
