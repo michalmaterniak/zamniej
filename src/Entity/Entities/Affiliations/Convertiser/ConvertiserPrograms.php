@@ -138,42 +138,42 @@ class ConvertiserPrograms extends ShopsAffiliation
      * @ORM\Column(name="policy_incentivized", type="boolean", nullable=false)
      * @Groups({"program-admin"})
      */
-    protected $policyIncentivized;
+    protected $policyIncentivized = false;
 
     /**
      * @var bool $policyCashback
      * @ORM\Column(name="policy_cashback", type="boolean", nullable=false)
      * @Groups({"program-admin"})
      */
-    protected $policyCashback;
+    protected $policyCashback = false;
 
     /**
      * @var bool $policyCoupons
      * @ORM\Column(name="policy_coupons", type="boolean", nullable=false)
      * @Groups({"program-admin"})
      */
-    protected $policyCoupons;
+    protected $policyCoupons = false;
 
     /**
      * @var bool $policySearchMarketing
      * @ORM\Column(name="policy_search_marketing", type="boolean", nullable=false)
      * @Groups({"program-admin"})
      */
-    protected $policySearchMarketing;
+    protected $policySearchMarketing = false;
 
     /**
      * @var bool $policyEmailMarketing
      * @ORM\Column(name="policy_email_marketing", type="boolean", nullable=false)
      * @Groups({"program-admin"})
      */
-    protected $policyEmailMarketing;
+    protected $policyEmailMarketing = false;
 
     /**
      * @var bool $policySocialMedia
      * @ORM\Column(name="policy_social_media", type="boolean", nullable=false)
      * @Groups({"program-admin"})
      */
-    protected $policySocialMedia;
+    protected $policySocialMedia = false;
 
     /**
      * @var array $geoTargets
@@ -194,7 +194,7 @@ class ConvertiserPrograms extends ShopsAffiliation
      * @ORM\Column(name="enforce_geo_targeting", type="boolean", nullable=false)
      * @Groups({"program-admin"})
      */
-    protected $enforceGeoTargeting;
+    protected $enforceGeoTargeting = false;
 
     /**
      * @var array $goals
