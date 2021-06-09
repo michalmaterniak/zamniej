@@ -29,7 +29,7 @@ class ConvertiserVouchers extends OffersAffiliation implements OfferVoucherInter
 
     /**
      * @var string $id
-     * @ORM\Column(name="id", type="string", length=50, nullable=false, unique=true, options={"collate"="utf8mb4_bin"})
+     * @ORM\Column(name="id", type="string", length=50, nullable=false, unique=true, options={"collation":"utf8mb4_bin"})
      */
     protected $id;
 
