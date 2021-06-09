@@ -3,6 +3,7 @@ namespace App\Controller\Front\Api;
 
 use App\Application\Pages\PagesManager;
 use App\Controller\Front\Api\AbstractController as GlobalController;
+use App\Entity\Entities\Subpages\Subpages;
 use App\Services\System\Request\Retrievers\RequestData\RequestPostContentData;
 use App\Twig\TemplateVars;
 use ErrorException;
@@ -56,4 +57,18 @@ class MainController extends GlobalController
             return $this->responseJson();
         }
     }
+
+    /**
+     * @param Subpages $subpage
+     * @return JsonResponse
+     * @Route("/page/api/subpage-content/{subpage}", name="page-api-subpage-content", methods={"POST"})
+     */
+    public function content(Subpages $subpage) {
+        return $this->json(
+            [
+                'content' => $subpage->getContent()->getContent(true)
+            ]
+        );
+    }
+
 }

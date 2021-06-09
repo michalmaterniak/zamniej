@@ -3,6 +3,7 @@ namespace App\Entity\Entities\System;
 
 use App\Entity\Interfaces\EntityInterface;
 use App\Entity\Traits\DataTrait;
+use App\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -13,6 +14,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class Contents implements EntityInterface
 {
+    protected static $nowDatetime;
+
     /**
      * @var int $idContent
      * @ORM\Column(name="id_content", type="integer", nullable=false)
@@ -29,7 +32,15 @@ class Contents implements EntityInterface
      */
     protected $content = '';
 
+    /**
+     * @var \DateTime $created
+     * @ORM\Column(name="disable_new_content", type="boolean", options={"default" : "0"})
+     */
+    protected $disableNewContent = false;
+
     use DataTrait;
+
+    use TimestampTrait;
 
     /**
      * @return int
@@ -48,12 +59,18 @@ class Contents implements EntityInterface
     }
 
     /**
+     * @param bool $force
      * @return string
      */
-    public function getContent(): string
+    public function getContent(bool $force = false): string
     {
-        return $this->content;
+        if (!$this->disableNewContent || $force) {
+            return $this->content;
+        }
+
+        return '';
     }
+
 
     /**
      * @param string $content
@@ -61,10 +78,12 @@ class Contents implements EntityInterface
     public function setContent(string $content): void
     {
         $this->content = $content;
+        $this->disableNewContent = true;
     }
+
     public function __toString()
     {
-        return $this->content;
+        return $this->getContent();
     }
 
     /**

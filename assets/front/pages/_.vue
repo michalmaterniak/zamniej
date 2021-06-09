@@ -11,6 +11,7 @@
     watch:{
       $route(to, from)
       {
+        this.forceContent();
         this.$fullPathToLowercase();
       }
     },
@@ -35,6 +36,30 @@
           return this.model.subpage.seo.description;
         return '';
       },
+    },
+    methods:{
+      forceContent() {
+        if (location.hash && location.hash === '#force-content') {
+          localStorage.setItem('forceContent', '1');
+        }
+
+        if (Boolean(localStorage.getItem('forceContent')) && !this.$store.getters.model.subpage.content.content) {
+          setTimeout(() => {
+              this.$axios({
+                url: '/page/api/subpage-content/' + this.$store.getters.model.subpage.subpage.idSubpage,
+                method: 'POST',
+                responseType: 'json'
+              }).then(res => {
+                this.$store.commit('changeValueCurrentSubpage', {
+                  path: 'content.content',
+                  value: res.data.content,
+                  forceCreate: true
+                })
+              })
+          }, 1000)
+        }
+
+      }
     },
     asyncData (context) {
       context.store.commit('setLoader', true);
@@ -102,6 +127,7 @@
       this.$fullPathToLowercase();
     },
     mounted() {
+      this.forceContent();
       setTimeout(() => {
         this.checkPopupPromo();
       }, 300);
