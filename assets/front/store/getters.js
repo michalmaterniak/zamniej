@@ -49,5 +49,8 @@ export default {
   },
   isSearchContainer: state => {
     return state.search.isSearchContainer;
+  },
+  isMainContentShop: state => {
+    return Boolean(state.models[state.currentKeyModel].subpage.content.content);
   }
 }
