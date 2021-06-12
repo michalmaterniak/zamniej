@@ -56,9 +56,14 @@
                 </div>
               </div>
             </div>
-            <div class="row" v-if="isContent">
+            <div class="row" v-if="$store.getters.isMainContentShop">
               <div class="col-md-12 col-sm-12 col-xs-12 lazy-hidden-xs">
-                <div v-html="model.subpage.content.content"></div>
+                <div v-html="$store.getters.model.subpage.content.content"></div>
+              </div>
+            </div>
+            <div class="row" v-else-if="forcedContent">
+              <div class="col-md-12 col-sm-12 col-xs-12 lazy-hidden-xs">
+                <div v-html="forcedContent"></div>
               </div>
             </div>
             <div class="row">
@@ -113,16 +118,19 @@ export default {
     OpinionsComments, ShopOffersList, ShopOffersGrid, ButtonDetails, RatingShop, BreadCrumbs},
   data() {
     return {
+      forcedContent: null,
       shopDetailsHeight: null,
       contactShow: false,
       isPopupDetailShop: false
     }
   },
+  watch:{
+    $route(to, from)
+    {
+      this.forceContent();
+    }
+  },
   computed: {
-    isContent() {
-      return  Boolean(this.model.subpage.content.content);
-    },
-
     offersActual()
     {
       let dateNow = new Date();
@@ -159,6 +167,24 @@ export default {
     },
   },
   methods: {
+    forceContent() {
+      if (location.hash && location.hash === '#force-content') {
+        localStorage.setItem('forceContent', '1');
+      }
+
+      if (Boolean(localStorage.getItem('forceContent')) && !this.$store.getters.model.subpage.content.content) {
+        setTimeout(() => {
+          this.$axios({
+            url: '/page/api/subpage-content/' + this.$store.getters.model.subpage.subpage.idSubpage,
+            method: 'POST',
+            responseType: 'json'
+          }).then(res => {
+            this.forcedContent = res.data.content;
+          })
+        }, 1000)
+      }
+
+    },
     redirectEmpty() {
       this.$gtagEv({
         action: 'redirect',
@@ -243,6 +269,8 @@ export default {
     },
   },
   mounted() {
+    this.forceContent();
+
     let buttonShopDetails = document.getElementById('open-button-shop-details')
     if (buttonShopDetails)
       this.shopDetailsHeight = buttonShopDetails.getBoundingClientRect().y;
