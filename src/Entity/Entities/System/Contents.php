@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Contents
  * @ORM\Table(name="contents")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Contents implements EntityInterface
 {
@@ -103,5 +104,21 @@ class Contents implements EntityInterface
     public function setExtra($data, ?string $key = null)
     {
         $this->setData($data, $key);
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDisableNewContent(): \DateTime|bool
+    {
+        return $this->disableNewContent;
+    }
+
+    /**
+     * @param \DateTime $disableNewContent
+     */
+    public function setDisableNewContent(\DateTime|bool $disableNewContent): void
+    {
+        $this->disableNewContent = $disableNewContent;
     }
 }

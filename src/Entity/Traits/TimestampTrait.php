@@ -29,14 +29,6 @@ trait TimestampTrait
     }
 
     /**
-     * @param \DateTime $modified
-     */
-    public function setModified(\DateTime $modified): void
-    {
-        $this->modified = $modified;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getCreated(): \DateTime
@@ -45,19 +37,12 @@ trait TimestampTrait
     }
 
     /**
-     * @param \DateTime $created
+     * @ORM\PrePersist
      */
-    public function setCreated(\DateTime $created): void
-    {
-        $this->created = $created;
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setModifiedOn()
+    public function _setCreatedOn()
     {
         $this->created = new \DateTime();
+        $this->modified = new \DateTime();
     }
 
 }
