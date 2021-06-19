@@ -1,3 +1,5 @@
+import {BModal} from "bootstrap-vue";
+
 export default {
   setDebug (state, payload) {
     state.debug.active = true;
@@ -27,41 +29,38 @@ export default {
 
     state.popup.data = payload.data ? payload.data : {};
     state.popup.options = payload.options ? payload.options : {};
-    if (payload.template)
-      $('#MainModal').modal('show');
-    else
-      $('#MainModal').modal('hide');
+    if (payload.template) {
+      $('#MainModal').css('display', 'block').css('opacity', 1);
+      $('body').addClass('modal-open');
+    }
+    else {
+      $('#MainModal').css('display', 'none').css('opacity', 0);
+      $('body').removeClass('modal-open');
+    }
   },
   setInitFront(state, payload) {
     state.initFront.data = payload;
     state.initFront.init = true;
   },
-  setResponsiveMenu(state, payload)
-  {
-    state.responsiveShopMenu = payload;
-  },
-  setResponsiveMenuToggle(state) {
-    state.responsiveShopMenu = !state.responsiveShopMenu;
-  },
   setRating(state, payload) {
     state.models[state.currentKeyModel].rating = payload;
   },
   changeValueModel(state, payload) {
-    if (_.get(state.models[state.currentKeyModel], payload.path) || payload.forceCreate === true)
+    if(_.get(state.models[state.currentKeyModel], payload.path) || payload.forceCreate === true)
       _.set(state.models[state.currentKeyModel], payload.path, payload.value);
   },
   changeValueCurrentSubpage(state, payload) {
-    if (_.get(state.models[state.currentKeyModel].subpage, payload.path) || payload.forceCreate === true)
+    if(_.get(state.models[state.currentKeyModel].subpage, payload.path) || payload.forceCreate === true)
       _.set(state.models[state.currentKeyModel].subpage, payload.path, payload.value);
   },
-  setSearchKeyword(state, searchText) {
-    state.search.keywordsSearch = searchText;
+  setLeftSidebar(state, payload) {
+    state.sidebar.left = payload;
   },
-  setSearchShops(state, shops) {
-    state.search.shops = shops;
+  setRightSidebar(state, payload) {
+    state.sidebar.right = payload;
   },
-  setFavoriteShop(state, shops) {
-    state.favoriteShops = shops;
+  setSearchOpen(state, payload) {
+    state.isSearchOpen = payload;
   },
   addFavoriteShop(state, shop) {
     state.favoriteShops.push(shop.subpage);
@@ -76,7 +75,7 @@ export default {
       localStorage.setItem('favoriteShops', JSON.stringify(state.favoriteShops));
     }
   },
-  setSearchContainerOpen(state, payload) {
-    state.search.isSearchContainer = payload;
+  setFavoriteShop(state, shops) {
+    state.favoriteShops = shops;
   }
 }

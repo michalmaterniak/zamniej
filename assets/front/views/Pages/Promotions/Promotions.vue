@@ -1,6 +1,6 @@
 <template>
   <div v-if="$store.getters.typePage === 'Pages-Promotions-Promotions'">
-    <div id="container-deals" class="deals bg padTB60">
+    <div id="container">
       <div class="masonry masonry-columns-5">
         <div class="masonry-item" :key="index" v-for="(offer, index) in offers">
           <grid-promotions :offer="offer"/>
@@ -13,14 +13,13 @@
 </template>
 
 <script>
-import RatingShopShowing from "@/components/Elements/Rating/RatingShopShowing";
 import GridPromotions from "@/views/Pages/Promotions/Grid/GridPromotions";
 import InfinityScrollObserver from "@/components/Observers/InfinityScrollObserver";
 
 export default {
   name: "Promotions",
   components: {
-    InfinityScrollObserver, GridPromotions, RatingShopShowing,
+    InfinityScrollObserver, GridPromotions,
   },
   data() {
     return {
@@ -28,7 +27,6 @@ export default {
       page: 1,
     }
   },
-
   methods: {
     changePage() {
       this.getPage('promotions', {page: this.page+1}, false).then(res => {

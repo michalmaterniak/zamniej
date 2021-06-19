@@ -21,7 +21,10 @@ import CodeClipboard from "@/components/Popup/Components/CodeClipboard";
 export default {
   name: "ContentPromotionOffer",
   components: {CodeClipboard},
-  props:['offer']
+  props:['offer'],
+  created() {
+    console.log(this.offer);
+  }
 }
 </script>
 

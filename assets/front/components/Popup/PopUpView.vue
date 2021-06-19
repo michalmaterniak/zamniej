@@ -1,12 +1,13 @@
 <template>
-    <!-- Modal -->
-    <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="mainModalLabel"
-         :aria-hidden="true"  data-keyboard="false" data-backdrop="static" @click.stop="closeClickOutside" @keydown.esc="closeKeyEsc">
-        <div class="modal-dialog" :class="classDialog" :style="styleDialog" role="document">
-            <component :is="template" :title="title" :data="dataPopup" :options="options" />
-        </div>
+  <!--modal popup start-->
+  <div id="MainModal" aria-hidden="true" class="modal fade bd-example-modal-lg theme-modal" role="dialog"
+       @click.stop="closeClickOutside" @keydown.esc="closeKeyEsc"
+       tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <component :is="template" :title="title" :data="dataPopup" :options="options" />
     </div>
-    <!-- Modal -->
+  </div>
+  <!--modal popup end-->
 </template>
 
 <script>
@@ -21,7 +22,7 @@
       {
         blockedExit()
         {
-          if (this.options.blockedExit && this.options.blockedExit === true)
+          if(this.options.blockedExit && this.options.blockedExit === true)
             return true;
           else
             return false;
@@ -74,6 +75,9 @@
 </script>
 
 <style scoped>
+    #main-modal {
+      opacity: 1;
+    }
     .fullWidth {
         width: 85% !important;
     }
@@ -83,5 +87,4 @@
     .maxWidth75 {
         width: 75% !important;
     }
-
 </style>

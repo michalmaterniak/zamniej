@@ -5,9 +5,7 @@
 </template>
 
 <script>
-  import PopUpView from "@/components/Popup/PopUpView";
   export default {
-    components: {PopUpView},
     watch:{
       $route(to, from)
       {
@@ -35,8 +33,6 @@
           return this.model.subpage.seo.description;
         return '';
       },
-    },
-    methods:{
     },
     asyncData (context) {
       context.store.commit('setLoader', true);
@@ -107,13 +103,21 @@
       setTimeout(() => {
         this.checkPopupPromo();
       }, 300);
+      self = this;
+      window.addEventListener('scroll', function handler() {
+        self.$lazyHide();
+        this.removeEventListener('scroll', handler);
+      });
+    },
+    updated() {
+      this.$eachMounted();
     },
     head () {
       return {
         title: this.title,
         meta: [
           { hid: 'description', name: 'description', content: this.description }
-        ],
+        ]
       }
     },
   }

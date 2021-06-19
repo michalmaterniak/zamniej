@@ -3,7 +3,7 @@ export default {
     offerShopLiking(payload)
     {
       let index = _.findIndex(this.$store.getters.model.subpage.offersPromo, offer => {
-        return this.offer.offer.idOffer === offer.offer.idOffer;
+        return this.offer.idOffer === offer.offer.idOffer;
       })
 
       this.$store.commit('changeValueModel', {
@@ -13,7 +13,7 @@ export default {
     },
     offerLiking(payload)
     {
-      this.offer.offer.liking = payload.liking;
+      this.offer.liking = payload.liking;
     }
   }
 }

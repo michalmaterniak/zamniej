@@ -1,31 +1,34 @@
 <template>
   <div>
     <loader/>
-    <navbar-left/>
-    <search-fields v-if="isSearchContainer"/>
+    <navbar/>
+    <bread-crumb/>
     <nuxt/>
-    <footer-module/>
+    <main-footer/>
+    <tap-top/>
     <pop-up-view/>
+<!--    <modal/>-->
     <debugbar v-if="debugActive"/>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import Loader from "@/components/Loader/Loader";
-import FooterModule from "@/components/Footer/Footer";
-import Navbar from "@/components/Menu/Navbar";
-import NavbarLeft from "@/components/Menu/NavbarLeft";
-import PopUpView from "@/components/Popup/PopUpView";
 import pages from "@/mixins/pages";
 import Debugbar from "@/components/Development/Debugbar/Debugbar";
-import SearchFields from "../components/Elements/Search/SearchFields";
+import Navbar from "@/layouts/default/Navbar";
+import Loader from "@/components/Loader/Loader";
+import TapTop from "@/components/Tap/TapTop";
+import MainFooter from "@/layouts/default/MainFooter";
+import BreadCrumb from "@/layouts/default/BreadCrumb";
+import PopUpView from "@/components/Popup/PopUpView";
+import Modal from "@/components/Modal/Modal";
 
 Vue.mixin(pages);
 
 export default {
   mixins:[pages],
-  components: {SearchFields, Debugbar, PopUpView, NavbarLeft, Navbar, FooterModule, Loader},
+  components: {PopUpView, BreadCrumb, MainFooter, TapTop, Loader, Navbar, Debugbar, Modal},
   watch:{
     $route(to, from)
     {
@@ -35,9 +38,6 @@ export default {
     }
   },
   computed:{
-    isSearchContainer() {
-      return this.$store.getters.searchKeyword.length >= 3 || (this.$store.getters.isSearchContainer && this.$store.getters.favoriteShops.length > 0);
-    },
     debugActive(){
       return this.$store.getters.debug.active && process.env.NODE_ENV === 'development';
     }

@@ -8,16 +8,13 @@ export default {
   debug: state => {
     return state.debug;
   },
-  isResponsiveMenu: state => {
-    return state.responsiveShopMenu;
-  },
   initFront: state => {
     return state.initFront
   },
   isSetInitFront: state => {
     return state.initFront.init === true;
   },
-  loader: state => {
+  isLoader: state => {
     return state.loader;
   },
   model: state => {
@@ -27,6 +24,9 @@ export default {
     return !!state.models[key];
   },
   typePage: state => {
+    if (!state.models[state.currentKeyModel]) {
+      return false;
+    }
     return state.models[state.currentKeyModel].resourceType;
   },
   currentLocale: state => {
@@ -38,19 +38,13 @@ export default {
   getPopup: state => {
     return state.popup;
   },
-  searchKeyword: state => {
-    return state.search.keywordsSearch;
+  leftSidebar: state => {
+    return state.sidebar.left;
   },
-  searchShops: state => {
-    return state.search.shops;
+  isSearchOpen: state => {
+    return state.isSearchOpen;
   },
   favoriteShops: ({ favoriteShops }) => {
     return favoriteShops;
-  },
-  isSearchContainer: state => {
-    return state.search.isSearchContainer;
-  },
-  isMainContentShop: state => {
-    return Boolean(state.models[state.currentKeyModel].subpage.content.content);
   }
 }

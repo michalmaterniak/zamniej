@@ -1,13 +1,12 @@
-export default function ({$axios, route, redirect}) {
+export default function (context) {
   if (process.server) {
     //console.log('server');
-    if (route.fullPath === '/sklepy') {
-      redirect('/sklepy?letter=0')
-    }
-  } else {
+  }
+  else
+  {
 
   }
-  $axios.defaults.validateStatus = (status) => {
+  context.$axios.defaults.validateStatus = (status) => {
     return true;
   };
 }

@@ -26,38 +26,75 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/page/icon64x64.png' }
-    ]
+      { rel: 'icon', type: 'image/x-icon', href: '/page2/icon64x64.png' }
+    ],
+    noscript: [
+      { innerHTML: "<style>div.loader_skeleton {display: none;}</style>"}
+    ],
+    __dangerouslyDisableSanitizers: ['noscript']
   },
   loading: false,
   router:{
     middleware: ['middleware'],
   },
   /*
+  ** Build configuration
+  ** See https://nuxtjs.org/api/configuration-build/
+  */
+  build: {
+    vendor: ['jquery', 'popper.js', 'lodash', 'bootstrap'],
+    plugins: [
+      // set shortcuts as global for bootstrap
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        jquery: 'jquery',
+        'window.jQuery': 'jquery',
+        _: 'lodash',
+        bootstrap: 'bootstrap'
+      })
+    ],
+
+
+    /*
+    ** You can extend webpack config here
+    */
+    extend (config, ctx) {
+    }
+  },
+  /*
   ** Global CSS
   */
   css: [
-    '@/assets/css/bootstrap.min.css',
-    '@/assets/css/style.css',
-    '@/assets/css/color.css',
-    'vue-glide-js/dist/vue-glide.css',
-    '@fortawesome/fontawesome-svg-core/styles.css',
+    '@/assets/css/fontawesome.css',
+    '@/assets/css/slick.css',
+    '@/assets/css/slick-theme.css',
+    '@/assets/css/animate.css',
+    '@/assets/css/themify-icons.css',
+    '@/node_modules/bootstrap/dist/css/bootstrap.css',
+    '@/assets/css/color1.css'
   ],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    { src: '~/assets/js/bootstrap.min.js', mode: 'client' },
-    { src: '~/assets/plugins/owl-carousel/js/owl.carousel.min.js', mode: 'client' },
-    // { src: '~/assets/plugins/megamenu/js/hover-dropdown-menu.js', mode: 'client' },
-    // { src: '~/assets/plugins/megamenu/js/jquery.hover-dropdown-menu-addon.js', mode: 'client' },
-    { src: '~/assets/js/main.js', mode: 'client' },
+    // { src: '~/assets/js/jquery-3.3.1.min.js', mode: 'client' },
+    // { src: '~/assets/js/popper.min.js', mode: 'client' },
+    { src: '@/plugins/main.js' },
     { src: '@/plugins/main.client.js' },
     { src: '@/plugins/main.server.js' },
-    { src: '@/plugins/main.js' },
-    { src: '@/plugins/swipe.js', mode: 'client'  },
     { src: '@/plugins/functions.js' },
+    { src: '~/node_modules/bootstrap/dist/js/bootstrap.js', mode: 'client' },
+    { src: '~/assets/js/jquery-ui.min.js', mode: 'client' },
+    { src: '~/assets/js/jquery.exitintent.js', mode: 'client' },
+    // { src: '~/assets/js/exit.js', mode: 'client' },
+    // { src: '~/assets/js/slick.js', mode: 'client' },
+    { src: '~/assets/js/menu.js', mode: 'client' },
+    { src: '~/assets/js/lazysizes.min.js', mode: 'client' },
+    { src: '~/assets/js/bootstrap-notify.min.js', mode: 'client' },
+    { src: '~/assets/js/fly-cart.js', mode: 'client' },
+    { src: '~/assets/js/script.js', mode: 'client' },
   ],
   /*
   ** Auto import components
@@ -92,8 +129,8 @@ export default {
       }
     ],
     ['nuxt-lazy-load', {
-      defaultImage: '/page/placeholder.svg',
-    }],
+      defaultImage: '/page2/images/ajax-loader.gif',
+    }]
   ],
   pwa: {
     meta: {
@@ -101,7 +138,7 @@ export default {
       author: 'Michał Materniak COMMIT-M',
     },
     icon: {
-      source: '/page/icon.png'
+      source: '/page2/images/icon/2.png'
     },
     manifest: {
       name: 'ZaMniej.pl',
@@ -112,18 +149,8 @@ export default {
       background_color:	"#ffffff",
       icons:[
         {
-          src: '/page/icon64x64.png',
-          sizes: '64x64',
-          type: 'image/png'
-        },
-        {
-          src: '/page/icon128x128.png',
-          sizes: '128x128',
-          type: 'image/png'
-        },
-        {
-          src: '/page/icon512x512.png',
-          sizes: '512x512',
+          src: '/page2/images/icon/2.png',
+          sizes: '10x10',
           type: 'image/png'
         }
       ]
@@ -148,29 +175,5 @@ export default {
     } : {},
     baseURL: process.env.NODE_ENV === 'production' ? process.env.PROD_HOST : process.env.DEV_HOST
     // baseURL: process.env.NODE_ENV === 'production' ? 'http://zamniej.loc/' : 'http://zamniej.loc/'
-  },
-  /*
-  ** Build configuration
-  ** See https://nuxtjs.org/api/configuration-build/
-  */
-  build: {
-    vendor: ['jquery', 'bootstrap', 'lodash'],
-    plugins: [
-      // set shortcuts as global for bootstrap
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        jquery: 'jquery',
-        'window.jQuery': 'jquery',
-        _: 'lodash'
-      })
-    ],
-
-
-    /*
-    ** You can extend webpack config here
-    */
-    extend (config, ctx) {
-    }
   }
 }
