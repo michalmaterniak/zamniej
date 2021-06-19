@@ -88,10 +88,14 @@ class OffersRepository extends GlobalRepository
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function actualOffer()
     {
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.datetimeFrom < :dateNow AND ({$this->getRootAlias()}.datetimeTo > :dateNow OR {$this->getRootAlias()}.datetimeTo IS NULL) ")
             ->setParameter('dateNow', new DateTime());
+        return $this;
     }
 
     public function fullOffer(): self
@@ -219,8 +223,10 @@ class OffersRepository extends GlobalRepository
     public function listingHomepage(): self
     {
         $this->orderBy(['datetimeFrom' => 'DESC', 'datetimeCreate' => 'DESC']);
-        $this->withPhoto()->withShopAffil()->withContent()->lastMax(16);
+        $this->actualOffer()->withPhoto()->withShopAffil()->withContent()->lastMax(16);
         $aliasRootSubpages = $this->addLeftJoin('subpage');
+        $this->addLeftJoin('resource', $aliasRootSubpages);
+
         $this->queryBuilder->andWhere("{$aliasRootSubpages}.active = 1");
 
         return $this;

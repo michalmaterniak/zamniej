@@ -33,12 +33,6 @@ class Contents implements EntityInterface
      */
     protected $content = '';
 
-    /**
-     * @var \DateTime $created
-     * @ORM\Column(name="disable_new_content", type="boolean", options={"default" : "0"})
-     */
-    protected $disableNewContent = false;
-
     use DataTrait;
 
     use TimestampTrait;
@@ -65,11 +59,7 @@ class Contents implements EntityInterface
      */
     public function getContent(bool $force = false): string
     {
-        if (!$this->disableNewContent || $force) {
-            return $this->content;
-        }
-
-        return '';
+        return $this->content;
     }
 
 
@@ -106,19 +96,4 @@ class Contents implements EntityInterface
         $this->setData($data, $key);
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDisableNewContent(): \DateTime|bool
-    {
-        return $this->disableNewContent;
-    }
-
-    /**
-     * @param \DateTime $disableNewContent
-     */
-    public function setDisableNewContent(\DateTime|bool $disableNewContent): void
-    {
-        $this->disableNewContent = $disableNewContent;
-    }
 }

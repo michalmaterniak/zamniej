@@ -26,7 +26,8 @@ class CategoryRepository extends CustomResourceRepository
      */
     public function listingCategories(): self
     {
-        $this->addLeftJoin('subpages');
+        $this->queryBuilder->andWhere("{$this->addLeftJoin('subpages')}.active = 1");
+
         $this->addLeftJoin('files');
         return $this;
     }

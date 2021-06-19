@@ -60,30 +60,6 @@ class HomepageSubpage extends ResourceSubpage
     }
 
     /**
-     * @param string|null $name
-     * @return
-     */
-    protected function getSliders(string $name = null)
-    {
-        if(!$this->sliders)
-        {
-            $this->sliders = new ArrayCollection();
-            foreach ($this->getComponents()->getSliderRepository()->select()->getSlidersByNames([
-                'homepage_sliders',
-            ])->getResults() as $slider)
-            {
-                $this->sliders->set($slider->getName(), $slider);
-            }
-        }
-
-        if($name)
-            return $this->sliders->get($name);
-        else
-            return $this->sliders;
-
-    }
-
-    /**
      * @return Offer[]|OfferPromotion[]|ArrayCollection
      * @Groups({"resource"})
      */
@@ -100,6 +76,9 @@ class HomepageSubpage extends ResourceSubpage
                 $this->promotions->add([
                     'idOffer' => $promotion->getOffer()->getIdOffer(),
                     'title' => $promotion->getOffer()->getTitle(),
+                    'slug' => $this->getComponents()->getResourcesManager()->loadEntity(
+                        $promotion->getOffer()->getSubpage()->getResource()
+                    )->getSubpage()->getSlug(),
                     'shop' => $promotion->getOffer()->getSubpage()->getName(),
                     'logo' => $promotion->getPhoto()->getModifiedPhoto('insertCenter', 292, 292),
                 ]);
@@ -148,7 +127,7 @@ class HomepageSubpage extends ResourceSubpage
      * @return ArrayCollection
      * @Groups({"resource"})
      */
-    public function getBlogLatest(int $max = 3)
+    public function getBlogLatest(int $max = 4)
     {
         if (!$this->blog) {
             $articles = $this->getComponents()->getResourcesManager()->loadBlogArticles(
@@ -158,9 +137,8 @@ class HomepageSubpage extends ResourceSubpage
             foreach ($articles as $article) {
                 $this->blog->add([
                     'name' => $article->getSubpage()->getSubpage()->getName(),
-                    'logo' => $article->getSubpage()->getPhoto()->getModifiedPhoto('adaptive', 360, 242),
+                    'logo' => $article->getSubpage()->getPhoto()->getModifiedPhoto('fit', 320, 320),
                     'slug' => $article->getSubpage()->getSlug(),
-                    'content' => $article->getSubpage()->getContent(),
                     'date' => $article->getSubpage()->getSubpage()->getDatetimeCreate(),
                 ]);
             }
@@ -177,14 +155,15 @@ class HomepageSubpage extends ResourceSubpage
         if (!$this->vouchers) {
             $vouchers = $this->getComponents()->getOffersManager()->createModelsOffers(
                 $this->getComponents()->getOffersRepository()->select()->listingHomepage()->getTypeOffer(OffersVoucher::class)->getResults()
-
             );
 
             $this->vouchers = new ArrayCollection();
-
             foreach ($vouchers as $voucher) {
                 $this->vouchers->add([
                     'idOffer' => $voucher->getOffer()->getIdOffer(),
+                    'slug' => $this->getComponents()->getResourcesManager()->loadEntity(
+                        $voucher->getOffer()->getSubpage()->getResource()
+                    )->getSubpage()->getSlug(),
                     'title' => $voucher->getOffer()->getTitle(),
                     'content' => $voucher->getOffer()->getContent()->getContent(),
                     'logo' => $voucher->getPhoto()->getModifiedPhoto('insertCenter', 292, 292),
@@ -193,29 +172,4 @@ class HomepageSubpage extends ResourceSubpage
         }
         return $this->vouchers;
     }
-
-    /**
-     * @return Slide[]|ArrayCollection
-     * @Groups({"resource"})
-     */
-    public function getMainSlider()
-    {
-        if (!$this->mainSlider) {
-            $this->mainSlider = new ArrayCollection();
-            $this->sliders = $this->getComponents()->getSliderRepository()->indexByName()->mainSlider()->getResults();
-
-            foreach ($this->sliders->get('homepage_sliders')->getSlides() as $slide) {
-                $slideModel = $this->getComponents()->getSlide()->createSlide($slide);
-                $this->mainSlider->add([
-                    'header' => $slideModel->getSlide()->getHeader(),
-                    'type' => $slideModel->getSlide()->getType(),
-                    'idOffer' => $slideModel->getSlide()->getOffer()->getIdOffer(),
-                    'photo' => $slideModel->getPhoto()->getModifiedPhoto('resize', 848, 290, []),
-                ]);
-            }
-        }
-
-        return $this->mainSlider;
-    }
-
 }

@@ -48,7 +48,7 @@ class ShopsSearch
 
         return $this->searchAdapter->getSearchShops(
             $this->modelPagesManager->loadShops(
-                $this->shopsRepository->select()->findByText($this->text)->getResults()
+                $this->shopsRepository->select()->findSearched($this->text)->getResults()
             )
         );
     }

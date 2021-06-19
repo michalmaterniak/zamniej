@@ -39,7 +39,6 @@ class BlogArticleRepository extends PageRepository
     {
         $aliasRootSubpages = $this->addLeftJoin('subpages');
         $this->addLeftJoin('files', $aliasRootSubpages);
-        $this->addLeftJoin('content', $aliasRootSubpages);
 
         $this->queryBuilder->setMaxResults($max)->orderBy("{$this->getRootAlias()}.idResource", "DESC");
         $this->queryBuilder->orderBy("{$aliasRootSubpages}.datetimeCreate", "DESC");

@@ -35,6 +35,7 @@ class OpinionsController extends AbstractController
                 'rating' => $shopModel->getRating(),
             ], 200);
         } catch (\ErrorException $exception) {
+            dump($exception);
             return $this->json([
                 'message' => $exception->getMessage(),
             ], 500);

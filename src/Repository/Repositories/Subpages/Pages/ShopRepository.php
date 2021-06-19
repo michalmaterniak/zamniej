@@ -4,6 +4,7 @@ namespace App\Repository\Repositories\Subpages\Pages;
 use App\Application\Pages\Shop\ShopConfig;
 use App\Entity\Entities\Subpages\Resources;
 use App\Repository\Repositories\Subpages\CustomResourceRepository;
+use App\Repository\Repositories\Subpages\SubpagesRepository;
 use App\Repository\Services\ServicesRepositoriesManager;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -31,8 +32,10 @@ class ShopRepository extends CustomResourceRepository
     public function listingCategory(): self
     {
         $this->active();
+        $this->addLeftJoin('content');
         $aliasRootSubpages = $this->addLeftJoin('subpages');
         $this->addLeftJoin('files', $aliasRootSubpages);
+        $this->addLeftJoin('content', $aliasRootSubpages);
         return $this;
     }
 
@@ -79,12 +82,14 @@ class ShopRepository extends CustomResourceRepository
      * @param string $text
      * @return $this
      */
-    public function findByText(string $text)
+    public function findSearched(string $text)
     {
         $leftRootSubpages = $this->addLeftJoin('subpages');
         $this->addLeftJoin('files', $leftRootSubpages);
 
         $this->queryBuilder->andWhere("{$leftRootSubpages}.name LIKE :text")->setParameter('text', "%$text%");
+        $this->queryBuilder->andWhere("{$leftRootSubpages}.active = 1");
+
         return $this;
     }
 
@@ -98,6 +103,17 @@ class ShopRepository extends CustomResourceRepository
         $this->addLeftJoin('files', $leftRootSubpages);
 
         $this->queryBuilder->andWhere("{$leftRootSubpages}.idSubpage = :id")->setParameter('id', $idSubpage);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function contentNotNull() {
+        $subpage = $this->addLeftJoin('subpages');
+        $content = $this->addLeftJoin('content', $subpage);
+
+        $this->queryBuilder->andWhere("{$content}.content != ''");
         return $this;
     }
 }

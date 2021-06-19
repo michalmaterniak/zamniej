@@ -9,7 +9,7 @@
             <div class="row" v-if="offersActual.length > 0">
               <div class="col-md-12 box1 marB30">
                 <div class="section-box section-box-white">
-                  <div class="boxbg">
+                  <div  class="boxbg">
                     <div class="row equal-row">
                       <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                         <font-awesome-icon class="icon-h1" icon="shopping-cart" />
