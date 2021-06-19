@@ -1,97 +1,181 @@
 <template>
-  <div>
-    <div :class="{'loaderout' : !loader}" class='preloader' id="preloader">
-      <div class='loader-center'>
-        <div class='loader'>
-          <div class='circle circle-1'></div>
-          <div class='circle circle-2'></div>
-          <div class='circle circle-3'></div>
-          <div class='circle circle-4'></div>
+  <!-- loader start -->
+  <div class="loader_skeleton" v-show="isLoader">
+<!--    <top-header/>-->
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <main-menu :is-loader="true"/>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="home-slider">
+      <div class="home"></div>
+    </div>
+    <section class="collection-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="ldr-bg">
+              <div class="contain-banner">
+                <div>
+                  <h4></h4>
+                  <h2></h2>
+                  <h6></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="ldr-bg">
+              <div class="contain-banner">
+                <div>
+                  <h4></h4>
+                  <h2></h2>
+                  <h6></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="container section-b-space">
+      <div class="row section-t-space">
+        <div class="col-lg-6 offset-lg-3">
+          <div class="product-para">
+            <p class="first"></p>
+            <p class="second"></p>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="no-slider row">
+            <div class="product-box">
+              <div class="img-wrapper"></div>
+              <div class="product-detail">
+                <h4></h4>
+                <h5></h5>
+                <h5 class="second"></h5>
+                <h6></h6>
+              </div>
+            </div>
+            <div class="product-box">
+              <div class="img-wrapper"></div>
+              <div class="product-detail">
+                <h4></h4>
+                <h5></h5>
+                <h5 class="second"></h5>
+                <h6></h6>
+              </div>
+            </div>
+            <div class="product-box">
+              <div class="img-wrapper"></div>
+              <div class="product-detail">
+                <h4></h4>
+                <h5></h5>
+                <h5 class="second"></h5>
+                <h6></h6>
+              </div>
+            </div>
+            <div class="product-box">
+              <div class="img-wrapper"></div>
+              <div class="product-detail">
+                <h4></h4>
+                <h5></h5>
+                <h5 class="second"></h5>
+                <h6></h6>
+              </div>
+            </div>
+            <div class="product-box">
+              <div class="img-wrapper"></div>
+              <div class="product-detail">
+                <h4></h4>
+                <h5></h5>
+                <h5 class="second"></h5>
+                <h6></h6>
+              </div>
+            </div>
+            <div class="product-box">
+              <div class="img-wrapper"></div>
+              <div class="product-detail">
+                <h4></h4>
+                <h5></h5>
+                <h5 class="second"></h5>
+                <h6></h6>
+              </div>
+            </div>
+            <div class="product-box">
+              <div class="img-wrapper"></div>
+              <div class="product-detail">
+                <h4></h4>
+                <h5></h5>
+                <h5 class="second"></h5>
+                <h6></h6>
+              </div>
+            </div>
+            <div class="product-box">
+              <div class="img-wrapper"></div>
+              <div class="product-detail">
+                <h4></h4>
+                <h5></h5>
+                <h5 class="second"></h5>
+                <h6></h6>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- loader end -->
 </template>
 
 <script>
-import anime from "animejs";
-
+import TopHeader from "@/layouts/default/Navbar/TopHeader";
+import MainMenu from "@/layouts/default/Navbar/MainMenu";
 export default {
   name: "Loader",
-  data(){
-    return {
-      DOMLoading: true,
+  components: {MainMenu, TopHeader},
+  watch:{
+    $route() {
+      this.$store.commit('setLoader', false);
+    },
+    isLoader(to) {
+      if (to) {
+        this.startLoader();
+      } else {
+        this.stopLoader();
+      }
     }
   },
   computed:{
-    loader()
-    {
-      return this.$store.getters.loader || this.DOMLoading;
+    isLoader() {
+      return this.$store.getters.isLoader;
     }
   },
   methods:{
-    finishLoader() {
-      this.DOMLoading = false;
-      let loader = document.getElementById('preloader');
-      if (loader) {
-        loader.style.display = 'block';
-      }
+    startLoader() {
+
     },
-    anime()
-    {
-      "use strict";
-      var circle1 = anime({
-        targets: ['.circle-1'],
-        translateY: -24,
-        translateX: 52,
-        direction: 'alternate',
-        loop: true,
-        elasticity: 400,
-        easing: 'easeInOutElastic',
-        duration: 800,
-        delay: 100
+    stopLoader() {
+      let loader = $('.loader_skeleton');
+      loader.remove('slow');
+      $('body').css({
+        'overflow': 'hidden'
       });
 
-      var circle2 = anime({
-        targets: ['.circle-2'],
-        translateY: 24,
-        direction: 'alternate',
-        loop: true,
-        elasticity: 400,
-        easing: 'easeInOutElastic',
-        duration: 800,
-        delay: 100
+      loader.fadeOut('slow');
+      $('body').css({
+        'overflow': 'auto'
       });
-
-      var circle3 = anime({
-        targets: ['.circle-3'],
-        translateY: -24,
-        direction: 'alternate',
-        loop: true,
-        elasticity: 400,
-        easing: 'easeInOutElastic',
-        duration: 800,
-        delay: 100
-      });
-
-      var circle4 = anime({
-        targets: ['.circle-4'],
-        translateY: 24,
-        translateX: -52,
-        direction: 'alternate',
-        loop: true,
-        elasticity: 400,
-        easing: 'easeInOutElastic',
-        duration: 800,
-        delay: 100
-      });
+      $('.loader_skeleton').hide('slow');
     }
   },
   mounted() {
-    this.anime();
-
-    window.onload = this.finishLoader;
-   }
+    window.addEventListener('load', this.stopLoader)
+  }
 }
 </script>
 

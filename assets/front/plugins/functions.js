@@ -61,6 +61,23 @@ class Functions {
         }
         return ((date.getDate() < 10) ? ('0' + date.getDate()) : date.getDate()) + '.' + (date.getMonth()+1) + '.' + date.getFullYear();
       },
+      showDatetimeText(date, defaultEmpty = ''){
+        if(date == null)
+        {
+          return defaultEmpty;
+        }
+        if(typeof date === 'string')
+        {
+          date = new Date(date);
+        }
+        return ((date.getDate() < 10) ? ('0' + date.getDate()) : date.getDate()) +
+          '.' + (((date.getMonth()+1) < 10) ? ('0' + (date.getMonth()+1)) : (date.getMonth()+1)) +
+          '.' + date.getFullYear() +  ' ' +
+          ((date.getHours() < 10) ? ('0' + date.getHours()) : date.getHours()) +
+          ':' + ((date.getMinutes() < 10) ? ('0' + date.getMinutes()) : date.getMinutes()) +
+          ':' + ((date.getSeconds() < 10) ? ('0' + date.getSeconds()) : date.getSeconds());
+          ;
+      },
       stripTags(content){
         return content.replace(/(<([^>]+)>)/gi, "");
       },
@@ -75,6 +92,11 @@ class Functions {
           else
             router.push({path: this.context.route.fullPath.toLowerCase()})
         }
+      },
+      getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
       }
     }
   }
@@ -89,10 +111,12 @@ export default (context, inject) => {
   context.$fullPathToLowercase = functions.fullPathToLowercase;
   context.$stripTags = functions.stripTags;
   context.$showDateText = functions.showDateText;
+  context.$showDatetimeText = functions.showDatetimeText;
   context.$cutTextHidden = functions.cutTextHidden;
   context.$cutText = functions.cutText;
   context.$parseHash = functions.parseHash;
   context.$generateHash = functions.generateHash;
   context.$isTouchedEnable = functions.isTouchedEnable;
   context.$gtagEv = functions.gtagEv;
+  context.$getRandomInt = functions.getRandomInt;
 }

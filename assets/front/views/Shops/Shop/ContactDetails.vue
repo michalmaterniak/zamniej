@@ -1,7 +1,7 @@
 <template>
-<div>
-  <h4 class="orange capital marT20 ">Kontakt</h4>
-  <span class="underline-hover pointer" @click="contactShow = true" v-if="!contactShow">Pokaż dane kontaktowe</span>
+<div class="mt-3">
+  <h4><strong>Kontakt</strong></h4>
+  <p class="underline-hover pointer" @click="contactShow = true" v-if="!contactShow">Pokaż dane kontaktowe</p>
   <div v-else>
     <p>tel: <span v-text="contact.phone"></span></p>
     <p>email: <span><a :href="'mailto:' + contact.email"

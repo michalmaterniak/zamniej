@@ -1,6 +1,5 @@
 <template>
   <div v-if="$store.getters.typePage === 'Shops-Shops'">
-    <bread-crumbs/>
     <div class="deals bg padTB60">
       <div class="container">
         <div class="row" >
@@ -22,15 +21,17 @@
 </template>
 
 <script>
-import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
-import TileShop from "@/components/Tiles/Shop/TileShop";
 import ShopsListing from "@/views/Shops/Shops/ShopsListing";
 import PaginationShops from "@/views/Shops/Shops/PaginationShops";
 import LoaderActive from "@/components/Loader/LoaderActive";
 import seo from "@/mixins/seo";
 export default {
-  name: "Shops",
-  components: {LoaderActive, PaginationShops, ShopsListing, TileShop, BreadCrumbs },
+  name: 'Shops',
+  components: {
+    LoaderActive,
+    PaginationShops,
+    ShopsListing
+  },
   mixins:[seo],
   data()
   {

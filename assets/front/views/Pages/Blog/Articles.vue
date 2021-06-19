@@ -1,222 +1,151 @@
 <template>
-  <div v-if="$store.getters.typePage === 'Pages-Blog-Articles'">
-    <bread-crumbs/>
-    <div class="latest-blog bg padTB60">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-9 col-sm-8 col-xs-12">
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12 marB30" v-if="articles.length > 0"  v-for="(article, index) in articles">
-                <div class="box-z" @click="goToArticle(article.slug)">
-                  <div class="col-md-4 col-sm-5 col-xs-8">
-                    <div class="row">
-                      <figure>
-                        <img class="pointer" :src="article.header.modifyPath" :alt="article.header.original.data.alt">
-                      </figure>
-                    </div>
-                  </div>
-                  <div class="col-md-8 col-sm-7 col-xs-12">
-                    <div class="row">
-                      <div class="box-detail blog">
-                        <div class="col-md-12">
-                          <div class="row">
-                            <h4 class="hover marB5"><nuxt-link :to="{path: article.slug}" v-text="article.name"></nuxt-link></h4>
-                            <ul class="marB5 fonts list-unstyled">
-                              <li><a href="#">
-                                <font-awesome-icon icon="calendar-alt" />
-                                <span v-text="$moment(article.create).format('ll')"></span></a></li>
-                            </ul>
-                            <p class="pointer underline-hover" v-text="getShortTextArticle(index)"></p>
-                            <span><nuxt-link tag="button" :to="{path: article.slug}" class="read-more btn btn-link hover">czytaj więcej</nuxt-link></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+  <!-- section start -->
+  <section v-if="$store.getters.typePage === 'Pages-Blog-Articles'" class="section-b-space blog-page ratio2_3">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 col-lg-8 col-md-7">
+          <div class="row blog-media" v-for="(article, index) in articles">
+            <div class="col-xl-6">
+              <div class="blog-left">
+                <img @click="goToArticle(article.slug)" alt=""
+                     class="img-fluid blur-up lazyload bg-img"
+                     :src="article.header.modifyPath"
+                     :alt="article.header.original.data.alt"
+                     data-not-lazy
+                >
+              </div>
+            </div>
+            <div class="col-xl-6">
+              <div class="blog-right">
+                <div>
+                  <h6>25 January 2018</h6>
+                  <nuxt-link :to="{path: article.slug}">
+                    <h4 v-text="article.name"></h4>
+                  </nuxt-link>
+                  <p v-html="getShortTextArticle(index)">Consequences that are extremely painful. Nor again is there anyone who loves or
+                    pursues or desires to obtain pain of itself, because it is pain, but because
+                    occasionally circumstances occur in which toil and pain can procure him some
+                    great pleasure.</p>
                 </div>
               </div>
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="pagination-box text-center">
-
-                  <!--                -->
-                  <!--                <a v-if="page-1 > 0" href="#" @click.prevent="setPage(page-1)"><span><i class="fa fa-arrow-left" aria-hidden="true"></i></span></a>-->
-                  <!--                <a href="#" @click.prevent="setPage(i)" v-for="i in pages" :key="i" :class="{'active-page' : page===i}"><span v-text="i"></span></a>-->
-                  <!--                <a v-if="page+1 <= pages" href="#" @click.prevent="setPage(page+1)"><span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a>-->
-                  <!--              -->
-
-                  <nuxt-link v-if="page-1 > 0" :to="paginationLink(page-1)" @click.native="setPage(page-1)">
-                  <span>
-                    <font-awesome-icon icon="arrow-left" />
-                  </span>
-                  </nuxt-link>
-                  <nuxt-link :to="paginationLink(i)" @click.native="setPage(i)" v-for="i in pages" :key="i" :class="{'active' : page===i}">
-                  <span v-text="i">
-                  </span>
-                  </nuxt-link>
-                  <nuxt-link v-if="page+1 <= pages" :to="paginationLink(page+1)" @click.native="setPage(page+1)">
-                  <span>
-                    <font-awesome-icon icon="arrow-right" />
-                  </span>
-                  </nuxt-link>
-
-
-
-                </div>
-              </div>
-
-
             </div>
           </div>
-<!--          <div class="col-md-3 col-sm-4 col-xs-12">-->
-<!--            <div class="row">-->
-<!--              <div class="col-md-12 col-sm-12 col-xs-12">-->
-<!--                <div class="search-bar">-->
-<!--                  <div class="col-md-12 col-sm-12 col-xs-12">-->
-<!--                    <div class="search_bar">-->
-<!--                      <input type="text" name="search" placeholder="Wyszukaj...">-->
-<!--                      <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>-->
+        </div>
+<!--        <div class="col-xl-3 col-lg-4 col-md-5">-->
+<!--          <div class="blog-sidebar">-->
+<!--            <div class="theme-card">-->
+<!--              <h4>Recent Blog</h4>-->
+<!--              <ul class="recent-blog">-->
+<!--                <li>-->
+<!--                  <div class="media">-->
+<!--                    <img alt="Generic placeholder image"-->
+<!--                                          class="img-fluid blur-up lazyload"-->
+<!--                                          src="/page2/images/blog/1.jpg">-->
+<!--                    <div class="media-body align-self-center">-->
+<!--                      <h6>25 Dec 2018</h6>-->
+<!--                      <p>0 hits</p>-->
 <!--                    </div>-->
 <!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="col-md-12 col-sm-12 col-xs-12">-->
-<!--                <div class="blog">-->
-<!--                  <div id="blog" class="owl-carousel owlCarousel marT30">-->
-<!--                    <div class="item">-->
-<!--                      <div class="col-md-12 col-sm-12 col-xs-12">-->
-<!--                        <div class="row">-->
-<!--                          <figure>-->
-<!--                            <img src="@/assets/img/blog/blog1.jpg" alt="">-->
-<!--                          </figure>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                      <div class="col-md-12 col-sm-12 col-xs-12">-->
-<!--                        <div class="row">-->
-<!--                          <figure>-->
-<!--                            <img src="@/assets/img/blog/blog-a.jpg" alt="">-->
-<!--                          </figure>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                      <div class="col-md-12 col-sm-12 col-xs-12">-->
-<!--                        <div class="row">-->
-<!--                          <figure>-->
-<!--                            <img src="@/assets/img/blog/blog-b.jpg" alt="">-->
-<!--                          </figure>-->
-<!--                        </div>-->
-<!--                      </div>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div class="media"><img alt="Generic placeholder image"-->
+<!--                                          class="img-fluid blur-up lazyload"-->
+<!--                                          src="/page2/images/blog/2.jpg">-->
+<!--                    <div class="media-body align-self-center">-->
+<!--                      <h6>25 Dec 2018</h6>-->
+<!--                      <p>0 hits</p>-->
 <!--                    </div>-->
 <!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              &lt;!&ndash;            <div class="col-md-12 col-sm-12 col-xs-12">&ndash;&gt;-->
-<!--              &lt;!&ndash;              <div class="latest-tweet marT20">&ndash;&gt;-->
-<!--              &lt;!&ndash;                <h4 class="orange capital marB10">Latest tweets</h4>&ndash;&gt;-->
-<!--              &lt;!&ndash;                <h5 class="marB5"><a href=""><i class="fa fa-twitter orange" aria-hidden="true"></i> @BestBuy.com</a></h5>&ndash;&gt;-->
-<!--              &lt;!&ndash;                <p>Lorem ipsum dolor sit acons tuadip iscing elit Fusce</p>&ndash;&gt;-->
-<!--              &lt;!&ndash;                <span class="orange"><a href="">www.itg.Com</a></span>&ndash;&gt;-->
-<!--              &lt;!&ndash;                <p>4 hour ago</p>&ndash;&gt;-->
-<!--              &lt;!&ndash;                <h4 class="orange capital marB10 marT30">Latest tweets</h4>&ndash;&gt;-->
-<!--              &lt;!&ndash;                <h5 class="marB5"><a href=""><i class="fa fa-twitter orange" aria-hidden="true"></i> @BestBuy.com</a></h5>&ndash;&gt;-->
-<!--              &lt;!&ndash;                <p>Lorem ipsum dolor sit acons tuadip iscing elit Fusce</p>&ndash;&gt;-->
-<!--              &lt;!&ndash;                <span class="orange"><a href="">www.itg.Com</a></span>&ndash;&gt;-->
-<!--              &lt;!&ndash;                <p>4 hour ago</p>&ndash;&gt;-->
-<!--              &lt;!&ndash;              </div>&ndash;&gt;-->
-<!--              &lt;!&ndash;            </div>&ndash;&gt;-->
-<!--              <div class="col-md-12 col-sm-12 col-xs-12">-->
-<!--                <div class="trending-offers marT20">-->
-<!--                  <h4 class="orange capital marB10">Najlepsze promocje</h4>-->
-<!--                  <div class="trending">-->
-<!--                    <div class="col-md-4 col-sm-4 col-xs-12">-->
-<!--                      <div class="row">-->
-<!--                        <figure>-->
-<!--                          <img src="@/assets/img/blog/blog2.jpg" alt="">-->
-<!--                        </figure>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-8 col-sm-8 col-xs-12">-->
-<!--                      <div class="row">-->
-<!--                        <h5>Zniżka 25% </h5>-->
-<!--                        <h5 class="orange"><span><a href="">Przejdź do sklepu</a></span></h5>-->
-<!--                      </div>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div class="media"><img alt="Generic placeholder image"-->
+<!--                                          class="img-fluid blur-up lazyload"-->
+<!--                                          src="/page2/images/blog/3.jpg">-->
+<!--                    <div class="media-body align-self-center">-->
+<!--                      <h6>25 Dec 2018</h6>-->
+<!--                      <p>0 hits</p>-->
 <!--                    </div>-->
 <!--                  </div>-->
-<!--                  <div class="trending">-->
-<!--                    <div class="col-md-4 col-sm-4 col-xs-12">-->
-<!--                      <div class="row">-->
-<!--                        <figure>-->
-<!--                          <img src="@/assets/img/blog/blog3.jpg" alt="">-->
-<!--                        </figure>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-8 col-sm-8 col-xs-12">-->
-<!--                      <div class="row">-->
-<!--                        <h5>Zniżka 25% </h5>-->
-<!--                        <h5 class="orange"><span><a href="">Przejdź do sklepu</a></span></h5>-->
-<!--                      </div>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div class="media"><img alt="Generic placeholder image"-->
+<!--                                          class="img-fluid blur-up lazyload"-->
+<!--                                          src="/page2/images/blog/4.jpg">-->
+<!--                    <div class="media-body align-self-center">-->
+<!--                      <h6>25 Dec 2018</h6>-->
+<!--                      <p>0 hits</p>-->
 <!--                    </div>-->
 <!--                  </div>-->
-<!--                  <div class="trending">-->
-<!--                    <div class="col-md-4 col-sm-4 col-xs-12">-->
-<!--                      <div class="row">-->
-<!--                        <figure>-->
-<!--                          <img src="@/assets/img/blog/blog4.jpg" alt="">-->
-<!--                        </figure>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-8 col-sm-8 col-xs-12">-->
-<!--                      <div class="row">-->
-<!--                        <h5>Zniżka 25% </h5>-->
-<!--                        <h5 class="orange"><span><a href="">Przejdź do sklepu</a></span></h5>-->
-<!--                      </div>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div class="media"><img alt="Generic placeholder image"-->
+<!--                                          class="img-fluid blur-up lazyload"-->
+<!--                                          src="/page2/images/blog/5.jpg">-->
+<!--                    <div class="media-body align-self-center">-->
+<!--                      <h6>25 Dec 2018</h6>-->
+<!--                      <p>0 hits</p>-->
 <!--                    </div>-->
 <!--                  </div>-->
-<!--                  <div class="trending">-->
-<!--                    <div class="col-md-4 col-sm-4 col-xs-12">-->
-<!--                      <div class="row">-->
-<!--                        <figure>-->
-<!--                          <img src="@/assets/img/blog/blog5.jpg" alt="">-->
-<!--                        </figure>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-8 col-sm-8 col-xs-12">-->
-<!--                      <div class="row">-->
-<!--                        <h5>Zniżka 25% </h5>-->
-<!--                        <h5 class="orange"><span><a href="">Przejdź do sklepu</a></span></h5>-->
-<!--                      </div>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--            <div class="theme-card">-->
+<!--              <h4>Popular Blog</h4>-->
+<!--              <ul class="popular-blog">-->
+<!--                <li>-->
+<!--                  <div class="media">-->
+<!--                    <div class="blog-date"><span>03 </span><span>may</span></div>-->
+<!--                    <div class="media-body align-self-center">-->
+<!--                      <h6>Injected humour the like</h6>-->
+<!--                      <p>0 hits</p>-->
 <!--                    </div>-->
 <!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="col-md-12 col-sm-12 col-xs-12">-->
-<!--                <div class="tags marT20">-->
-<!--                  <h4 class="orange marB10 capital">Popularne tagi</h4>-->
-<!--                  <ul>-->
-<!--                    <li><a href="#">promocje</a></li>-->
-<!--                    <li><a href="#">kupoy rabatowe</a></li>-->
-<!--                    <li><a href="#">black friday</a></li>-->
-<!--                    <li><a href="#">zniżka</a></li>-->
-<!--                  </ul>-->
-<!--                </div>-->
-<!--              </div>-->
+<!--                  <p>it look like readable English. Many desktop publishing text.</p>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div class="media">-->
+<!--                    <div class="blog-date"><span>03 </span><span>may</span></div>-->
+<!--                    <div class="media-body align-self-center">-->
+<!--                      <h6>Injected humour the like</h6>-->
+<!--                      <p>0 hits</p>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <p>it look like readable English. Many desktop publishing text.</p>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div class="media">-->
+<!--                    <div class="blog-date"><span>03 </span><span>may</span></div>-->
+<!--                    <div class="media-body align-self-center">-->
+<!--                      <h6>Injected humour the like</h6>-->
+<!--                      <p>0 hits</p>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <p>it look like readable English. Many desktop publishing text.</p>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div class="media">-->
+<!--                    <div class="blog-date"><span>03 </span><span>may</span></div>-->
+<!--                    <div class="media-body align-self-center">-->
+<!--                      <h6>Injected humour the like</h6>-->
+<!--                      <p>0 hits</p>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <p>it look like readable English. Many desktop publishing text.</p>-->
+<!--                </li>-->
+<!--              </ul>-->
 <!--            </div>-->
 <!--          </div>-->
-
-        </div>
+<!--        </div>-->
       </div>
     </div>
-  </div>
+  </section>
+  <!-- Section ends -->
 </template>
 
-<script>
 
-import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
+<script>
 export default {
-  name: "Articles",
-  components: {BreadCrumbs},
+  name: 'Articles',
   data()
   {
     return {
@@ -303,7 +232,16 @@ export default {
 }
 </script>
 
-<style>
+
+<style scoped>
+.media {
+  display: flex;
+  align-items: flex-start;
+}
+
+.media-body {
+  flex: 1;
+}
 .active-page{
   font-weight: bold;
 }

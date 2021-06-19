@@ -6,9 +6,13 @@ export default () => ({
     token: null,
     dev: [],
   },
+  loader: false,
+  sidebar: {
+    left: false,
+    right: false
+  },
 
-  loader: true,
-  responsiveShopMenu: false,
+  isSearchOpen: false,
 
   initFront: {
     init: false,
@@ -42,4 +46,5 @@ export default () => ({
     isSearchContainer: false
   },
   favoriteShops: []
+
 });

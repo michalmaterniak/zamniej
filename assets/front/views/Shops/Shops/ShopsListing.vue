@@ -2,13 +2,9 @@
   <div>
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="search marT40">
-          <h3 class="orange" v-text="convertLetter(letterText)"></h3>
-        </div>
-        <div class="coupon-detail" v-for="(shop, index) in shops" :key="index">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <tile-shop :shop="shop" />
-          </div>
+        <h3 v-text="convertLetter(letterText)"></h3>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" v-for="(shop, index) in shops" :key="index">
+          <tile-shop :shop="shop" />
         </div>
       </div>
     </div>
@@ -16,11 +12,11 @@
 </template>
 
 <script>
-import TileShopAll from "@/components/Tiles/Shop/TileShopAll";
-import TileShop from "@/components/Tiles/Shop/TileShop";
+
+import TileShop from "@/views/Shops/Shops/TileShop";
 export default {
-  name: "ShopsListing",
-  components: {TileShop, TileShopAll},
+  name: 'ShopsListing',
+  components: {TileShop},
   props:{
     shops: {
       type: Array,

@@ -1,9 +1,4 @@
 export default {
-  data() {
-    return {
-
-    }
-  },
   methods: {
     redirectInside(url) {
       window.open(url);
@@ -32,7 +27,7 @@ export default {
     },
     checkPopupPromo()
     {
-      let hashDecoded = this.$parseHash()
+      let hashDecoded = this.$parseHash();
       if(hashDecoded && hashDecoded.offer !== undefined)
       {
         this.openPopupPromo(hashDecoded.offer, false);
@@ -53,6 +48,7 @@ export default {
           this.redirectOutside(this.$store.getters.redirectLinkOffer(idOffer));
         }, 200);
       }
+
       this.$store.commit('setPopup', {
         template: () => import("@/components/Popup/PopupPromotionOffer"),
         title: 'Przejdź do promocji',
@@ -69,6 +65,6 @@ export default {
     },
   },
   mounted() {
-    this.$lazyHide();
+    // this.$lazyHide();
   },
 }

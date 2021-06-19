@@ -695,6 +695,8 @@ export default {
           close.addEventListener('click', e => {
             e.stopPropagation();
             e.preventDefault();
+            this.enable = false;
+
             let p = e.target.parentNode.parentNode;
             p.style.display = 'none';
             (p.previousElementSibling || p.previousSibling).style.display = 'none';

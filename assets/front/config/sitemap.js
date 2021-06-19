@@ -2,6 +2,7 @@ const axios = require('axios')
 let baseURLAPI = process.env.NODE_ENV === 'production' ? process.env.PROD_HOST : process.env.DEV_HOST;
 let hostName = process.env.NODE_ENV === 'production' ? process.env.BASE_URL : process.env.DEV_HOST;
 export default {
+  cacheTime: 1,
   path: '/sitemap.xml',
   hostname: hostName,
   routes: async () => {

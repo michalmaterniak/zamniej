@@ -1,18 +1,29 @@
 <template>
-
-    <div id="pagination-box" class="pagination-box text-center" :class="{'sticky-top': this.paginationOffsetTop && this.scrollY >= this.paginationOffsetTop}">
-
-    <!--    <div class="row text-right">-->
-<!--      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-lg-offset-8">-->
-<!--        <input class="form-control" type="text">-->
-<!--      </div>-->
-<!--    </div>-->
-    <nuxt-link :to="{query: {letter: letter}, params: {scroll: true}}" class="uppercase" :class="{active: letterActive == letter }" v-for="(letter, index) in letters" :key="index">
-      <span v-if="letter == 0" v-text="'0-9'"></span>
-      <span v-else v-text="letter"></span>
-    </nuxt-link>
-
+  <div id="pagination-box" class="product-pagination text-center" :class="{'sticky-top': this.paginationOffsetTop && this.scrollY >= this.paginationOffsetTop}">
+    <div class="theme-paggination-block">
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+          <nav aria-label="Page navigation">
+            <ul class="pagination d-block">
+              <nuxt-link
+                tag="li"
+                :to="{query: {letter: letter}, params: {scroll: true}}"
+                class="page-item"
+                :class="{active: letterActive === letter }"
+                v-for="(letter, index) in letters"
+                :key="index"
+                exact-active-class="active"
+                exact
+              >
+                <a class="page-link" href="#" v-text="letter === '0' ? '0-9' : letter"></a>
+              </nuxt-link>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>

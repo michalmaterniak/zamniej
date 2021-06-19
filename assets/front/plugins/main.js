@@ -1,20 +1,20 @@
 import Vue from 'vue'
-import { library, config } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import Vue2TouchEvents from 'vue2-touch-events'
 import VueClipboard from 'vue-clipboard2'
 VueClipboard.config.autoSetContainer = true;
 // This is important, we are going to let Nuxt.js worry about the CSS
-config.autoAddCss = false
-
-// You can add your icons directly in this plugin. See other examples for how you
-// can add other styles or just individual icons.
-library.add(fas)
 
 // Register the component globally
-Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(Vue2TouchEvents)
 Vue.use(VueClipboard);
 
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue)
+// import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+
+Number.prototype.round = function(places) {
+  return +(Math.round(this + "e+" + places)  + "e-" + places);
+}
