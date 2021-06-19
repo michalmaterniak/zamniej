@@ -57,7 +57,7 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
     /**
      * @var string|null $url
      * @ORM\Column(name="url", type="string", length=700, nullable=true)
-     * @Groups({"resource", "resource-admin", "resource-admin-listing"})
+     * @Groups({"resource-admin", "resource-admin-listing"})
      */
     protected $url;
 

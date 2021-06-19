@@ -30,8 +30,8 @@ class CategoriesLinks implements FrontInitInterface
                     'link' => '/kategorie/zdrowie-i-uroda',
                 ],
                 [
-                    'name' => 'Artykuły dla zwierząt',
-                    'link' => '/kategorie/zwierzeta',
+                    'name' => 'Moda i Ubrania',
+                    'link' => '/kategorie/moda',
                 ],
             ],
             'category' => [

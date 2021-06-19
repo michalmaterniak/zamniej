@@ -82,6 +82,32 @@ class ShopSubpage extends ResourceSubpage
         return $this->offers;
     }
 
+//    /**
+//     * @return OfferVoucher[]|OfferPromotion[]|ArrayCollection
+//     * @Groups({"resource"})
+//     */
+//    public function getOffersPromo()
+//    {
+//        $offers = [];
+//        foreach ($this->getOffers()->filter(function (Offer $offer) {
+//            return $offer instanceof OfferPromotion || $offer instanceof OfferVoucher;
+//        })->getValues() as $offer) {
+//            $offers[] =
+//                [
+//                    'title' => $offer->getOffer()->getTitle(),
+//                    'datetimeFrom' => $offer->getOffer()->getDatetimeFrom(),
+//                    'datetimeTo' => $offer->getOffer()->getDatetimeTo(),
+//                    'content' => strip_tags($offer->getOffer()->getContent()->getContent()),
+//                    'redirectCount' => $offer->getOffer()->getRedirectCount(),
+//                    'liking' => $offer->getOffer()->getLiking(),
+//                    'actual' => $offer->getOffer()->isActual(),
+//                ];
+//        }
+//
+//        return $offers;
+//
+//    }
+
     /**
      * @return OfferVoucher[]|OfferPromotion[]|ArrayCollection
      * @Groups({"resource"})

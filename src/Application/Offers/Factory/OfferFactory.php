@@ -85,7 +85,6 @@ class OfferFactory extends OfferAbstractFactory
             $this->entityUpdater->getEntityManager()->beginTransaction();
             $this->getNewOfferEntity();
             $this->update($data);
-            $this->offer->getContent()->setDisableNewContent(false);// TODO do usuniecia jak wejdzie nowy szabon
             $this->entityUpdater->getEntityManager()->persist($this->offer);
             $this->entityUpdater->getEntityManager()->flush();
             $this->createPhoto($data);

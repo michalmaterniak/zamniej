@@ -41,7 +41,9 @@ class MainController extends GlobalController
             ]);
         }
 
-        $className = 'App\\Controller\\Front\\Api\\' . $page->getComponents()->getResourceConfig()->getController() . 'Controller';
+        $className = 'App\\Controller\\Front\\Api\\'
+            . $page->getComponents()->getResourceConfig()->getController()
+            . 'Controller';
 
         $method = $requestPostContentData->getValue('method', 'index');
 
