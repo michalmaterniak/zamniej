@@ -36,7 +36,8 @@
                 <search-content/>
               </div>
             </li>
-            <li class="onhover-div mobile-setting red" v-if="$store.getters.typePage === 'Shops-Shop'">
+            <li v-if="$store.getters.typePage === 'Shops-Shop'"
+                class="onhover-div mobile-setting red d-xl-none d-lg-none d-md-none d-sm-none">
               <div>
                 <img alt="" class="img-fluid blur-up lazyload" @click="openSearch" src="/page2/images/icon/search.png">
                 <i class="fa fa-arrow-right" @click="redirectShop()"></i>
@@ -52,6 +53,7 @@
 <script>
 import LeftSidebar from "@/layouts/default/LeftSidebar";
 import SearchContent from "@/layouts/default/Navbar/MainMenu/SearchContent";
+
 export default {
   name: 'MainMenu',
   props: ['isLoader'],
