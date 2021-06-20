@@ -32,7 +32,7 @@
                                     <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
                                   </div>
                                   <div class="col-6 offset-6">
-                                    <button class="btn btn-red " v-if="offer.data && offer.data.code" @click="redirectPromo(offer.idOffer)">
+                                    <button class="btn btn-red " v-if="offer.data && offer.data.code">
                                       Pokaż kod rabatowy
                                     </button>
                                     <button class="btn btn-red " v-else>
