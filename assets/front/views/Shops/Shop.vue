@@ -275,6 +275,10 @@ export default {
         return Boolean(this.shop.subpage.content.content);
       }
 
+      if (tab === 3) {
+        return this.offersNotActual.length > 0;
+      }
+
       return true;
     },
     showDate(date)
