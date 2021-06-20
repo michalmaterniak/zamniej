@@ -38,10 +38,7 @@ export default {
 </script>
 
 <style scoped>
-img.popular-store-img {
-  width: 224px;
-  height: 122px;
-}
+
 /*a.title1 h6 {*/
 /*  color: var(--theme-deafult);*/
 /*}*/

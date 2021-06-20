@@ -53,5 +53,8 @@ export default {
 </script>
 
 <style scoped>
-
+img.popular-store-img {
+  width: 224px;
+  height: 122px;
+}
 </style>
