@@ -29,7 +29,7 @@
           <ul>
             <li class="onhover-div mobile-search">
               <div>
-                <img alt="" class="img-fluid blur-up lazyload" @click="openSearch" src="/page2/images/icon/search.png">
+<!--                <img alt="" class="img-fluid blur-up lazyload" @click="openSearch" src="/page2/images/icon/search.png">-->
                 <i class="ti-search" @click="openSearch()"></i>
               </div>
               <div v-if="!isLoader" id="search-overlay" class="search-overlay" :class="{'d-none' : !$store.getters.isSearchOpen}">
@@ -39,7 +39,6 @@
             <li v-if="$store.getters.typePage === 'Shops-Shop'"
                 class="onhover-div mobile-setting red d-xl-none d-lg-none d-md-none d-sm-none">
               <div>
-                <img alt="" class="img-fluid blur-up lazyload" @click="openSearch" src="/page2/images/icon/search.png">
                 <i class="fa fa-arrow-right" @click="redirectShop()"></i>
               </div>
             </li>
