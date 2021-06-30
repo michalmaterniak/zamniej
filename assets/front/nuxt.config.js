@@ -129,7 +129,7 @@ export default {
       }
     ],
     ['nuxt-lazy-load', {
-      defaultImage: '/page2/images/ajax-loader.gif',
+      // defaultImage: '/page2/images/ajax-loader.gif',
     }]
   ],
   pwa: {

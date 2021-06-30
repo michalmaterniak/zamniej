@@ -1,10 +1,10 @@
 <template>
   <div class="row partition-collection">
-    <div class="col-lg-3 col-md-6" v-for="(article, index) in articles">
+    <div class="col-lg-3 col-md-6 col-sm-6" v-for="(article, index) in articles">
       <nuxt-link :to="article.slug">
       <div class="row text-center">
         <div class="col-md-12">
-            <img alt="" class="img-fluid" :src="article.logo.modifyPath"><br>
+            <img alt="" class="img-fluid blog-img" :src="article.logo.modifyPath"><br>
             <span v-text="article.name" class="btn"></span>
         </div>
       </div>
@@ -60,5 +60,15 @@ export default {
 <style scoped>
 .col-md-12 {
   width: 100%;
+}
+img.blog-img {
+  width: 320px;
+  height: 320px;
+}
+@media (max-width: 768px) {
+  img.blog-img {
+    width: 200px;
+    height: 200px;
+  }
 }
 </style>
