@@ -727,7 +727,9 @@ class ConvertiserPrograms extends ShopsAffiliation
     public function getCps(): float
     {
         foreach ($this->getGoals() as $goal) {
-            if ($goal['status'] === 'enabled' && $goal['title'] === 'Sprzedaż') {
+            if ($goal['status'] === 'enabled' && in_array($goal['title'], ['CPS', 'Sprzedaż', 'Sprzedaż produktu'])) {
+                return floatval($goal['payout']);
+            } else if ($goal['status'] === 'enabled') {
                 return floatval($goal['payout']);
             }
         }
