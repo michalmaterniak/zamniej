@@ -11,8 +11,15 @@ export default {
     redirectShop(idShop) {
       window.open(this.$store.getters.redirectLinkShop(idShop));
     },
+    redirectShopOutside(idShop) {
+      this.redirectOutside(this.$store.getters.redirectLinkShop(idShop))
+    },
     redirectOffer(idOffer) {
       window.open(this.$store.getters.redirectLinkOffer(idOffer));
+    },
+    redirectOfferOutside(idOffer) {
+      window.open(location.href);
+      location.href = this.$store.getters.redirectLinkOffer(idOffer);
     },
     getPage(method, dataRequest = {}, withLoader = true) {
       if(withLoader)

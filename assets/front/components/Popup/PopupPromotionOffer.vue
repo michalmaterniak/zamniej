@@ -9,7 +9,7 @@
     <div class="modal-body ">
       <div class="row" v-if="offer.offer.actual">
         <div class="col-xm-12 col-sm-12 col-md-12 col-lg-12 text-right">
-          <code-clipboard v-if="offer.typeOffer === 'voucher'" :code="offer.offer.data.code" @afterCopy="redirectToShop"/>
+          <code-clipboard v-if="offer.typeOffer === 'voucher'" :code="offer.offer.data.code"/>
           <div v-else class="bold">Promocja nie wymaga kodu rabatowego!</div>
         </div>
       </div>
@@ -57,7 +57,12 @@ export default {
   },
   mixins:[liking],
   methods: {
-    redirectToShop()
+    redirectToShopTimeout(sec) {
+      setTimeout(() => {
+        this.redirectToShop(true);
+      }, sec*1000);
+    },
+    redirectToShop(outside = false)
     {
       if(this.offer.offer.actual) {
         this.$gtagEv({
@@ -65,7 +70,11 @@ export default {
           category: 'popup',
           label: 'offer-' + String(this.offer.offer.idOffer)
         });
-        this.redirectOffer(this.offer.offer.idOffer);
+        if (outside) {
+          this.redirectOfferOutside(this.offer.offer.idOffer)
+        } else {
+          this.redirectOffer(this.offer.offer.idOffer);
+        }
       }
       else {
         this.$gtagEv({
@@ -73,7 +82,11 @@ export default {
           category: 'popup',
           label: 'shop-' + String(this.offer.idShop)
         });
-        this.redirectShop(this.offer.idShop);
+        if (outside) {
+          this.redirectOfferOutside(this.offer.offer.idOffer)
+        } else {
+          this.redirectShop(this.offer.idShop);
+        }
       }
     },
     closePopup() {
