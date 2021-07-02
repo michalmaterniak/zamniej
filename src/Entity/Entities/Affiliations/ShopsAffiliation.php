@@ -239,7 +239,7 @@ abstract class ShopsAffiliation implements EntityInterface
             return false;
         }
 
-        return $this->isForceActive() ? $this->isForceActive() : $this->enable;
+        return $this->isForceActive() ?: $this->enable;
     }
 
     /**
@@ -313,6 +313,7 @@ abstract class ShopsAffiliation implements EntityInterface
     public function setForceActive(bool $forceActive): void
     {
         $this->forceActive = $forceActive;
+        $this->forceDisable = !$forceActive;
     }
 
     /**
@@ -329,5 +330,6 @@ abstract class ShopsAffiliation implements EntityInterface
     public function setForceDisable(bool $forceDisable): void
     {
         $this->forceDisable = $forceDisable;
+        $this->forceActive = !$forceDisable;
     }
 }
