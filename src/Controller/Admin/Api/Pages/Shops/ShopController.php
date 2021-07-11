@@ -4,6 +4,7 @@ namespace App\Controller\Admin\Api\Pages\Shops;
 use App\Application\Admin\Resources\Item\Form\Fields\Shops\ShopSubpageOffersField;
 use App\Application\Admin\Resources\Item\Form\Fields\Shops\ShopSubpageShopTagsField;
 use App\Application\Admin\Resources\Item\Form\FormBuilderResources;
+use App\Application\Pages\Shop\Affiliations\ActiveAffiliation;
 use App\Application\Pages\Shop\Shop;
 use App\Controller\Admin\Api\Pages\AbstractResourceController;
 use App\Entity\Entities\Shops\Shops;
@@ -103,6 +104,22 @@ class ShopController extends AbstractResourceController
         ]));
 
         return $this->responseJson();
+    }
+
+    public function active(bool $active, Shop $resource, ActiveAffiliation $activeAffiliation)
+    {
+        $activeAffiliation->setActivityAffiliations($active, $resource->getSubpage()->getSubpage());
+
+        $resource->getSubpage()->getSubpage()->setActive($active);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json([
+            'status' => true,
+            'resource' => $this->normalizer->normalize($resource, null, [
+                'groups' => 'resource-admin',
+            ]),
+            'active' => $resource->getSubpage()->getSubpage()->isActive()
+        ]);
     }
 
     /**

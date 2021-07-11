@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
 class ActiveController extends AbstractResourceController
 {
     /**
+     * @param bool $active
      * @param Subpages $subpage
      * @return Response
      * @throws ExceptionInterface
@@ -19,18 +20,19 @@ class ActiveController extends AbstractResourceController
     public function active(
         bool $active,
         Subpages $subpage
-    ): Response
+    ) : Response
     {
         try {
             $resourceModel = $this->pagesManager->loadEntity($subpage->getResource());
             $controller = $resourceModel->getComponents()->getResourceConfig()->getController();
-            if ($this->canForward($controller, 'active')) {
-                return $this->forward($this->returnClassNameController($controller) . "::active", [
-                    'resource' => $resourceModel,
-                ]);
-            }
             if (!$resourceModel) {
                 throw new ErrorException();
+            }
+            if ($this->canForward($controller, 'active')) {
+                return $this->forward($this->returnClassNameController($controller) . "::active", [
+                    'active' => $active,
+                    'resource' => $resourceModel,
+                ]);
             }
 
             $subpage->setActive($active);
