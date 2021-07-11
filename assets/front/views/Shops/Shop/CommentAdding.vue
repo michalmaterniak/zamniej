@@ -60,7 +60,7 @@ export default {
     {
       return this.opinion.rating >= 1 && this.opinion.rating <= 5
         && this.opinion.comment.length > 0 && this.opinion.comment.length < 5000
-        && this.opinion.comment.length > 0 && this.opinion.comment.length <= 50
+        && this.opinion.name.length > 0 && this.opinion.name.length <= 50
         ;
     }
   },
