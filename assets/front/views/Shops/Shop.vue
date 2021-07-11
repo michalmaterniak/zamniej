@@ -70,14 +70,14 @@
                           </li>
                         </ul>
                         <div id="top-tabContent" class="tab-content nav-material">
-                          <div v-if="availableTabs(1)" id="top-1" aria-labelledby="top-1-tab" class="tab-pane fade" :class="{'active show': showTab === 1}" role="tabpanel">
+                          <div v-show="availableTabs(1)" id="top-1" aria-labelledby="top-1-tab" class="tab-pane fade" :class="{'active show': showTab === 1}" role="tabpanel">
                             <div class="row mt-5">
                               <div class="col-md-12 col-lg-12">
                                 <div class="main-content" v-html="shop.subpage.content.content"></div>
                               </div>
                             </div>
                           </div>
-                          <div v-if="availableTabs(2)" id="top-2" aria-labelledby="top-2-tab" class="tab-pane fade" :class="{'active show': showTab === 2}" role="tabpanel">
+                          <div v-show="availableTabs(2)" id="top-2" aria-labelledby="top-2-tab" class="tab-pane fade" :class="{'active show': showTab === 2}" role="tabpanel">
                             <div class="row section-b-space blog-detail-page">
                               <div class="col-sm-12 col-lg-8  col-xl-6">
                                 <ul class="comment-section">
@@ -101,7 +101,7 @@
                             </div>
                             <comment-adding/>
                           </div>
-                          <div v-if="availableTabs(3)" id="top-3" aria-labelledby="top-3-tab" class="tab-pane fade" :class="{'active show': showTab === 3}" role="tabpanel">
+                          <div v-show="availableTabs(3)" id="top-3" aria-labelledby="top-3-tab" class="tab-pane fade" :class="{'active show': showTab === 3}" role="tabpanel">
                             <div v-if="offersNotActual.length > 0" class="col-lg-12">
                               <div class="row">
                                 <div class="col-12 product_img_scroll image-scroll" data-sticky_column>
