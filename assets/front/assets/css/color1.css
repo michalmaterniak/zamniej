@@ -21270,12 +21270,12 @@ body.dark {
         top: 17px;
     }
 
-    .theme-tab .tab-content .product-tab .tab-box {
-        -webkit-box-flex: 0;
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: calc(50% - 10px);
-    }
+    /*.theme-tab .tab-content .product-tab .tab-box {*/
+    /*    -webkit-box-flex: 0;*/
+    /*    -ms-flex: 0 0 50%;*/
+    /*    flex: 0 0 50%;*/
+    /*    max-width: calc(50% - 10px);*/
+    /*}*/
 
     .theme-tab .tab-content .product-tab .tab-box:nth-last-child(-n + 2) {
         margin: 0 5px 0;
