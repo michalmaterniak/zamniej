@@ -31,6 +31,10 @@ class SettingsRepository extends GlobalRepository
         return $this;
     }
 
+    /**
+     * @param string $target
+     * @return $this
+     */
     public function getByTargetOrNull(string $target) : static
     {
         $this->queryBuilder->andWhere(
@@ -40,4 +44,18 @@ class SettingsRepository extends GlobalRepository
 
         return $this;
     }
+
+    /**
+     * @param string $type
+     * @return $this
+     */
+    public function getByType(string $type) : static
+    {
+        $this->queryBuilder->andWhere(
+            $this->getRootAlias().'.type = :type')->setParameter('type', $type
+        );
+
+        return $this;
+    }
+
 }

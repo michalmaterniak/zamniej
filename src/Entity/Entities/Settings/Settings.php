@@ -25,13 +25,13 @@ class Settings implements ArrayAccess, EntityInterface
     protected $idSetting;
 
     /**
-     * @var string $type
+     * @var string|null $type
      * @ORM\Column(name="type", type="string", length=200, nullable=true)
      */
     protected $type;
 
     /**
-     * @var string $target
+     * @var string|null $target
      * @ORM\Column(name="target", type="string", length=200, nullable=true)
      */
     protected $target;
@@ -55,6 +55,38 @@ class Settings implements ArrayAccess, EntityInterface
     public function setIdSetting(string $idSetting): void
     {
         $this->idSetting = $idSetting;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string|null $type
+     */
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTarget(): ?string
+    {
+        return $this->target;
+    }
+
+    /**
+     * @param string|null $target
+     */
+    public function setTarget(?string $target): void
+    {
+        $this->target = $target;
     }
 
     public function offsetExists($offset)
