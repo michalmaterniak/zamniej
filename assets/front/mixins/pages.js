@@ -46,13 +46,17 @@ export default {
     getShopPageWithShopOfferHash(slug, idOffer) {
       return slug + this.$generateHash({shopOffer: idOffer});
     },
-    openPopupPromo(idOffer, withRedirect = false, gtag = {}) {
+    openPopupPromo(idOffer, withRedirect = false, gtag = {}, isCode = false) {
       this.changeHash(this.$generateHash({offer: idOffer}));
       if (withRedirect) {
         gtag.value = idOffer;
         this.$gtagEv(gtag);
         setTimeout(() => {
-          this.redirectOutside(this.$store.getters.redirectLinkOffer(idOffer));
+          if (isCode) {
+            this.redirectOutside(this.$store.getters.redirectLinkOffer(idOffer));
+          } else {
+            this.redirectInside(this.$store.getters.redirectLinkOffer(idOffer));
+          }
         }, 200);
       }
 

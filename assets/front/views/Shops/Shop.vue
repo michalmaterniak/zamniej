@@ -12,7 +12,7 @@
                     <div v-if="offersActual.length > 0" class="row">
                       <div class="col-12 product_img_scroll image-scroll" data-sticky_column>
                         <div>
-                          <div class="row blog-media" @click="redirectPromo(offer.idOffer)" v-for="({offer}, index) in offersActual"  style="cursor:pointer;" >
+                          <div class="row blog-media" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in offersActual"  style="cursor:pointer;" >
                             <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
                               <div class="blog-left" >
                                 <img :alt="offer.title"
@@ -24,7 +24,6 @@
                             </div>
                             <div class="col-8 col-sm-9 col-md-9 col-lg-9">
                               <div class="box-content">
-
                                 <div class="row">
                                   <div class="col-12">
                                     <h4 v-text="offer.title" class="h2-link"></h4>
@@ -262,12 +261,12 @@ export default {
       });
       this.redirectInside(this.$store.getters.redirectLinkShop(this.model.subpage.idShopAffil));
     },
-    redirectPromo(idOffer) {
+    redirectPromo(idOffer, isCode) {
       this.openPopupPromo(idOffer, true, {
         action: 'redirect',
         category: 'shop',
         label: 'offer-' + String(idOffer)
-      })
+      }, isCode)
     },
 
     availableTabs(tab) {
