@@ -5,6 +5,7 @@ use App\Entity\Entities\Subpages\Resources;
 use App\Entity\Interfaces\ResourcesInterface;
 use App\Repository\Repositories\Subpages\ResourcesRepository;
 use App\Services\Pages\Resource\Resource as Resource;
+use App\Services\Pages\Resource\ResourceConfig;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use ErrorException;
@@ -157,4 +158,15 @@ abstract class ResourcesManager
         else
             return null;
     }
+
+    /**
+     * @return ArrayCollection|ResourceConfig[]
+     */
+    public function getConfigAllResources() : ArrayCollection
+    {
+        return $this->registredResourceModels->map(function (Resource $resource) {
+            return $resource->getComponents()->getResourceConfig();
+        });
+    }
+
 }

@@ -14,12 +14,27 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Settings implements ArrayAccess, EntityInterface
 {
+
+    use SettingsTrait;
+
     /**
      * @var string
      * @ORM\Column(name="id_setting", type="string", length=200, nullable=false)
      * @ORM\Id
      */
     protected $idSetting;
+
+    /**
+     * @var string $type
+     * @ORM\Column(name="type", type="string", length=200, nullable=true)
+     */
+    protected $type;
+
+    /**
+     * @var string $target
+     * @ORM\Column(name="target", type="string", length=200, nullable=true)
+     */
+    protected $target;
 
     public function __construct(string $id = null)
     {
@@ -41,8 +56,6 @@ class Settings implements ArrayAccess, EntityInterface
     {
         $this->idSetting = $idSetting;
     }
-
-    use SettingsTrait;
 
     public function offsetExists($offset)
     {

@@ -3,31 +3,20 @@
     <div class="row">
       <div class="col-md-12">
         <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link" href="#" :class="{active : subtab === 'tab1'}" data-toggle="tab" role="tab" @click="changeTab('tab1')">
-              <span class="hidden-sm-up"></span>
-              <span class="hidden-xs-down">Tab1</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" :class="{active : subtab === 'tab2'}" data-toggle="tab" role="tab" @click="changeTab('tab2')">
-              <span class="hidden-sm-up"></span>
-              <span class="hidden-xs-down">Tab2</span>
+          <li class="nav-item" v-for="(config, index) in configs" :key="index">
+            <a class="nav-link" href="#" :class="{active : subtab === 'tab' + index}" data-toggle="tab" role="tab" @click="changeTab('tab'+index)">
+              <span class="hidden-sm-u`p"></span>
+              <span class="hidden-xs-down" v-text="config.name"></span>
             </a>
           </li>
         </ul>
       </div>
     </div>
     <div class="row mt-5">
-      <div class="tab-pane active" id="home" role="tabpanel" v-if="">
-        <div class="p-20">
-          <p>Tab1 iple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>
-        </div>
-      </div>
-      <div class="tab-pane  p-20" id="profile" role="tabpanel">
-        <div class="p-20">
-          <p class="m-t-10">Tab2 waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>
-        </div>
+      <div class="tab-pane active" role="tabpanel" v-if="subtab === 'tab' + index" v-for="(config, index) in configs" :key="index">
+        <pre>
+          {{ config }}
+        </pre>
       </div>
     </div>
   </div>
@@ -43,7 +32,8 @@ export default {
   name: "PagesSettings",
   data(){
     return {
-      subtab: 'tab1'
+      subtab: 'tab1',
+      configs: []
     }
   },
   computed:{
@@ -52,8 +42,6 @@ export default {
       switch (this.subtab)
       {
         case 'homepage' : return 'homepage';
-
-
         default : return 'homepage';
       }
     }
@@ -64,6 +52,15 @@ export default {
     {
       this.subtab = subtab;
     }
+  },
+  created() {
+    this.ajax({
+      url: '/admin/api/pages/resource/types',
+      responseCallbackSuccess: res => {
+        this.configs = res.data;
+        this.subtab = 'tab' + 1;
+      }
+    })
   }
 }
 </script>
