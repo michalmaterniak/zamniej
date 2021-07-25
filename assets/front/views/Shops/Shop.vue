@@ -9,33 +9,35 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-lg-8">
-                    <div v-if="offersActual.length > 0" class="row">
-                      <div class="col-12 product_img_scroll image-scroll" data-sticky_column>
-                        <div>
-                          <div class="row blog-media" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in offersActual"  style="cursor:pointer;" >
-                            <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
-                              <div class="blog-left" >
-                                <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
-                                     class=""
-                                     :src="model.subpage.logo.modifyPath"
-                                >
+                    <client-only>
+                      <div v-if="offersActual.length > 0" class="row">
+                        <div class="col-12 product_img_scroll image-scroll" data-sticky_column>
+                          <div>
+                            <div class="row blog-media" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in offersActual"  style="cursor:pointer;" >
+                              <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
+                                <div class="blog-left" >
+                                  <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
+                                       class=""
+                                       :src="model.subpage.logo.modifyPath"
+                                  >
+                                </div>
                               </div>
-                            </div>
-                            <div class="col-8 col-sm-9 col-md-9 col-lg-9">
-                              <div class="box-content">
-                                <div class="row">
-                                  <div class="col-12">
-                                    <h4 class="h2-link"><strong>{{shop.subpage.subpage.name}}</strong> {{ offer.title }}</h4>
-                                    <liking :offer="offer" />
-                                    <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
-                                  </div>
-                                  <div class="col-6 offset-6">
-                                    <button class="btn btn-red " v-if="offer.data && offer.data.code">
-                                      Pokaż kod rabatowy
-                                    </button>
-                                    <button class="btn btn-red " v-else>
-                                      Przejdź do promocji
-                                    </button>
+                              <div class="col-8 col-sm-9 col-md-9 col-lg-9">
+                                <div class="box-content">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <h4 class="h2-link"><strong>{{shop.subpage.subpage.name}}</strong> {{ offer.title }}</h4>
+                                      <liking :offer="offer" />
+                                      <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
+                                    </div>
+                                    <div class="col-6 offset-6">
+                                      <button class="btn btn-red " v-if="offer.data && offer.data.code">
+                                        Pokaż kod rabatowy
+                                      </button>
+                                      <button class="btn btn-red " v-else>
+                                        Przejdź do promocji
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -43,8 +45,8 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div v-else class="row"></div>
+                      <div v-else class="row"></div>
+                    </client-only>
                     <div class="row mt-5">
                       <!-- product-tab starts -->
                       <div class="tab-product col-sm-12 col-lg-12">
