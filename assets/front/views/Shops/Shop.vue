@@ -116,16 +116,13 @@
                                       </div>
                                       <div class="col-8 col-sm-9 col-md-9 col-lg-9">
                                         <div class="box-content">
-                                          <div class="row">
-                                            <div class="col-12">
-                                              <h4 v-text="offer.title" class="h2-link"></h4>
-                                              <ul class="post-social reset">
-                                                <li><i class="fa fa-thumbs-up" style="color: green"></i> {{offer.liking.countPositive}}</li>
-                                                <li><i class="fa fa-thumbs-down" style="color: red"></i> {{offer.liking.countNegative}}</li>
-                                              </ul>
-                                              <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
-                                            </div>
-                                          </div>
+                                          <h4 v-text="offer.title" class="h2-link"></h4>
+                                          <ul class="post-social reset">
+                                            <li><i class="fa fa-thumbs-up" style="color: green"></i> {{offer.liking.countPositive}}</li>
+                                            <li><i class="fa fa-thumbs-down" style="color: red"></i> {{offer.liking.countNegative}}</li>
+                                          </ul>
+                                          <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
+
                                         </div>
                                       </div>
                                     </div>
