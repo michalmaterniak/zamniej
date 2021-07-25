@@ -39,7 +39,6 @@
       let locale =    context.store.getters.currentLocale;
       let slug =      context.route.path.replace(/^\//g, '');
 
-
       if(!context.store.getters.checkKeyModel(locale + slug))
       {
         let headers = {};
@@ -50,7 +49,8 @@
         let objRequest = context.route.query;
         objRequest.locale = locale;
         objRequest.slug = slug;
-        return context.$axios.post(process.env.API_SERVER_HOST + 'page/api/main', objRequest,{
+
+        return context.$axios.post((!context.store.getters.isSetInitFront ? process.env.API_SERVER_HOST : '') + 'page/api/main', objRequest,{
             headers
         }).then(res => {
 
