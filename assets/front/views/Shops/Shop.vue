@@ -205,14 +205,17 @@ export default {
       isPopupDetailShop: false,
 
       showTab: 1,
-      isHoverStyle: false
+      isHoverStyle: false,
+      showOffersActualCount: 10
     }
   },
   computed:{
     isContent() {
       return  Boolean(this.model.subpage.content.content);
     },
+    showOffersActual() {
 
+    },
     offersActual()
     {
       let dateNow = new Date();
@@ -252,6 +255,9 @@ export default {
     }
   },
   methods:{
+    addOffersActualCount() {
+      this.showOffersActualCount += 10;
+    },
     redirectShop() {
       this.$gtagEv({
         action: 'redirect',
