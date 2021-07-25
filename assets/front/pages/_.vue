@@ -60,7 +60,6 @@
               dev: process.env.DEV_HOST
             });
 
-
           context.store.commit('setModel', {model: res.data.model, key: locale + slug});
           if(res.data.initFront)
             context.store.commit('setInitFront', res.data.initFront);
