@@ -15,18 +15,17 @@
                           <div class="row blog-media" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in offersActual"  style="cursor:pointer;" >
                             <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
                               <div class="blog-left" >
-                                <img :alt="offer.title"
+                                <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
                                      class=""
                                      :src="model.subpage.logo.modifyPath"
                                 >
-
                               </div>
                             </div>
                             <div class="col-8 col-sm-9 col-md-9 col-lg-9">
                               <div class="box-content">
                                 <div class="row">
                                   <div class="col-12">
-                                    <h4 v-text="offer.title" class="h2-link"></h4>
+                                    <h4 class="h2-link"><strong>{{shop.subpage.subpage.name}}</strong> {{ offer.title }}</h4>
                                     <liking :offer="offer" />
                                     <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
                                   </div>
@@ -109,7 +108,7 @@
                                     <div class="row blog-media" v-for="({offer}, index) in offersNotActual"  style="cursor:pointer;" >
                                       <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
                                         <div class="blog-left" >
-                                          <img :alt="offer.title"
+                                          <img :alt="shop.subpage.subpage.name + ' ' + offer.title"
                                                class=""
                                                :src="model.subpage.logo.modifyPath"
                                           >
