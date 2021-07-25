@@ -50,7 +50,7 @@
         let objRequest = context.route.query;
         objRequest.locale = locale;
         objRequest.slug = slug;
-        return context.$axios.post('page/api/main', objRequest,{
+        return context.$axios.post(process.env.API_SERVER_HOST + 'page/api/main', objRequest,{
             headers
         }).then(res => {
 
