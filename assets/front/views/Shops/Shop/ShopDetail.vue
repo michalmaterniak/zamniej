@@ -32,7 +32,7 @@
         <contact-details :contact="shop.subpage.subpage.content.data.details.contact"/>
       </div>
     </div>
-    <div class="row mt-5" v-if="Boolean(shop.subpage.content.content)">
+    <div class="row mt-5 d-block d-sm-none" v-if="Boolean(shop.subpage.content.content)">
       <div class="col-md-12 col-lg-12">
         <div class="main-content-details" v-html="shop.subpage.content.content"></div>
       </div>
