@@ -77,5 +77,8 @@ export default {
   },
   setFavoriteShop(state, shops) {
     state.favoriteShops = shops;
+  },
+  setShopDetailOpen(state, isOpen) {
+    state.shopDetailOpen = isOpen;
   }
 }

@@ -26,7 +26,7 @@
                                 <div class="box-content">
                                   <div class="row">
                                     <div class="col-12">
-                                      <h4 class="h2-link"><strong>{{shop.subpage.subpage.name}}</strong> {{ offer.title }}</h4>
+                                      <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
                                       <liking :offer="offer" />
                                       <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
                                     </div>
@@ -118,7 +118,7 @@
                                       </div>
                                       <div class="col-8 col-sm-9 col-md-9 col-lg-9">
                                         <div class="box-content">
-                                          <h4 v-text="offer.title" class="h2-link"></h4>
+                                          <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{offer.title}}</h4>
                                           <ul class="post-social reset">
                                             <li><i class="fa fa-thumbs-up" style="color: green"></i> {{offer.liking.countPositive}}</li>
                                             <li><i class="fa fa-thumbs-down" style="color: red"></i> {{offer.liking.countNegative}}</li>
@@ -138,40 +138,7 @@
                       <!-- product-tab ends -->
                     </div>
                   </div>
-                  <div class="rtl-text col-lg-4" >
-                    <div class="product-right pro_sticky_info" data-sticky_column>
-                      <div class="row align-items-center">
-                        <div class="col-8">
-                          <h2 class="h3" v-text="shop.subpage.subpage.name"></h2>
-                        </div>
-                        <div class="col-4">
-                          <img :alt="shop.subpage.seo.header"
-                               :src="shop.subpage.logo.modifyPath"
-                          >
-                        </div>
-                      </div>
-                      <div class="media">
-                        <label>Ocena {{ shop.subpage.subpage.name }} <strong>{{ shop.rating.rating }}</strong>/{{ shop.rating.count }}</label>
-                        <rating-shop />
-                      </div>
-                      <div class="product-description border-product">
-
-                      </div>
-                      <div class="product-buttons">
-                        <main-button @click.prevent.stop.native="redirectShop"/>
-                      </div>
-                      <div class="border-product" v-if="shop.subpage.subpage.content.extra.details">
-                        <p v-text="model.subpage.subpage.content.data.description"></p>
-
-                        <div class="mt-3">
-                          <h4><strong>Adres</strong></h4>
-                          <p v-text="shop.subpage.subpage.content.data.details.address.street"></p>
-                          <p v-text="shop.subpage.subpage.content.data.details.address.location"></p>
-                        </div>
-                        <contact-details :contact="shop.subpage.subpage.content.data.details.contact"/>
-                      </div>
-                    </div>
-                  </div>
+                  <shop-detail/>
                 </div>
               </div>
             </div>
@@ -186,16 +153,13 @@
 
 <script>
 import sticky from "@/mixins/Shops/Shop/sticky";
-import ContactDetails from "@/views/Shops/Shop/ContactDetails";
 import CommentAdding from "@/views/Shops/Shop/CommentAdding";
-import RatingShop from "@/views/Shops/Shop/RatingShop";
 import Liking from "@/components/Liking/Liking";
-import MainButton from "@/views/Shops/Shop/MainButton";
-import Rating from "@/views/Shops/Shop/RatingShop";
+import ShopDetail from "@/views/Shops/Shop/ShopDetail";
 
 export default {
   name: 'Shop',
-  components: {Rating, MainButton, Liking, RatingShop, CommentAdding, ContactDetails},
+  components: {ShopDetail, Liking, CommentAdding},
   mixins:[sticky],
   data() {
     return {
