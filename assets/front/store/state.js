@@ -45,6 +45,8 @@ export default () => ({
     shops: [],
     isSearchContainer: false
   },
-  favoriteShops: []
+  favoriteShops: [],
+
+  shopDetailOpen: false
 
 });

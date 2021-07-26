@@ -9,34 +9,35 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-lg-8">
-                    <div v-if="offersActual.length > 0" class="row">
-                      <div class="col-12 product_img_scroll image-scroll" data-sticky_column>
-                        <div>
-                          <div class="row blog-media" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in offersActual"  style="cursor:pointer;" >
-                            <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
-                              <div class="blog-left" >
-                                <img :alt="offer.title"
-                                     class=""
-                                     :src="model.subpage.logo.modifyPath"
-                                >
-
+                    <client-only>
+                      <div v-if="offersActual.length > 0" class="row">
+                        <div class="col-12 product_img_scroll image-scroll" data-sticky_column>
+                          <div>
+                            <div class="row blog-media" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in offersActual"  style="cursor:pointer;" >
+                              <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
+                                <div class="blog-left" >
+                                  <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
+                                       class=""
+                                       :src="model.subpage.logo.modifyPath"
+                                  >
+                                </div>
                               </div>
-                            </div>
-                            <div class="col-8 col-sm-9 col-md-9 col-lg-9">
-                              <div class="box-content">
-                                <div class="row">
-                                  <div class="col-12">
-                                    <h4 v-text="offer.title" class="h2-link"></h4>
-                                    <liking :offer="offer" />
-                                    <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
-                                  </div>
-                                  <div class="col-6 offset-6">
-                                    <button class="btn btn-red " v-if="offer.data && offer.data.code">
-                                      Pokaż kod rabatowy
-                                    </button>
-                                    <button class="btn btn-red " v-else>
-                                      Przejdź do promocji
-                                    </button>
+                              <div class="col-8 col-sm-9 col-md-9 col-lg-9">
+                                <div class="box-content">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
+                                      <liking :offer="offer" />
+                                      <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
+                                    </div>
+                                    <div class="col-6 offset-6">
+                                      <button class="btn btn-red " v-if="offer.data && offer.data.code">
+                                        Pokaż kod rabatowy
+                                      </button>
+                                      <button class="btn btn-red " v-else>
+                                        Przejdź do promocji
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -44,8 +45,8 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div v-else class="row"></div>
+                      <div v-else class="row"></div>
+                    </client-only>
                     <div class="row mt-5">
                       <!-- product-tab starts -->
                       <div class="tab-product col-sm-12 col-lg-12">
@@ -109,7 +110,7 @@
                                     <div class="row blog-media" v-for="({offer}, index) in offersNotActual"  style="cursor:pointer;" >
                                       <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
                                         <div class="blog-left" >
-                                          <img :alt="offer.title"
+                                          <img :alt="shop.subpage.subpage.name + ' ' + offer.title"
                                                class=""
                                                :src="model.subpage.logo.modifyPath"
                                           >
@@ -117,16 +118,13 @@
                                       </div>
                                       <div class="col-8 col-sm-9 col-md-9 col-lg-9">
                                         <div class="box-content">
-                                          <div class="row">
-                                            <div class="col-12">
-                                              <h4 v-text="offer.title" class="h2-link"></h4>
-                                              <ul class="post-social reset">
-                                                <li><i class="fa fa-thumbs-up" style="color: green"></i> {{offer.liking.countPositive}}</li>
-                                                <li><i class="fa fa-thumbs-down" style="color: red"></i> {{offer.liking.countNegative}}</li>
-                                              </ul>
-                                              <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
-                                            </div>
-                                          </div>
+                                          <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{offer.title}}</h4>
+                                          <ul class="post-social reset">
+                                            <li><i class="fa fa-thumbs-up" style="color: green"></i> {{offer.liking.countPositive}}</li>
+                                            <li><i class="fa fa-thumbs-down" style="color: red"></i> {{offer.liking.countNegative}}</li>
+                                          </ul>
+                                          <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
+
                                         </div>
                                       </div>
                                     </div>
@@ -140,40 +138,7 @@
                       <!-- product-tab ends -->
                     </div>
                   </div>
-                  <div class="rtl-text col-lg-4" >
-                    <div class="product-right pro_sticky_info" data-sticky_column>
-                      <div class="row align-items-center">
-                        <div class="col-8">
-                          <h2 class="h3" v-text="shop.subpage.subpage.name"></h2>
-                        </div>
-                        <div class="col-4">
-                          <img :alt="shop.subpage.seo.header"
-                               :src="shop.subpage.logo.modifyPath"
-                          >
-                        </div>
-                      </div>
-                      <div class="media">
-                        <label>Ocena {{ shop.subpage.subpage.name }} <strong>{{ shop.rating.rating }}</strong>/{{ shop.rating.count }}</label>
-                        <rating-shop />
-                      </div>
-                      <div class="product-description border-product">
-
-                      </div>
-                      <div class="product-buttons">
-                        <main-button @click.prevent.stop.native="redirectShop"/>
-                      </div>
-                      <div class="border-product" v-if="shop.subpage.subpage.content.extra.details">
-                        <p v-text="model.subpage.subpage.content.data.description"></p>
-
-                        <div class="mt-3">
-                          <h4><strong>Adres</strong></h4>
-                          <p v-text="shop.subpage.subpage.content.data.details.address.street"></p>
-                          <p v-text="shop.subpage.subpage.content.data.details.address.location"></p>
-                        </div>
-                        <contact-details :contact="shop.subpage.subpage.content.data.details.contact"/>
-                      </div>
-                    </div>
-                  </div>
+                  <shop-detail/>
                 </div>
               </div>
             </div>
@@ -188,16 +153,13 @@
 
 <script>
 import sticky from "@/mixins/Shops/Shop/sticky";
-import ContactDetails from "@/views/Shops/Shop/ContactDetails";
 import CommentAdding from "@/views/Shops/Shop/CommentAdding";
-import RatingShop from "@/views/Shops/Shop/RatingShop";
 import Liking from "@/components/Liking/Liking";
-import MainButton from "@/views/Shops/Shop/MainButton";
-import Rating from "@/views/Shops/Shop/RatingShop";
+import ShopDetail from "@/views/Shops/Shop/ShopDetail";
 
 export default {
   name: 'Shop',
-  components: {Rating, MainButton, Liking, RatingShop, CommentAdding, ContactDetails},
+  components: {ShopDetail, Liking, CommentAdding},
   mixins:[sticky],
   data() {
     return {
@@ -206,14 +168,17 @@ export default {
       isPopupDetailShop: false,
 
       showTab: 1,
-      isHoverStyle: false
+      isHoverStyle: false,
+      showOffersActualCount: 10
     }
   },
   computed:{
     isContent() {
       return  Boolean(this.model.subpage.content.content);
     },
+    showOffersActual() {
 
+    },
     offersActual()
     {
       let dateNow = new Date();
@@ -253,6 +218,9 @@ export default {
     }
   },
   methods:{
+    addOffersActualCount() {
+      this.showOffersActualCount += 10;
+    },
     redirectShop() {
       this.$gtagEv({
         action: 'redirect',
