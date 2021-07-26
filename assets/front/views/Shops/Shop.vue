@@ -72,11 +72,13 @@
                         </ul>
                         <div id="top-tabContent" class="tab-content nav-material">
                           <div v-show="availableTabs(1)" id="top-1" aria-labelledby="top-1-tab" class="tab-pane fade" :class="{'active show': showTab === 1}" role="tabpanel">
-                            <div class="row mt-5">
-                              <div class="col-md-12 col-lg-12">
-                                <div class="main-content" v-html="shop.subpage.content.content"></div>
+                            <client-only>
+                              <div class="row mt-5">
+                                <div class="col-md-12 col-lg-12">
+                                  <div class="main-content" v-html="shop.subpage.content.content"></div>
+                                </div>
                               </div>
-                            </div>
+                            </client-only>
                           </div>
                           <div v-show="availableTabs(2)" id="top-2" aria-labelledby="top-2-tab" class="tab-pane fade" :class="{'active show': showTab === 2}" role="tabpanel">
                             <div class="row section-b-space blog-detail-page">
@@ -167,7 +169,7 @@ export default {
       contactShow: false,
       isPopupDetailShop: false,
 
-      showTab: 2,
+      showTab: 1,
       isHoverStyle: false,
       showOffersActualCount: 10
     }
@@ -255,11 +257,6 @@ export default {
       else
         return 'odwolania';
     }
-  },
-  mounted() {
-    window.addEventListener('load', () => {
-      this.showTab = 1;
-    });
   },
   created() {
     if (!this.availableTabs(1)) {
