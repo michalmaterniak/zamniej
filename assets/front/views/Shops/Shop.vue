@@ -167,7 +167,7 @@ export default {
       contactShow: false,
       isPopupDetailShop: false,
 
-      showTab: 1,
+      showTab: 2,
       isHoverStyle: false,
       showOffersActualCount: 10
     }
@@ -255,6 +255,11 @@ export default {
       else
         return 'odwolania';
     }
+  },
+  mounted() {
+    window.addEventListener('load', () => {
+      this.showTab = 1;
+    });
   },
   created() {
     if (!this.availableTabs(1)) {

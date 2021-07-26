@@ -9,7 +9,6 @@ class Functions {
         // action - akcja,
         // category - umiejscowienie w serwisie
         // label - umiejscowienie na zakładce
-        // value - unikalna wartość
         gtagData.event = gtagData.action;
         this.$gtm.push(gtagData)
       },
