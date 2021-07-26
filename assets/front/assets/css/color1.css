@@ -27607,3 +27607,10 @@ body.dark {
 .red {
   color: red;
 }
+.main-content-details p {
+  padding: 20px;
+  margin-bottom: -8px;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  text-align: justify;
+}
