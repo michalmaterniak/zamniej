@@ -71,7 +71,7 @@
                           </li>
                         </ul>
                         <div id="top-tabContent" class="tab-content nav-material">
-                          <div v-show="availableTabs(1)" id="top-1" aria-labelledby="top-1-tab" class="tab-pane fade d-none d-sm-block" :class="{'active show': showTab === 1}" role="tabpanel">
+                          <div v-show="availableTabs(1)" id="top-1" aria-labelledby="top-1-tab" class="tab-pane fade" :class="{'d-none d-sm-block active show': showTab === 1}" role="tabpanel">
                             <div class="row mt-5">
                               <div class="col-md-12 col-lg-12">
                                 <div class="main-content" v-html="shop.subpage.content.content"></div>
