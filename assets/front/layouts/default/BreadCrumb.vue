@@ -9,7 +9,7 @@
               <li class="breadcrumb-item" v-for="(breadcrumb, index) in breadcrumbs" v-if="index < breadcrumbs.length-1">
                 <nuxt-link :to="{path: breadcrumb.slug}" v-text="breadcrumb.name">Strona główna</nuxt-link>
               </li>
-              <li aria-current="page" class="breadcrumb-item active" v-text="name"></li>
+              <li aria-current="page" class="breadcrumb-item active"><strong>{{name}}</strong></li>
             </ol>
           </nav>
         </div>

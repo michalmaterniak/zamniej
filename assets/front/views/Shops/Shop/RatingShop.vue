@@ -1,13 +1,13 @@
 <template>
-  <rating-shop :rating="rating"/>
+  <rating :rating="rating"/>
 </template>
 
 <script>
-import RatingShop from "@/components/Rating/Rating";
+import Rating from "@/components/Rating/Rating";
 
 export default {
-  name: 'Rating',
-  components: {RatingShop},
+  name: 'RatingShop',
+  components: {Rating},
   computed:{
     rating() {
       return this.$store.getters.model.rating;

@@ -46,5 +46,8 @@ export default {
   },
   favoriteShops: ({ favoriteShops }) => {
     return favoriteShops;
+  },
+  isShopDetailsOpen: state => {
+    return state.shopDetailOpen;
   }
 }
