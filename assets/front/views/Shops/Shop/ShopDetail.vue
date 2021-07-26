@@ -32,6 +32,11 @@
         <contact-details :contact="shop.subpage.subpage.content.data.details.contact"/>
       </div>
     </div>
+    <div class="row mt-5" v-if="Boolean(shop.subpage.content.content)">
+      <div class="col-md-12 col-lg-12">
+        <div class="main-content-details" v-html="shop.subpage.content.content"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,5 +60,10 @@ export default {
 </script>
 
 <style scoped>
-
+div.main-content > p {
+  padding: 20px;
+  margin-bottom: -8px;
+  line-height: 2;
+  letter-spacing: 0.05em;
+}
 </style>

@@ -51,7 +51,7 @@
                       <!-- product-tab starts -->
                       <div class="tab-product col-sm-12 col-lg-12">
                         <ul id="top-tab" class="nav nav-tabs nav-material" role="tablist">
-                          <li v-if="availableTabs(1)" class="nav-item">
+                          <li v-if="availableTabs(1)" class="nav-item d-none d-sm-block">
                             <button @click="showTab = 1" class="nav-link" :class="{'active show': showTab === 1}" id="top-1-tab" data-bs-toggle="tab" data-bs-target="#top-1" type="button" role="tab" aria-controls="top-1" aria-selected="true">
                               <i class="icofont icofont-ui-home"></i><strong>{{ shop.subpage.subpage.name }}</strong>
                             </button>
@@ -71,14 +71,12 @@
                           </li>
                         </ul>
                         <div id="top-tabContent" class="tab-content nav-material">
-                          <div v-show="availableTabs(1)" id="top-1" aria-labelledby="top-1-tab" class="tab-pane fade" :class="{'active show': showTab === 1}" role="tabpanel">
-                            <client-only>
-                              <div class="row mt-5">
-                                <div class="col-md-12 col-lg-12">
-                                  <div class="main-content" v-html="shop.subpage.content.content"></div>
-                                </div>
+                          <div v-show="availableTabs(1)" id="top-1" aria-labelledby="top-1-tab" class="tab-pane fade d-none d-sm-block" :class="{'active show': showTab === 1}" role="tabpanel">
+                            <div class="row mt-5">
+                              <div class="col-md-12 col-lg-12">
+                                <div class="main-content" v-html="shop.subpage.content.content"></div>
                               </div>
-                            </client-only>
+                            </div>
                           </div>
                           <div v-show="availableTabs(2)" id="top-2" aria-labelledby="top-2-tab" class="tab-pane fade" :class="{'active show': showTab === 2}" role="tabpanel">
                             <div class="row section-b-space blog-detail-page">
