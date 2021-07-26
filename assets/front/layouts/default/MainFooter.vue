@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row footer-theme partition-f">
 
-          <div v-for="(group, index) in links" class="col-xl-3 col-md-6 mt-md-5">
+          <div v-for="(group, index) in links" class="col-12 col-sm-6 col-xl-3 col-md-6 mt-md-5">
             <div class="sub-title">
               <div class="footer-title">
                 <h4 v-text="group.group"></h4>
@@ -44,21 +44,21 @@ export default {
     }
   },
   mounted() {
-    var contentwidth = jQuery(window).width();
-    if ((contentwidth) < '750') {
-        jQuery('.footer-title h4').append('<span class="according-menu"></span>');
-        jQuery('.footer-title').on('click', function () {
-            jQuery('.footer-title').removeClass('active');
-            jQuery('.footer-contant').slideUp('normal');
-            if (jQuery(this).next().is(':hidden') == true) {
-                jQuery(this).addClass('active');
-                jQuery(this).next().slideDown('normal');
-            }
-        });
-        jQuery('.footer-contant').hide();
-    } else {
-        jQuery('.footer-contant').show();
-    }
+    // var contentwidth = jQuery(window).width();
+    // if ((contentwidth) < '750') {
+    //     jQuery('.footer-title h4').append('<span class="according-menu"></span>');
+    //     jQuery('.footer-title').on('click', function () {
+    //         jQuery('.footer-title').removeClass('active');
+    //         jQuery('.footer-contant').slideUp('normal');
+    //         if (jQuery(this).next().is(':hidden') == true) {
+    //             jQuery(this).addClass('active');
+    //             jQuery(this).next().slideDown('normal');
+    //         }
+    //     });
+    //     jQuery('.footer-contant').hide();
+    // } else {
+    //     jQuery('.footer-contant').show();
+    // }
   }
 }
 </script>
