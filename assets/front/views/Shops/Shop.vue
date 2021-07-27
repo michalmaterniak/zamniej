@@ -298,11 +298,6 @@ ul.comment-section li {
   color: var(--theme-deafult);
 }
 
-.hover-btn {
-  background-position: 100%;
-  color: #000000;
-  background-color: #ffffff;
-}
 .post-social:not(.reset) {
   font-size: 20px;
 }
