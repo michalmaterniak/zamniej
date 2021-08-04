@@ -8,6 +8,7 @@
             <div class="col-lg-12 col-sm-12 col-xs-12">
               <div class="container-fluid">
                 <div class="row">
+                  <shop-detail v-if="windowWidth < 992"/>
                   <div class="col-lg-8">
                     <div v-if="offersActual.length > 0">
                       <div class="row">
@@ -166,7 +167,7 @@
                       <!-- product-tab ends -->
                     </div>
                   </div>
-                  <shop-detail/>
+                  <shop-detail v-if="windowWidth >= 992"/>
                 </div>
               </div>
             </div>
@@ -198,7 +199,9 @@ export default {
       showTab: 1,
       isHoverStyle: false,
       showOffersActualCount: 0,
-      isShowContent: false
+      isShowContent: false,
+
+      windowWidth: 992
     }
   },
   computed:{
@@ -305,6 +308,9 @@ export default {
     if (!this.availableTabs(1)) {
       this.showTab++;
     }
+  },
+  mounted() {
+    this.windowWidth = window.innerWidth;
   }
 }
 </script>
