@@ -197,7 +197,7 @@ export default {
 
       showTab: 1,
       isHoverStyle: false,
-      showOffersActualCount: 5,
+      showOffersActualCount: 0,
       isShowContent: false
     }
   },
