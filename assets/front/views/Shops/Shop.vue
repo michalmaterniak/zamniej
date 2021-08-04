@@ -9,35 +9,63 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-lg-8">
-                    <client-only>
-                      <div v-if="offersActual.length > 0" class="row">
+                    <div v-if="offersActual.length > 0">
+                      <div class="row">
                         <div class="col-12 product_img_scroll image-scroll" data-sticky_column>
-                          <div>
-                            <div class="row blog-media" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in offersActual"  style="cursor:pointer;" >
-                              <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
-                                <div class="blog-left" >
-                                  <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
-                                       class=""
-                                       :src="model.subpage.logo.modifyPath"
-                                  >
+                          <div class="row blog-media mb-5" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in showOffersActual"  style="cursor:pointer;" >
+                            <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
+                              <div class="blog-left" >
+                                <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
+                                     class=""
+                                     :src="model.subpage.logo.modifyPath"
+                                >
+                              </div>
+                            </div>
+                            <div class="col-8 col-sm-9 col-md-9 col-lg-9">
+                              <div class="box-content">
+                                <div class="row">
+                                  <div class="col-12">
+                                    <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
+                                    <liking :offer="offer" />
+                                    <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
+                                  </div>
+                                  <div class="col-6 offset-6">
+                                    <button class="btn btn-red " v-if="offer.data && offer.data.code">
+                                      Pokaż kod rabatowy
+                                    </button>
+                                    <button class="btn btn-red " v-else>
+                                      Przejdź do promocji
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-8 col-sm-9 col-md-9 col-lg-9">
-                                <div class="box-content">
-                                  <div class="row">
-                                    <div class="col-12">
-                                      <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
-                                      <liking :offer="offer" />
-                                      <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
-                                    </div>
-                                    <div class="col-6 offset-6">
-                                      <button class="btn btn-red " v-if="offer.data && offer.data.code">
-                                        Pokaż kod rabatowy
-                                      </button>
-                                      <button class="btn btn-red " v-else>
-                                        Przejdź do promocji
-                                      </button>
-                                    </div>
+                            </div>
+                          </div>
+                          <infinity-scroll-observer v-if="showOffersActualCount < offersActual.length" @intersect="showMoreOffers"/>
+                          <div class="row blog-media" v-for="({offer}, index) in showOfferActualDNone"  v-show="false">
+                            <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
+                              <div class="blog-left" >
+                                <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
+                                     class=""
+                                     :src="model.subpage.logo.modifyPath"
+                                >
+                              </div>
+                            </div>
+                            <div class="col-8 col-sm-9 col-md-9 col-lg-9">
+                              <div class="box-content">
+                                <div class="row">
+                                  <div class="col-12">
+                                    <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
+                                    <liking :offer="offer" />
+                                    <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
+                                  </div>
+                                  <div class="col-6 offset-6">
+                                    <button class="btn btn-red " v-if="offer.data && offer.data.code">
+                                      Pokaż kod rabatowy
+                                    </button>
+                                    <button class="btn btn-red " v-else>
+                                      Przejdź do promocji
+                                    </button>
                                   </div>
                                 </div>
                               </div>
@@ -45,8 +73,8 @@
                           </div>
                         </div>
                       </div>
-                      <div v-else class="row"></div>
-                    </client-only>
+                    </div>
+                    <div v-else class="row"></div>
                     <div class="row mt-5">
                       <!-- product-tab starts -->
                       <div class="tab-product col-sm-12 col-lg-12">
@@ -74,7 +102,8 @@
                           <div v-show="availableTabs(1)" id="top-1" aria-labelledby="top-1-tab" class="tab-pane fade" :class="{'d-none d-sm-block active show': showTab === 1}" role="tabpanel">
                             <div class="row mt-5">
                               <div class="col-md-12 col-lg-12">
-                                <div class="main-content" v-html="shop.subpage.content.content"></div>
+                                <div class="main-content" v-show="isShowContent" v-html="shop.subpage.content.content"></div>
+                                <infinity-scroll-observer v-if="isShowContent === false" @intersect="isShowContent = true"/>
                               </div>
                             </div>
                           </div>
@@ -124,7 +153,6 @@
                                             <li><i class="fa fa-thumbs-down" style="color: red"></i> {{offer.liking.countNegative}}</li>
                                           </ul>
                                           <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
-
                                         </div>
                                       </div>
                                     </div>
@@ -147,7 +175,6 @@
       </div>
     </section>
     <!-- Section ends -->
-
   </div>
 </template>
 
@@ -156,10 +183,11 @@ import sticky from "@/mixins/Shops/Shop/sticky";
 import CommentAdding from "@/views/Shops/Shop/CommentAdding";
 import Liking from "@/components/Liking/Liking";
 import ShopDetail from "@/views/Shops/Shop/ShopDetail";
+import InfinityScrollObserver from "@/components/Observers/InfinityScrollObserver";
 
 export default {
   name: 'Shop',
-  components: {ShopDetail, Liking, CommentAdding},
+  components: {InfinityScrollObserver, ShopDetail, Liking, CommentAdding},
   mixins:[sticky],
   data() {
     return {
@@ -169,7 +197,8 @@ export default {
 
       showTab: 1,
       isHoverStyle: false,
-      showOffersActualCount: 10
+      showOffersActualCount: 5,
+      isShowContent: false
     }
   },
   computed:{
@@ -177,7 +206,20 @@ export default {
       return  Boolean(this.model.subpage.content.content);
     },
     showOffersActual() {
-
+      return _.filter(
+        this.offersActual,
+        (i, j) => {
+          return j + 1 < this.showOffersActualCount
+        }
+      )
+    },
+    showOfferActualDNone() {
+      return _.filter(
+        this.offersActual,
+        (i, j) => {
+          return j + 1 >= this.showOffersActualCount
+        }
+      )
     },
     offersActual()
     {
@@ -218,6 +260,9 @@ export default {
     }
   },
   methods:{
+    showMoreOffers() {
+      this.showOffersActualCount += 3;
+    },
     addOffersActualCount() {
       this.showOffersActualCount += 10;
     },
@@ -298,11 +343,6 @@ ul.comment-section li {
   color: var(--theme-deafult);
 }
 
-.hover-btn {
-  background-position: 100%;
-  color: #000000;
-  background-color: #ffffff;
-}
 .post-social:not(.reset) {
   font-size: 20px;
 }

@@ -15,15 +15,11 @@
         <label>Ocena {{ shop.subpage.subpage.name }} <strong>{{ shop.rating.rating }}</strong>/{{ shop.rating.count }}</label>
         <rating-shop />
       </div>
-      <div class="product-description border-product">
-
-      </div>
       <div class="product-buttons">
-        <main-button @click.prevent.stop.native="redirectShop"/>
+        <main-button/>
       </div>
       <div class="border-product" v-if="shop.subpage.subpage.content.extra.details">
         <p v-text="model.subpage.subpage.content.data.description"></p>
-
         <div class="mt-3">
           <h4><strong>Adres</strong></h4>
           <p v-text="shop.subpage.subpage.content.data.details.address.street"></p>

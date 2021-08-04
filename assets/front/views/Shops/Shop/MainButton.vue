@@ -44,5 +44,9 @@ export default {
 </script>
 
 <style scoped>
-
+.hover-btn {
+  background-position: 100%;
+  color: #000000;
+  background-color: #ffffff;
+}
 </style>
