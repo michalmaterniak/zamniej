@@ -1,6 +1,6 @@
 <template>
-  <div class="rtl-text col-lg-4  d-sm-block" :class="{'d-none' : !$store.getters.isShopDetailsOpen}">
-    <div class="product-right pro_sticky_info" data-sticky_column>
+  <div class="rtl-text col-lg-4  d-sm-block" :class="{'d-none' : !$store.getters.isShopDetailsOpen, 'fixed-shop-detail' : fixed}">
+    <div class="product-right pro_sticky_info">
       <div class="row align-items-center">
         <div class="col-8">
           <h2 class="h3" v-text="shop.subpage.subpage.name"></h2>
@@ -43,6 +43,12 @@ import RatingShop from "@/views/Shops/Shop/RatingShop";
 
 export default {
   name: 'ShopDetail',
+  props: {
+    fixed: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {RatingShop, MainButton, ContactDetails},
   computed:{
     model() {
@@ -50,6 +56,18 @@ export default {
     },
     shop() {
       return this.model;
+    }
+  },
+  mounted() {
+    if (this.fixed) {
+      window.addEventListener('scroll', e => {
+        if($('.fixed-shop-detail').offset().top + $('.fixed-shop-detail').height()
+            >= $('footer').offset().top - 10)
+          $('.fixed-shop-detail').addClass('stop-fixed-shop-detail').css('bottom', Number($('.fixed-shop-detail').height() + $('.fixed-shop-detail').offset().top) + 'px');
+
+        if($(document).scrollTop() + window.innerHeight < $('footer').offset().top)
+          $('.fixed-shop-detail').removeClass('stop-fixed-shop-detail').css('bottom', 'unset'); // restore when you scroll up
+      })
     }
   }
 }
@@ -61,5 +79,12 @@ div.main-content > p {
   margin-bottom: -8px;
   line-height: 2;
   letter-spacing: 0.05em;
+}
+.fixed-shop-detail {
+  position: fixed;
+  left: 65%
+}
+.stop-fixed-shop-detail {
+  position: absolute;
 }
 </style>

@@ -1,23 +1,21 @@
 <template>
   <footer class="footer-light">
-    <section class="section-b-space light-layout">
-      <div class="row footer-theme partition-f m-5">
-        <div v-for="(group, index) in links" class="col-12 col-sm-6 col-xl-3 col-md-6 mt-md-5">
-          <div class="sub-title">
-            <div class="footer-title">
-              <h4 v-text="group.group"></h4>
-            </div>
-            <div class="footer-contant">
-              <ul>
-                <li v-for="(link, indexLink) in group.links" :key="indexLink">
-                  <nuxt-link :to="{path: link.link}" v-html="link.name"></nuxt-link>
-                </li>
-              </ul>
-            </div>
+    <div class="row footer-theme partition-f m-5">
+      <div v-for="(group, index) in links" class="col-12 col-sm-6 col-xl-3 col-md-6 mt-md-5">
+        <div class="sub-title">
+          <div class="footer-title">
+            <h4 v-text="group.group"></h4>
+          </div>
+          <div class="footer-contant">
+            <ul>
+              <li v-for="(link, indexLink) in group.links" :key="indexLink">
+                <nuxt-link :to="{path: link.link}" v-html="link.name"></nuxt-link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </section>
+    </div>
     <div class="sub-footer">
       <div class="container">
         <div class="row">

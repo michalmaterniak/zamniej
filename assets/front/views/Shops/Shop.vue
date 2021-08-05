@@ -11,64 +11,60 @@
                   <shop-detail v-if="windowWidth < 992"/>
                   <div class="col-lg-8">
                     <div v-if="offersActual.length > 0">
-                      <div class="row">
-                        <div class="col-12 product_img_scroll image-scroll" data-sticky_column>
-                          <div class="row blog-media mb-5" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in showOffersActual"  style="cursor:pointer;" >
-                            <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
-                              <div class="blog-left" >
-                                <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
-                                     class=""
-                                     :src="model.subpage.logo.modifyPath"
-                                >
+                      <div class="row blog-media mb-5" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in showOffersActual"  style="cursor:pointer;" >
+                        <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
+                          <div class="blog-left" >
+                            <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
+                                 class=""
+                                 :src="model.subpage.logo.modifyPath"
+                            >
+                          </div>
+                        </div>
+                        <div class="col-8 col-sm-9 col-md-9 col-lg-9">
+                          <div class="box-content">
+                            <div class="row">
+                              <div class="col-12">
+                                <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
+                                <liking :offer="offer" />
+                                <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
                               </div>
-                            </div>
-                            <div class="col-8 col-sm-9 col-md-9 col-lg-9">
-                              <div class="box-content">
-                                <div class="row">
-                                  <div class="col-12">
-                                    <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
-                                    <liking :offer="offer" />
-                                    <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
-                                  </div>
-                                  <div class="col-6 offset-6">
-                                    <button class="btn btn-red " v-if="offer.data && offer.data.code">
-                                      Pokaż kod rabatowy
-                                    </button>
-                                    <button class="btn btn-red " v-else>
-                                      Przejdź do promocji
-                                    </button>
-                                  </div>
-                                </div>
+                              <div class="col-6 offset-6">
+                                <button class="btn btn-red " v-if="offer.data && offer.data.code">
+                                  Pokaż kod rabatowy
+                                </button>
+                                <button class="btn btn-red " v-else>
+                                  Przejdź do promocji
+                                </button>
                               </div>
                             </div>
                           </div>
-                          <infinity-scroll-observer v-if="showOffersActualCount < offersActual.length" @intersect="showMoreOffers"/>
-                          <div class="row blog-media" v-for="({offer}, index) in showOfferActualDNone"  v-show="false">
-                            <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
-                              <div class="blog-left" >
-                                <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
-                                     class=""
-                                     :src="model.subpage.logo.modifyPath"
-                                >
+                        </div>
+                      </div>
+                      <infinity-scroll-observer v-if="showOffersActualCount < offersActual.length" @intersect="showMoreOffers"/>
+                      <div class="row blog-media" v-for="({offer}, index) in showOfferActualDNone"  v-show="false">
+                        <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
+                          <div class="blog-left" >
+                            <img :alt="shop.subpage.subpage.name + ' - ' + offer.title"
+                                 class=""
+                                 :src="model.subpage.logo.modifyPath"
+                            >
+                          </div>
+                        </div>
+                        <div class="col-8 col-sm-9 col-md-9 col-lg-9">
+                          <div class="box-content">
+                            <div class="row">
+                              <div class="col-12">
+                                <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
+                                <liking :offer="offer" />
+                                <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
                               </div>
-                            </div>
-                            <div class="col-8 col-sm-9 col-md-9 col-lg-9">
-                              <div class="box-content">
-                                <div class="row">
-                                  <div class="col-12">
-                                    <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
-                                    <liking :offer="offer" />
-                                    <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
-                                  </div>
-                                  <div class="col-6 offset-6">
-                                    <button class="btn btn-red " v-if="offer.data && offer.data.code">
-                                      Pokaż kod rabatowy
-                                    </button>
-                                    <button class="btn btn-red " v-else>
-                                      Przejdź do promocji
-                                    </button>
-                                  </div>
-                                </div>
+                              <div class="col-6 offset-6">
+                                <button class="btn btn-red " v-if="offer.data && offer.data.code">
+                                  Pokaż kod rabatowy
+                                </button>
+                                <button class="btn btn-red " v-else>
+                                  Przejdź do promocji
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -133,28 +129,24 @@
                           </div>
                           <div v-show="availableTabs(3)" id="top-3" aria-labelledby="top-3-tab" class="tab-pane fade" :class="{'active show': showTab === 3}" role="tabpanel">
                             <div v-if="offersNotActual.length > 0" class="col-lg-12">
-                              <div class="row">
-                                <div class="col-12 product_img_scroll image-scroll" data-sticky_column>
-                                  <div>
-                                    <div class="row blog-media" v-for="({offer}, index) in offersNotActual"  style="cursor:pointer;" >
-                                      <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
-                                        <div class="blog-left" >
-                                          <img :alt="shop.subpage.subpage.name + ' ' + offer.title"
-                                               class=""
-                                               :src="model.subpage.logo.modifyPath"
-                                          >
-                                        </div>
-                                      </div>
-                                      <div class="col-8 col-sm-9 col-md-9 col-lg-9">
-                                        <div class="box-content">
-                                          <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{offer.title}}</h4>
-                                          <ul class="post-social reset">
-                                            <li><i class="fa fa-thumbs-up" style="color: green"></i> {{offer.liking.countPositive}}</li>
-                                            <li><i class="fa fa-thumbs-down" style="color: red"></i> {{offer.liking.countNegative}}</li>
-                                          </ul>
-                                          <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
-                                        </div>
-                                      </div>
+                              <div class="product_img_scroll image-scroll" data-sticky_column>
+                                <div class="row blog-media" v-for="({offer}, index) in offersNotActual"  style="cursor:pointer;" >
+                                  <div class="col-4 col-sm-3 col-md-3 col-lg-3 pt-5">
+                                    <div class="blog-left" >
+                                      <img :alt="shop.subpage.subpage.name + ' ' + offer.title"
+                                           class=""
+                                           :src="model.subpage.logo.modifyPath"
+                                      >
+                                    </div>
+                                  </div>
+                                  <div class="col-8 col-sm-9 col-md-9 col-lg-9">
+                                    <div class="box-content">
+                                      <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{offer.title}}</h4>
+                                      <ul class="post-social reset">
+                                        <li><i class="fa fa-thumbs-up" style="color: green"></i> {{offer.liking.countPositive}}</li>
+                                        <li><i class="fa fa-thumbs-down" style="color: red"></i> {{offer.liking.countNegative}}</li>
+                                      </ul>
+                                      <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
                                     </div>
                                   </div>
                                 </div>
@@ -166,7 +158,7 @@
                       <!-- product-tab ends -->
                     </div>
                   </div>
-                  <shop-detail v-if="windowWidth >= 992"/>
+                  <shop-detail v-if="windowWidth >= 992" :fixed="true"/>
                 </div>
               </div>
             </div>
@@ -197,7 +189,7 @@ export default {
 
       showTab: 1,
       isHoverStyle: false,
-      showOffersActualCount: 0,
+      showOffersActualCount: 2,
       isShowContent: false,
 
       windowWidth: 992
