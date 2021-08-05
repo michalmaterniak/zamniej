@@ -1,5 +1,5 @@
 <template>
-  <div class="rtl-text col-lg-4  d-sm-block" :class="{'d-none' : !$store.getters.isShopDetailsOpen, 'fixed-shop-detail' : fixed}">
+  <div class="rtl-text col-lg-4" :class="{'d-none' : !$store.getters.isShopDetailsOpen, 'fixed-shop-detail' : fixed, 'd-sm-block' : showTileShopDetail}">
     <div class="product-right pro_sticky_info">
       <div class="row align-items-center">
         <div class="col-8">
@@ -49,6 +49,11 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      showTileShopDetail: false
+    }
+  },
   components: {RatingShop, MainButton, ContactDetails},
   computed:{
     model() {
@@ -61,6 +66,9 @@ export default {
   mounted() {
     if (this.fixed) {
       window.addEventListener('scroll', e => {
+        if (!this.showTileShopDetail) {
+          this.showTileShopDetail = true;
+        }
         if($('.fixed-shop-detail').offset().top + $('.fixed-shop-detail').height()
             >= $('footer').offset().top - 10)
           $('.fixed-shop-detail').addClass('stop-fixed-shop-detail').css('bottom', Number($('.fixed-shop-detail').height() + $('.fixed-shop-detail').offset().top) + 'px');
