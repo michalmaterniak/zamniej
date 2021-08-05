@@ -28,7 +28,7 @@
                                   <div class="col-12">
                                     <h4 class="h2-link"><em>{{shop.subpage.subpage.name}}</em> - {{ offer.title }}</h4>
                                     <liking :offer="offer" />
-                                    <div class="mt-4 height200" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
+                                    <div class="mt-4" v-html="$stripTags(offer.content.content)" style="bottom: 0"></div>
                                   </div>
                                   <div class="col-6 offset-6">
                                     <button class="btn btn-red " v-if="offer.data && offer.data.code">
@@ -359,8 +359,5 @@ ul.comment-section li {
 }
 .post-social:not(.reset) > li {
   margin-right: 15px;
-}
-.height200 {
-  height: 200px;
 }
 </style>
