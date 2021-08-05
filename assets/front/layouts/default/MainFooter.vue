@@ -1,26 +1,21 @@
 <template>
   <footer class="footer-light">
-    <section class="section-b-space light-layout">
-      <div class="container">
-        <div class="row footer-theme partition-f">
-
-          <div v-for="(group, index) in links" class="col-12 col-sm-6 col-xl-3 col-md-6 mt-md-5">
-            <div class="sub-title">
-              <div class="footer-title">
-                <h4 v-text="group.group"></h4>
-              </div>
-              <div class="footer-contant">
-                <ul>
-                  <li v-for="(link, indexLink) in group.links" :key="indexLink">
-                    <nuxt-link :to="{path: link.link}" v-html="link.name"></nuxt-link>
-                  </li>
-                </ul>
-              </div>
-            </div>
+    <div class="row footer-theme partition-f m-5" v-show="isFooterEnabled">
+      <div v-for="(group, index) in links" class="col-12 col-sm-6 col-xl-3 col-md-6 mt-md-5">
+        <div class="sub-title">
+          <div class="footer-title">
+            <h4 v-text="group.group"></h4>
+          </div>
+          <div class="footer-contant">
+            <ul>
+              <li v-for="(link, indexLink) in group.links" :key="indexLink">
+                <nuxt-link :to="{path: link.link}" v-html="link.name"></nuxt-link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </section>
+    </div>
     <div class="sub-footer">
       <div class="container">
         <div class="row">
@@ -34,31 +29,27 @@
     </div>
   </footer>
 </template>
-
 <script>
 export default {
   name: 'MainFooter',
+  data() {
+    return {
+      isFooterEnabled: false
+    }
+  },
   computed:{
     links() {
       return this.$store.getters.initFront.data.links.footer;
     }
   },
+  methods: {
+    handlerScroll() {
+      this.isFooterEnabled = true;
+      window.removeEventListener('scroll', this.handlerScroll);
+    }
+  },
   mounted() {
-    // var contentwidth = jQuery(window).width();
-    // if ((contentwidth) < '750') {
-    //     jQuery('.footer-title h4').append('<span class="according-menu"></span>');
-    //     jQuery('.footer-title').on('click', function () {
-    //         jQuery('.footer-title').removeClass('active');
-    //         jQuery('.footer-contant').slideUp('normal');
-    //         if (jQuery(this).next().is(':hidden') == true) {
-    //             jQuery(this).addClass('active');
-    //             jQuery(this).next().slideDown('normal');
-    //         }
-    //     });
-    //     jQuery('.footer-contant').hide();
-    // } else {
-    //     jQuery('.footer-contant').show();
-    // }
+    window.addEventListener('scroll', this.handlerScroll);
   }
 }
 </script>
