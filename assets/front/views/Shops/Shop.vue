@@ -187,7 +187,7 @@ export default {
 
       showTab: 1,
       isHoverStyle: false,
-      showOffersActualCount: 2,
+      showOffersActualCount: 0,
       isShowContent: false,
 
       windowWidth: 992

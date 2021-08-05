@@ -69,6 +69,7 @@ export default {
         if (!this.showTileShopDetail) {
           this.showTileShopDetail = true;
         }
+
         if($('.fixed-shop-detail').offset().top + $('.fixed-shop-detail').height()
             >= $('footer').offset().top - 10)
           $('.fixed-shop-detail').addClass('stop-fixed-shop-detail').css('bottom', Number($('.fixed-shop-detail').height() + $('.fixed-shop-detail').offset().top) + 'px');
