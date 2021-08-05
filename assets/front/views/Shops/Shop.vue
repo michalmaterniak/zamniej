@@ -101,10 +101,9 @@
                         </ul>
                         <div id="top-tabContent" class="tab-content nav-material">
                           <div v-show="availableTabs(1)" id="top-1" aria-labelledby="top-1-tab" class="tab-pane fade" :class="{'active show': showTab === 1}" role="tabpanel">
-                            <div class="row mt-5">
+                            <div class="row mt-5" v-show="isShowContent">
                               <div class="col-md-12 col-lg-12">
-                                <div class="main-content" v-show="isShowContent" v-html="shop.subpage.content.content"></div>
-                                <infinity-scroll-observer v-if="isShowContent === false" @intersect="isShowContent = true"/>
+                                <div class="main-content" v-html="shop.subpage.content.content"></div>
                               </div>
                             </div>
                           </div>
@@ -311,6 +310,12 @@ export default {
   },
   mounted() {
     this.windowWidth = window.innerWidth;
+
+    self = this;
+    window.addEventListener('scroll', function handler() {
+      self.isShowContent = true;
+      this.removeEventListener('scroll', handler);
+    });
   }
 }
 </script>
