@@ -39,6 +39,8 @@ export default () => ({
     title: '',
     template: null,
   },
+  isPopup: false,
+  isTapTop: false,
 
   search: {
     keywordsSearch: '',

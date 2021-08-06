@@ -105,6 +105,7 @@
       self = this;
       window.addEventListener('scroll', function handler() {
         self.$lazyHide();
+        self.$store.commit('setIsTapTop', true);
         this.removeEventListener('scroll', handler);
       });
     },

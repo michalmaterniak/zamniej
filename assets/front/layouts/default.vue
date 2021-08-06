@@ -5,8 +5,10 @@
     <bread-crumb/>
     <nuxt/>
     <main-footer/>
-    <tap-top/>
-    <pop-up-view/>
+    <client-only>
+      <tap-top v-if="$store.getters.isTapTop"/>
+      <pop-up-view v-if="$store.getters.isPopupOpen"/>
+    </client-only>
     <debugbar v-if="debugActive"/>
   </div>
 </template>

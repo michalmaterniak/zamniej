@@ -1,6 +1,6 @@
 <template>
   <!-- loader start -->
-  <div class="loader_skeleton">
+  <div class="loader_skeleton" v-if="showPlaceholder">
 <!--    <top-header/>-->
     <header>
       <div class="container">
@@ -160,6 +160,7 @@ export default {
   },
   methods:{
     startLoader() {
+      this.showPlaceholder = true;
       this.loader.remove('slow');
       $('body').css({
         'overflow': 'unset'
@@ -179,7 +180,9 @@ export default {
         });
         $('.loader_skeleton').hide('slow');
 
-        // this.showPlaceholder = false
+        setTimeout(() => {
+          this.showPlaceholder = false;
+        }, 1000);
       }, 1000);
     }
   },

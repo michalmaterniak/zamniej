@@ -199,7 +199,7 @@ export default {
       return _.filter(
         this.offersActual,
         (i, j) => {
-          return j + 1 < this.showOffersActualCount
+          return j + 1 <= this.showOffersActualCount
         }
       )
     },
@@ -207,7 +207,7 @@ export default {
       return _.filter(
         this.offersActual,
         (i, j) => {
-          return j + 1 >= this.showOffersActualCount
+          return j + 1 > this.showOffersActualCount
         }
       )
     },
