@@ -1,6 +1,6 @@
 <template>
   <!-- loader start -->
-  <div class="loader_skeleton" v-show="showPlaceholder">
+  <div class="loader_skeleton">
 <!--    <top-header/>-->
     <header>
       <div class="container">
@@ -160,23 +160,27 @@ export default {
   },
   methods:{
     startLoader() {
-
+      this.loader.remove('slow');
+      $('body').css({
+        'overflow': 'unset'
+      });
+      $('.loader_skeleton').show();
     },
     stopLoader() {
       setTimeout(() => {
-        // this.loader.remove('slow');
-        // $('body').css({
-        //   'overflow': 'hidden'
-        // });
-        //
-        // this.loader.fadeOut('slow');
-        // $('body').css({
-        //   'overflow': 'auto'
-        // });
-        // $('.loader_skeleton').hide('slow');
+        this.loader.remove('slow');
+        $('body').css({
+          'overflow': 'hidden'
+        });
 
-        this.showPlaceholder = false
-      }, 2000);
+        this.loader.fadeOut('slow');
+        $('body').css({
+          'overflow': 'auto'
+        });
+        $('.loader_skeleton').hide('slow');
+
+        // this.showPlaceholder = false
+      }, 1000);
     }
   },
   mounted() {
