@@ -1,6 +1,6 @@
 <template>
   <footer class="footer-light">
-    <div class="row footer-theme partition-f m-5" v-show="isFooterEnabled">
+    <div class="row footer-theme partition-f m-5">
       <div v-for="(group, index) in links" class="col-12 col-sm-6 col-xl-3 col-md-6 mt-md-5">
         <div class="sub-title">
           <div class="footer-title">
@@ -41,15 +41,6 @@ export default {
     links() {
       return this.$store.getters.initFront.data.links.footer;
     }
-  },
-  methods: {
-    handlerScroll() {
-      this.isFooterEnabled = true;
-      window.removeEventListener('scroll', this.handlerScroll);
-    }
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handlerScroll);
   }
 }
 </script>
