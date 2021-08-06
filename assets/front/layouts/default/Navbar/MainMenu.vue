@@ -130,18 +130,18 @@ export default {
     },
   },
   mounted() {
-    $('#main-menu').smartmenus({
-      subMenusSubOffsetX: 1,
-      subMenusSubOffsetY: -8
-    });
-
-    if ($(window).width() > '1200') {
-      $('#hover-cls').hover(
-        function () {
-          $('.sm').addClass('hover-unset');
-        }
-      )
-    }
+    // $('#main-menu').smartmenus({
+    //   subMenusSubOffsetX: 1,
+    //   subMenusSubOffsetY: -8
+    // });
+    //
+    // if ($(window).width() > '1200') {
+    //   $('#hover-cls').hover(
+    //     function () {
+    //       $('.sm').addClass('hover-unset');
+    //     }
+    //   )
+    // }
   }
 }
 </script>

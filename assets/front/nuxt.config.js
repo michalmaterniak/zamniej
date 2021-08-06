@@ -79,22 +79,12 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    // { src: '~/assets/js/jquery-3.3.1.min.js', mode: 'client' },
-    // { src: '~/assets/js/popper.min.js', mode: 'client' },
     { src: '@/plugins/main.js' },
     { src: '@/plugins/main.client.js' },
     { src: '@/plugins/main.server.js' },
     { src: '@/plugins/functions.js' },
     { src: '~/node_modules/bootstrap/dist/js/bootstrap.js', mode: 'client' },
-    { src: '~/assets/js/jquery-ui.min.js', mode: 'client' },
-    { src: '~/assets/js/jquery.exitintent.js', mode: 'client' },
-    // { src: '~/assets/js/exit.js', mode: 'client' },
-    // { src: '~/assets/js/slick.js', mode: 'client' },
-    { src: '~/assets/js/menu.js', mode: 'client' },
     { src: '~/assets/js/lazysizes.min.js', mode: 'client' },
-    { src: '~/assets/js/bootstrap-notify.min.js', mode: 'client' },
-    { src: '~/assets/js/fly-cart.js', mode: 'client' },
-    { src: '~/assets/js/script.js', mode: 'client' },
   ],
   /*
   ** Auto import components
