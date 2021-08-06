@@ -70,7 +70,6 @@ export default {
     '@/assets/css/slick.css',
     '@/assets/css/slick-theme.css',
     '@/assets/css/animate.css',
-    '@/assets/css/themify-icons.css',
     '@/node_modules/bootstrap/dist/css/bootstrap.css',
     '@/assets/css/color1.css'
   ],
