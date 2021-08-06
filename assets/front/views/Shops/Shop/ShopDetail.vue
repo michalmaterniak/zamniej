@@ -1,5 +1,5 @@
 <template>
-  <div class="rtl-text col-lg-4" :class="{'d-none' : !$store.getters.isShopDetailsOpen, 'fixed-shop-detail' : fixed, 'd-sm-block' : showTileShopDetail}">
+  <div class="rtl-text col-lg-4 d-sm-block" :class="{'d-none' : !$store.getters.isShopDetailsOpen, 'fixed-shop-detail' : fixed }">
     <div class="product-right pro_sticky_info">
       <div class="row align-items-center">
         <div class="col-8">
