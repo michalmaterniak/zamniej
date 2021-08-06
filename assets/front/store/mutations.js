@@ -1,5 +1,3 @@
-import {BModal} from "bootstrap-vue";
-
 export default {
   setDebug (state, payload) {
     state.debug.active = true;
