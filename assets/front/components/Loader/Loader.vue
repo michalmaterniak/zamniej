@@ -168,22 +168,20 @@ export default {
       $('.loader_skeleton').show();
     },
     stopLoader() {
+      this.loader.remove('slow');
+      $('body').css({
+        'overflow': 'hidden'
+      });
+
+      this.loader.fadeOut('slow');
+      $('body').css({
+        'overflow': 'auto'
+      });
+      $('.loader_skeleton').hide('slow');
+
       setTimeout(() => {
-        this.loader.remove('slow');
-        $('body').css({
-          'overflow': 'hidden'
-        });
-
-        this.loader.fadeOut('slow');
-        $('body').css({
-          'overflow': 'auto'
-        });
-        $('.loader_skeleton').hide('slow');
-
-        setTimeout(() => {
-          this.showPlaceholder = false;
-        }, 1000);
-      }, 200);
+        this.showPlaceholder = false;
+      }, 1000);
     }
   },
   mounted() {
