@@ -32,6 +32,11 @@
 <script>
 export default {
   name: 'MainFooter',
+  data() {
+    return {
+      isFooterEnabled: false
+    }
+  },
   computed:{
     links() {
       return this.$store.getters.initFront.data.links.footer;
