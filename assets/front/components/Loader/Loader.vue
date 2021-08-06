@@ -183,7 +183,7 @@ export default {
         setTimeout(() => {
           this.showPlaceholder = false;
         }, 1000);
-      }, 1000);
+      }, 200);
     }
   },
   mounted() {
