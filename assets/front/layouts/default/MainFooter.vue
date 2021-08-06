@@ -46,5 +46,7 @@ export default {
 </script>
 
 <style scoped>
-
+.footer-light {
+  background-color: #e8e7e7;
+}
 </style>

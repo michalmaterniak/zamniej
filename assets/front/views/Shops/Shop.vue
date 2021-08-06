@@ -8,7 +8,7 @@
             <div class="col-lg-12 col-sm-12 col-xs-12">
               <div class="container-fluid">
                 <div class="row">
-                  <shop-detail v-if="windowWidth < 992"/>
+                  <shop-detail :windowWidth="windowWidth" v-if="windowWidth < 992"/>
                   <div class="col-lg-8">
                     <div v-if="offersActual.length > 0">
                       <div class="row blog-media mb-5" @click="redirectPromo(offer.idOffer, Boolean(offer.data && offer.data.code))" v-for="({offer}, index) in showOffersActual"  style="cursor:pointer;" >
@@ -156,7 +156,7 @@
                       <!-- product-tab ends -->
                     </div>
                   </div>
-                  <shop-detail v-if="windowWidth >= 992" :fixed="true"/>
+                  <shop-detail :windowWidth="windowWidth" v-if="windowWidth >= 992" :fixed="true"/>
                 </div>
               </div>
             </div>

@@ -47,6 +47,10 @@ export default {
     fixed: {
       type: Boolean,
       default: false
+    },
+    windowWidth: {
+      type: Number,
+      default: 992
     }
   },
   data() {
@@ -64,18 +68,23 @@ export default {
     }
   },
   mounted() {
-    if (this.fixed) {
+    if (this.fixed && this.widthwindow > 992) {
       window.addEventListener('scroll', e => {
         if (!this.showTileShopDetail) {
           this.showTileShopDetail = true;
         }
 
-        if($('.fixed-shop-detail').offset().top + $('.fixed-shop-detail').height()
-            >= $('footer').offset().top - 10)
-          $('.fixed-shop-detail').addClass('stop-fixed-shop-detail').css('bottom', Number($('.fixed-shop-detail').height() + $('.fixed-shop-detail').offset().top) + 'px');
+        let fixedElement = $('.fixed-shop-detail');
 
-        if($(document).scrollTop() + window.innerHeight < $('footer').offset().top)
-          $('.fixed-shop-detail').removeClass('stop-fixed-shop-detail').css('bottom', 'unset'); // restore when you scroll up
+        if (fixedElement) {
+          let footerElement = $('footer');
+          if(fixedElement.offset().top + fixedElement.height()
+            >= footerElement.offset().top - 10)
+            fixedElement.addClass('stop-fixed-shop-detail').css('bottom', Number(fixedElement.height() + fixedElement.offset().top) + 'px');
+
+          if($(document).scrollTop() + window.innerHeight < footerElement.offset().top)
+            fixedElement.removeClass('stop-fixed-shop-detail').css('bottom', 'unset'); // restore when you scroll up
+        }
       })
     }
   }
