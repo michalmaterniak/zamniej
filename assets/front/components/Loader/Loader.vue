@@ -1,6 +1,6 @@
 <template>
   <!-- loader start -->
-  <div class="loader_skeleton" v-show="isLoader">
+  <div class="loader_skeleton" v-show="showPlaceholder">
 <!--    <top-header/>-->
     <header>
       <div class="container">
@@ -138,10 +138,13 @@ import MainMenu from "@/layouts/default/Navbar/MainMenu";
 export default {
   name: "Loader",
   components: {MainMenu, TopHeader},
+  data() {
+    return {
+      loader: null,
+      showPlaceholder: true
+    }
+  },
   watch:{
-    $route() {
-      this.$store.commit('setLoader', false);
-    },
     isLoader(to) {
       if (to) {
         this.startLoader();
@@ -160,21 +163,25 @@ export default {
 
     },
     stopLoader() {
-      let loader = $('.loader_skeleton');
-      loader.remove('slow');
-      $('body').css({
-        'overflow': 'hidden'
-      });
+      setTimeout(() => {
+        // this.loader.remove('slow');
+        // $('body').css({
+        //   'overflow': 'hidden'
+        // });
+        //
+        // this.loader.fadeOut('slow');
+        // $('body').css({
+        //   'overflow': 'auto'
+        // });
+        // $('.loader_skeleton').hide('slow');
 
-      loader.fadeOut('slow');
-      $('body').css({
-        'overflow': 'auto'
-      });
-      $('.loader_skeleton').hide('slow');
+        this.showPlaceholder = false
+      }, 2000);
     }
   },
   mounted() {
-    window.addEventListener('load', this.stopLoader)
+    this.loader = $('.loader_skeleton');
+    this.stopLoader();
   }
 }
 </script>
