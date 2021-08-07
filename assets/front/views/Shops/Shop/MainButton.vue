@@ -1,7 +1,7 @@
 <template>
-  <a @click.prevent="redirectShop()" id="main-button" class="btn btn-solid" :class="{'hover-btn' : isHoverStyle}" data-target="#addtocart" data-toggle="modal" href="#">
+  <button @click.prevent="redirectShop()" id="main-button" class="btn btn-solid" :class="{'hover-btn' : isHoverStyle}">
     Przejdź do sklepu
-  </a>
+  </button>
 </template>
 
 <script>

@@ -73,18 +73,18 @@ export default {
         if (!this.showTileShopDetail) {
           this.showTileShopDetail = true;
         }
-
-        let fixedElement = $('.fixed-shop-detail');
-
-        if (fixedElement) {
-          let footerElement = $('footer');
-          if(fixedElement.offset().top + fixedElement.height()
-            >= footerElement.offset().top - 10)
-            fixedElement.addClass('stop-fixed-shop-detail').css('bottom', Number(fixedElement.height() + fixedElement.offset().top) + 'px');
-
-          if($(document).scrollTop() + window.innerHeight < footerElement.offset().top)
-            fixedElement.removeClass('stop-fixed-shop-detail').css('bottom', 'unset'); // restore when you scroll up
-        }
+        //
+        // let fixedElement = $('.fixed-shop-detail');
+        //
+        // if (fixedElement) {
+        //   let footerElement = $('footer');
+        //   if(fixedElement.offset().top + fixedElement.height()
+        //     >= footerElement.offset().top - 10)
+        //     fixedElement.addClass('stop-fixed-shop-detail').css('bottom', Number(fixedElement.height() + fixedElement.offset().top) + 'px');
+        //
+        //   if($(document).scrollTop() + window.innerHeight < footerElement.offset().top)
+        //     fixedElement.removeClass('stop-fixed-shop-detail').css('bottom', 'unset'); // restore when you scroll up
+        // }
       })
     }
   }
