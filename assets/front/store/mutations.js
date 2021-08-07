@@ -1,5 +1,3 @@
-import {BModal} from "bootstrap-vue";
-
 export default {
   setDebug (state, payload) {
     state.debug.active = true;
@@ -19,7 +17,16 @@ export default {
   setKeyModel(state, payload) {
     state.currentKeyModel = payload;
   },
+  setIsPopup(state, payload) {
+    state.isPopup = payload;
+  },
+  setIsTapTop(state, payload) {
+    state.isTapTop = payload;
+  },
   setPopup(state, payload) {
+    if (!state.isPopup) {
+      state.isPopup = true;
+    }
     if(state.popup.template !== null)
       if (state.popup.options.actionAfterClose !== undefined) {
         state.popup.options.actionAfterClose(payload.objectClose);
@@ -30,8 +37,11 @@ export default {
     state.popup.data = payload.data ? payload.data : {};
     state.popup.options = payload.options ? payload.options : {};
     if (payload.template) {
-      $('#MainModal').css('display', 'block').css('opacity', 1);
-      $('body').addClass('modal-open');
+      setTimeout(() => {
+        $('#MainModal').css('display', 'block').css('opacity', 1);
+        $('body').addClass('modal-open');
+      }, 100);
+
     }
     else {
       $('#MainModal').css('display', 'none').css('opacity', 0);

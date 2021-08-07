@@ -9,10 +9,10 @@ VueClipboard.config.autoSetContainer = true;
 Vue.use(Vue2TouchEvents)
 Vue.use(VueClipboard);
 
-import BootstrapVue from 'bootstrap-vue'
-Vue.use(BootstrapVue)
+// import BootstrapVue from 'bootstrap-vue'
+// Vue.use(BootstrapVue)
 // import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 Number.prototype.round = function(places) {

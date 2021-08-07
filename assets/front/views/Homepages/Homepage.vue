@@ -2,7 +2,7 @@
   <div v-if="$store.getters.typePage === 'Homepages-Homepage'">
     <!-- Home slider -->
     <section class="p-0">
-      <main-home-slider></main-home-slider>
+      <main-home-slider />
     </section>
     <!-- Home slider end -->
 
