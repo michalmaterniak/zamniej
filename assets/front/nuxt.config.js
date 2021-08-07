@@ -42,7 +42,7 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-    vendor: ['jquery', 'popper.js', 'lodash', 'bootstrap'],
+    vendor: ['jquery', 'lodash'],
     plugins: [
       // set shortcuts as global for bootstrap
       new webpack.ProvidePlugin({
@@ -50,8 +50,7 @@ export default {
         jQuery: 'jquery',
         jquery: 'jquery',
         'window.jQuery': 'jquery',
-        _: 'lodash',
-        bootstrap: 'bootstrap'
+        _: 'lodash'
       })
     ],
 
