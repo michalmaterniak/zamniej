@@ -15,7 +15,7 @@
         <label>Ocena {{ shop.subpage.subpage.name }} <strong>{{ shop.rating.rating }}</strong>/{{ shop.rating.count }}</label>
         <rating-shop />
       </div>
-      <div class="product-buttons">
+      <div class="product-buttons mt-3">
         <main-button/>
       </div>
       <div class="border-product" v-if="shop.subpage.subpage.content.extra.details">
