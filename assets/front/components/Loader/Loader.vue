@@ -1,6 +1,6 @@
 <template>
   <!-- loader start -->
-  <div class="loader_skeleton" v-show="isLoader">
+  <div class="loader_skeleton">
 <!--    <top-header/>-->
     <header>
       <div class="container">
@@ -138,10 +138,12 @@ import MainMenu from "@/layouts/default/Navbar/MainMenu";
 export default {
   name: "Loader",
   components: {MainMenu, TopHeader},
+  data() {
+    return {
+      loader: null,
+    }
+  },
   watch:{
-    $route() {
-      this.$store.commit('setLoader', false);
-    },
     isLoader(to) {
       if (to) {
         this.startLoader();
@@ -157,16 +159,19 @@ export default {
   },
   methods:{
     startLoader() {
-
+      this.loader.remove('slow');
+      $('body').css({
+        'overflow': 'auto'
+      });
+      $('.loader_skeleton').show();
     },
     stopLoader() {
-      let loader = $('.loader_skeleton');
-      loader.remove('slow');
+      this.loader.remove('slow');
       $('body').css({
         'overflow': 'hidden'
       });
 
-      loader.fadeOut('slow');
+      this.loader.fadeOut('slow');
       $('body').css({
         'overflow': 'auto'
       });
@@ -174,7 +179,8 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('load', this.stopLoader)
+    this.loader = $('.loader_skeleton');
+    this.stopLoader();
   }
 }
 </script>

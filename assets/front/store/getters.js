@@ -38,6 +38,12 @@ export default {
   getPopup: state => {
     return state.popup;
   },
+  isPopupOpen: state => {
+    return state.isPopup;
+  },
+  isTapTop: state => {
+    return state.isTapTop;
+  },
   leftSidebar: state => {
     return state.sidebar.left;
   },
