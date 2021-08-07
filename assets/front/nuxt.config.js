@@ -108,7 +108,6 @@ export default {
   */
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
     '@nuxtjs/sitemap',
     [
       '@nuxtjs/component-cache',
