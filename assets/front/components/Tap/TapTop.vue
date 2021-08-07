@@ -23,16 +23,27 @@ import MainButton from "@/views/Shops/Shop/MainButton";
 export default {
   name: 'TapTop',
   components: {MainButton},
+  data() {
+    return {
+      tapTop: false,
+      tapShop: false
+    }
+  },
   mounted() {
     $(window).on('scroll', function () {
       if ($(this).scrollTop() > 600) {
         $('.tap-top').fadeIn();
-        $('.tap-shop').fadeIn();
+        if (window.innerWidth >= 576 && window.innerWidth < 992) {
+          $('.tap-shop').fadeIn();
+        } else {
+          $('.tap-shop').fadeOut();
+        }
       } else {
         $('.tap-top').fadeOut();
         $('.tap-shop').fadeOut();
       }
     });
+
     $('.tap-top').on('click', function () {
       $("html, body").animate({
         scrollTop: 0
@@ -46,20 +57,17 @@ export default {
 <style scoped>
 .tap-shop {
   position: fixed;
-  bottom: 130px;
+  bottom: 70px;
   right: 30%;
   display: none;
 }
-@media only screen and (max-width: 575px) {
+
+@media (max-width: 575px) and (min-width: 992px) {
   .tap-shop {
     display: none !important;
   }
 }
-@media only screen and (min-width: 992px) {
-  .tap-shop {
-    display: none !important;
-  }
-}
+
 .tap-shop-button {
   border-radius: 25px;
   width: 300px;
