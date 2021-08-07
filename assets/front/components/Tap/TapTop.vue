@@ -8,7 +8,7 @@
     </div>
     <!-- tap to top end -->
     <!-- other -->
-    <div class="tap-shop " v-if="$store.getters.typePage === 'Shops-Shop'">
+    <div class="tap-shop" v-if="$store.getters.typePage === 'Shops-Shop'">
       <div>
         <main-button class="tap-shop-button"/>
       </div>
@@ -49,6 +49,16 @@ export default {
   bottom: 130px;
   right: 30%;
   display: none;
+}
+@media only screen and (max-width: 575px) {
+  .tap-shop {
+    display: none !important;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .tap-shop {
+    display: none !important;
+  }
 }
 .tap-shop-button {
   border-radius: 25px;
