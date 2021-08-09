@@ -108,7 +108,7 @@ export default {
   */
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     '@nuxtjs/sitemap',
     [
       '@nuxtjs/component-cache',
@@ -121,30 +121,30 @@ export default {
       // defaultImage: '/page2/images/ajax-loader.gif',
     }]
   ],
-  pwa: {
-    meta: {
-      title: 'Za Mniej',
-      author: 'Michał Materniak COMMIT-M',
-    },
-    icon: {
-      source: '/page2/images/icon/2.png'
-    },
-    manifest: {
-      name: 'ZaMniej.pl',
-      short_name: 'zamniej.pl',
-      lang: 'pl',
-      display: 'standalone',
-      theme_color:	"#ff6600",
-      background_color:	"#ffffff",
-      icons:[
-        {
-          src: '/page2/images/icon/2.png',
-          sizes: '10x10',
-          type: 'image/png'
-        }
-      ]
-    },
-  },
+  // pwa: {
+  //   meta: {
+  //     title: 'Za Mniej',
+  //     author: 'Michał Materniak COMMIT-M',
+  //   },
+  //   icon: {
+  //     source: '/page2/images/icon/2.png'
+  //   },
+  //   manifest: {
+  //     name: 'ZaMniej.pl',
+  //     short_name: 'zamniej.pl',
+  //     lang: 'pl',
+  //     display: 'standalone',
+  //     theme_color:	"#ff6600",
+  //     background_color:	"#ffffff",
+  //     icons:[
+  //       {
+  //         src: '/page2/images/icon/2.png',
+  //         sizes: '10x10',
+  //         type: 'image/png'
+  //       }
+  //     ]
+  //   },
+  // },
 
   sitemap,
 
