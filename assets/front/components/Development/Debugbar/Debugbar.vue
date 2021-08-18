@@ -700,7 +700,10 @@ export default {
             let p = e.target.parentNode.parentNode;
             p.style.display = 'none';
             (p.previousElementSibling || p.previousSibling).style.display = 'none';
-            document.getElementById('sfMiniToolbar-' + this.token).style.display = 'block';
+            var some = document.getElementById('sfMiniToolbar-' + this.token);
+            if (some && some.style) {
+              document.getElementById('sfMiniToolbar-' + this.token).style.display = 'block';
+            }
           })
         }
       }, 500);

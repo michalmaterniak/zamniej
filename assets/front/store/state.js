@@ -39,12 +39,16 @@ export default () => ({
     title: '',
     template: null,
   },
+  isPopup: false,
+  isTapTop: false,
 
   search: {
     keywordsSearch: '',
     shops: [],
     isSearchContainer: false
   },
-  favoriteShops: []
+  favoriteShops: [],
+
+  shopDetailOpen: false
 
 });

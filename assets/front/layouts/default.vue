@@ -5,9 +5,10 @@
     <bread-crumb/>
     <nuxt/>
     <main-footer/>
-    <tap-top/>
-    <pop-up-view/>
-<!--    <modal/>-->
+    <client-only>
+      <tap-top v-if="$store.getters.isTapTop"/>
+      <pop-up-view v-if="$store.getters.isPopupOpen"/>
+    </client-only>
     <debugbar v-if="debugActive"/>
   </div>
 </template>
@@ -22,13 +23,12 @@ import TapTop from "@/components/Tap/TapTop";
 import MainFooter from "@/layouts/default/MainFooter";
 import BreadCrumb from "@/layouts/default/BreadCrumb";
 import PopUpView from "@/components/Popup/PopUpView";
-import Modal from "@/components/Modal/Modal";
 
 Vue.mixin(pages);
 
 export default {
   mixins:[pages],
-  components: {PopUpView, BreadCrumb, MainFooter, TapTop, Loader, Navbar, Debugbar, Modal},
+  components: {PopUpView, BreadCrumb, MainFooter, TapTop, Loader, Navbar, Debugbar},
   watch:{
     $route(to, from)
     {

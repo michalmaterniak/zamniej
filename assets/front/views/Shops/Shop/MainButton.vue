@@ -1,7 +1,7 @@
 <template>
-  <a @click.prevent="" id="main-button" class="btn btn-solid" :class="{'hover-btn' : isHoverStyle}" data-target="#addtocart" data-toggle="modal" href="#">
+  <button @click.prevent="redirectShop()" id="main-button" class="btn btn-solid" :class="{'hover-btn' : isHoverStyle}">
     Przejdź do sklepu
-  </a>
+  </button>
 </template>
 
 <script>
@@ -14,6 +14,15 @@ export default {
     }
   },
   methods:{
+    redirectShop() {
+      this.$gtagEv({
+        action: 'redirect',
+        category: 'shop-mobile',
+        label: 'shop-' + String(this.$store.getters.model.subpage.idShopAffil),
+      });
+
+      this.redirectInside(this.$store.getters.redirectLinkShop(this.$store.getters.model.subpage.idShopAffil));
+    },
     startInterval() {
       this.interval = setInterval(() => {
         this.isHoverStyle = true;
@@ -35,5 +44,9 @@ export default {
 </script>
 
 <style scoped>
-
+.hover-btn {
+  background-position: 100%;
+  color: #000000;
+  background-color: #ffffff;
+}
 </style>

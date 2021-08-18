@@ -39,7 +39,6 @@
       let locale =    context.store.getters.currentLocale;
       let slug =      context.route.path.replace(/^\//g, '');
 
-
       if(!context.store.getters.checkKeyModel(locale + slug))
       {
         let headers = {};
@@ -50,7 +49,8 @@
         let objRequest = context.route.query;
         objRequest.locale = locale;
         objRequest.slug = slug;
-        return context.$axios.post('page/api/main', objRequest,{
+
+        return context.$axios.post((!context.store.getters.isSetInitFront ? process.env.API_SERVER_HOST : '') + 'page/api/main', objRequest,{
             headers
         }).then(res => {
 
@@ -59,7 +59,6 @@
               token: res.headers['x-debug-token'],
               dev: process.env.DEV_HOST
             });
-
 
           context.store.commit('setModel', {model: res.data.model, key: locale + slug});
           if(res.data.initFront)
@@ -106,6 +105,7 @@
       self = this;
       window.addEventListener('scroll', function handler() {
         self.$lazyHide();
+        self.$store.commit('setIsTapTop', true);
         this.removeEventListener('scroll', handler);
       });
     },

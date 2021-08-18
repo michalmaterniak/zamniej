@@ -42,7 +42,7 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-    vendor: ['jquery', 'popper.js', 'lodash', 'bootstrap'],
+    vendor: ['jquery', 'lodash'],
     plugins: [
       // set shortcuts as global for bootstrap
       new webpack.ProvidePlugin({
@@ -50,8 +50,7 @@ export default {
         jQuery: 'jquery',
         jquery: 'jquery',
         'window.jQuery': 'jquery',
-        _: 'lodash',
-        bootstrap: 'bootstrap'
+        _: 'lodash'
       })
     ],
 
@@ -79,22 +78,12 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    // { src: '~/assets/js/jquery-3.3.1.min.js', mode: 'client' },
-    // { src: '~/assets/js/popper.min.js', mode: 'client' },
     { src: '@/plugins/main.js' },
     { src: '@/plugins/main.client.js' },
     { src: '@/plugins/main.server.js' },
     { src: '@/plugins/functions.js' },
     { src: '~/node_modules/bootstrap/dist/js/bootstrap.js', mode: 'client' },
-    { src: '~/assets/js/jquery-ui.min.js', mode: 'client' },
-    { src: '~/assets/js/jquery.exitintent.js', mode: 'client' },
-    // { src: '~/assets/js/exit.js', mode: 'client' },
-    // { src: '~/assets/js/slick.js', mode: 'client' },
-    { src: '~/assets/js/menu.js', mode: 'client' },
     { src: '~/assets/js/lazysizes.min.js', mode: 'client' },
-    { src: '~/assets/js/bootstrap-notify.min.js', mode: 'client' },
-    { src: '~/assets/js/fly-cart.js', mode: 'client' },
-    { src: '~/assets/js/script.js', mode: 'client' },
   ],
   /*
   ** Auto import components
@@ -119,7 +108,7 @@ export default {
   */
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     '@nuxtjs/sitemap',
     [
       '@nuxtjs/component-cache',
@@ -132,30 +121,30 @@ export default {
       // defaultImage: '/page2/images/ajax-loader.gif',
     }]
   ],
-  pwa: {
-    meta: {
-      title: 'Za Mniej',
-      author: 'Michał Materniak COMMIT-M',
-    },
-    icon: {
-      source: '/page2/images/icon/2.png'
-    },
-    manifest: {
-      name: 'ZaMniej.pl',
-      short_name: 'zamniej.pl',
-      lang: 'pl',
-      display: 'standalone',
-      theme_color:	"#ff6600",
-      background_color:	"#ffffff",
-      icons:[
-        {
-          src: '/page2/images/icon/2.png',
-          sizes: '10x10',
-          type: 'image/png'
-        }
-      ]
-    },
-  },
+  // pwa: {
+  //   meta: {
+  //     title: 'Za Mniej',
+  //     author: 'Michał Materniak COMMIT-M',
+  //   },
+  //   icon: {
+  //     source: '/page2/images/icon/2.png'
+  //   },
+  //   manifest: {
+  //     name: 'ZaMniej.pl',
+  //     short_name: 'zamniej.pl',
+  //     lang: 'pl',
+  //     display: 'standalone',
+  //     theme_color:	"#ff6600",
+  //     background_color:	"#ffffff",
+  //     icons:[
+  //       {
+  //         src: '/page2/images/icon/2.png',
+  //         sizes: '10x10',
+  //         type: 'image/png'
+  //       }
+  //     ]
+  //   },
+  // },
 
   sitemap,
 

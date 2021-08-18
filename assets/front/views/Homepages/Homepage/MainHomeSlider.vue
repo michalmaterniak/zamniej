@@ -1,22 +1,10 @@
 <template>
   <div class="slide-1 home-slider">
-    <div>
-      <div class="home  text-center">
-        <img alt="" class="bg-img blur-up" src="/page2/images/woman-after-shopping-sitting-on-sofa-with-new-apparel-beautiful-fashionable-girl-holds-red-modern-shoes-and-sits-on-sofa.webp" data-not-lazy>
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="slider-contain">
-                <div>
-                  <a class="btn btn-solid" href="#" @click.prevent="start">Znajdź promocję dla siebie <i class="fa fa-arrow-down"></i> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="home text-center bg-size blur-up lazyloaded" data-v-1443f4de="" style="background-image: url('/page2/images/woman-after-shopping-sitting-on-sofa-with-new-apparel-beautiful-fashionable-girl-holds-red-modern-shoes-and-sits-on-sofa.webp'); background-size: cover; background-position: center center; display: block;">
+      <div class="slider-contain">
+        <button class="btn btn-solid" @click.prevent="start">Znajdź promocję dla siebie <i class="fa fa-arrow-down"></i> </button>
       </div>
     </div>
-
   </div>
 </template>
 

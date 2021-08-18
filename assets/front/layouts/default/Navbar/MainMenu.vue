@@ -42,6 +42,12 @@
                 <i class="fa fa-arrow-right" @click="redirectShop()"></i>
               </div>
             </li>
+            <li v-if="$store.getters.typePage === 'Shops-Shop'"
+                class="onhover-div mobile-cart red d-xl-none d-lg-none d-md-none d-sm-none">
+              <div>
+                <i class="fa fa-info" @click="openDetails()"></i>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
@@ -83,6 +89,19 @@ export default {
     }
   },
   methods:{
+    openDetails() {
+      this.$store.commit('setShopDetailOpen', true);
+      this.$store.commit('setPopup', {
+        template: () => import("@/components/Popup/PopupShopDetails"),
+        title: 'Szczegóły sklepu',
+        options: {
+          blockedExit: true,
+          actionAfterClose: (obj = {}) => {
+            this.$store.commit('setShopDetailOpen', false);
+          },
+        }
+      })
+    },
     redirectShop() {
       this.$gtagEv({
         action: 'redirect',
@@ -111,18 +130,18 @@ export default {
     },
   },
   mounted() {
-    $('#main-menu').smartmenus({
-      subMenusSubOffsetX: 1,
-      subMenusSubOffsetY: -8
-    });
-
-    if ($(window).width() > '1200') {
-      $('#hover-cls').hover(
-        function () {
-          $('.sm').addClass('hover-unset');
-        }
-      )
-    }
+    // $('#main-menu').smartmenus({
+    //   subMenusSubOffsetX: 1,
+    //   subMenusSubOffsetY: -8
+    // });
+    //
+    // if ($(window).width() > '1200') {
+    //   $('#hover-cls').hover(
+    //     function () {
+    //       $('.sm').addClass('hover-unset');
+    //     }
+    //   )
+    // }
   }
 }
 </script>
