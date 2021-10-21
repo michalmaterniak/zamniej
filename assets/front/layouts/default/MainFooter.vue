@@ -21,7 +21,7 @@
         <div class="row">
           <div class="col-xl-6 col-md-8 col-sm-12 offset-xl-6 offset-md-2" >
             <div class="footer-end">
-              <p><i aria-hidden="true" class="fa fa-copyright"></i> 2021 ZaMniej.pl <strong>kontakt@zamniej.pl</strong></p>
+              <p><i aria-hidden="true" class="fa fa-copyright"></i> 2021 ZaMniej.pl <strong v-if="visibleContact">kontakt@zamniej.pl</strong></p>
             </div>
           </div>
         </div>
@@ -34,13 +34,17 @@ export default {
   name: 'MainFooter',
   data() {
     return {
-      isFooterEnabled: false
+      isFooterEnabled: false,
+      visibleContact: false
     }
   },
   computed:{
     links() {
       return this.$store.getters.initFront.data.links.footer;
     }
+  },
+  mounted() {
+    this.visibleContact = true;
   }
 }
 </script>
