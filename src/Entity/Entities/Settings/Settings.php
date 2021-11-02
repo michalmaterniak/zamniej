@@ -14,12 +14,29 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Settings implements ArrayAccess, EntityInterface
 {
+
+    public const TYPE_SEO = 'Seo';
+
+    use SettingsTrait;
+
     /**
      * @var string
      * @ORM\Column(name="id_setting", type="string", length=200, nullable=false)
      * @ORM\Id
      */
     protected $idSetting;
+
+    /**
+     * @var string|null $type
+     * @ORM\Column(name="type", type="string", length=200, nullable=true)
+     */
+    protected $type;
+
+    /**
+     * @var string|null $target
+     * @ORM\Column(name="target", type="string", length=200, nullable=true)
+     */
+    protected $target;
 
     public function __construct(string $id = null)
     {
@@ -42,7 +59,37 @@ class Settings implements ArrayAccess, EntityInterface
         $this->idSetting = $idSetting;
     }
 
-    use SettingsTrait;
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string|null $type
+     */
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTarget(): ?string
+    {
+        return $this->target;
+    }
+
+    /**
+     * @param string|null $target
+     */
+    public function setTarget(?string $target): void
+    {
+        $this->target = $target;
+    }
 
     public function offsetExists($offset)
     {

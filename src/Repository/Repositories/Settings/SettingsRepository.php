@@ -30,4 +30,31 @@ class SettingsRepository extends GlobalRepository
         $this->queryBuilder->andWhere($this->getRootAlias().'.idSetting = :id')->setParameter('id', $id);
         return $this;
     }
+
+    /**
+     * @param string $target
+     * @return $this
+     */
+    public function getByTargetOrNull(string $target) : static
+    {
+        $this->queryBuilder->andWhere(
+            $this->getRootAlias().'.target = :target')->setParameter('target', $target
+            . "OR " . $this->getRootAlias() . '.target IS NULL'
+        );
+
+        return $this;
+    }
+
+    /**
+     * @param string $type
+     * @return $this
+     */
+    public function getByType(string $type) : static
+    {
+        $this->queryBuilder->andWhere(
+            $this->getRootAlias().'.type = :type')->setParameter('type', $type);
+
+        return $this;
+    }
+
 }

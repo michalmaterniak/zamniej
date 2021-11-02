@@ -12,8 +12,7 @@ name: "BasicWebepartners",
     program:{
       type:Object,
     }
-  },
-
+  }
 }
 </script>
 
