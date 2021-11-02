@@ -3,6 +3,7 @@
 namespace App\Controller\Admin\Api\Pages\Resource;
 
 use App\Application\Pages\PagesManager;
+use App\Entity\Entities\Settings\Settings;
 use App\Repository\Repositories\Settings\SettingsRepository;
 use App\Services\System\Request\Retrievers\RequestDataManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,7 +21,7 @@ class SeoController extends AbstractResourceController
     public function types(PagesManager $pagesManager, SettingsRepository $settingsRepository)
     {
         $this->templateVars->insert('configs', $this->normalizer->normalize($pagesManager->getConfigAllResources()));
-        $this->templateVars->insert('settings', $settingsRepository->select()->getByType('Seo')->getResults());
+        $this->templateVars->insert('settings', $settingsRepository->select()->getByType(Settings::TYPE_SEO)->getResults());
 
         return $this->responseJson();
     }

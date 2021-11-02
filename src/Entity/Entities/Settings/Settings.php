@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Settings implements ArrayAccess, EntityInterface
 {
 
+    public const TYPE_SEO = 'Seo';
+
     use SettingsTrait;
 
     /**

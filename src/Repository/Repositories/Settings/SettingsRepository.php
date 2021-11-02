@@ -52,8 +52,7 @@ class SettingsRepository extends GlobalRepository
     public function getByType(string $type) : static
     {
         $this->queryBuilder->andWhere(
-            $this->getRootAlias().'.type = :type')->setParameter('type', $type
-        );
+            $this->getRootAlias().'.type = :type')->setParameter('type', $type);
 
         return $this;
     }
