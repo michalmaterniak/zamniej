@@ -46,8 +46,10 @@ class GSCIndexesRepository extends GlobalRepository
             ->addOrderBy("{$this->getRootAlias()}.datetime", Criteria::ASC)
             ->addOrderBy("{$this->getRootAlias()}.url", Criteria::ASC)
             ->andWhere("{$this->getRootAlias()}.used = 0");
-        $leftSubpages = $this->addLeftJoin("subpage");
-        $leftResources = $this->addLeftJoin("resource", $leftSubpages);
+        $leftSubpage = $this->addLeftJoin("subpage");
+        $leftResources = $this->addLeftJoin("resource", $leftSubpage);
+        $this->addLeftJoin("subpages", $leftResources);
+        $this->queryBuilder->andWhere("{$leftSubpage}.active = 1");
         $this->queryBuilder->andWhere("{$leftResources}.resourceType = 7");
 
         return $this;
