@@ -224,11 +224,10 @@ class OffersRepository extends GlobalRepository
     {
         $this->orderBy(['datetimeFrom' => 'DESC', 'datetimeCreate' => 'DESC']);
         $this->actualOffer()->withPhoto()->withShopAffil()->withContent()->lastMax(16);
-        $aliasRootSubpages = $this->addLeftJoin('subpage');
-        $this->addLeftJoin('resource', $aliasRootSubpages);
-
-        $this->queryBuilder->andWhere("{$aliasRootSubpages}.active = 1");
-
+        $aliasRootSubpage = $this->addLeftJoin('subpage');
+        $aliasResource = $this->addLeftJoin('resource', $aliasRootSubpage);
+        $this->addLeftJoin('subpages', $aliasResource);
+        $this->queryBuilder->groupBy($aliasResource . '.idResource');
         return $this;
     }
 
