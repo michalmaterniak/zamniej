@@ -227,6 +227,7 @@ class OffersRepository extends GlobalRepository
         $this->actualOffer()->withPhoto()->withShopAffil()->withContent()->lastMax(16);
         $aliasRootSubpage = $this->addLeftJoin('subpage');
         $this->queryBuilder->andWhere("$aliasRootSubpage.active = 1");
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.priority > 2");
         $aliasResource = $this->addLeftJoin('resource', $aliasRootSubpage);
         $this->addLeftJoin('subpages', $aliasResource);
 
