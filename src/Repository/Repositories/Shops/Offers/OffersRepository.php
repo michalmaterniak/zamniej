@@ -223,7 +223,7 @@ class OffersRepository extends GlobalRepository
      */
     public function listingHomepage(): self
     {
-        $this->orderBy(['datetimeFrom' => 'DESC', 'datetimeCreate' => 'DESC']);
+        $this->orderBy(['priority' => 'DESC','datetimeFrom' => 'DESC', 'datetimeCreate' => 'DESC']);
         $this->actualOffer()->withPhoto()->withShopAffil()->withContent()->lastMax(16);
         $aliasRootSubpage = $this->addLeftJoin('subpage');
         $this->queryBuilder->andWhere("$aliasRootSubpage.active = 1");
@@ -231,7 +231,7 @@ class OffersRepository extends GlobalRepository
         $aliasResource = $this->addLeftJoin('resource', $aliasRootSubpage);
         $this->addLeftJoin('subpages', $aliasResource);
 
-        $this->queryBuilder->groupBy("{$this->getRootAlias()}.subpage")->orderBy("{$this->getRootAlias()}.datetimeFrom", 'DESC');
+        $this->queryBuilder->groupBy("{$this->getRootAlias()}.subpage");
 
         return $this;
     }
