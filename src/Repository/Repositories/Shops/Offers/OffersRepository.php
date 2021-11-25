@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository\Repositories\Shops\Offers;
 
+use App\Entity\Entities\Shops\Offers\Offers;
 use App\Entity\Entities\Shops\Offers\Offers as Entity;
 use App\Entity\Entities\Shops\Offers\OffersPromotion;
 use App\Entity\Entities\Shops\Offers\OffersVoucher;
@@ -225,9 +226,12 @@ class OffersRepository extends GlobalRepository
         $this->orderBy(['datetimeFrom' => 'DESC', 'datetimeCreate' => 'DESC']);
         $this->actualOffer()->withPhoto()->withShopAffil()->withContent()->lastMax(16);
         $aliasRootSubpage = $this->addLeftJoin('subpage');
+        $this->queryBuilder->andWhere("$aliasRootSubpage.active = 1");
         $aliasResource = $this->addLeftJoin('resource', $aliasRootSubpage);
         $this->addLeftJoin('subpages', $aliasResource);
-        $this->queryBuilder->groupBy($aliasResource . '.idResource');
+
+        $this->queryBuilder->groupBy("{$this->getRootAlias()}.subpage")->orderBy("{$this->getRootAlias()}.datetimeFrom", 'DESC');
+
         return $this;
     }
 
