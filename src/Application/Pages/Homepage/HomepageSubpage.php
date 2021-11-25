@@ -66,6 +66,7 @@ class HomepageSubpage extends ResourceSubpage
     public function getPromotions()
     {
         if(!$this->promotions) {
+
             $promotions = $this->getComponents()->getOffersManager()->createModelsOffers(
                 $this->getComponents()->getOffersRepository()->select()->listingHomepage()->getTypeOffer(OffersPromotion::class)->getResults()
             );
