@@ -27462,11 +27462,16 @@ body.dark {
 .main-content > h2 {
   font-size: 1.2rem;
 }
+.main-content ul  {
+  text-align: left;
+  padding-left: 2rem;
+  padding-bottom: 2rem;
+}
 
-.main-content > ul > li  {
+.main-content li  {
   display: list-item;
-  list-style-position: inside;
-  list-style-type: none;
+  list-style-type: disc;
+  text-align: left;
 }
 
 .main-content-blog > p{
