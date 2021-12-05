@@ -4,6 +4,7 @@ namespace App\Entity\Entities\System;
 use App\Entity\Interfaces\EntityInterface;
 use App\Entity\Traits\DataTrait;
 use App\Entity\Traits\TimestampTrait;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -95,5 +96,4 @@ class Contents implements EntityInterface
     {
         $this->setData($data, $key);
     }
-
 }

@@ -1,14 +1,15 @@
 <?php
 namespace App\Entity\Traits;
 
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 trait TimestampTrait
 {
     /**
-     * @var \DateTime $created
-     * @ORM\Column(name="modified", type="datetime", columnDefinition="DATETIME on update CURRENT_TIMESTAMP", options={"default" : "CURRENT_TIMESTAMP"})
+     * @var \DateTime $modified
+     * @ORM\Column(name="modified", type="datetime", options={"default" : "CURRENT_TIMESTAMP"})
      * @Groups({"resource", "resource-admin"})
      */
     protected $modified;
@@ -36,6 +37,15 @@ trait TimestampTrait
         return $this->created;
     }
 
+    public function setModified(\DateTime $dateTime = null)
+    {
+        if (!$dateTime) {
+            $dateTime = new \DateTime();
+        }
+
+        $this->modified = $dateTime;
+    }
+
     /**
      * @ORM\PrePersist
      */
@@ -45,4 +55,13 @@ trait TimestampTrait
         $this->modified = new \DateTime();
     }
 
+
+    /**
+     * @param PreUpdateEventArgs $preUpdateEventArgs
+     * @ORM\PreUpdate
+     */
+    public function _setModified(PreUpdateEventArgs $preUpdateEventArgs): void
+    {
+        $this->setModified();
+    }
 }
