@@ -15,7 +15,7 @@ class OffersVoucher extends Offers
      * @return string
      * @Groups({"resource","offers-admin-listing"})
      */
-    public function getCode()
+    public function getCodeText()
     {
         return $this->getData('code');
     }

@@ -3,6 +3,7 @@ namespace App\Application\Admin\ConfigAdmin;
 
 use App\Entity\Entities\Affiliations\Convertiser\ConvertiserPrograms;
 use App\Entity\Entities\Affiliations\ShopsAffiliation;
+use App\Entity\Entities\Affiliations\Tradetracker\TradetrackerPrograms;
 use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -36,6 +37,7 @@ class FindNewPrograms
         return [
             'total' => $this->shops->count(),
             'webepartners' => $this->extractWebepartners(),
+            'tradetracker' => $this->extractTradetracker(),
             'convertiser' => $this->extractConvertiser()
         ];
     }
@@ -49,6 +51,19 @@ class FindNewPrograms
 
         foreach ($this->shops as $shop) {
             $counter = ($shop instanceof WebepartnersPrograms) ? $counter + 1 : $counter;
+        }
+
+        return $counter;
+    }
+    /**
+     * @return int
+     */
+    protected function extractTradetracker(): int
+    {
+        $counter = 0;
+
+        foreach ($this->shops as $shop) {
+            $counter = ($shop instanceof TradetrackerPrograms) ? $counter + 1 : $counter;
         }
 
         return $counter;

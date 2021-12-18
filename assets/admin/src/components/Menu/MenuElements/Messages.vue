@@ -42,6 +42,24 @@
             <!-- Message convertiser -->
           </div>
         </li>
+        <li v-if="newProgramsCount.tradetracker > 0">
+          <div class="">
+            <!-- Message tradetracker -->
+            <a href="javascript:void(0)" class="link border-top" v-if="newProgramsCount.tradetracker > 0">
+              <div class="d-flex no-block align-items-center p-10">
+                <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
+                <div class="m-l-10">
+                  <span class="mail-desc">
+                    <router-link :to="{name: 'panel-affiliations-tradetracker-programs-new'}" >
+                      <h5 class="m-b-0">Nowe progrmy tradetracker<br>(<span v-text="newProgramsCount.tradetracker"></span>)</h5>
+                    </router-link>
+                  </span>
+                </div>
+              </div>
+            </a>
+            <!-- Message tradetracker -->
+          </div>
+        </li>
       </ul>
     </div>
   </li>

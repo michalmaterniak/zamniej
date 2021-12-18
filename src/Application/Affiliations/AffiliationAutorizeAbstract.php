@@ -3,7 +3,7 @@ namespace App\Application\Affiliations;
 
 use GuzzleHttp\Client;
 
-abstract class AffiliationAutorizeAbstract
+abstract class AffiliationAutorizeAbstract implements AffiliationAutorizeInterface
 {
     /**
      * @var Client $client
