@@ -21,8 +21,8 @@ class UpdaterAffiliations
         UpdaterTradetracker $updaterTradetracker
     )
     {
-//        $this->register($updaterConvertiser);
-//        $this->register($updaterWebepartners);
+        $this->register($updaterConvertiser);
+        $this->register($updaterWebepartners);
         $this->register($updaterTradetracker);
     }
 
