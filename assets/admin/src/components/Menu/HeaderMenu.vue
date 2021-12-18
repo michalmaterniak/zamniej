@@ -48,6 +48,17 @@
             </div>
           </li>
           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTradetracker" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="d-none d-md-block">Tradetracker <i class="fa fa-angle-down"></i></span>
+              <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownTradetracker">
+              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-tradetracker-programs-new'}">Nowe</router-link>
+              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-tradetracker-programs-active'}">Aktywne</router-link>
+              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-tradetracker-programs-unactive'}">Nieaktywne</router-link>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
             <router-link :to="{name: 'panel-sliders-sliders'}" class="nav-link dropdown-toggle">
               <span class="d-none d-md-block">Slidery</span>
             </router-link>

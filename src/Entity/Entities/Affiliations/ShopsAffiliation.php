@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\DiscriminatorMap({
  *     0 = "App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms",
  *     1 = "App\Entity\Entities\Affiliations\Convertiser\ConvertiserPrograms",
+ *     2 = "App\Entity\Entities\Affiliations\Tradetracker\TradetrackerPrograms"
  * })
  * @ORM\Entity(repositoryClass="App\Repository\Repositories\Affiliations\ShopsAffiliationRepository")
  *

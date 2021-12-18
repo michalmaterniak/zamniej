@@ -35,6 +35,12 @@ import ProgramConvertiser from "../views/Panel/Affiliations/Convertiser/ProgramC
 import ProgramsConvertiser from "../views/Panel/Affiliations/Convertiser/ProgramsConvertiser";
 import GSCIndexes from "../views/Panel/Links/GSCIndexes";
 
+import Tradetracker from "../views/Panel/Affiliations/Tradetracker";
+import ProgramsTradetrackerNew from "../views/Panel/Affiliations/Tradetracker/Programs/ProgramsTradetrackerNew";
+import ProgramsTradetrackerActive from "../views/Panel/Affiliations/Tradetracker/Programs/ProgramsTradetrackerActive";
+import ProgramsTradetrackerUnactive from "../views/Panel/Affiliations/Tradetracker/Programs/ProgramsTradetrackerUnactive";
+import ProgramTradetracker from "../views/Panel/Affiliations/Tradetracker/ProgramTradetracker";
+import ProgramsTradetracker from "../views/Panel/Affiliations/Tradetracker/ProgramsTradetracker";
 export default [
   {
     name: "homepage",
@@ -239,6 +245,62 @@ export default [
             name: 'panel-affiliations-convertiser-program',
             path: 'program/:id',
             component: ProgramConvertiser,
+            props: true,
+            meta: {
+              middleware: [auth],
+            },
+          }
+        ]
+      },
+      {
+        name: 'panel-affiliations-tradetracker',
+        path: 'affiliations-tradetracker',
+        component: Tradetracker,
+        meta: {
+          middleware: [auth],
+        },
+        redirect: {
+          name: 'panel-affiliations-tradetracker-programs-new'
+        },
+        children:[
+          {
+            name: 'panel-affiliations-tradetracker-programs',
+            path: 'programs',
+            component: ProgramsTradetracker,
+            meta: {
+              middleware: [auth],
+            },
+            children:[
+              {
+                name: 'panel-affiliations-tradetracker-programs-new',
+                path: 'new',
+                component: ProgramsTradetrackerNew,
+                meta: {
+                  middleware: [auth],
+                },
+              },
+              {
+                name: 'panel-affiliations-tradetracker-programs-active',
+                path: 'active',
+                component: ProgramsTradetrackerActive,
+                meta: {
+                  middleware: [auth],
+                },
+              },
+              {
+                name: 'panel-affiliations-tradetracker-programs-unactive',
+                path: 'unactive',
+                component: ProgramsTradetrackerUnactive,
+                meta: {
+                  middleware: [auth],
+                },
+              }
+            ]
+          },
+          {
+            name: 'panel-affiliations-tradetracker-program',
+            path: 'program/:id',
+            component: ProgramTradetracker,
             props: true,
             meta: {
               middleware: [auth],

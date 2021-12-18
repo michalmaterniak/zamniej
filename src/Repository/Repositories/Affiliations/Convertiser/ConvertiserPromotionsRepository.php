@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repository\Repositories\Affiliations\Convertiser;
 
 use App\Entity\Entities\Affiliations\Convertiser\ConvertiserPromotions as Entity;
@@ -18,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Entity|null              getResultOrNull()
  * @method Entity[]|Paginator       getPaginate()
  */
-class ConvertiserPromotionsRepository extends ShopsAffiliationRepository
+class ConvertiserPromotionsRepository extends ConvertiserOffersRepository
 {
     public function __construct(
         ManagerRegistry $registry,
@@ -31,15 +30,6 @@ class ConvertiserPromotionsRepository extends ShopsAffiliationRepository
     protected function getEntityName(): string
     {
         return Entity::class;
-    }
-
-    /**
-     * @return $this
-     */
-    public function externalId(string $exteralId)
-    {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.id = :id")->setParameter('id', $exteralId);
-        return $this;
     }
 
 }

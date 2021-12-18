@@ -7,7 +7,7 @@ use App\Entity\Entities\Affiliations\Webepartners\WebepartnersPrograms;
 interface FinderOffersToProgramInterface
 {
     /**
-     * @param ShopsAffiliation|WebepartnersPrograms $program
+     * @param ShopsAffiliation $program
      */
     public function loadOffers(ShopsAffiliation $program): void;
 }

@@ -33,7 +33,7 @@ class OfferEntityVoucherFactory extends OfferEntityFactory
     public function updateByEntity(OfferInterface $sourceOffer, Offers $offerEntity = null)
     {
         $this->offer = $offerEntity ?: $this->offer;
-        $this->offer->setCode($sourceOffer->getCode());
+        $this->offer->setCode($sourceOffer->getCodeText());
         parent::updateByEntity($sourceOffer, $offerEntity);
     }
 }

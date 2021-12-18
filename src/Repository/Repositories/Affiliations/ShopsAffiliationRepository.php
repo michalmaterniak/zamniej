@@ -136,7 +136,7 @@ class ShopsAffiliationRepository extends GlobalRepository
      */
     public function byId(int $id)
     {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.idShop = :id")->setParameter('id', $id);
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.id = :id")->setParameter('id', $id);
         return $this;
     }
 

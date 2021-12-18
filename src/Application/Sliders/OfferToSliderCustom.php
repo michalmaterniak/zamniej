@@ -31,7 +31,7 @@ class OfferToSliderCustom extends OfferToSlider
     {
         if ($offer instanceof OffersVoucher) {
             $slide = new SlidesVouchers();
-            $slide->setCode($offer->getCode());
+            $slide->setCode($offer->getCodeText());
         } elseif ($offer instanceof OffersPromotion) {
             $slide = new SlidesPromotions();
         } elseif ($offer instanceof OffersBanner) {

@@ -1,7 +1,7 @@
 <?php
 namespace App\Command;
 
-use App\Application\LinkingInternal\GSCIndexes\GSCIndexesUpdater;
+use App\Application\Affiliations\Tradetracker\Api\Offers\VouchersTradetracker as PromotionsTradetracker ;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -10,15 +10,10 @@ class TestCommand extends Command
 {
     protected static $defaultName = 'test';
 
-    /**
-     * @var GSCIndexesUpdater $linksGenerator
-     */
-    protected GSCIndexesUpdater $linksGenerator;
-
-    public function __construct(GSCIndexesUpdater $linksGenerator, string $name = null)
+    public function __construct(protected PromotionsTradetracker $offersTradetracker, string $name = null)
     {
         parent::__construct($name);
-        $this->linksGenerator = $linksGenerator;
+
     }
 
     protected function configure()
@@ -29,7 +24,9 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->linksGenerator->update();
+        $offers = $this->offersTradetracker->getPromotions();
+        dump($offers);
+        dump(count($offers));
         return 0;
     }
 }

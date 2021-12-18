@@ -6,5 +6,5 @@ interface OfferVoucherInterface extends OfferInterface
     /**
      * @return string
      */
-    public function getCode() : string;
+    public function getCodeText() : string;
 }

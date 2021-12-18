@@ -358,7 +358,7 @@ class WebepartnersVouchers extends OffersAffiliation implements OfferVoucherInte
      * @return string
      * @Groups({"resource-admin-listing"})
      */
-    public function getCode(): string
+    public function getCodeText(): string
     {
         return $this->getVoucherCode();
     }

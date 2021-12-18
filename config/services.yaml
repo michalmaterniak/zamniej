@@ -26,6 +26,12 @@ parameters:
         api_access:
             login: 'michal.materniak@commit-m.pl'
             access: '53e68742-2049-4b30-9c3b-d185365ca273'
+    tradetracker:
+        wsdl: 'https://ws.tradetracker.com/soap/affiliate?wsdl'
+        customerId: 227329,
+        passphrase: '14af27a7a0324d91e9cfee817519830aadf68270'
+        affiliateSiteIDs:
+            - 392977
     rabbitmq:
         queue: 'zamniej'
         host: '%env(RABBITMQ_HOST)%'
@@ -93,6 +99,10 @@ services:
     App\Application\Affiliations\Convertiser\Api\ConvertiserAuthorization:
         arguments:
             $convertiser: '%convertiser%'
+
+    App\Application\Affiliations\Tradetracker\Api\TradetrackerAuthorization:
+        arguments:
+            $tradetracker: '%tradetracker%'
 
     App\Services\System\Cache\CacheManager:
         arguments:

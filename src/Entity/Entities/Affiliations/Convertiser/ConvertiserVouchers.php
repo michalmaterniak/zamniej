@@ -519,7 +519,7 @@ class ConvertiserVouchers extends OffersAffiliation implements OfferVoucherInter
      * @return string
      * @Groups({"resource-admin-listing"})
      */
-    public function getCode(): string
+    public function getCodeText(): string
     {
         return $this->getPromoCode();
     }

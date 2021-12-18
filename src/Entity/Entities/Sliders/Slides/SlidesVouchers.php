@@ -32,7 +32,7 @@ class SlidesVouchers extends Slides
     /**
      * @return string
      */
-    public function getCode(): string
+    public function getCodeText(): string
     {
         return $this->code;
     }
