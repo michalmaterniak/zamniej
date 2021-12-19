@@ -46,7 +46,7 @@ class ProgramsConvertiserFactory extends ProgramsAffiliationFactory
      */
     public function updateProgram(array $data, ConvertiserPrograms $program = null): ConvertiserPrograms
     {
-        $this->program = $program ?: $this->convertiserProgramsRepository->select(false)->byId($data['id'])->getResultOrNull();
+        $this->program = $program ?: $this->convertiserProgramsRepository->select(false)->getProgramByAfiliationExternal($data['id'])->getResultOrNull();
 
         if (!$this->program) {
             $this->createProgram();
