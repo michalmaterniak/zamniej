@@ -51,5 +51,6 @@ class OfferEntityFactory extends OfferAbstractFactory implements OffersFactoryIn
         $this->offer->setDatetimeTo($sourceOffer->getDatetimeTo());
         $this->offer->setUrl($sourceOffer->getUrlTracking());
         $this->offer->addPriority(3);
+        $this->offer->setAccepted(false);
     }
 }

@@ -1,6 +1,6 @@
 <template>
-  <li @click="isOpen = !isOpen" class="nav-item dropdown" :class="{'show' : isOpen}" v-if="isMessages">
-    <a class="nav-link waves-effect waves-dark"  href="#" id="2"
+  <li @click="isOpen = !isOpen" class="nav-item dropdown" :class="{'show' : isOpen}" v-if="isMessages && false">
+    <a class="nav-link waves-effect waves-dark" @click.prevent="null"  href="#" id="2"
        aria-haspopup="true" :aria-expanded="isOpen ? 'true' : 'false'"> <i class="font-24 mdi mdi-comment-processing"></i>
     </a>
     <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" :class="{'show' : isOpen}" aria-labelledby="2">

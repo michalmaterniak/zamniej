@@ -67,6 +67,8 @@ class OffersRepository extends GlobalRepository
             ->andWhere("{$this->getRootAlias()}.subpage = :subpage")
             ->setParameter('subpage', $subpage);
 
+        $this->active();
+
         $this->addLeftJoin('content');
         $this->addLeftJoin('photo');
         $this->addLeftJoin('liking');
@@ -96,6 +98,25 @@ class OffersRepository extends GlobalRepository
     {
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.datetimeFrom < :dateNow AND ({$this->getRootAlias()}.datetimeTo > :dateNow OR {$this->getRootAlias()}.datetimeTo IS NULL) ")
             ->setParameter('dateNow', new DateTime());
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.accepted = 1");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function active()
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.active = 1 AND {$this->getRootAlias()}.accepted = 1");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function notAccepted()
+    {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.accepted = 0");
         return $this;
     }
 
@@ -198,6 +219,8 @@ class OffersRepository extends GlobalRepository
             ->withShopAffil()
             ->withSubpage()
             ->byPageRequest();
+        $this->active();
+
         $this->queryBuilder
             ->andWhere(
                 "{$this->getRootAlias()} INSTANCE OF " . OffersPromotion::class . " OR " .
@@ -226,7 +249,8 @@ class OffersRepository extends GlobalRepository
         $this->orderBy(['priority' => 'DESC','datetimeFrom' => 'DESC', 'datetimeCreate' => 'DESC']);
         $this->actualOffer()->withPhoto()->withShopAffil()->withContent()->lastMax(16);
         $aliasRootSubpage = $this->addLeftJoin('subpage');
-        $this->queryBuilder->andWhere("$aliasRootSubpage.active = 1");
+        $this->active();
+
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.priority > 2");
         $aliasResource = $this->addLeftJoin('resource', $aliasRootSubpage);
         $this->addLeftJoin('subpages', $aliasResource);
