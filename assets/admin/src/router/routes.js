@@ -336,7 +336,7 @@ export default [
         },
         children:[
           {
-            name: 'panel-offers-listing',
+            name: 'panel-offers-listing-not-accepted',
             path: 'listing',
             component: Listing,
             meta: {

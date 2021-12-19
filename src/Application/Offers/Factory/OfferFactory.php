@@ -9,6 +9,9 @@ use App\Services\System\EntityServices\Updater\SimpleEntityUpdater;
 use ErrorException;
 use Exception;
 
+/**
+ * customowe oferty
+ */
 class OfferFactory extends OfferAbstractFactory
 {
     /**
@@ -78,7 +81,6 @@ class OfferFactory extends OfferAbstractFactory
      */
     public function create(array $data): Offers
     {
-
         $this->prepareData($data);
 
         try {
@@ -102,6 +104,7 @@ class OfferFactory extends OfferAbstractFactory
     public function update(array $offer): void
     {
         $this->entityUpdater->setEntity($this->offer);
+        $this->offer->setAccepted(true);
         $this->entityUpdater->update($offer);
     }
 }

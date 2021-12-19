@@ -87,7 +87,6 @@ class OffersController extends AbstractController
         ], 200);
     }
 
-
     /**
      * @param RequestPostContentData $contentData
      * @Route("/admin/api/offers/loadPhoto/{offer}", name="admin-api-offers-loadPhoto", methods={"POST"})
@@ -150,4 +149,18 @@ class OffersController extends AbstractController
             'offers' => $this->normalizer->normalize($offers, null, ['groups' => ['resource-admin']]),
         ], 200);
     }
+
+    /**
+     * @param OffersRepository $offersRepository
+     * @return JsonResponse
+     * @Route("/admin/api/offers/not-accepted", name="admin-api-offers-accept", methods={"POST"})
+     */
+    public function notAccepted(OffersRepository $offersRepository) {
+        $offers = $offersRepository->select()->notAccepted()->getResults();
+
+        return $this->json([
+            'offers' => $this->normalizer->normalize($offers, null, ['groups' => ['resource-admin']]),
+        ], 200);
+    }
+
 }

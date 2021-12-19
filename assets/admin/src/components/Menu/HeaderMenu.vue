@@ -58,19 +58,22 @@
               <router-link class="dropdown-item" :to="{name: 'panel-affiliations-tradetracker-programs-unactive'}">Nieaktywne</router-link>
             </div>
           </li>
-          <li class="nav-item dropdown">
-            <router-link :to="{name: 'panel-sliders-sliders'}" class="nav-link dropdown-toggle">
-              <span class="d-none d-md-block">Slidery</span>
-            </router-link>
+<!--          <li class="nav-item dropdown">-->
+<!--            <router-link :to="{name: 'panel-sliders-sliders'}" class="nav-link dropdown-toggle">-->
+<!--              <span class="d-none d-md-block">Slidery</span>-->
+<!--            </router-link>-->
 <!--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
 <!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-new'}">Nowe</router-link>-->
 <!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-active'}">Aktywne</router-link>-->
 <!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-unactive'}">Nieaktywne</router-link>-->
 <!--            </div>-->
-          </li>
+<!--          </li>-->
           <li class="nav-item dropdown">
-            <router-link :to="{name: 'panel-links-popular'}" class="nav-link dropdown-toggle">
-              <span class="d-none d-md-block">Popularne sklepy</span>
+<!--            <router-link :to="{name: 'panel-links-popular'}" class="nav-link dropdown-toggle">-->
+<!--              <span class="d-none d-md-block">Popularne sklepy</span>-->
+<!--            </router-link>-->
+            <router-link :to="{name: 'panel-offers-listing-not-accepted'}" class="nav-link dropdown-toggle">
+              <span class="d-none d-md-block">Promocje</span>
             </router-link>
 <!--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
 <!--              <router-link class="dropdown-item" :to="{name: 'panel-affiliations-programs-new'}">Nowe</router-link>-->

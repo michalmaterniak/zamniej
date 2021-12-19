@@ -3,24 +3,11 @@
     <div class="row">
       <div class="col-md-12 text-right">
         <button class="btn btn-danger" @click="removeOffer">Usuń</button>
+<!--        <button class="btn " :class="{'btn-success': offer.accepted, 'btn-danger': !offer.accepted}" @click="accept">Akceptuj</button>-->
         <button class="btn btn-success" @click="saveOffer">Zapisz</button>
       </div>
     </div>
     <div class="row">
-      <!--    <div class="col-md-12 form-group">-->
-      <!--      <div class="row">-->
-      <!--        <div class="col-md-12">-->
-      <!--          <label>Id</label>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--      <div class="row">-->
-      <!--        <div class="col-md-12">-->
-      <!--          <input class="form-control" type="text" :value="offer.idOffer">-->
-      <!--        </div>-->
-      <!--      </div>-->
-
-      <!--    </div>-->
-
       <div class="col-md-12 form-group">
         <div class="row">
           <div class="col-md-12">
@@ -96,11 +83,19 @@ import Wysiwyg from "../../../components/Wysiwyg/Wysiwyg";
 export default {
   name: "Offer",
   components: {Wysiwyg},
-  props: ['id'],
+  props: {
+    id: {
+      default: 0
+    },
+    after: {
+      default: false
+    }
+  },
+  mixins:[offer],
   data()
   {
     return {
-      offer: null,
+      offer: null
     }
   },
   watch:{
@@ -109,8 +104,10 @@ export default {
       this.setOffer();
     }
   },
-  mixins:[offer],
   methods:{
+    accept() {
+      this.offer.accepted = !this.offer.accepted;
+    },
     removeOffer() {
       this.ajax({
         url: '/admin/api/offers/remove/' + this.id,
@@ -132,10 +129,13 @@ export default {
         responseCallbackSuccess: res => {
           // this.offer = res.data.offer;
           this.showAlert('Zapisano!', 'success');
+          // console.log(this.$router.history);
+          if (this.after !== false) {
+            this.$router.push({name: this.after});
+          }
         },
         responseCallbackError: res => {
           this.showAlert('Błąd zapisu!', 'danger');
-
         }
       })
     },
@@ -145,9 +145,10 @@ export default {
         url: '/admin/api/offers/offer/' + this.id,
         responseCallbackSuccess: res => {
           this.offer = res.data.offer;
+          this.offer.accepted = true;
         },
         responseCallbackError: res => {
-          this.$router.push({name: 'panel-offers-listing'});
+          this.$router.push({name: 'panel-offers-listing-not-accepted'});
         }
       })
     }

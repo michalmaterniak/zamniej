@@ -140,6 +140,13 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
      */
     protected $priority = 0;
 
+    /**
+     * @var bool $accepted
+     * @ORM\Column(name="accepted", type="boolean", nullable=false)
+     * @Groups({"resource-admin"})
+     */
+    protected $accepted = false;
+
     use DataTrait;
 
     public function __construct()
@@ -422,4 +429,21 @@ class Offers implements EntityInterface, UpdateDatetimeInterface
     {
         $this->priority += $priority;
     }
+
+    /**
+     * @return bool
+     */
+    public function isAccepted(): bool
+    {
+        return $this->accepted;
+    }
+
+    /**
+     * @param bool $accepted
+     */
+    public function setAccepted(bool $accepted): void
+    {
+        $this->accepted = $accepted;
+    }
+
 }
