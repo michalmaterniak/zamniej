@@ -82,6 +82,11 @@ class UpdatePromotionsHomepage
         }
         for($i = 0; $i < $this->countPromotion; ++$i) {
             $offer = $this->offersRepository->select()->getTypeOffer(OffersVoucher::class)->withSubpage()->excludeSubpages($this->subpageUsed)->getLast()->getResultOrNull();
+
+            if (!$offer) {
+                continue;
+            }
+
             $this->subpageUsed->add($offer->getSubpage());
             $newSubpageOffer = new SubpageOffers();
             $newSubpageOffer->setSubpage($this->homepageSubpage);
