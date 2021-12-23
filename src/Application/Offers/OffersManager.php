@@ -10,6 +10,7 @@ use App\Entity\Entities\Shops\Offers\OffersBanner;
 use App\Entity\Entities\Shops\Offers\OffersProduct;
 use App\Entity\Entities\Shops\Offers\OffersPromotion;
 use App\Entity\Entities\Shops\Offers\OffersVoucher;
+use App\Entity\Entities\Subpages\SubpageOffers;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class OffersManager
@@ -58,6 +59,7 @@ class OffersManager
     public function createModelsOffers($offers)
     {
         $offersModels = new ArrayCollection();
+
         foreach ($offers as $offer) {
             $offersModels->add($this->createModelOffer($offer));
         }
@@ -66,13 +68,39 @@ class OffersManager
     }
 
     /**
-     * @param Offers $offer
-     * @return OfferBanner|OfferProduct|OfferPromotion|OfferVoucher
+     * @param ArrayCollection|SubpageOffers[] $subpageOffers
+     * @return ArrayCollection|OfferBanner[]|OfferProduct[]|OfferPromotion[]|OfferVoucher[]|Offer[]
      */
-    public function createModelOffer(Offers $offer)
+    public function createModelOffersBySubpageOffers($subpageOffers) : ArrayCollection
     {
-        $model = null;
+        $offers = new ArrayCollection();
+        foreach ($subpageOffers as $subpageOffer) {
+            $offers->add($this->createModelOffer($subpageOffer->getOffer()));
+        }
 
+        return $offers;
+    }
+
+    /**
+     * @param SubpageOffers $subpageOffer
+     * @return OfferBanner|OfferProduct|OfferPromotion|OfferVoucher|Offer
+     */
+    public function createModelOfferBySubpageOffers(SubpageOffers $subpageOffer) : Offer
+    {
+        return $this->createModelOffer($subpageOffer->getOffer());
+    }
+
+    /**
+     * @param Offers $offer
+     * @return OfferBanner|OfferProduct|OfferPromotion|OfferVoucher|Offer
+     */
+    public function createModelOffer(Offers $offer) : Offer
+    {
+        if ($offer instanceof SubpageOffers) {
+            $offer = $offer->getOffer();
+        }
+
+        $model = null;
 
         if ($offer instanceof OffersVoucher) {
             $model = $this->offerVoucherModel;

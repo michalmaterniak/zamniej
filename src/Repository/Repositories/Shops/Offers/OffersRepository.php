@@ -278,4 +278,25 @@ class OffersRepository extends GlobalRepository
         $this->addLeftJoin('liking');
         return $this;
     }
+
+    /**
+     * @param ArrayCollection|Subpages[] $subpages
+     * @return $this
+     */
+    public function excludeSubpages(ArrayCollection $subpages) :static {
+        if ($subpages->count() > 0) {
+            $this->queryBuilder->andWhere("{$this->getRootAlias()}.subpage NOT IN (:subpages)")->setParameter('subpages', $subpages);
+        }
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function getLast() : static {
+        $this->queryBuilder->orderBy("{$this->getRootAlias()}.idOffer", 'DESC');
+        $this->queryBuilder->setMaxResults(1);
+        return $this;
+    }
+
 }

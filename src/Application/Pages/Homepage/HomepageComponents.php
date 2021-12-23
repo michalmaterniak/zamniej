@@ -11,6 +11,7 @@ use App\Repository\Repositories\Sliders\SlidersRepository;
 use App\Repository\Repositories\Subpages\Pages\HomepageRepository;
 use App\Repository\Repositories\Subpages\Pages\ShopRepository;
 use App\Repository\Repositories\Subpages\Pages\Types\Blog\BlogArticleRepository;
+use App\Repository\Repositories\Subpages\SubpageOffersRepository;
 use Symfony\Component\Routing\RouterInterface;
 
 class HomepageComponents extends ResourceComponents
@@ -61,7 +62,8 @@ class HomepageComponents extends ResourceComponents
         CategoryFactory $resourceFactory,
         RouterInterface $router,
         Slide $slide,
-        ShopsAffiliationRepository $shopAffiliationRepository
+        ShopsAffiliationRepository $shopAffiliationRepository,
+        protected SubpageOffersRepository $subpageOffersRepository
     )
     {
         parent::__construct($homepageRepository, $resourceConfig, $resourceFactory, $router);
@@ -129,4 +131,13 @@ class HomepageComponents extends ResourceComponents
     {
         return $this->shopAffiliationRepository;
     }
+
+    /**
+     * @return SubpageOffersRepository
+     */
+    public function getSubpageOffersRepository(): SubpageOffersRepository
+    {
+        return $this->subpageOffersRepository;
+    }
+
 }
