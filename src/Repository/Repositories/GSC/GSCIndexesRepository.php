@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use function Symfony\Component\Translation\t;
 
 /**
  * @method Entity                           find($id, $lockMode = null, $lockVersion = null)
@@ -44,14 +45,14 @@ class GSCIndexesRepository extends GlobalRepository
         $this->queryBuilder
             ->setMaxResults($count)
             ->addOrderBy("{$this->getRootAlias()}.datetime", Criteria::ASC)
-            ->addOrderBy("{$this->getRootAlias()}.url", Criteria::ASC)
-            ->andWhere("{$this->getRootAlias()}.used = 0");
+            ->addOrderBy("{$this->getRootAlias()}.url", Criteria::ASC);
         $leftSubpage = $this->addLeftJoin("subpage");
         $leftResources = $this->addLeftJoin("resource", $leftSubpage);
         $this->addLeftJoin("subpages", $leftResources);
         $this->queryBuilder->andWhere("{$leftSubpage}.active = 1");
         $this->queryBuilder->andWhere("{$leftResources}.resourceType = 7");
 
+        $this->queryBuilder->orderBy("{$this->getRootAlias()}.used", 'ASC');
         return $this;
     }
 

@@ -28,7 +28,7 @@ class GSCIndexesUpdater
     public function update()
     {
         foreach ($this->gscIndexesLinking->getLastGSCIndexes() as $gscIndex) {
-            $gscIndex->setUsed(true);
+            $gscIndex->useOne();
         }
 
         $this->entityManager->flush();

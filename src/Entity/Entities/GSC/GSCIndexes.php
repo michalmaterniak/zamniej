@@ -42,10 +42,10 @@ class GSCIndexes implements EntityInterface
     protected $datetime;
 
     /**
-     * @var bool $used
-     * @ORM\Column(name="used", type="boolean", nullable=false)
+     * @var int $used
+     * @ORM\Column(name="used", type="integer", nullable=false)
      */
-    protected $used = false;
+    protected $used = 0;
 
 
     public function __construct(string $url, DateTime $datetime, Subpages $subpage)
@@ -120,19 +120,24 @@ class GSCIndexes implements EntityInterface
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function isUsed(): bool
+    public function getUsed(): int
     {
         return $this->used;
     }
 
     /**
-     * @param bool $used
+     * @param int $used
      */
-    public function setUsed(bool $used): void
+    public function setUsed(int $used): void
     {
         $this->used = $used;
+    }
+
+    public function useOne(): void
+    {
+        $this->used++;
     }
 
 }
