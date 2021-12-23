@@ -8,6 +8,8 @@ use App\Application\Sliders\Slide;
 use App\Entity\Entities\Shops\Offers\OffersPromotion;
 use App\Entity\Entities\Shops\Offers\OffersVoucher;
 use App\Entity\Entities\Sliders\Sliders;
+use App\Entity\Entities\Subpages\SubpageOffers;
+use App\Entity\Entities\Subpages\Subpages;
 use App\Repository\Repositories\Sliders\SlidersRepository;
 use App\Services\Pages\Resource\ResourceSubpage;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,20 +22,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class HomepageSubpage extends ResourceSubpage
 {
-    /**
-     * @var SlidersRepository $slidersRepository
-     */
-    private $slidersRepository;
-    /**
-     * @var ArrayCollection|ArrayCollection[]|Sliders[][]
-     */
-    private $sliders;
-
-    /**
-     * @var Slide[]|ArrayCollection
-     */
-    private $mainSlider;
-
     /**
      * @var OfferPromotion[]|ArrayCollection
      */
@@ -66,9 +54,10 @@ class HomepageSubpage extends ResourceSubpage
     public function getPromotions()
     {
         if(!$this->promotions) {
-
-            $promotions = $this->getComponents()->getOffersManager()->createModelsOffers(
-                $this->getComponents()->getOffersRepository()->select()->listingHomepage()->getTypeOffer(OffersPromotion::class)->getResults()
+            $promotions = $this->getComponents()->getOffersManager()->createModelOffersBySubpageOffers(
+                $this->getComponents()->getSubpageOffersRepository()->select()->findBySubpage(
+                    $this->getSubpage()
+                )->byType(OffersPromotion::class)->getResults()
             );
 
             $this->promotions = new ArrayCollection();
@@ -154,8 +143,10 @@ class HomepageSubpage extends ResourceSubpage
     public function getVouchers()
     {
         if (!$this->vouchers) {
-            $vouchers = $this->getComponents()->getOffersManager()->createModelsOffers(
-                $this->getComponents()->getOffersRepository()->select()->listingHomepage()->getTypeOffer(OffersVoucher::class)->getResults()
+            $vouchers = $this->getComponents()->getOffersManager()->createModelOffersBySubpageOffers(
+                $this->getComponents()->getSubpageOffersRepository()->select()->findBySubpage(
+                    $this->getSubpage()
+                )->byType(OffersVoucher::class)->getResults()
             );
 
             $this->vouchers = new ArrayCollection();
