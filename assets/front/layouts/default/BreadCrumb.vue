@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-sm-6"></div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 d-none d-sm-none d-md-block">
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item" v-for="(breadcrumb, index) in breadcrumbs" v-if="index < breadcrumbs.length-1">
