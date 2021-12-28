@@ -2,6 +2,7 @@
 namespace App\Controller\Front\Page;
 
 use App\Application\Locale\FinderSubpageBySlug;
+use App\Application\Pages\Homepage\Services\UpdatePromotionsHomepage;
 use App\Application\Pages\PagesManager;
 use App\Repository\Repositories\Affiliations\ShopsAffiliationRepository;
 use App\Repository\Repositories\Shops\Offers\OffersRepository;
@@ -35,10 +36,12 @@ class MainController extends GlobalController
     public function main(
         PagesManager $modelPagesManager,
         KernelInterface $httpKernel,
-        FinderSubpageBySlug $finderSubpageBySlug
+        FinderSubpageBySlug $finderSubpageBySlug,
+        UpdatePromotionsHomepage $updatePromotionsHomepage
     )
     {
-
+        $updatePromotionsHomepage->update();
+        die;
 
         if ($httpKernel->getEnvironment() == 'prod') {
             return new Response('', 404);

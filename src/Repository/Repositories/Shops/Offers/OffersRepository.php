@@ -246,16 +246,13 @@ class OffersRepository extends GlobalRepository
      */
     public function listingHomepage(): self
     {
-        $this->orderBy(['priority' => 'DESC','datetimeFrom' => 'DESC', 'datetimeCreate' => 'DESC']);
-        $this->actualOffer()->withPhoto()->withShopAffil()->withContent()->lastMax(16);
+        $this->actualOffer()->withPhoto()->withShopAffil()->withContent();
         $aliasRootSubpage = $this->addLeftJoin('subpage');
         $this->active();
 
         $this->queryBuilder->andWhere("{$this->getRootAlias()}.priority > 2");
         $aliasResource = $this->addLeftJoin('resource', $aliasRootSubpage);
         $this->addLeftJoin('subpages', $aliasResource);
-
-        $this->queryBuilder->groupBy("{$this->getRootAlias()}.subpage");
 
         return $this;
     }
@@ -283,7 +280,7 @@ class OffersRepository extends GlobalRepository
      * @param ArrayCollection|Subpages[] $subpages
      * @return $this
      */
-    public function excludeSubpages(ArrayCollection $subpages) :static {
+    public function excludeSubpages(ArrayCollection $subpages) : static {
         if ($subpages->count() > 0) {
             $this->queryBuilder->andWhere("{$this->getRootAlias()}.subpage NOT IN (:subpages)")->setParameter('subpages', $subpages);
         }
