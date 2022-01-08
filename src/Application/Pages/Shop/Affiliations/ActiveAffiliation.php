@@ -25,7 +25,7 @@ class ActiveAffiliation
     protected function disactiveAffiliations()
     {
         foreach ($this->affiliations as $affiliation) {
-            $affiliation->setForceDisable(true);
+            $affiliation->setEnable(true);
         }
     }
 
