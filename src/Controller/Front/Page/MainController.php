@@ -29,20 +29,16 @@ class MainController extends GlobalController
 
     /**
      * @param PagesManager $modelPagesManager
+     * @param KernelInterface $httpKernel
      * @return Response
      * @Route("/{slug?}", name="page-pages-main", requirements={"slug"="^((?!elfinder|efconnect).)*$"}, methods={"GET"})
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      */
     public function main(
         PagesManager $modelPagesManager,
-        KernelInterface $httpKernel,
-        FinderSubpageBySlug $finderSubpageBySlug,
-        UpdatePromotionsHomepage $updatePromotionsHomepage
+        KernelInterface $httpKernel
     )
     {
-        $updatePromotionsHomepage->update();
-        die;
-
         if ($httpKernel->getEnvironment() == 'prod') {
             return new Response('', 404);
         }
