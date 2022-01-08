@@ -14,7 +14,7 @@ class ChoiseAffiliation
     /**
      * @var ShopsAffiliation $selectedShopAffiliation
      */
-    protected $selectedShopAffiliation;
+    protected $selectedShopAffiliation = null;
 
     /**
      * @param ArrayCollection|ShopsAffiliation[] $affiliations
@@ -22,9 +22,17 @@ class ChoiseAffiliation
     public function loadAffiliations($affiliations)
     {
         $this->affiliations = $affiliations;
-        $this->selectedShopAffiliation = $this->affiliations->filter(function (ShopsAffiliation $shopAffiliation) {
-            return $shopAffiliation->isEnable();
-        })->first();
+        foreach ($this->affiliations as $affiliation) {
+            if ($affiliation->isForceActive()) {
+                $this->selectedShopAffiliation = $affiliation;
+            }
+        }
+
+        if ($this->selectedShopAffiliation === null) {
+            $this->selectedShopAffiliation = $this->affiliations->filter(function (ShopsAffiliation $shopAffiliation) {
+                return $shopAffiliation->isEnable();
+            })->first();
+        }
     }
 
     /**
@@ -44,7 +52,7 @@ class ChoiseAffiliation
     }
     protected function analyzeAffiliations()
     {
-        if ($this->affiliations->count() > 1) {
+        if ($this->affiliations->count() > 1 && !$this->selectedShopAffiliation->isForceActive()) {
 
             foreach ($this->affiliations as $shopAffiliation) {
                 if (!$shopAffiliation->isEnable()) {

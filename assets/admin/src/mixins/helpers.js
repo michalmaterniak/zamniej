@@ -12,6 +12,7 @@ import LineSeparationComponent from "../components/FormFieldsComponents/Separati
 import NameGroupComponent from "../components/FormFieldsComponents/SeparationsComponent/NameGroupComponent";
 import ShopSubpageOffers from "../components/Page/Subpage/ShopSubpage/ShopSubpageOffers";
 import ShopBasicShopTags from "../components/Page/Basic/Shop/ShopBasicShopTags";
+import ShopSubpageAffiliations from "../components/Page/Subpage/ShopSubpage/ShopSubpageAffiliations";
 
 export default {
 	data() {
@@ -24,11 +25,12 @@ export default {
         'mini-wysiwyg': MiniWysiwygComponent,
         'upload': UploadComponent,
         'photo': PhotoComponent,
-        'array' : ArrayComponent,
-        'lineseparation' : LineSeparationComponent,
-        'namegroup' : NameGroupComponent,
+        'array': ArrayComponent,
+        'lineseparation': LineSeparationComponent,
+        'namegroup': NameGroupComponent,
         'numeric': NumericComponent,
         'shop-offers': ShopSubpageOffers,
+        'shop-affiliations': ShopSubpageAffiliations,
         'shop-tags': ShopBasicShopTags,
       },
 		}

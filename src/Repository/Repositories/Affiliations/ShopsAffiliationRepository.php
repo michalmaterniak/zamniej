@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository\Repositories\Affiliations;
 
+use App\Entity\Entities\Affiliations\ShopsAffiliation;
 use App\Entity\Entities\Affiliations\ShopsAffiliation as Entity;
 use App\Entity\Entities\Subpages\Subpages;
 use App\Repository\Repositories\GlobalRepository;
@@ -192,4 +193,15 @@ class ShopsAffiliationRepository extends GlobalRepository
         $this->ordering("{$this->getRootAlias()}.redirectCount", 'DESC');
         return $this;
     }
+
+    /**
+     * @param Entity $shopsAffiliation
+     * @return $this
+     */
+    public function findAllOtherBySubpage(ShopsAffiliation $shopsAffiliation) : static {
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.idShop != :shop")->setParameter('shop', $shopsAffiliation->getIdShop());
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.subpage = :subpage")->setParameter('subpage', $shopsAffiliation->getSubpage());
+        return $this;
+    }
+
 }
