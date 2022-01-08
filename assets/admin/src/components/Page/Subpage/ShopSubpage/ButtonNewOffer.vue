@@ -10,6 +10,7 @@
 import ButtonDropdown from "../../../Buttons/ButtonDropdown";
 import PopupOffersNewWebepartners from "../../../PopUp/Offers/PopupOffersNewWebepartners";
 import PopupOffersNewConvertiser from "../../../PopUp/Offers/PopupOffersNewConvertiser";
+import PopupOffersNewTradetracker from "../../../PopUp/Offers/PopupOffersNewTradetracker";
 export default {
   name: "ButtonNewOffer",
   props:['idSubpage'],
@@ -26,6 +27,10 @@ export default {
         {
           name: 'convertiser',
           action: this.newConvertiserOffer
+        },
+        {
+          name: 'tradetracker',
+          action: this.newTradetrackerOffer
         }
       ]
     }
@@ -48,6 +53,16 @@ export default {
         data: {
           subpage: this.idSubpage,
           shops: this.getShopAffiliation('convertiser')
+        }
+      });
+    },
+    newTradetrackerOffer() {
+      this.openPopup('Tworzenie nowej oferty Tradetracker', {
+        template: PopupOffersNewTradetracker,
+        classDialog: 'maxWidth75',
+        data: {
+          subpage: this.idSubpage,
+          shops: this.getShopAffiliation('tradetracker')
         }
       });
     },

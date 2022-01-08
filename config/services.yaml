@@ -104,6 +104,10 @@ services:
         arguments:
             $tradetracker: '%tradetracker%'
 
+    App\Application\Affiliations\Tradetracker\Urls\UrlToTrackingConverterTradetracker:
+        arguments:
+            $tradetracker: '%tradetracker%'
+
     App\Services\System\Cache\CacheManager:
         arguments:
             $cacheEnable: '%cacheEnable%'
