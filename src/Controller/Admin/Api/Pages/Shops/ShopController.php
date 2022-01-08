@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin\Api\Pages\Shops;
 
+use App\Application\Admin\Resources\Item\Form\Fields\Shops\ShopSubpageAffiliations;
 use App\Application\Admin\Resources\Item\Form\Fields\Shops\ShopSubpageOffersField;
 use App\Application\Admin\Resources\Item\Form\Fields\Shops\ShopSubpageShopTagsField;
 use App\Application\Admin\Resources\Item\Form\FormBuilderResources;
@@ -82,6 +83,8 @@ class ShopController extends AbstractResourceController
             ->add(new LineSeparationField())
             ->subtab('Oferty', 'offers')
             ->add(new ShopSubpageOffersField())
+            ->subtab('Afiliacje', 'affiliations')
+            ->add(new ShopSubpageAffiliations())
             ->seo()
             ->add(new TextareaField('Tytuł', 'title'))
             ->add(new TextareaField('Nagłówek H1', 'header'))

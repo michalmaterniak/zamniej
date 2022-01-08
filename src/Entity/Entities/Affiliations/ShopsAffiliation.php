@@ -101,23 +101,27 @@ abstract class ShopsAffiliation implements EntityInterface
     /**
      * @var int $redirectCount
      * @ORM\Column(name="redirect_count", type="integer", nullable=true)
+     * @Groups({"resource-admin"})
      */
     protected $redirectCount = 0;
 
     /**
      * @var bool $forceActive
      * @ORM\Column(name="force_active", type="boolean", nullable=false)
+     * @Groups({"resource-admin"})
      */
     protected $forceActive = false;
 
     /**
-     * @var bool $forceDisable
-     * @ORM\Column(name="force_disable", type="boolean", nullable=false)
+     * @return float
+     * @Groups({"resource-admin"})
      */
-    protected $forceDisable = false;
-
     abstract public function getCps(): float;
 
+    /**
+     * @return float
+     * @Groups({"resource-admin"})
+     */
     abstract public function getCpc(): float;
 
     abstract public function setExternalId($id): void;
@@ -236,11 +240,7 @@ abstract class ShopsAffiliation implements EntityInterface
      */
     public function isEnable(): bool
     {
-        if ($this->forceDisable) {
-            return false;
-        }
-
-        return $this->isForceActive() ?: $this->enable;
+        return $this->enable;
     }
 
     /**
@@ -314,23 +314,6 @@ abstract class ShopsAffiliation implements EntityInterface
     public function setForceActive(bool $forceActive): void
     {
         $this->forceActive = $forceActive;
-        $this->forceDisable = !$forceActive;
     }
 
-    /**
-     * @return bool
-     */
-    public function isForceDisable(): bool
-    {
-        return $this->forceDisable;
-    }
-
-    /**
-     * @param bool $forceDisable
-     */
-    public function setForceDisable(bool $forceDisable): void
-    {
-        $this->forceDisable = $forceDisable;
-        $this->forceActive = !$forceDisable;
-    }
 }
