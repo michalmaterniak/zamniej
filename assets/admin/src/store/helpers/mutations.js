@@ -9,5 +9,11 @@ export default {
   },
   setSearchTextListingPages(state, payload) {
 	  state.searchTextListingPages = payload;
+  },
+  setListingOffersQueue(state, payload) {
+	  state.listingOffersQueue = payload;
+  },
+  listingOffersQueueIncrementIndex(state) {
+	  state.listingOffersQueue.index += 1;
   }
 }
