@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="row">
+      <button class="btn btn-success" @click="offersQueue" :disabled="this.offers.length === 0">Pokaz w kolejce</button>
+    </div>
+    <div class="row">
       <div class="col-md-12">
         <table class="table table-striped">
           <thead>
@@ -46,9 +49,15 @@ export default {
       offers: []
     }
   },
-  computed:{
-  },
   methods:{
+    offersQueue() {
+      let ids = [];
+      this.offers.map(el => {
+        ids.push(el.idOffer);
+      })
+      this.$store.commit('setListingOffersQueue', {offers: ids, index: 0});
+      this.$router.push({name: 'panel-offers-offer', params: {id: ids[0], queue: true}});
+    },
     priority(idOffer, value = 1) {
       this.ajax({
         url: '/admin/api/offers/priority/'+idOffer+'/'+value,

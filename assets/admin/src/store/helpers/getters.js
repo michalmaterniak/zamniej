@@ -8,4 +8,7 @@ export default {
   searchTextListingPages: state => {
     return state.searchTextListingPages;
   },
+  getListingOffersQueue: state => {
+    return state.listingOffersQueue;
+  }
 }

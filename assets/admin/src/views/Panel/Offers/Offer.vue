@@ -89,6 +89,9 @@ export default {
     },
     after: {
       default: false
+    },
+    queue: {
+      default: false
     }
   },
   mixins:[offer],
@@ -132,6 +135,24 @@ export default {
           // console.log(this.$router.history);
           if (this.after !== false) {
             this.$router.push({name: this.after});
+          }
+          if (this.queue) {
+            this.offer = false;
+
+            if (this.$store.getters.getListingOffersQueue.offers.length > this.$store.getters.getListingOffersQueue.index+1)
+            {
+              this.$store.commit('listingOffersQueueIncrementIndex');
+              this.$router.push(
+                {
+                  name: 'panel-offers-offer',
+                  params: {
+                    id: this.$store.getters.getListingOffersQueue.offers[this.$store.getters.getListingOffersQueue.index],
+                    queue: true
+                  }
+                });
+            } else {
+              this.$router.push({name: 'panel-offers-listing-not-accepted'});
+            }
           }
         },
         responseCallbackError: res => {

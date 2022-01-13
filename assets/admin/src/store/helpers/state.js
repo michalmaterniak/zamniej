@@ -5,6 +5,7 @@ export default {
     dev: [],
   },
 
+  listingOffersQueue: false, // {offers: [], current: index}
 
 	loading: true,
 
