@@ -45,7 +45,10 @@ class SubpageOffersRepository extends GlobalRepository
         $this->queryBuilder->andWhere("{$offerLeft}.datetimeFrom < :dateNow AND ({$offerLeft}.datetimeTo > :dateNow OR {$offerLeft}.datetimeTo IS NULL) ")
             ->setParameter('dateNow', new \DateTime());
         $this->addLeftJoin('photo', $offerLeft);
-        $this->addLeftJoin('shopAffiliation', $offerLeft);
+        $shopAffiliation = $this->addLeftJoin('shopAffiliation', $offerLeft);
+        $subpageOffer = $this->addLeftJoin('subpage', $shopAffiliation);
+        $this->queryBuilder->andWhere("{$subpageOffer}.active = 1");
+
         $this->addLeftJoin('content', $offerLeft);
 
         $aliasRootSubpage = $this->addLeftJoin('subpage', $offerLeft);
