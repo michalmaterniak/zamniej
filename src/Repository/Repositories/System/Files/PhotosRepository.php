@@ -28,9 +28,16 @@ class PhotosRepository extends GlobalRepository
         parent::__construct($registry, $servicesRepositoriesManager);
     }
 
-    public function byPath(string $path)
+    /**
+     * @param string $filename
+     * @param string $folder
+     * @return $this
+     */
+    public function byPath(string $filename, string $folder) : static
     {
-        $this->queryBuilder->andWhere("{$this->getRootAlias()}.path = :path")->setParameter('path', $path);
+        $this->queryBuilder->andWhere("{$this->getRootAlias()}.file = :file AND {$this->getRootAlias()}.folder = :folder")
+            ->setParameter('file', $filename)
+            ->setParameter('folder', $folder);
         return $this;
     }
 

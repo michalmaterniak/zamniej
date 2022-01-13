@@ -54,6 +54,12 @@ class RemoveOffer
 
     protected function pathCountMoreThan(string $path, int $count = 1): bool
     {
-        return $this->photosRepository->counting()->byPath($path)->getCount() === $count;
+        $pathArr = explode('/', $path);
+        $indexLast = array_key_last($pathArr);
+        $filename = $pathArr[$indexLast];
+        unset($pathArr[$indexLast]);
+        $folder = implode('/', $pathArr);
+
+        return $this->photosRepository->counting()->byPath($filename, $folder)->getCount() === $count;
     }
 }
