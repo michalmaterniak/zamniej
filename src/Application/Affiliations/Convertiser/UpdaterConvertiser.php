@@ -42,9 +42,11 @@ class UpdaterConvertiser implements UpdaterAffiliationInterface
         foreach ($this->programsConvertiser->getPrograms() as $program) {
             try {
                 $shopAffil = $this->programsConvertiserFactory->updateProgram($program);
-                $this->finderOffersConvertiser->loadOffers($shopAffil);
-                dump('[convertiser] pobrano z ' . $shopAffil->getName());
 
+                if ($shopAffil) {
+                    $this->finderOffersConvertiser->loadOffers($shopAffil);
+                    dump('[convertiser] pobrano z ' . $shopAffil->getName());
+                }
             } catch (ConnectException $connectException) {
                 dump('Nie można pobrać programów z convertiser');
             } catch (Exception $exception) {

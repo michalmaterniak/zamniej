@@ -42,20 +42,24 @@ class ProgramsConvertiserFactory extends ProgramsAffiliationFactory
     /**
      * @param array $data
      * @param ConvertiserPrograms|null $program
-     * @return ConvertiserPrograms
+     * @return ConvertiserPrograms|null
      */
-    public function updateProgram(array $data, ConvertiserPrograms $program = null): ConvertiserPrograms
+    public function updateProgram(array $data, ConvertiserPrograms $program = null): ?ConvertiserPrograms
     {
         $this->program = $program ?: $this->convertiserProgramsRepository->select(false)->getProgramByAfiliationExternal($data['id'])->getResultOrNull();
 
         if (!$this->program) {
             $this->createProgram();
-            $this->program->setTrackingUrl(
-                $this->trackingUrlConvertiser->getTrackingUrl(
-                    $data['id'],
-                    $this->program->getAffiliation()->getData('website')
-                )
+            $trackingUrl = $this->trackingUrlConvertiser->getTrackingUrl(
+                $data['id'],
+                $this->program->getAffiliation()->getData('website')
             );
+
+            if ($trackingUrl) {
+                $this->program->setTrackingUrl($trackingUrl);
+            } else {
+                return null;
+            }
         }
         $this->entityUpdater->setEntity($this->program);
 
