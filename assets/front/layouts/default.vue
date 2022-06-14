@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loader/>
+    <loader v-if="loader"/>
     <navbar/>
     <bread-crumb/>
     <nuxt/>
@@ -29,9 +29,15 @@ Vue.mixin(pages);
 export default {
   mixins:[pages],
   components: {PopUpView, BreadCrumb, MainFooter, TapTop, Loader, Navbar, Debugbar},
+  data() {
+    return {
+      loader: false
+    }
+  },
   watch:{
     $route(to, from)
     {
+      this.loader = true;
       this.$nextTick().then(() => {
         this.$lazyHide();
       });
